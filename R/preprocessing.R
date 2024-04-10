@@ -2,6 +2,7 @@ library(readxl)
 library(dplyr)
 
 # Shorten filenames
+# Might finally not be necessary, but useful at the moment
 shorten_filename <- function(filename){
   short_name <- paste0("df", tolower(substr(filename, start = 17, stop = 22)))
   if (exists(short_name)){
@@ -12,6 +13,8 @@ shorten_filename <- function(filename){
 
 
 # Read in all data files
+# This could also be written as a function
+# Would need some adaptions to path handling
 datafiles <- list.files("data")
 datasets <- list()
 for (file in datafiles){
@@ -35,7 +38,19 @@ remove_empty_cols <- function(dataset){
 }
 
 
+# There might be an easier way to loop through datasets
 for (dataset in datasets){
-  df_name <- dataset
-  assign(df_name, remove_empty_cols(get(dataset)))
+  assign(dataset, remove_empty_cols(get(dataset)))
 }
+
+
+# Add columns specifying year of dataset (wave) and subset
+# Could maybe separated out into a function
+for (dataset in datasets){
+  df <- get(dataset)
+  df$Wave <- paste0("20", substr(dataset, start = 3, stop = 4))
+  df$Source <- substr(dataset, start = 6, stop = 8)
+  assign(dataset, df)
+}
+
+
