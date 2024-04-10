@@ -54,3 +54,8 @@ for (dataset in datasets){
 }
 
 
+# Combine subsets into one dataframe
+full_data <- dplyr::bind_rows(mget(unlist(datasets)))
+
+# Save full data as csv
+write.csv(full_data, "data/OPTIMA-Survey-full.csv")
