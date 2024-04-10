@@ -1,5 +1,4 @@
-library(readxl)
-library(dplyr)
+library(tidyverse)
 
 # Shorten filenames
 # Might finally not be necessary, but useful at the moment
@@ -58,5 +57,21 @@ for (dataset in datasets){
 full_data <- dplyr::bind_rows(mget(unlist(datasets)))
 
 # Save full data as csv
-write.csv(full_data, "data/processed/OPTIMA-Survey-full.csv")
+write_csv(full_data, "data/processed/OPTIMA-Survey-full.csv")
 
+
+
+# Create overview over variables for codebook
+# Function taken from RPT survey
+create_var_overview <- function(path) {
+  df <- read_csv(path, col_names = FALSE, n_max = 1, col_types = "c")
+  
+  out <- df %>%
+    pivot_longer(everything(), names_to = "var_id", values_to = "var_full")
+  
+  write_csv(out, "data/processed/var_overview.csv")
+  
+  out
+}
+
+create_var_overview("data/processed/OPTIMA-Survey-full.csv")
