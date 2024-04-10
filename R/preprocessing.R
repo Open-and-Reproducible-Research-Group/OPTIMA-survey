@@ -15,11 +15,11 @@ shorten_filename <- function(filename){
 # Read in all data files
 # This could also be written as a function
 # Would need some adaptions to path handling
-datafiles <- list.files("data")
+datafiles <- list.files("data/original")
 datasets <- list()
 for (file in datafiles){
   df_name <- shorten_filename(file)
-  assign(df_name, read_excel(paste0("data/", file)))
+  assign(df_name, read_excel(paste0("data/original/", file)))
   datasets <- append(datasets, df_name)
 }
 
@@ -58,4 +58,5 @@ for (dataset in datasets){
 full_data <- dplyr::bind_rows(mget(unlist(datasets)))
 
 # Save full data as csv
-write.csv(full_data, "data/OPTIMA-Survey-full.csv")
+write.csv(full_data, "data/processed/OPTIMA-Survey-full.csv")
+
