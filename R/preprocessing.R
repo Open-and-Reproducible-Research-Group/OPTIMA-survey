@@ -85,11 +85,14 @@ df <- df %>%
     X54 == "sum" ~ "classical",
     X54 == "don" ~ "classical",
     X54 == "lpu" ~ "technical",
-    X54 == "lut" ~ "technical"
+    X54 == "lut" ~ "technical",
+    TRUE ~ as.character(X55)
   )) %>%
   mutate(X56 = case_when(
     X54 == "sum" ~ "Sumy Oblast",
     X54 == "don" ~ "Donetsk Oblast",
     X54 == "lpu" ~ "Lviv Oblast",
-    X54 == "lut" ~ "Volyn Oblast"
+    X54 == "lut" ~ "Volyn Oblast",
+    (X54 == "nat" & X53 == "2022") ~ X61,
+    TRUE ~ as.character(X56)
   ))
