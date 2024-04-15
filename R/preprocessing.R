@@ -18,22 +18,15 @@ datafiles <- list.files("data/original")
 datasets <- list()
 for (file in datafiles) {
   df_name <- shorten_filename(file)
-  assign(df_name, read_excel(paste0("data/original/", file)))
+  assign(df_name, readxl::read_excel(paste0("data/original/", file)))
   datasets <- append(datasets, df_name)
 }
 
 
 # Check for empty columns and delete them
 remove_empty_cols <- function(dataset){
-  all_columns <- colnames(dataset)
-  empty_columns <- list()
-  for (column in all_columns) {
-    if (all(is.na(dataset[[column]]))) {
-      empty_columns <- append(empty_columns, column)
-    }
-  }
-  reduced_dataset <- dataset[, -which(names(dataset) %in% empty_columns)]
-  return(reduced_dataset)
+  dataset %>%
+    keep(~ any(!is.na(.)))
 }
 
 
