@@ -32,7 +32,17 @@ create_var_overview <- function(path) {
   df <- read_csv(path, col_names = FALSE, n_max = 1, col_types = "c")
   
   out <- df %>%
-    pivot_longer(everything(), names_to = "var_id", values_to = "var_full")
+    pivot_longer(everything(), names_to = "var_id", values_to = "var_full") %>% 
+    
+    # Add information about instructions to codebook
+    mutate(instruction = case_when(
+      as.integer(sub("X", "", var_id)) >= 14 & 
+        as.integer(sub("X", "", var_id))  <= 22 ~ "agreement",
+      as.integer(sub("X", "", var_id)) >= 23 & 
+        as.integer(sub("X", "", var_id))  <= 36 ~ "institutional occurrence",
+      as.integer(sub("X", "", var_id)) >= 37 & 
+        as.integer(sub("X", "", var_id))  <= 52 ~ "agreement"
+    )) 
   
   write_csv(out, "data/processed/var_overview.csv")
   
@@ -43,7 +53,7 @@ create_var_overview("data/processed/combined_data.csv")
 
 
 
-# Process combined data
+# Process combined data (could be written as function)
 df <- read_csv("data/processed/combined_data.csv", col_names = FALSE, skip = 1) %>% 
   
   # Add institution type and location info to institutional surveys
@@ -65,5 +75,8 @@ df <- read_csv("data/processed/combined_data.csv", col_names = FALSE, skip = 1) 
   )) %>% 
   
   # Calculate survey duration (total response time in minutes)
-  mutate(X64 = difftime(X4, X3, units = "mins"))
+  mutate(X64 = difftime(X4, X3, units = "mins")) %>% 
+  
+  # Save preprocessed dataset
+  write_csv(., "data/processed/preprocessed_data.csv")
   
