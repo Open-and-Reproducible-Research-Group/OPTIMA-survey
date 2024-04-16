@@ -1,5 +1,6 @@
 library(tidyverse)
 library(sf)
+library(fuzzyjoin)
 
 df <- read_csv("data/processed/preprocessed_data.csv")
 
@@ -48,14 +49,31 @@ table(df$X14, df$X64)
 table(df$X54, df$X64)
 
 
-# Location of institution
+# Location of institution for mapping
 locations <- df %>% 
   group_by(X64, X55) %>% 
   summarize(count = n()) %>% 
-  pivot_wider(names_from = X64, values_from = count)
+  pivot_wider(names_from = X64, values_from = count) %>% 
+  rename(NAME_1 = X55) %>% 
+  mutate(NAME_1 = gsub(" Oblast", "", NAME_1)) %>% 
+  mutate(NAME_1 = gsub("Autonomous Republic of ", "", NAME_1))
+
+# Add Sevastopol for completeness
+locations[nrow(locations) + 1,] = list("Sevastopol", NA, NA, NA)
 
 ukraine_map <- st_read("data/additional/map/UKR_adm1.shp") %>% 
   st_make_valid(.)
+
+
+# Join sample and geographical data by fuzzy string matching
+map_counts <- stringdist_join(ukraine_map, locations, 
+                              by = 'NAME_1',
+                              mode = 'left',
+                              method = "jw",
+                              max_dist = 99, 
+                              distance_col = 'dist') %>%
+  group_by(NAME_1.x) %>%
+  slice_min(order_by = dist, n = 1)
 
 
 ggplot() +
