@@ -1,5 +1,5 @@
 library(tidyverse)
-library(psych)
+library(sf)
 
 df <- read_csv("data/processed/preprocessed_data.csv")
 
@@ -49,7 +49,22 @@ table(df$X54, df$X64)
 
 
 # Location of institution
-table(df$X55, df$X64)
+locations <- df %>% 
+  group_by(X64, X55) %>% 
+  summarize(count = n()) %>% 
+  pivot_wider(names_from = X64, values_from = count)
+
+ukraine_map <- st_read("data/additional/map/UKR_adm1.shp") %>% 
+  st_make_valid(.)
+
+
+ggplot() +
+  geom_sf(data = ukraine_map, color = "white") +
+  geom_text(data = ukraine_map,
+            aes(label = NAME_1,
+                x = st_coordinates(st_centroid(geometry))[, "X"],
+                y = st_coordinates(st_centroid(geometry))[, "Y"]),
+            color = "black", size = 3, check_overlap = TRUE)
 
 
 # Additional 2022 questions
