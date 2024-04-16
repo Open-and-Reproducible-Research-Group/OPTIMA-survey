@@ -1,60 +1,33 @@
 library(tidyverse)
 
-# Shorten filenames
-# Might finally not be necessary, but useful at the moment
-shorten_filename <- function(filename){
-  short_name <- paste0("df", tolower(substr(filename, start = 17, stop = 22)))
-  if (exists(short_name)) {
-    short_name <- paste(short_name, "2", sep = "_")
-  }
-  return(short_name)
-}
+
+# Read in and combine all files (could be written as function)
+paths <- list.files("data/original", pattern = "[.]xlsx$", full.names = TRUE)
+
+df <- paths %>%
+  
+  set_names(basename) %>%
+  
+  map(readxl::read_excel) %>%
+
+  list_rbind(names_to = "source_file") %>%
+  
+  # Keep only columns that are not empty
+  keep(~ any(!is.na(.))) %>%
+  
+  # Extract information about survey wave from source file name
+  mutate(Survey = str_extract(source_file, "(?<=\\d{4}_)(.*)(?=-Results)")) %>%
+  mutate(Year = str_extract(source_file, "\\d{4}")) %>%
+  
+  # Add column for survey duration (to be calculated later)
+  mutate(Duration = 0) %>% 
+  
+  # Save combined dataset
+  write_csv(., "data/processed/combined_data.csv")
 
 
-# Read in all data files
-# This could also be written as a function
-# Would need some adaptions to path handling
-datafiles <- list.files("data/original")
-datasets <- list()
-for (file in datafiles) {
-  df_name <- shorten_filename(file)
-  assign(df_name, readxl::read_excel(paste0("data/original/", file)))
-  datasets <- append(datasets, df_name)
-}
 
-
-# Check for empty columns and delete them
-remove_empty_cols <- function(dataset){
-  dataset %>%
-    keep(~ any(!is.na(.)))
-}
-
-
-# There might be an easier way to loop through datasets
-for (dataset in datasets) {
-  assign(dataset, remove_empty_cols(get(dataset)))
-}
-
-
-# Add columns specifying year of dataset (wave) and subset
-# Could maybe separated out into a function
-for (dataset in datasets) {
-  df <- get(dataset)
-  df$Wave <- paste0("20", substr(dataset, start = 3, stop = 4))
-  df$Source <- substr(dataset, start = 6, stop = 8)
-  assign(dataset, df)
-}
-
-
-# Combine subsets into one dataframe
-full_data <- dplyr::bind_rows(mget(unlist(datasets)))
-
-# Save full data as csv
-write_csv(full_data, "data/processed/OPTIMA-Survey-full.csv")
-
-
-# Create overview over variables for codebook
-# Function taken from RPT survey
+# Produce codebook for all variables
 create_var_overview <- function(path) {
   df <- read_csv(path, col_names = FALSE, n_max = 1, col_types = "c")
   
@@ -66,26 +39,31 @@ create_var_overview <- function(path) {
   out
 }
 
-create_var_overview("data/processed/OPTIMA-Survey-full.csv")
+create_var_overview("data/processed/combined_data.csv")
 
 
-df <- read_csv("data/processed/OPTIMA-Survey-full.csv", col_names = FALSE, skip = 1)
 
-
-# Add institution type and location info to institutional surveys
-df <- df %>%
-  mutate(X55 = case_when(
-    X54 == "sum" ~ "classical",
-    X54 == "don" ~ "classical",
-    X54 == "lpu" ~ "technical",
-    X54 == "lut" ~ "technical",
-    TRUE ~ as.character(X55)
+# Process combined data
+df <- read_csv("data/processed/combined_data.csv", col_names = FALSE, skip = 1) %>% 
+  
+  # Add institution type and location info to institutional surveys
+  mutate(X53 = case_when(
+    X62 == "SumDU" ~ "classical",
+    X62 == "DonNU" ~ "classical",
+    X62 == "LPU" ~ "technical",
+    X62 == "LutskNTU" ~ "technical",
+    TRUE ~ as.character(X53)
   )) %>%
-  mutate(X56 = case_when(
-    X54 == "sum" ~ "Sumy Oblast",
-    X54 == "don" ~ "Donetsk Oblast",
-    X54 == "lpu" ~ "Lviv Oblast",
-    X54 == "lut" ~ "Volyn Oblast",
-    (X54 == "nat" & X53 == "2022") ~ X61,
-    TRUE ~ as.character(X56)
-  ))
+  mutate(X54 = case_when(
+    X62 == "SumDU" ~ "Sumy Oblast",
+    X62 == "DonNU" ~ "Vinnytsia Oblast",
+    X62 == "LPU" ~ "Lviv Oblast",
+    X62 == "LutskNTU" ~ "Volyn Oblast",
+    # In 2022 question targeted location before displacement in 2022
+    (X62 == "National" & X63 == "2022") ~ X59,
+    TRUE ~ as.character(X54)
+  )) %>% 
+  
+  # Calculate survey duration (total response time in minutes)
+  mutate(X64 = difftime(X4, X3, units = "mins"))
+  
