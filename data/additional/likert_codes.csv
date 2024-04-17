@@ -1,0 +1,10 @@
+﻿id,likert,type,numeric
+1,strongly agree,agreement,1
+2,rather agree,agreement,2
+3,rather disagree,agreement,3
+4,strongly disagree,agreement,4
+5,very often,frequency,1
+6,frequently,frequency,2
+7,sometimes,frequency,3
+8,rarely,frequency,4
+9,never,frequency,5
