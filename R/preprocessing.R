@@ -2,32 +2,37 @@ library(tidyverse)
 library(responsePatterns)
 
 
-# Read in and combine all files (could be written as function)
-paths <- list.files("data/original", pattern = "[.]xlsx$", full.names = TRUE)
+# Read in and combine all files
+combine_data <- function(path_to_folder) {
+  
+  paths <- list.files(path_to_folder, pattern = "[.]xlsx$", full.names = TRUE)
+  
+  df <- paths %>%
+    
+    set_names(basename) %>%
+    
+    map(readxl::read_excel) %>%
+    
+    list_rbind(names_to = "source_file") %>%
+    
+    # Keep only columns that are not empty
+    keep(~ any(!is.na(.))) %>%
+    
+    # Add new continuous id
+    cbind(newID = 1:nrow(.), .) %>% 
+    
+    # Extract information about survey wave from source file name
+    mutate(Survey = str_extract(source_file, "(?<=\\d{4}_)(.*)(?=-Results)")) %>%
+    mutate(Year = str_extract(source_file, "\\d{4}"))
+  
+  df
+}
 
-df <- paths %>%
   
-  set_names(basename) %>%
-  
-  map(readxl::read_excel) %>%
-
-  list_rbind(names_to = "source_file") %>%
-  
-  # Keep only columns that are not empty
-  keep(~ any(!is.na(.))) %>%
-  
-  # Add new continuous id
-  cbind(newID = 1:nrow(.), .) %>% 
-  
-  # Extract information about survey wave from source file name
-  mutate(Survey = str_extract(source_file, "(?<=\\d{4}_)(.*)(?=-Results)")) %>%
-  mutate(Year = str_extract(source_file, "\\d{4}")) %>%
-  
-  # Add column for survey duration (to be calculated later)
-  mutate(Duration = 0) %>% 
-  
-  # Save combined dataset
-  write_csv(., "data/processed/combined_data.csv")
+df <- combine_data("data/original")  
+ 
+# Save combined dataset
+write_csv(df, "data/processed/combined_data.csv")
 
 
 
@@ -79,14 +84,14 @@ df <- read_csv("data/processed/combined_data.csv", col_names = FALSE, skip = 1) 
   )) %>% 
   
   # Calculate survey duration (total response time in minutes)
-  mutate(X65 = difftime(X5, X4, units = "mins")) %>% 
+  mutate(duration = difftime(X5, X4, units = "mins")) %>% 
   
   # Save preprocessed dataset
   write_csv(., "data/processed/preprocessed_data.csv")
 
 
 
-# Recode likert scale answers to numeric
+# Recode likert scale answers to numeric (analysis might require factors)
 likert_to_numeric <- function(df) {
   
   # Read in dataset with recoding information
@@ -135,9 +140,9 @@ score <- indices$score
 percentile <- indices$percentile
 
 # Add extracted data to the dataset
-df_checked <- data.frame(id = id, score = score, percentile = percentile) %>% 
+df_checked <- data.frame(id = id, rp_score = score, rp_percentile = percentile) %>% 
   merge(df, ., by.x = "X1", by.y = "id")
 
 
 # Check correlation between response time and repetitiveness percentile
-cor(as.numeric(df_checked$percentile), as.numeric(df_checked$X65))
+cor(as.numeric(df_checked$rp_percentile), as.numeric(df_checked$Xduration))
