@@ -59,7 +59,7 @@ locations <- df %>%
   mutate(NAME_1 = gsub("Autonomous Republic of ", "", NAME_1))
 
 # Add Sevastopol for completeness
-locations[nrow(locations) + 1,] = list("Sevastopol", NA, NA, NA)
+locations[nrow(locations) + 1,] = list("Sevastopol", 0, 0, 0)
 
 ukraine_map <- st_read("data/additional/map/UKR_adm1.shp") %>% 
   st_make_valid(.)
@@ -67,22 +67,33 @@ ukraine_map <- st_read("data/additional/map/UKR_adm1.shp") %>%
 
 # Join sample and geographical data by fuzzy string matching
 map_counts <- stringdist_join(ukraine_map, locations, 
-                              by = 'NAME_1',
-                              mode = 'left',
+                              by = "NAME_1",
+                              mode = "left",
                               method = "jw",
                               max_dist = 99, 
-                              distance_col = 'dist') %>%
+                              distance_col = "dist") %>%
   group_by(NAME_1.x) %>%
   slice_min(order_by = dist, n = 1)
 
 
+# Create again shapefile out of merged data
+map_counts <- st_as_sf(map_counts)
+
+
+# Plot number of respondents by region
 ggplot() +
-  geom_sf(data = ukraine_map, color = "white") +
-  geom_text(data = ukraine_map,
-            aes(label = NAME_1,
+  geom_sf(data = map_counts, aes(fill = `2021`), color = "white") +
+  scale_fill_gradient(low = "white", high = "navy") +
+  geom_text(data = map_counts,
+            aes(label = NAME_1.y,
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
-            color = "black", size = 3, check_overlap = TRUE)
+            color = "black", size = 3, check_overlap = TRUE) +
+  theme(axis.text = element_blank(),  # Hide axis labels
+        axis.title = element_blank(),  # Hide axis titles
+        axis.ticks = element_blank(), # Hide axis ticks
+        legend.title = element_blank(), # Hide legend title
+        panel.grid = element_blank())  # Hide grid lines
 
 
 # Additional 2022 questions
