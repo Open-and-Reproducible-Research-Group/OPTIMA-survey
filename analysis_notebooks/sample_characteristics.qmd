@@ -3,12 +3,24 @@ title: "Sample Characteristics"
 author: "Eva Kormann"
 format: html
 editor: visual
+execute: 
+  echo: false
 ---
 
-```{r setup, include = FALSE}
+```{r}
+#| output: false
+#| warning: false
+
+library(here)
 library(tidyverse)
+library(sf)
+library(fuzzyjoin)
+library(viridis)
+
 
 # Get data
+data <- here("data", "processed", "preprocessed_data.csv")
+df <- read_csv(data)
 ```
 
 ## Number of survey respondents
@@ -20,23 +32,178 @@ The survey included three waves, with one wave each year from 2021 to 2023. In a
 -   Vasyl' Stus Donetsk National University (DonNU)
 -   Lutsk National Technical University (LutskNTU)
 
-```{r, include = FALSE}
-make_table(df$X63, df$X64)
+```{r}
+df$X63 <- factor(df$X63, levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
+table(df$X63, df$X64)
+
+
+ggplot(df, aes(x = X63, fill = as_factor(X64))) +
+  geom_bar(position = "dodge") +
+  labs(title = "Number of Survey Respondents by Survey and Year", x = "Survey", y = "Count") +
+  theme_minimal() +
+  theme(legend.title = element_blank())
 ```
 
-## Running Code
+## Academic role
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+Participants indicated what they are best described by in terms of academic roles: "Which of the following best describes you?"
 
 ```{r}
-1 + 1
+df$X8 <- factor(df$X8, levels = c("student - 1st year", "student - 2nd year", "student - 3rd year", "student - 4th year", "master student", "doctoral student - PhD", "doctoral student - ScD (higher doctorate)", "faculty", "university administrator", "librarian", "other"))
+table(df$X8, df$X64)
 ```
 
-You can add options to executable code like this
+## Gender
 
 ```{r}
-#| echo: false
-2 * 2
+table(df$X9, df$X64)
 ```
 
-The `echo: false` option disables the printing of code (only output is displayed).
+## Degree
+
+"What is the highest completed academic degree you have?
+
+```{r}
+df$X10 <- factor(df$X10, levels = c("none (still studying)", "bachelor", "master", "PhD", "ScD (higher doctorate)"))
+table(df$X10, df$X64)
+```
+
+## Work experience
+
+"How many years have you been working in higher education and/or research?"
+
+```{r}
+df$X11 <- factor(df$X11, levels = c("I have never worked in this sphere", "less than 1 year", "1-5 years", "5-10 years", "more than 10 years"))
+table(df$X11, df$X64)
+```
+
+## Field/Discipline
+
+"What is your field of study or work?"
+
+```{r}
+table(df$X12, df$X64)
+```
+
+## Publications
+
+"How many research outputs (articles, monographs, conference papers) have you published in the last 3 years?"
+
+```{r}
+df$X13 <- factor(df$X13, levels = c("0", "1-5", "6-10", "11-20", "21-30", "more than 30"))
+table(df$X13, df$X64)
+```
+
+## Peer review
+
+"How many peer reviews of research outputs (articles, monographs, reports) have you written in the last 3 years?"
+
+```{r}
+table(df$X14, df$X64)
+```
+
+## Type of institution
+
+"What type of higher education institution do you study or work at?"
+
+```{r}
+table(df$X54, df$X64)
+```
+
+## Location
+
+"Your higher education institution is located in"...
+
+In 2022, this question was extended to "Your higher education institution is located in (this refers to the original location before 02/24/2022)". For the 2023 survey, the phrasing of the question was again reduced to the one first employed in 2021.
+
+```{r}
+#| output : false
+
+# Location of institution for mapping
+locations <- df %>% 
+  group_by(X64, X55) %>% 
+  summarize(count = n()) %>% 
+  pivot_wider(names_from = X64, values_from = count) %>% 
+  rename(NAME_1 = X55) %>% 
+  mutate(NAME_1 = gsub(" Oblast", "", NAME_1)) %>% 
+  mutate(NAME_1 = gsub("Autonomous Republic of ", "", NAME_1))
+
+# Add Sevastopol for completeness
+locations[nrow(locations) + 1,] = list("Sevastopol", 0, 0, 0)
+
+map_data <- here("data", "additional", "map", "UKR_adm1.shp")
+ukraine_map <- st_read(map_data) %>% 
+  st_make_valid(.)
+
+
+# Join sample and geographical data by fuzzy string matching
+map_counts <- stringdist_join(ukraine_map, locations, 
+                              by = "NAME_1",
+                              mode = "left",
+                              method = "jw",
+                              max_dist = 99, 
+                              distance_col = "dist") %>%
+  group_by(NAME_1.x) %>%
+  slice_min(order_by = dist, n = 1)
+
+
+# Create again shapefile out of merged data
+map_counts <- st_as_sf(map_counts)
+```
+
+```{r}
+# Plot number of respondents by region in year 2021
+ggplot() +
+  geom_sf(data = map_counts, aes(fill = `2021`), color = "white") +
+  scale_fill_viridis_c(option = "viridis", limits = c(0, 2000)) +
+  geom_text(data = map_counts,
+            aes(label = NAME_1.y,
+                x = st_coordinates(st_centroid(geometry))[, "X"],
+                y = st_coordinates(st_centroid(geometry))[, "Y"]),
+            color = "black", size = 2, check_overlap = TRUE) +
+  ggtitle("Respondents by location in 2021") +
+  theme(axis.text = element_blank(),  # Hide axis labels
+        axis.ticks = element_blank(), # Hide axis ticks
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        legend.title = element_blank(), # Hide legend title
+        panel.grid = element_blank())  # Hide grid lines
+```
+
+```{r}
+# Plot number of respondents by region in year 2022
+ggplot() +
+  geom_sf(data = map_counts, aes(fill = `2022`), color = "white") +
+  scale_fill_viridis_c(option = "viridis", limits = c(0, 2000)) +
+  geom_text(data = map_counts,
+            aes(label = NAME_1.y,
+                x = st_coordinates(st_centroid(geometry))[, "X"],
+                y = st_coordinates(st_centroid(geometry))[, "Y"]),
+            color = "black", size = 2, check_overlap = TRUE) +
+   ggtitle("Respondents by location in 2022") +
+  theme(axis.text = element_blank(),  # Hide axis labels
+        axis.ticks = element_blank(), # Hide axis ticks
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        legend.title = element_blank(), # Hide legend title
+        panel.grid = element_blank())  # Hide grid lines
+```
+
+```{r}
+# Plot number of respondents by region in year 2023
+ggplot() +
+  geom_sf(data = map_counts, aes(fill = `2023`), color = "white") +
+  scale_fill_viridis_c(option = "viridis", limits = c(0, 2000)) +
+  geom_text(data = map_counts,
+            aes(label = NAME_1.y,
+                x = st_coordinates(st_centroid(geometry))[, "X"],
+                y = st_coordinates(st_centroid(geometry))[, "Y"]),
+            color = "black", size = 2, check_overlap = TRUE) +
+  ggtitle("Respondents by location in 2023") +
+  theme(axis.text = element_blank(),  # Hide axis labels
+        axis.ticks = element_blank(), # Hide axis ticks
+        axis.title.x = element_blank(),
+        axis.title.y = element_blank(),
+        legend.title = element_blank(), # Hide legend title
+        panel.grid = element_blank())  # Hide grid lines
+```
