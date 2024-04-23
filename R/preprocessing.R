@@ -1,4 +1,5 @@
 library(tidyverse)
+library(psych)
 library(responsePatterns)
 
 
@@ -105,6 +106,22 @@ likert_to_numeric <- function(df) {
 }
 
 df_recoded <- likert_to_numeric(df)
+
+
+# Investigate response times
+
+# Basic descriptives
+describe(df$duration)
+
+# Descriptives by academic role
+describeBy(df$duration, group = df$X8)
+
+# Boxplot
+boxplot(df$duration)
+
+# Histogram excluding extreme values
+hist(df$duration[df$duration >= 0 & df$duration <= 30], breaks = 30,
+     main = "Histogram of Total Response Times", xlab = "Duration")
 
 
 
