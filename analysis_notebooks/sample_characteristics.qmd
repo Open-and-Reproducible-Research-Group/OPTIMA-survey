@@ -15,7 +15,6 @@ library(here)
 library(tidyverse)
 library(sf)
 library(fuzzyjoin)
-library(viridis)
 
 
 # Get data
@@ -41,7 +40,9 @@ ggplot(df, aes(x = X63, fill = as_factor(X64))) +
   geom_bar(position = "dodge") +
   labs(title = "Number of Survey Respondents by Survey and Year", x = "Survey", y = "Count") +
   theme_minimal() +
-  theme(legend.title = element_blank())
+  theme(legend.title = element_blank(),
+        plot.title = element_text(hjust = 0.5)) +
+  scale_fill_brewer(palette = "Set2")
 ```
 
 ## Academic role
@@ -158,17 +159,18 @@ map_counts <- st_as_sf(map_counts)
 # Plot number of respondents by region in year 2021
 ggplot() +
   geom_sf(data = map_counts, aes(fill = `2021`), color = "white") +
-  scale_fill_viridis_c(option = "viridis", limits = c(0, 2000)) +
+  scale_fill_gradient(low = "white", high = "red", limits = c(0, 2000)) +
   geom_text(data = map_counts,
             aes(label = NAME_1.y,
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
             color = "black", size = 2, check_overlap = FALSE) +
-  ggtitle("Respondents by location in 2021") +
+  ggtitle("Respondents by Location in 2021") +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.ticks = element_blank(), # Hide axis ticks
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
+        plot.title = element_text(hjust = 0.5),
         legend.title = element_blank(), # Hide legend title
         panel.grid = element_blank())  # Hide grid lines
 ```
@@ -177,17 +179,18 @@ ggplot() +
 # Plot number of respondents by region in year 2022
 ggplot() +
   geom_sf(data = map_counts, aes(fill = `2022`), color = "white") +
-  scale_fill_viridis_c(option = "viridis", limits = c(0, 2000)) +
+  scale_fill_gradient(low = "white", high = "red", limits = c(0, 2000)) +
   geom_text(data = map_counts,
             aes(label = NAME_1.y,
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
             color = "black", size = 2, check_overlap = FALSE) +
-   ggtitle("Respondents by location in 2022") +
+   ggtitle("Respondents by Location in 2022") +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.ticks = element_blank(), # Hide axis ticks
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
+        plot.title = element_text(hjust = 0.5),
         legend.title = element_blank(), # Hide legend title
         panel.grid = element_blank())  # Hide grid lines
 ```
@@ -196,17 +199,18 @@ ggplot() +
 # Plot number of respondents by region in year 2023
 ggplot() +
   geom_sf(data = map_counts, aes(fill = `2023`), color = "white") +
-  scale_fill_viridis_c(option = "viridis", limits = c(0, 2000)) +
+  scale_fill_gradient(low = "white", high = "red", limits = c(0, 2000)) +
   geom_text(data = map_counts,
             aes(label = NAME_1.y,
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
             color = "black", size = 2, check_overlap = FALSE) +
-  ggtitle("Respondents by location in 2023") +
+  ggtitle("Respondents by Location in 2023") +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.ticks = element_blank(), # Hide axis ticks
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
+        plot.title = element_text(hjust = 0.5),
         legend.title = element_blank(), # Hide legend title
         panel.grid = element_blank())  # Hide grid lines
 ```
