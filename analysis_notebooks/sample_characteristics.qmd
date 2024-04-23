@@ -116,6 +116,8 @@ table(df$X54, df$X64)
 
 In 2022, this question was extended to "Your higher education institution is located in (this refers to the original location before 02/24/2022)". For the 2023 survey, the phrasing of the question was again reduced to the one first employed in 2021.
 
+Spatial data for the country of Ukraine and its Oblasts were retrieved from [GADM](https://gadm.org/index.html) for visualizations.
+
 ```{r}
 #| output : false
 
@@ -131,8 +133,9 @@ locations <- df %>%
 # Add Sevastopol for completeness
 locations[nrow(locations) + 1,] = list("Sevastopol", 0, 0, 0)
 
-map_data <- here("data", "additional", "map", "UKR_adm1.shp")
+map_data <- here("data", "additional", "map", "gadm41_UKR_1.shp")
 ukraine_map <- st_read(map_data) %>% 
+  filter(!grepl("\\?", NAME_1)) %>%
   st_make_valid(.)
 
 
@@ -160,7 +163,7 @@ ggplot() +
             aes(label = NAME_1.y,
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
-            color = "black", size = 2, check_overlap = TRUE) +
+            color = "black", size = 2, check_overlap = FALSE) +
   ggtitle("Respondents by location in 2021") +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.ticks = element_blank(), # Hide axis ticks
@@ -179,7 +182,7 @@ ggplot() +
             aes(label = NAME_1.y,
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
-            color = "black", size = 2, check_overlap = TRUE) +
+            color = "black", size = 2, check_overlap = FALSE) +
    ggtitle("Respondents by location in 2022") +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.ticks = element_blank(), # Hide axis ticks
@@ -198,7 +201,7 @@ ggplot() +
             aes(label = NAME_1.y,
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
-            color = "black", size = 2, check_overlap = TRUE) +
+            color = "black", size = 2, check_overlap = FALSE) +
   ggtitle("Respondents by location in 2023") +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.ticks = element_blank(), # Hide axis ticks

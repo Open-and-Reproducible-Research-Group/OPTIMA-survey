@@ -61,7 +61,8 @@ locations <- df %>%
 # Add Sevastopol for completeness
 locations[nrow(locations) + 1,] = list("Sevastopol", 0, 0, 0)
 
-ukraine_map <- st_read("data/additional/map/UKR_adm1.shp") %>% 
+ukraine_map <- st_read("data/additional/map/gadm41_UKR_1.dbf") %>%
+  filter(!grepl("\\?", NAME_1)) %>% 
   st_make_valid(.)
 
 
@@ -88,7 +89,7 @@ ggplot() +
             aes(label = NAME_1.y,
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
-            color = "black", size = 3, check_overlap = TRUE) +
+            color = "black", size = 2, check_overlap = FALSE) +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.title = element_blank(),  # Hide axis titles
         axis.ticks = element_blank(), # Hide axis ticks
