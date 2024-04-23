@@ -16,6 +16,7 @@ library(tidyverse)
 library(sf)
 library(fuzzyjoin)
 
+options(dplyr.summarise.inform = FALSE)
 
 # Get data
 data <- here("data", "processed", "preprocessed_data.csv")
@@ -33,7 +34,7 @@ The survey included three waves, with one wave each year from 2021 to 2023. In a
 
 ```{r}
 df$X63 <- factor(df$X63, levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
-table(df$X63, df$X64)
+knitr::kable(table(df$X63, df$X64), format = "html")
 
 
 ggplot(df, aes(x = X63, fill = as_factor(X64))) +
@@ -41,86 +42,85 @@ ggplot(df, aes(x = X63, fill = as_factor(X64))) +
   labs(title = "Number of Survey Respondents by Survey and Year", x = "Survey", y = "Count") +
   theme_minimal() +
   theme(legend.title = element_blank(),
-        plot.title = element_text(hjust = 0.5)) +
-  scale_fill_brewer(palette = "Set2")
+        plot.title = element_text(hjust = 0.5))
 ```
 
 ## Academic role
 
-Participants indicated what they are best described by in terms of academic roles: "Which of the following best describes you?"
+Participants indicated what they are best described by in terms of academic roles: *"Which of the following best describes you?"*
 
 ```{r}
 df$X8 <- factor(df$X8, levels = c("student - 1st year", "student - 2nd year", "student - 3rd year", "student - 4th year", "master student", "doctoral student - PhD", "doctoral student - ScD (higher doctorate)", "faculty", "university administrator", "librarian", "other"))
-table(df$X8, df$X64)
+knitr::kable(table(df$X8, df$X64), format = "html")
 ```
 
 ## Gender
 
 ```{r}
-table(df$X9, df$X64)
+knitr::kable(table(df$X9, df$X64), format = "html")
 ```
 
 ## Degree
 
-"What is the highest completed academic degree you have?
+*"What is the highest completed academic degree you have?"*
 
 ```{r}
 df$X10 <- factor(df$X10, levels = c("none (still studying)", "bachelor", "master", "PhD", "ScD (higher doctorate)"))
-table(df$X10, df$X64)
+knitr::kable(table(df$X10, df$X64), format = "html")
 ```
 
 ## Work experience
 
-"How many years have you been working in higher education and/or research?"
+*"How many years have you been working in higher education and/or research?"*
 
 ```{r}
 df$X11 <- factor(df$X11, levels = c("I have never worked in this sphere", "less than 1 year", "1-5 years", "5-10 years", "more than 10 years"))
-table(df$X11, df$X64)
+knitr::kable(table(df$X11, df$X64), format = "html")
 ```
 
 ## Field/Discipline
 
-"What is your field of study or work?"
+*"What is your field of study or work?"*
 
 ```{r}
-table(df$X12, df$X64)
+knitr::kable(table(df$X12, df$X64), format = "html")
 ```
 
 ## Publications
 
-"How many research outputs (articles, monographs, conference papers) have you published in the last 3 years?"
+*"How many research outputs (articles, monographs, conference papers) have you published in the last 3 years?"*
 
 ```{r}
 df$X13 <- factor(df$X13, levels = c("0", "1-5", "6-10", "11-20", "21-30", "more than 30"))
-table(df$X13, df$X64)
+knitr::kable(table(df$X13, df$X64), format = "html")
 ```
 
 ## Peer review
 
-"How many peer reviews of research outputs (articles, monographs, reports) have you written in the last 3 years?"
+*"How many peer reviews of research outputs (articles, monographs, reports) have you written in the last 3 years?"*
 
 ```{r}
-table(df$X14, df$X64)
+knitr::kable(table(df$X14, df$X64), format = "html")
 ```
 
 ## Type of institution
 
-"What type of higher education institution do you study or work at?"
+*"What type of higher education institution do you study or work at?"*
 
 ```{r}
-table(df$X54, df$X64)
+knitr::kable(table(df$X54, df$X64), format = "html")
 ```
 
 ## Location
 
-"Your higher education institution is located in"...
+*"Your higher education institution is located in"*...
 
-In 2022, this question was extended to "Your higher education institution is located in (this refers to the original location before 02/24/2022)". For the 2023 survey, the phrasing of the question was again reduced to the one first employed in 2021.
+In 2022, this question was extended to *"Your higher education institution is located in (this refers to the original location before 02/24/2022)"*. For the 2023 survey, the phrasing of the question was again reduced to the one first employed in 2021.
 
 Spatial data for the country of Ukraine and its Oblasts were retrieved from [GADM](https://gadm.org/index.html) for visualizations.
 
 ```{r}
-#| output : false
+#| include : false
 
 # Location of institution for mapping
 locations <- df %>% 
@@ -135,7 +135,7 @@ locations <- df %>%
 locations[nrow(locations) + 1,] = list("Sevastopol", 0, 0, 0)
 
 map_data <- here("data", "additional", "map", "gadm41_UKR_1.shp")
-ukraine_map <- st_read(map_data) %>% 
+ukraine_map <- st_read(map_data, quiet = TRUE) %>% 
   filter(!grepl("\\?", NAME_1)) %>%
   st_make_valid(.)
 
