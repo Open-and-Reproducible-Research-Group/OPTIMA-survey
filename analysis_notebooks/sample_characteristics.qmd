@@ -51,6 +51,7 @@ Participants indicated what they are best described by in terms of academic role
 
 ```{r}
 df$X8 <- factor(df$X8, levels = c("student - 1st year", "student - 2nd year", "student - 3rd year", "student - 4th year", "master student", "doctoral student - PhD", "doctoral student - ScD (higher doctorate)", "faculty", "university administrator", "librarian", "other"))
+df$X8 <-  fct_na_value_to_level(df$X8)
 knitr::kable(table(df$X8, df$X64), format = "html")
 ```
 
