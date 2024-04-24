@@ -15,6 +15,8 @@ library(here)
 library(tidyverse)
 library(sf)
 library(fuzzyjoin)
+library(psych)
+library(ggridges)
 
 options(dplyr.summarise.inform = FALSE)
 
@@ -215,3 +217,49 @@ ggplot() +
         legend.title = element_blank(), # Hide legend title
         panel.grid = element_blank())  # Hide grid lines
 ```
+
+## Investigation of Response Times
+
+Time stamps were collected within the survey for start and finish. Total response duration was calculated as the difference between those two time stamps in minutes. These were examined more closely to estimate the risk of part of the sample only responding superficially and therefore very quickly.
+
+First, basic descriptive statistics are examined for total response time. Additionally, a simple boxplot is created.
+
+```{r}
+knitr::kable(describe(df$duration), format = "html")
+boxplot(df$duration, main = "Boxplot of Total Response Times", ylab = "Duration")
+```
+
+Especially the range of response times from 0 to over 5000 minutes (about three and a half days) is interesting. There are some outliers where respondents might have had the survey open for some days before finally submitting it. The survey took a median time of about 9 minutes to complete.
+
+To have a closer look at the distribution of total response times, a histogram is created. Only times ranging from 0 to 30 minutes will be plotted for better visibility (extreme outliers are omitted).
+
+```{r}
+#| warning : false
+hist(df$duration[df$duration >= 0 & df$duration <= 30], breaks = 30,
+     main = "Histogram of Total Response Times", xlab = "Duration")
+```
+
+Only a small share of respondents finished the survey in less then 3 minutes. The peak in the distribution can be seen between 7 and 8 minutes.
+
+Since different groups in the academic context might vary in their familiarity with the topic, they might differ in their response times. To detect possible pronounced differences, distribution of total response time is plotted separately by academic role indicated (again limiting the range of visualized values from 0 to 30).
+
+```{r}
+#| warning : false
+
+ggplot(df, aes(x = duration, y = X8)) +
+  stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "lightblue",
+                      vline_color = "white") +
+  xlim(0, 30) +
+  labs(x = "Duration",
+       y = "Academic Role",
+       title = "Distribution of Total Response Times by Academic Role") +
+  scale_y_discrete(labels = c("university administrator" = "administrator",
+                              "doctoral student - ScD (higher doctorate)" = "doctoral student - ScD")) +
+  theme(
+    panel.background = element_rect(fill = "white"),
+    panel.grid.major = element_line(color = "lightgray"),
+    panel.grid.minor = element_line(color = "white")
+  )
+```
+
+While students have a lower median than, e.g., faculty, there are no major differences in distributions upon closer inspection. The groups do not appear substantially different in their response times.
