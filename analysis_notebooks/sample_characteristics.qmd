@@ -21,8 +21,10 @@ library(ggridges)
 options(dplyr.summarise.inform = FALSE)
 
 # Get data
-data <- here("data", "processed", "preprocessed_data.csv")
-df <- read_csv(data)
+#data <- here("data", "processed", "preprocessed_data.csv")
+#df <- read_csv(data)
+
+df <- targets::tar_read(processed_data)
 ```
 
 ## Number of survey respondents
@@ -234,7 +236,6 @@ Especially the range of response times from 0 to over 5000 minutes (about three 
 To have a closer look at the distribution of total response times, a histogram is created. Only times ranging from 0 to 30 minutes will be plotted for better visibility (extreme outliers are omitted).
 
 ```{r}
-#| warning : false
 hist(df$duration[df$duration >= 0 & df$duration <= 30], breaks = 30,
      main = "Histogram of Total Response Times", xlab = "Duration")
 ```
@@ -244,7 +245,6 @@ Only a small share of respondents finished the survey in less then 3 minutes. Th
 Since different groups in the academic context might vary in their familiarity with the topic, they might differ in their response times. To detect possible pronounced differences, distribution of total response time is plotted separately by academic role indicated (again limiting the range of visualized values from 0 to 30).
 
 ```{r}
-#| warning : false
 
 ggplot(df, aes(x = duration, y = X8)) +
   stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "lightblue",
