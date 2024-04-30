@@ -1,5 +1,6 @@
 library(targets)
 library(tarchetypes)
+library(quarto)
 
 source("R/functions.R")
 
@@ -28,5 +29,7 @@ list(
     save_processed_data,
     write_csv(processed_data, "data/processed/preprocessed_data.csv")
   ),
-  tar_render(sample_characteristics, "analysis_notebooks/sample_characteristics.qmd")
+  tar_quarto(sample_characteristics,
+             "analysis_notebooks/sample_characteristics.qmd",
+             quiet = TRUE)
 )
