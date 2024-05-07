@@ -266,3 +266,50 @@ ggplot(df, aes(x = duration, y = X8)) +
 ```
 
 While students have a lower median than, e.g., faculty, there are no major differences in distributions upon closer inspection. The groups do not appear substantially different in their response times.
+
+## Clarity
+
+At the end of the survey, one question asked respondents whether they agreed to following statement: *"All the questions in this questionnaire were clear to me."*
+
+```{r}
+df$X53 <- factor(df$X53, levels = c("strongly disagree", "rather disagree", "rather agree", "strongly agree"))
+df$X53 <-  fct_na_value_to_level(df$X53)
+knitr::kable(table(df$X53, df$X64), format = "html")
+
+
+ggplot(df, aes(x = X53, fill = as_factor(X64))) +
+  geom_bar(position = "dodge") +
+  labs(title = "Clarity of Survey Questions by Year", x = "Clarity", y = "Count") +
+  theme_minimal() +
+  theme(legend.title = element_blank(),
+        plot.title = element_text(hjust = 0.5))
+```
+
+While the survey questions were clear to the large majority of respondents, there is still a considerable number of people disagreeing on this statement.
+
+```{r}
+#| warning: false
+
+ggplot(df, aes(x = duration, y = X53)) +
+  stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "orange",
+                      vline_color = "white") +
+  xlim(0, 30) +
+  labs(x = "Duration",
+       y = "Clarity of Questions",
+       title = "Distribution of Total Response Times by Clarity Questions") +
+  theme(
+    panel.background = element_rect(fill = "white"),
+    panel.grid.major = element_line(color = "lightgray"),
+    panel.grid.minor = element_line(color = "white")
+  )
+```
+
+When investigated in relation to response time, the most notable deviation in distribution can be seen in those not answering the clarity question. These respondents tended to finish the survey more quickly.
+
+```{r}
+
+# Calculate respondents indicating low clarity and responding fast
+subset_df <- subset(df, duration < 3 & X53 %in% c("strongly disagree", "rather disagree", "NA"))
+
+print(paste("The number of respondents taking less than three minutes and indicating low clarity (or not answering) is", nrow(subset_df)))
+```
