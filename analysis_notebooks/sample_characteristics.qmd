@@ -23,9 +23,6 @@ library(ggridges)
 options(dplyr.summarise.inform = FALSE)
 
 # Get data
-#data <- here("data", "processed", "preprocessed_data.csv")
-#df <- read_csv(data)
-
 df <- targets::tar_read(processed_data)
 ```
 
@@ -311,5 +308,7 @@ When investigated in relation to response time, the most notable deviation in di
 # Calculate respondents indicating low clarity and responding fast
 subset_df <- subset(df, duration < 3 & X53 %in% c("strongly disagree", "rather disagree", "NA"))
 
-print(paste("The number of respondents taking less than three minutes and indicating low clarity (or not answering) is", nrow(subset_df)))
+n_fast <- nrow(subset_df)
 ```
+
+However, the number of respondents who took less than three minutes for the survey and indicated low clarity (or did not answer the clarity question) only lies at `r n_fast`.
