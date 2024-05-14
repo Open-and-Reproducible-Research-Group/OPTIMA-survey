@@ -29,6 +29,10 @@ list(
     save_processed_data,
     write_csv(processed_data, "data/processed/preprocessed_data.csv")
   ),
+  tar_target(
+    recoded_data,
+    likert_to_factor(processed_data, var_overview)
+  ),
   tar_quarto(sample_characteristics,
              "analysis_notebooks/sample_characteristics.qmd",
              quiet = TRUE)

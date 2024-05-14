@@ -77,3 +77,28 @@ process_combined_data <- function(df){
   
   df
 }
+
+# Recode all likert scales as factors
+likert_to_factor <- function(df, var_overview){
+  
+  agreement <- var_overview$var_id[
+    var_overview$instruction == 'agreement'] %>% 
+    na.omit(.)
+  agreement_levels = c("strongly agree", "rather agree", "rather disagree",
+                       "strongly disagree", "don't know")
+  frequency <- var_overview$var_id[
+    var_overview$instruction == 'institutional occurrence'] %>% 
+    na.omit(.)
+  
+  frequency_levels = c("very often", "frequently", "sometimes", "rarely",
+                       "never", "don't know")
+  
+  df[agreement] <- lapply(df[agreement],
+                                function(x) factor(x,levels = agreement_levels))
+  
+  df[frequency] <- lapply(df[frequency],
+                          function(x) factor(x,levels = frequency_levels))
+  
+  
+  df
+}

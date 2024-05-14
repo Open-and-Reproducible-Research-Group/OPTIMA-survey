@@ -23,7 +23,7 @@ library(ggridges)
 options(dplyr.summarise.inform = FALSE)
 
 # Get data
-df <- targets::tar_read(processed_data)
+df <- targets::tar_read(recoded_data)
 ```
 
 ## Number of survey respondents
@@ -269,7 +269,6 @@ While students have a lower median than, e.g., faculty, there are no major diffe
 At the end of the survey, one question asked respondents whether they agreed to following statement: *"All the questions in this questionnaire were clear to me."*
 
 ```{r}
-df$X53 <- factor(df$X53, levels = c("strongly disagree", "rather disagree", "rather agree", "strongly agree"))
 df$X53 <-  fct_na_value_to_level(df$X53)
 knitr::kable(table(df$X53, df$X64), format = "html")
 
@@ -301,12 +300,12 @@ ggplot(df, aes(x = duration, y = X53)) +
   )
 ```
 
-When investigated in relation to response time, the most notable deviation in distribution can be seen in those not answering the clarity question. These respondents tended to finish the survey more quickly.
+When investigated in relation to response time, the most notable deviation in distribution can be seen in those not answering the clarity question or answering "don't know" to this question. These respondents tended to finish the survey more quickly.
 
 ```{r}
 
 # Calculate respondents indicating low clarity and responding fast
-subset_df <- subset(df, duration < 3 & X53 %in% c("strongly disagree", "rather disagree", "NA"))
+subset_df <- subset(df, duration < 3 & X53 %in% c("strongly disagree", "rather disagree", "NA", "don't know"))
 
 n_fast <- nrow(subset_df)
 ```
