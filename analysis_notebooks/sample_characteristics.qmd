@@ -23,7 +23,18 @@ library(ggridges)
 options(dplyr.summarise.inform = FALSE)
 
 # Get data
-df <- targets::tar_read(recoded_data)
+
+use_targets <- TRUE # Set to false if data is not received by targets pipeline
+
+if (use_targets) {
+  
+  df <- targets::tar_read(recoded_data)
+
+} else {
+
+  path <- here("data", "processed", "preprocessed_data.csv")
+  df <- read_csv(path)
+}
 ```
 
 ## Number of survey respondents
@@ -36,7 +47,9 @@ The survey included three waves, with one wave each year from 2021 to 2023. In a
 -   Lutsk National Technical University (LutskNTU)
 
 ```{r}
+
 df$X63 <- factor(df$X63, levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
+
 knitr::kable(table(df$X63, df$X64), format = "html")
 
 
@@ -311,3 +324,39 @@ n_fast <- nrow(subset_df)
 ```
 
 However, the number of respondents who took less than three minutes for the survey and indicated low clarity (or did not answer the clarity question) only lies at `r n_fast`.
+
+## "Don't know" Answers
+
+```{r}
+
+# Calculate number of "don't" know answers
+df <- df %>% 
+  rowwise() %>% 
+  mutate(dontknow = sum(na.omit(c_across(X15:X53)) == "don't know"))
+
+know <- describe(df$dontknow)
+
+corc <- cor(df$duration, df$dontknow, method = "kendall")
+```
+
+Participants were able to answer the agreement and frequency questions with "don't know" (39 question in total). Comparing the frequency with which this answer was chosen between groups might also help to investigate response behaviors more closely. Participants responded to a mean of `r round(know$mean, 2)` questions with "don't know" (*SD* = `r round(know$sd, 2)`), ranging from `r know$min` to `r know$max` such answers. Number of these answers is correlated with total response time with a Kendall correlation coefficient of `r round(corc, 2)`. Participants will not be excluded from the entire set, but it has to be considered in analysis that quite a lot of questions were answered with "don't know". Differences in academic groups might also be of interest here, since some might be more familiar with the topics of the survey than others.
+
+```{r}
+#| warning: false
+
+# Plot number of "don't know" answer by academic groups
+ggplot(df, aes(x = dontknow, y = X8)) +
+  stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "mediumorchid",
+                      vline_color = "white") +
+  xlim(0, 30) +
+  labs(x = "Number",
+       y = "Academic role",
+       title = "Distribution of \"don't know\" answers") +
+  theme(
+    panel.background = element_rect(fill = "white"),
+    panel.grid.major = element_line(color = "lightgray"),
+    panel.grid.minor = element_line(color = "white")
+  )
+```
+
+In the plot some groups appear to have answered quite rarely with "don't know", mainly university administrators and research staff. Students in their early years of study might also be less familiar with the topic. One notable outlier can be seen in librarians who indicated that they were not able to answer a question the most (however, this is one of the smallest groups among survey respondents).
