@@ -1,0 +1,131 @@
+---
+title: "Survey Analysis"
+author:
+  - "Eva Kormann"
+  - "Thomas Klebel"
+format: html
+editor: visual
+execute: 
+  echo: false
+---
+
+```{r}
+#| output: false
+#| warning: false
+
+
+library(tidyverse)
+library(psych)
+library(ggchicklet)
+library(patchwork)
+library(janitor)
+library(hrbrthemes)
+
+# Get data
+
+use_targets <- FALSE # Set to false if data is not received by targets pipeline
+
+if (use_targets) {
+  
+  df <- targets::tar_read(recoded_data)
+  vars <- targets::tar_read(var_overview)
+
+} else {
+  
+  library(here)
+  data <- here("data", "processed", "preprocessed_data.csv")
+  vars <- here("data", "processed", "var_overview.csv")
+  df <- read_csv(data)
+  var_overview <- read_csv(vars)
+}
+```
+
+## Agreement with statements on Open Science (X38-X52)
+
+```{r}
+step1 <- df %>% 
+  select(X38:X52) %>% 
+  pivot_longer(everything(), names_to = "var", values_to = "val") %>%
+  count(var, val)
+
+# Remove "don't know" answers and NAs
+nas <- step1 %>% 
+  filter(val == "don't know" | is.na(val))
+
+pdata <- step1 %>% 
+  anti_join(nas) %>% 
+  mutate(val = fct_relevel(val, "strongly agree", "rather agree",
+                           "rather disagree", "strongly disagree")) %>% 
+  group_by(var) %>%
+    mutate(prop = n/sum(n),
+           order = case_when(
+             str_detect(val, "\\sagree$") ~ prop,
+             TRUE ~ 0
+           ),
+           order = sum(order))
+```
+
+```{r}
+labels <- var_overview %>% 
+  filter(var_id %in% paste0("X", 38:52)) %>% 
+  mutate(label = var_full) %>% 
+  select(var_id, label)
+```
+
+```{r}
+pdata_institution <- pdata %>% 
+  left_join(labels, by = c("var" = "var_id"))
+```
+
+```{r}
+pdata_institution %>% 
+  ungroup() %>% 
+  arrange(desc(order), val) %>% 
+  mutate(prop = scales::percent(prop, accuracy = .1),
+         summary = glue::glue("{n} ({prop})")) %>% 
+  select(variable = label, value = val, summary) %>%
+  pivot_wider(names_from = value, values_from = summary,
+              values_fill = "0 (0.0%)", names_sort = TRUE) %>% 
+  knitr::kable(format = "html")
+```
+
+```{r}
+p1 <- pdata_institution %>% 
+  ggplot(aes(fct_reorder(label, order), prop, fill = val)) +
+  geom_chicklet(width = .7) +
+  coord_flip() +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_manual(values = c("#B96FB0", "#F9AEEF", "#94D790", "#54984E")) +
+  theme(legend.position = "top",
+        panel.background = element_rect(fill = "white"),
+        panel.grid.major = element_line(color = "grey80"),
+        panel.grid.minor = element_blank()) +
+  guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
+  labs(x = NULL, y = NULL, fill = NULL)
+
+# "don't know" and missing answers
+p_nas <- nas %>% 
+  left_join(select(pdata_institution, var, order)) %>% 
+  left_join(labels, by = c("var" = "var_id")) %>% 
+  distinct() %>% 
+  group_by(label, order) %>% 
+  summarise(n = sum(n))
+
+p2 <- p_nas %>% 
+  ggplot(aes(y = fct_reorder(label, order), x = n)) +
+  geom_col(fill = "grey50", width = .7) +
+  labs(x = NULL, y = "Number of answers 'don't know' or NA") +
+  scale_y_discrete(position = "right") +
+  theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+        axis.text.y = element_blank(),
+        axis.title.y = element_text( angle = 270),
+        panel.background = element_rect(fill = "white"),
+        panel.grid.major = element_line(color = "grey80"),
+        panel.grid.minor = element_blank())
+
+p1 + 
+  theme(plot.margin = margin()) + p2 +
+  plot_layout(widths = c(6, 1))
+```
+
+## One item over time

@@ -35,5 +35,8 @@ list(
   ),
   tar_quarto(sample_characteristics,
              "analysis_notebooks/sample_characteristics.qmd",
-             quiet = TRUE)
+             quiet = FALSE),
+  tar_quarto(survey_analysis,
+             "analysis_notebooks/survey_analysis.qmd",
+             quiet = FALSE)
 )
