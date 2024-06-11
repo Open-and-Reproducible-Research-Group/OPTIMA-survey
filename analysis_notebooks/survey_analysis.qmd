@@ -354,10 +354,22 @@ plot_frequency_years <- function(df, var_overview, question) {
 }
 ```
 
-```{r}
-plot_agreement_years(df, var_overview, "X46")
-```
+## Agreement
+
+### Open data
+
+"Experimental data should be published as openly as possible." (X45)
 
 ```{r}
-plot_frequency_years(df, var_overview, "X30")
+plot_agreement_years(df, var_overview, "X45")
+```
+
+## Frequency of certain practices at own institution
+
+### Fabrications
+
+"Making up data or facts about a scientific activity, for example, a research experiment." (X26)
+
+```{r}
+plot_frequency_years(df, var_overview, "X26")
 ```
