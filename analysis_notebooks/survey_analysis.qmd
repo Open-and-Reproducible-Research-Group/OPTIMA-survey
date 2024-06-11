@@ -7,6 +7,7 @@ format: html
 editor: visual
 execute: 
   echo: false
+  warning: false
 ---
 
 ```{r}
@@ -28,7 +29,7 @@ use_targets <- TRUE # Set to false if data is not received by targets pipeline
 if (use_targets) {
   
   df <- targets::tar_read(recoded_data)
-  vars <- targets::tar_read(var_overview)
+  var_overview <- targets::tar_read(var_overview)
 
 } else {
   
@@ -40,7 +41,7 @@ if (use_targets) {
 }
 ```
 
-## Agreement with statements on Open Science (X38-X52)
+# Comparison between items
 
 ```{r}
 #| warning: false
@@ -98,9 +99,9 @@ plot_agreement_overview <- function(df, var_overview, columns) {
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = n)) +
+    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number of answers 'don't know' or NA") +
+    labs(x = NULL, y = "Number 'don't know' or NA (in thousand)") +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -119,16 +120,118 @@ plot_agreement_overview <- function(df, var_overview, columns) {
 ```
 
 ```{r}
+#| warning: false
+
+
+plot_frequency_overview <- function(df, var_overview, columns) {
+  
+  step1 <- df %>% 
+    select(all_of(columns)) %>% 
+    pivot_longer(everything(), names_to = "var", values_to = "val") %>%
+    count(var, val)
+
+  # Remove "don't know" answers and NAs
+  nas <- step1 %>% 
+    filter(val == "don't know" | is.na(val))
+
+  pdata <- step1 %>% 
+    anti_join(nas) %>% 
+    mutate(val = fct_relevel(val, "very often", "frequently", "sometimes",
+                             "rarely", "never")) %>% 
+    group_by(var) %>%
+      mutate(prop = n/sum(n),
+             order = case_when(
+               str_detect(val, "\\bvery often\\b|\\bfrequently\\b") ~ prop,
+               TRUE ~ 0),
+             order = sum(order))
+  
+  labels <- var_overview %>% 
+    filter(var_id %in% columns) %>% 
+    mutate(label = str_wrap(var_full, width = 80)) %>%  
+    select(var_id, label)
+  
+  pdata_item <- pdata %>% 
+    left_join(labels, by = c("var" = "var_id"))
+  
+  p1 <- pdata_item %>% 
+    ggplot(aes(fct_reorder(var, order), prop, fill = val)) + # Replace 'var' with 'label' after figuring out linebreaks
+    geom_chicklet(width = .7) +
+    coord_flip() +
+    scale_y_continuous(labels = scales::percent) +
+    scale_fill_manual(values = c("steelblue", "olivedrab4", "lightgoldenrod", "tan2", "indianred")) +
+    theme(legend.position = "top",
+          panel.background = element_rect(fill = "white"),
+          panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_blank()) +
+    guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
+    labs(x = NULL, y = NULL, fill = NULL)
+
+  # Plot "don't know" and missing answers
+  p_nas <- nas %>% 
+    left_join(select(pdata_item, var, order)) %>% 
+    left_join(labels, by = c("var" = "var_id")) %>% 
+    distinct() %>% 
+    group_by(label, order) %>% 
+    summarise(n = sum(n))
+
+  p2 <- p_nas %>% 
+    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
+    geom_col(fill = "grey50", width = .7) +
+    labs(x = NULL, y = "Number 'don't know' or NA (in thousand)") +
+    scale_y_discrete(position = "right") +
+    theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+          axis.text.y = element_blank(),
+          axis.title.y = element_text( angle = 270),
+          panel.background = element_rect(fill = "white"),
+          panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_blank())
+
+  final_plot <- p1 + 
+    theme(plot.margin = margin()) + p2 +
+    plot_layout(widths = c(6, 1))
+  
+  final_plot
+  
+}
+```
+
+## Agreement with statements on Open Science (X38-X52)
+
+```{r}
 
 columns <- paste0("X", 38:52)
 plot_agreement_overview(df, var_overview, columns)
+
+knitr::kable(var_overview[var_overview$var_id %in% columns,])
 ```
 
-## Comparison over time within one item
+## Agreement with statements on research integrity (X15-X23)
+
+Caution: item X19 is phrased as an inverted item, while all others are not.
+
+```{r}
+
+columns <- paste0("X", 15:23)
+plot_agreement_overview(df, var_overview, columns)
+
+knitr::kable(var_overview[var_overview$var_id %in% columns,])
+```
+
+## Frequency of certain practices at own institution (X24-X37)
+
+```{r}
+columns <- paste0("X", 24:37)
+plot_frequency_overview(df, var_overview, columns)
+
+knitr::kable(var_overview[var_overview$var_id %in% columns,])
+```
+
+# Comparison over time within one item
 
 ```{r}
 
 # Plot answers to agreement items separated by survey wave years
+# Could be rewritten to group by any demographic characteristic
 plot_agreement_years <- function(df, var_overview, question) {
   step1 <- df %>%
     group_by(X64) %>%
@@ -146,7 +249,7 @@ plot_agreement_years <- function(df, var_overview, question) {
     group_by(X64, var) %>%
     mutate(prop = n/sum(n))
 
-  item <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
+  # item <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
 
   p1 <- pdata %>% 
     ggplot(aes(as.factor(X64), prop, fill = val)) +
@@ -159,7 +262,7 @@ plot_agreement_years <- function(df, var_overview, question) {
           panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL, title = item)
+    labs(x = NULL, y = NULL, fill = NULL, title = NULL)
 
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
@@ -168,9 +271,9 @@ plot_agreement_years <- function(df, var_overview, question) {
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = as.factor(X64), x = n)) +
+    ggplot(aes(y = as.factor(X64), x = n/100)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number of answers 'don't know' or NA") +
+    labs(x = NULL, y = "Number 'don't know' or NA (in hundreds)") +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -189,12 +292,9 @@ plot_agreement_years <- function(df, var_overview, question) {
 ```
 
 ```{r}
-plot_agreement_years(df, var_overview, "X15")
-```
-
-```{r}
 
 # Plot answers to frequency items separated by survey wave years
+# Could be rewritten to group by any demographic characteristic
 plot_frequency_years <- function(df, var_overview, question) {
   step1 <- df %>%
     group_by(X64) %>%
@@ -212,7 +312,7 @@ plot_frequency_years <- function(df, var_overview, question) {
     group_by(X64, var) %>%
     mutate(prop = n/sum(n))
 
-  item <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
+  # item <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
 
   p1 <- pdata %>% 
     ggplot(aes(as.factor(X64), prop, fill = val)) +
@@ -225,7 +325,7 @@ plot_frequency_years <- function(df, var_overview, question) {
           panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL, title = item)
+    labs(x = NULL, y = NULL, fill = NULL, title = NULL)
 
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
@@ -234,9 +334,9 @@ plot_frequency_years <- function(df, var_overview, question) {
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = as.factor(X64), x = n)) +
+    ggplot(aes(y = as.factor(X64), x = n/100)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number of answers 'don't know' or NA") +
+    labs(x = NULL, y = "Number 'don't know' or NA (in hundreds)") +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -255,5 +355,9 @@ plot_frequency_years <- function(df, var_overview, question) {
 ```
 
 ```{r}
-plot_frequency_years(df, var_overview, "X31")
+plot_agreement_years(df, var_overview, "X46")
+```
+
+```{r}
+plot_frequency_years(df, var_overview, "X30")
 ```
