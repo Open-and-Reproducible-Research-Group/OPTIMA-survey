@@ -311,12 +311,14 @@ plot_agreement <- function(
     left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
     group_by(.data[[group]], order) %>% 
-    summarise(n = sum(n))
+    summarise(group_perc = sum(group_perc))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order), x = n)) +
+    ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order),
+               x = group_perc)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA") +
+    labs(x = NULL, y = "Proportion 'don't know' or NA") +
+    scale_x_continuous(labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -383,12 +385,14 @@ plot_frequency <- function(
     left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
     group_by(.data[[group]], order) %>% 
-    summarise(n = sum(n))
+    summarise(group_perc = sum(group_perc))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order), x = n)) +
+    ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order),
+               x = group_perc)) +
     geom_col(fill = "grey50", width = .7) +
     labs(x = NULL, y = "Number 'don't know' or NA") +
+    scale_x_continuous(labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
