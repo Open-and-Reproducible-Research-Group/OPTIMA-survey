@@ -82,7 +82,7 @@ plot_agreement_overview <- function(df, var_overview, columns) {
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4", "goldenrod3", "indianred")) +
+    scale_fill_manual(values = c("steelblue", "olivedrab4", "goldenrod2", "indianred")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
@@ -99,9 +99,9 @@ plot_agreement_overview <- function(df, var_overview, columns) {
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
+    ggplot(aes(y = fct_reorder(label, order), x = n/100)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in thousand)") +
+    labs(x = NULL, y = "Number 'don't know' or NA (in hundreds)") +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -175,9 +175,9 @@ plot_frequency_overview <- function(df, var_overview, columns) {
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
+    ggplot(aes(y = fct_reorder(label, order), x = n/100)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in thousand)") +
+    labs(x = NULL, y = "Number 'don't know' or NA (in hundreds)") +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -229,14 +229,37 @@ knitr::kable(var_overview[var_overview$var_id %in% columns,])
 # Comparison over time within one item
 
 ```{r}
+table_answers <- function(df, question, group,
+                          filter = NULL, filter_val = NULL) {
+  
+  if (!is.null(filter)) {
+    df <- df %>% 
+      filter(.data[[filter]] == filter_val)
+  }
+  
+  answers <- df %>%
+    group_by(.data[[group]]) %>%
+    pivot_longer(question, names_to = "var", values_to = "val") %>%
+    count(var, val) %>% 
+    mutate(group_perc = round((n/sum(n) * 100), 2))
+  
+  answers
+}
+```
+
+```{r}
 
 # Plot answers to agreement items separated by survey wave years
-# Could be rewritten to group by any demographic characteristic
-plot_agreement_years <- function(df, var_overview, question) {
-  step1 <- df %>%
-    group_by(X64) %>%
-    pivot_longer(question, names_to = "var", values_to = "val") %>%
-    count(var, val)
+plot_agreement <- function(
+    df, var_overview, question, group,
+    filter = NULL, filter_val = NULL) {
+  
+  if (!is.null(filter)) {
+    df <- df %>% 
+      filter(.data[[filter]] == filter_val)
+  }
+  
+  step1 <- table_answers(df, question, group, filter, filter_val)
 
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
@@ -246,34 +269,34 @@ plot_agreement_years <- function(df, var_overview, question) {
     anti_join(nas) %>% 
     mutate(val = fct_relevel(val, "strongly agree", "rather agree",
                              "rather disagree", "strongly disagree")) %>% 
-    group_by(X64, var) %>%
+    group_by(.data[[group]], var) %>%
     mutate(prop = n/sum(n))
 
-  # item <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
+  # title <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
 
   p1 <- pdata %>% 
-    ggplot(aes(as.factor(X64), prop, fill = val)) +
+    ggplot(aes(as.factor(.data[[group]]), prop, fill = val)) +
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4", "goldenrod3", "indianred")) +
+    scale_fill_manual(values = c("steelblue", "olivedrab4", "goldenrod2", "indianred")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL, title = NULL)
+    labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
 
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
     distinct() %>% 
-    group_by(X64) %>% 
+    group_by(.data[[group]]) %>% 
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = as.factor(X64), x = n/100)) +
+    ggplot(aes(y = as.factor(.data[[group]]), x = n)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in hundreds)") +
+    labs(x = NULL, y = "Number 'don't know' or NA") +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -285,6 +308,7 @@ plot_agreement_years <- function(df, var_overview, question) {
   final_plot <- p1 + 
     theme(plot.margin = margin()) + p2 +
     plot_layout(widths = c(6, 1))
+
   
   final_plot
 
@@ -294,12 +318,16 @@ plot_agreement_years <- function(df, var_overview, question) {
 ```{r}
 
 # Plot answers to frequency items separated by survey wave years
-# Could be rewritten to group by any demographic characteristic
-plot_frequency_years <- function(df, var_overview, question) {
-  step1 <- df %>%
-    group_by(X64) %>%
-    pivot_longer(question, names_to = "var", values_to = "val") %>%
-    count(var, val)
+plot_frequency <- function(
+    df, var_overview, question, group,
+    filter = NULL, filter_val = NULL) {
+  
+  if (!is.null(filter)) {
+    df <- df %>% 
+      filter(.data[[filter]] == filter_val)
+  }
+  
+  step1 <- table_answers(df, question, group, filter, filter_val)
 
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
@@ -309,13 +337,13 @@ plot_frequency_years <- function(df, var_overview, question) {
     anti_join(nas) %>% 
     mutate(val = fct_relevel(val, "very often", "frequently", "sometimes",
                              "rarely", "never")) %>% 
-    group_by(X64, var) %>%
+    group_by(.data[[group]], var) %>%
     mutate(prop = n/sum(n))
 
-  # item <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
+  # title <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
 
   p1 <- pdata %>% 
-    ggplot(aes(as.factor(X64), prop, fill = val)) +
+    ggplot(aes(as.factor(.data[[group]]), prop, fill = val)) +
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
@@ -325,18 +353,18 @@ plot_frequency_years <- function(df, var_overview, question) {
           panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL, title = NULL)
+    labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
 
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
     distinct() %>% 
-    group_by(X64) %>% 
+    group_by(.data[[group]]) %>% 
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = as.factor(X64), x = n/100)) +
+    ggplot(aes(y = as.factor(.data[[group]]), x = n)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in hundreds)") +
+    labs(x = NULL, y = "Number 'don't know' or NA") +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -361,7 +389,9 @@ plot_frequency_years <- function(df, var_overview, question) {
 "Experimental data should be published as openly as possible." (X45)
 
 ```{r}
-plot_agreement_years(df, var_overview, "X45")
+plot_agreement(df, var_overview, "X45", group = "X64", filter = "X8", filter_val = "university administrator")
+
+knitr::kable(table_answers(df, "X45", "X64", "X8", "university administrator"), format = "html")
 ```
 
 ## Frequency of certain practices at own institution
@@ -371,5 +401,7 @@ plot_agreement_years(df, var_overview, "X45")
 "Making up data or facts about a scientific activity, for example, a research experiment." (X26)
 
 ```{r}
-plot_frequency_years(df, var_overview, "X26")
+plot_frequency(df, var_overview, "X26", group = "X64")
+
+knitr::kable(table_answers(df, "X26", "X64"), format = "html")
 ```
