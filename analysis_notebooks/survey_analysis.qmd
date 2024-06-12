@@ -107,9 +107,9 @@ plot_agreement_overview <- function(
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = n/100)) +
+    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in hundreds)") +
+    labs(x = NULL, y = "Number 'don't know' or NA (in thousand)") +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -191,9 +191,9 @@ plot_frequency_overview <- function(
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = n/100)) +
+    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in hundreds)") +
+    labs(x = NULL, y = "Number 'don't know' or NA (in thousands)") +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
