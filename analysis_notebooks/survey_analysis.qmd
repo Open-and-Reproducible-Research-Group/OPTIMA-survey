@@ -47,7 +47,14 @@ if (use_targets) {
 #| warning: false
 
 
-plot_agreement_overview <- function(df, var_overview, columns) {
+plot_agreement_overview <- function(
+    df, var_overview, columns, sort = TRUE,
+    filter = NULL, filter_val = NULL) {
+  
+  if (!is.null(filter)) {
+    df <- df %>% 
+      filter(.data[[filter]] == filter_val)
+  }
   
   step1 <- df %>% 
     select(all_of(columns)) %>% 
@@ -64,9 +71,10 @@ plot_agreement_overview <- function(df, var_overview, columns) {
                              "rather disagree", "strongly disagree")) %>% 
     group_by(var) %>%
       mutate(prop = n/sum(n),
-             order = case_when(
-               str_detect(val, "\\sagree$") ~ prop,
-               TRUE ~ 0),
+             order = if (sort) {
+               case_when(
+                 str_detect(val, "\\sagree$") ~ prop,
+                 TRUE ~ 0) } else {0},
              order = sum(order))
   
   labels <- var_overview %>% 
@@ -88,7 +96,7 @@ plot_agreement_overview <- function(df, var_overview, columns) {
           panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL)
+    labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
 
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
@@ -123,7 +131,14 @@ plot_agreement_overview <- function(df, var_overview, columns) {
 #| warning: false
 
 
-plot_frequency_overview <- function(df, var_overview, columns) {
+plot_frequency_overview <- function(
+    df, var_overview, columns, sort = TRUE,
+    filter = NULL, filter_val = NULL) {
+  
+  if (!is.null(filter)) {
+    df <- df %>% 
+      filter(.data[[filter]] == filter_val)
+  }
   
   step1 <- df %>% 
     select(all_of(columns)) %>% 
@@ -140,9 +155,10 @@ plot_frequency_overview <- function(df, var_overview, columns) {
                              "rarely", "never")) %>% 
     group_by(var) %>%
       mutate(prop = n/sum(n),
-             order = case_when(
-               str_detect(val, "\\bvery often\\b|\\bfrequently\\b") ~ prop,
-               TRUE ~ 0),
+             order = if (sort) {
+               case_when(
+                 str_detect(val, "\\brarely\\b|\\bnever\\b") ~ prop,
+                 TRUE ~ 0) } else {0},
              order = sum(order))
   
   labels <- var_overview %>% 
@@ -164,7 +180,7 @@ plot_frequency_overview <- function(df, var_overview, columns) {
           panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL)
+    labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
 
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
@@ -200,7 +216,7 @@ plot_frequency_overview <- function(df, var_overview, columns) {
 ```{r}
 
 columns <- paste0("X", 38:52)
-plot_agreement_overview(df, var_overview, columns)
+plot_agreement_overview(df, var_overview, columns, sort = FALSE)
 
 knitr::kable(var_overview[var_overview$var_id %in% columns,])
 ```
@@ -249,10 +265,10 @@ table_answers <- function(df, question, group,
 
 ```{r}
 
-# Plot answers to agreement items separated by survey wave years
+# Plot answers to agreement items separated by grouping variable
 plot_agreement <- function(
     df, var_overview, question, group,
-    filter = NULL, filter_val = NULL) {
+    filter = NULL, filter_val = NULL, sort = FALSE) {
   
   if (!is.null(filter)) {
     df <- df %>% 
@@ -270,12 +286,15 @@ plot_agreement <- function(
     mutate(val = fct_relevel(val, "strongly agree", "rather agree",
                              "rather disagree", "strongly disagree")) %>% 
     group_by(.data[[group]], var) %>%
-    mutate(prop = n/sum(n))
-
-  # title <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
+    mutate(prop = n/sum(n),
+             order = if (sort) {
+               case_when(
+                 str_detect(val, "\\sagree$") ~ prop,
+                 TRUE ~ 0) } else {0},
+             order = sum(order))
 
   p1 <- pdata %>% 
-    ggplot(aes(as.factor(.data[[group]]), prop, fill = val)) +
+    ggplot(aes(fct_reorder(as.factor(.data[[group]]), order), prop, fill = val)) +
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
@@ -289,12 +308,13 @@ plot_agreement <- function(
 
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
+    left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
-    group_by(.data[[group]]) %>% 
+    group_by(.data[[group]], order) %>% 
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = as.factor(.data[[group]]), x = n)) +
+    ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order), x = n)) +
     geom_col(fill = "grey50", width = .7) +
     labs(x = NULL, y = "Number 'don't know' or NA") +
     scale_y_discrete(position = "right") +
@@ -317,10 +337,10 @@ plot_agreement <- function(
 
 ```{r}
 
-# Plot answers to frequency items separated by survey wave years
+# Plot answers to frequency items separated by grouping variable
 plot_frequency <- function(
     df, var_overview, question, group,
-    filter = NULL, filter_val = NULL) {
+    filter = NULL, filter_val = NULL, sort = FALSE) {
   
   if (!is.null(filter)) {
     df <- df %>% 
@@ -338,12 +358,15 @@ plot_frequency <- function(
     mutate(val = fct_relevel(val, "very often", "frequently", "sometimes",
                              "rarely", "never")) %>% 
     group_by(.data[[group]], var) %>%
-    mutate(prop = n/sum(n))
-
-  # title <- str_wrap(var_overview$var_full[var_overview$var_id == question], width = 110)
+    mutate(prop = n/sum(n),
+             order = if (sort) {
+               case_when(
+                 str_detect(val, "\\brarely\\b|\\bnever\\b") ~ prop,
+                 TRUE ~ 0) } else {0},
+             order = sum(order))
 
   p1 <- pdata %>% 
-    ggplot(aes(as.factor(.data[[group]]), prop, fill = val)) +
+    ggplot(aes(fct_reorder(as.factor(.data[[group]]), order), prop, fill = val)) +
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
@@ -357,12 +380,13 @@ plot_frequency <- function(
 
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
+    left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
-    group_by(.data[[group]]) %>% 
+    group_by(.data[[group]], order) %>% 
     summarise(n = sum(n))
 
   p2 <- p_nas %>% 
-    ggplot(aes(y = as.factor(.data[[group]]), x = n)) +
+    ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order), x = n)) +
     geom_col(fill = "grey50", width = .7) +
     labs(x = NULL, y = "Number 'don't know' or NA") +
     scale_y_discrete(position = "right") +
@@ -389,9 +413,9 @@ plot_frequency <- function(
 "Experimental data should be published as openly as possible." (X45)
 
 ```{r}
-plot_agreement(df, var_overview, "X45", group = "X64", filter = "X8", filter_val = "university administrator")
+plot_agreement(df, var_overview, "X45", group = "X64")
 
-knitr::kable(table_answers(df, "X45", "X64", "X8", "university administrator"), format = "html")
+knitr::kable(table_answers(df, "X45", "X64"), format = "html")
 ```
 
 ## Frequency of certain practices at own institution
@@ -401,7 +425,7 @@ knitr::kable(table_answers(df, "X45", "X64", "X8", "university administrator"), 
 "Making up data or facts about a scientific activity, for example, a research experiment." (X26)
 
 ```{r}
-plot_frequency(df, var_overview, "X26", group = "X64")
+plot_frequency(df, var_overview, "X26", group = "X8", filter = "X64", filter_val = "2023", sort = TRUE)
 
-knitr::kable(table_answers(df, "X26", "X64"), format = "html")
+knitr::kable(table_answers(df, "X26", group = "X8", filter = "X64", filter_val = "2023"), format = "html")
 ```
