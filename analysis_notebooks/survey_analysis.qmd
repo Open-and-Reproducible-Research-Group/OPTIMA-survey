@@ -6,14 +6,13 @@ author:
 format: html
 editor: visual
 execute: 
-  echo: false
+  echo: true
   warning: false
 ---
 
 ```{r}
 #| output: false
-#| warning: false
-
+#| echo: false
 
 library(tidyverse)
 library(psych)
@@ -22,8 +21,9 @@ library(patchwork)
 library(janitor)
 library(hrbrthemes)
 
-# Get data
+source("R/analysis.R")
 
+# Get data
 use_targets <- TRUE # Set to false if data is not received by targets pipeline
 
 if (use_targets) {
@@ -43,187 +43,31 @@ if (use_targets) {
 
 # Comparison between items
 
-```{r}
-#| warning: false
-
-
-plot_agreement_overview <- function(
-    df, var_overview, columns, sort = TRUE,
-    filter = NULL, filter_val = NULL) {
-  
-  if (!is.null(filter)) {
-    df <- df %>% 
-      filter(.data[[filter]] == filter_val)
-  }
-  
-  step1 <- df %>% 
-    select(all_of(columns)) %>% 
-    pivot_longer(everything(), names_to = "var", values_to = "val") %>%
-    count(var, val)
-
-  # Remove "don't know" answers and NAs
-  nas <- step1 %>% 
-    filter(val == "don't know" | is.na(val))
-
-  pdata <- step1 %>% 
-    anti_join(nas) %>% 
-    mutate(val = fct_relevel(val, "strongly agree", "rather agree",
-                             "rather disagree", "strongly disagree")) %>% 
-    group_by(var) %>%
-      mutate(prop = n/sum(n),
-             order = if (sort) {
-               case_when(
-                 str_detect(val, "\\sagree$") ~ prop,
-                 TRUE ~ 0) } else {0},
-             order = sum(order))
-  
-  labels <- var_overview %>% 
-    filter(var_id %in% columns) %>% 
-    mutate(label = str_wrap(var_full, width = 80)) %>%  
-    select(var_id, label)
-  
-  pdata_item <- pdata %>% 
-    left_join(labels, by = c("var" = "var_id"))
-  
-  p1 <- pdata_item %>% 
-    ggplot(aes(fct_reorder(var, order), prop, fill = val)) + # Replace 'var' with 'label' after figuring out linebreaks
-    geom_chicklet(width = .7) +
-    coord_flip() +
-    scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4", "goldenrod2", "indianred")) +
-    theme(legend.position = "top",
-          panel.background = element_rect(fill = "white"),
-          panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank()) +
-    guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
-
-  # Plot "don't know" and missing answers
-  p_nas <- nas %>% 
-    left_join(select(pdata_item, var, order)) %>% 
-    left_join(labels, by = c("var" = "var_id")) %>% 
-    distinct() %>% 
-    group_by(label, order) %>% 
-    summarise(n = sum(n))
-
-  p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
-    geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in thousand)") +
-    scale_y_discrete(position = "right") +
-    theme(panel.border = element_rect(fill = NA, colour = "grey80"),
-          axis.text.y = element_blank(),
-          axis.title.y = element_text( angle = 270),
-          panel.background = element_rect(fill = "white"),
-          panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank())
-
-  final_plot <- p1 + 
-    theme(plot.margin = margin()) + p2 +
-    plot_layout(widths = c(6, 1))
-  
-  final_plot
-  
-}
-```
-
-```{r}
-#| warning: false
-
-
-plot_frequency_overview <- function(
-    df, var_overview, columns, sort = TRUE,
-    filter = NULL, filter_val = NULL) {
-  
-  if (!is.null(filter)) {
-    df <- df %>% 
-      filter(.data[[filter]] == filter_val)
-  }
-  
-  step1 <- df %>% 
-    select(all_of(columns)) %>% 
-    pivot_longer(everything(), names_to = "var", values_to = "val") %>%
-    count(var, val)
-
-  # Remove "don't know" answers and NAs
-  nas <- step1 %>% 
-    filter(val == "don't know" | is.na(val))
-
-  pdata <- step1 %>% 
-    anti_join(nas) %>% 
-    mutate(val = fct_relevel(val, "very often", "frequently", "sometimes",
-                             "rarely", "never")) %>% 
-    group_by(var) %>%
-      mutate(prop = n/sum(n),
-             order = if (sort) {
-               case_when(
-                 str_detect(val, "\\brarely\\b|\\bnever\\b") ~ prop,
-                 TRUE ~ 0) } else {0},
-             order = sum(order))
-  
-  labels <- var_overview %>% 
-    filter(var_id %in% columns) %>% 
-    mutate(label = str_wrap(var_full, width = 80)) %>%  
-    select(var_id, label)
-  
-  pdata_item <- pdata %>% 
-    left_join(labels, by = c("var" = "var_id"))
-  
-  p1 <- pdata_item %>% 
-    ggplot(aes(fct_reorder(var, order), prop, fill = val)) + # Replace 'var' with 'label' after figuring out linebreaks
-    geom_chicklet(width = .7) +
-    coord_flip() +
-    scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4", "lightgoldenrod", "tan2", "indianred")) +
-    theme(legend.position = "top",
-          panel.background = element_rect(fill = "white"),
-          panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank()) +
-    guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
-
-  # Plot "don't know" and missing answers
-  p_nas <- nas %>% 
-    left_join(select(pdata_item, var, order)) %>% 
-    left_join(labels, by = c("var" = "var_id")) %>% 
-    distinct() %>% 
-    group_by(label, order) %>% 
-    summarise(n = sum(n))
-
-  p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
-    geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in thousands)") +
-    scale_y_discrete(position = "right") +
-    theme(panel.border = element_rect(fill = NA, colour = "grey80"),
-          axis.text.y = element_blank(),
-          axis.title.y = element_text( angle = 270),
-          panel.background = element_rect(fill = "white"),
-          panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank())
-
-  final_plot <- p1 + 
-    theme(plot.margin = margin()) + p2 +
-    plot_layout(widths = c(6, 1))
-  
-  final_plot
-  
-}
-```
-
 ## Agreement with statements on Open Science (X38-X52)
 
+### Comparison Plot (2022 only)
+
 ```{r}
-
 columns <- paste0("X", 38:52)
-plot_agreement_overview(df, var_overview, columns, sort = FALSE)
+plot_agreement_overview(df, var_overview, columns, sort = FALSE,
+                        filter = "X64", filter_val = 2022)
+```
 
+### Full Statements
+
+```{r}
 knitr::kable(var_overview[var_overview$var_id %in% columns,])
+```
+
+### Overview Table by Year
+
+```{r}
+knitr::kable(table_answers_overview(df, columns, "X64"))
 ```
 
 ## Agreement with statements on research integrity (X15-X23)
 
-Caution: item X19 is phrased as an inverted item, while all others are not.
+Caution: X19 is phrased as an inverted item, while all others are not.
 
 ```{r}
 
@@ -242,173 +86,7 @@ plot_frequency_overview(df, var_overview, columns)
 knitr::kable(var_overview[var_overview$var_id %in% columns,])
 ```
 
-# Comparison over time within one item
-
-```{r}
-table_answers <- function(df, question, group,
-                          filter = NULL, filter_val = NULL) {
-  
-  if (!is.null(filter)) {
-    df <- df %>% 
-      filter(.data[[filter]] == filter_val)
-  }
-  
-  answers <- df %>%
-    group_by(.data[[group]]) %>%
-    pivot_longer(question, names_to = "var", values_to = "val") %>%
-    count(var, val) %>% 
-    mutate(group_perc = round((n/sum(n) * 100), 2))
-  
-  answers
-}
-```
-
-```{r}
-
-# Plot answers to agreement items separated by grouping variable
-plot_agreement <- function(
-    df, var_overview, question, group,
-    filter = NULL, filter_val = NULL, sort = FALSE) {
-  
-  if (!is.null(filter)) {
-    df <- df %>% 
-      filter(.data[[filter]] == filter_val)
-  }
-  
-  step1 <- table_answers(df, question, group, filter, filter_val)
-
-  # Remove "don't know" answers and NAs
-  nas <- step1 %>% 
-    filter(val == "don't know" | is.na(val))
-
-  pdata <- step1 %>% 
-    anti_join(nas) %>% 
-    mutate(val = fct_relevel(val, "strongly agree", "rather agree",
-                             "rather disagree", "strongly disagree")) %>% 
-    group_by(.data[[group]], var) %>%
-    mutate(prop = n/sum(n),
-             order = if (sort) {
-               case_when(
-                 str_detect(val, "\\sagree$") ~ prop,
-                 TRUE ~ 0) } else {0},
-             order = sum(order))
-
-  p1 <- pdata %>% 
-    ggplot(aes(fct_reorder(as.factor(.data[[group]]), order), prop, fill = val)) +
-    geom_chicklet(width = .7) +
-    coord_flip() +
-    scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4", "goldenrod2", "indianred")) +
-    theme(legend.position = "top",
-          panel.background = element_rect(fill = "white"),
-          panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank()) +
-    guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
-
-  # Plot "don't know" and missing answers
-  p_nas <- nas %>% 
-    left_join(select(pdata, var, order)) %>% 
-    distinct() %>% 
-    group_by(.data[[group]], order) %>% 
-    summarise(group_perc = sum(group_perc))
-
-  p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order),
-               x = group_perc)) +
-    geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Proportion 'don't know' or NA") +
-    scale_x_continuous(labels = function(x) paste0(x, "%")) +
-    scale_y_discrete(position = "right") +
-    theme(panel.border = element_rect(fill = NA, colour = "grey80"),
-          axis.text.y = element_blank(),
-          axis.title.y = element_text( angle = 270),
-          panel.background = element_rect(fill = "white"),
-          panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank())
-
-  final_plot <- p1 + 
-    theme(plot.margin = margin()) + p2 +
-    plot_layout(widths = c(6, 1))
-
-  
-  final_plot
-
-}
-```
-
-```{r}
-
-# Plot answers to frequency items separated by grouping variable
-plot_frequency <- function(
-    df, var_overview, question, group,
-    filter = NULL, filter_val = NULL, sort = FALSE) {
-  
-  if (!is.null(filter)) {
-    df <- df %>% 
-      filter(.data[[filter]] == filter_val)
-  }
-  
-  step1 <- table_answers(df, question, group, filter, filter_val)
-
-  # Remove "don't know" answers and NAs
-  nas <- step1 %>% 
-    filter(val == "don't know" | is.na(val))
-
-  pdata <- step1 %>% 
-    anti_join(nas) %>% 
-    mutate(val = fct_relevel(val, "very often", "frequently", "sometimes",
-                             "rarely", "never")) %>% 
-    group_by(.data[[group]], var) %>%
-    mutate(prop = n/sum(n),
-             order = if (sort) {
-               case_when(
-                 str_detect(val, "\\brarely\\b|\\bnever\\b") ~ prop,
-                 TRUE ~ 0) } else {0},
-             order = sum(order))
-
-  p1 <- pdata %>% 
-    ggplot(aes(fct_reorder(as.factor(.data[[group]]), order), prop, fill = val)) +
-    geom_chicklet(width = .7) +
-    coord_flip() +
-    scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4", "lightgoldenrod", "tan2", "indianred")) +
-    theme(legend.position = "top",
-          panel.background = element_rect(fill = "white"),
-          panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank()) +
-    guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
-    labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
-
-  # Plot "don't know" and missing answers
-  p_nas <- nas %>% 
-    left_join(select(pdata, var, order)) %>% 
-    distinct() %>% 
-    group_by(.data[[group]], order) %>% 
-    summarise(group_perc = sum(group_perc))
-
-  p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order),
-               x = group_perc)) +
-    geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA") +
-    scale_x_continuous(labels = function(x) paste0(x, "%")) +
-    scale_y_discrete(position = "right") +
-    theme(panel.border = element_rect(fill = NA, colour = "grey80"),
-          axis.text.y = element_blank(),
-          axis.title.y = element_text( angle = 270),
-          panel.background = element_rect(fill = "white"),
-          panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank())
-
-  final_plot <- p1 + 
-    theme(plot.margin = margin()) + p2 +
-    plot_layout(widths = c(6, 1))
-  
-  final_plot
-
-}
-```
+# Comparison within one item
 
 ## Agreement
 
@@ -433,3 +111,5 @@ plot_frequency(df, var_overview, "X26", group = "X8", filter = "X64", filter_val
 
 knitr::kable(table_answers(df, "X26", group = "X8", filter = "X64", filter_val = "2023"), format = "html")
 ```
+
+## 
