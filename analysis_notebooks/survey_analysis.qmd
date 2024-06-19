@@ -120,9 +120,10 @@ plot_agreement(df, var_overview, "X45", group = "X64")
 Data here is filtered for the year 2023 and grouped by academic role (which is a variable that could benefit from merging some categories). The groups are sorted by the frequency they estimate. However, we could sort the groups also in some other way as desired.
 
 ```{r}
-plot_frequency(df, var_overview, "X26", group = "X8", filter = "X64", filter_val = "2023", sort = TRUE)
+plot_frequency(df, var_overview, "X26", group = "X8",
+               filter = "X64", filter_val = "2023", sort = TRUE)
 ```
 
 ## 
 
-Additionally to these plots, we can also produce large overview tables that would allow to investigate certain items, groups or categories more closely. However, these were left out for now due to their size.
+Additionally to these plots, we can also produce large overview tables that would allow to investigate certain items, groups or categories more closely. However, these were left out for now due to their size. Visualizations will also be adapted and optimized (e.g., labelling of axes), but some issues at the moment are also caused by rendering that will be solved later.

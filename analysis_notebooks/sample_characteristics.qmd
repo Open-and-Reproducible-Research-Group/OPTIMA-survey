@@ -305,7 +305,8 @@ ggplot(df, aes(x = X53, fill = as_factor(X64))) +
   labs(title = "Clarity of Survey Questions by Year", x = "Clarity", y = "Count") +
   theme_minimal() +
   theme(legend.title = element_blank(),
-        plot.title = element_text(hjust = 0.5))
+        plot.title = element_text(hjust = 0.5),
+        axis.text.x = element_text(angle = 45, hjust = 1))
 ```
 
 While the survey questions were clear to the large majority of respondents, there is still a considerable number of people disagreeing on this statement.
