@@ -3,7 +3,7 @@ title: "Survey Analysis"
 author:
   - "Eva Kormann"
   - "Thomas Klebel"
-format: html
+format: pdf
 editor: visual
 execute: 
   echo: true
@@ -43,47 +43,58 @@ if (use_targets) {
 
 # Comparison between items
 
-## Agreement with statements on Open Science (X38-X52)
+## Agreement X38-X52 (open science focus)
 
-### Comparison Plot (2022 only)
+The overviews are so far produced by the order of items in the survey. However, we plan to rearrange the items more by related topics and create overviews that way.
+
+### Comparison Plot
+
+This plot compares the selected answer categories across different agreement items and sorts them based on how many people agree. For better visualization, the labels are (for now) replaced by the short variable id. It might make sense to include only response from one year in one such plot (because otherwise some respondents would appear multiple times, while others won't). The option to filter for a specific year is already implemented.
 
 ```{r}
 columns <- paste0("X", 38:52)
-plot_agreement_overview(df, var_overview, columns, sort = FALSE,
-                        filter = "X64", filter_val = 2022)
+plot_agreement_overview(df, var_overview, columns, sort = TRUE)
 ```
 
 ### Full Statements
 
-```{r}
-knitr::kable(var_overview[var_overview$var_id %in% columns,])
-```
-
-### Overview Table by Year
+To look up the full statements that are referred to by the variable ids, we derive them here from our variable overview.
 
 ```{r}
-knitr::kable(table_answers_overview(df, columns, "X64"))
+knitr::kable(var_overview[var_overview$var_id %in% columns, 1:2])
 ```
 
-## Agreement with statements on research integrity (X15-X23)
+## Agreement X15-X23 (research integrity focus)
 
-Caution: X19 is phrased as an inverted item, while all others are not.
+### Comparison Plot
+
+Caution: X19 is phrased as an inverted item, while all others are not. This needs to be considered for interpretation
 
 ```{r}
 
 columns <- paste0("X", 15:23)
 plot_agreement_overview(df, var_overview, columns)
+```
 
-knitr::kable(var_overview[var_overview$var_id %in% columns,])
+### Full Statements
+
+```{r}
+knitr::kable(var_overview[var_overview$var_id %in% columns, 1:2])
 ```
 
 ## Frequency of certain practices at own institution (X24-X37)
 
+### Comparison Plot
+
 ```{r}
 columns <- paste0("X", 24:37)
 plot_frequency_overview(df, var_overview, columns)
+```
 
-knitr::kable(var_overview[var_overview$var_id %in% columns,])
+### Full Statements
+
+```{r}
+knitr::kable(var_overview[var_overview$var_id %in% columns, 1:2])
 ```
 
 # Comparison within one item
@@ -94,10 +105,10 @@ knitr::kable(var_overview[var_overview$var_id %in% columns,])
 
 "Experimental data should be published as openly as possible." (X45)
 
+Data here is grouped by the survey year, therefore allowing quick visual comparisons. There is a plan to have more specific visualizations for developments over time.
+
 ```{r}
 plot_agreement(df, var_overview, "X45", group = "X64")
-
-knitr::kable(table_answers(df, "X45", "X64"), format = "html")
 ```
 
 ## Frequency of certain practices at own institution
@@ -106,10 +117,12 @@ knitr::kable(table_answers(df, "X45", "X64"), format = "html")
 
 "Making up data or facts about a scientific activity, for example, a research experiment." (X26)
 
+Data here is filtered for the year 2023 and grouped by academic role (which is a variable that could benefit from merging some categories). The groups are sorted by the frequency they estimate. However, we could sort the groups also in some other way as desired.
+
 ```{r}
 plot_frequency(df, var_overview, "X26", group = "X8", filter = "X64", filter_val = "2023", sort = TRUE)
-
-knitr::kable(table_answers(df, "X26", group = "X8", filter = "X64", filter_val = "2023"), format = "html")
 ```
 
 ## 
+
+Additionally to these plots, we can also produce large overview tables that would allow to investigate certain items, groups or categories more closely. However, these were left out for now due to their size.
