@@ -108,7 +108,10 @@ knitr::kable(table(df$X11, df$X64), format = "html")
 *"What is your field of study or work?"*
 
 ```{r}
-knitr::kable(table(df$X12, df$X64), format = "html")
+field <- as.data.frame.matrix(table(df$X12, df$X64))
+rownames(field) <- gsub("\\s*\\(.*?\\)", "", rownames(field))
+
+knitr::kable(field, format = "html")
 ```
 
 ## Publications
@@ -247,7 +250,10 @@ Time stamps were collected within the survey for start and finish. Total respons
 First, basic descriptive statistics are examined for total response time. Additionally, a simple boxplot is created.
 
 ```{r}
-knitr::kable(describe(df$duration), format = "html")
+knitr::kable(describe(df$duration) %>% 
+               mutate_if(is.numeric, ~round(., 2)) %>%
+               select(-c(n, trimmed, kurtosis)),
+             format = "html")
 boxplot(df$duration, main = "Boxplot of Total Response Times", ylab = "Duration")
 ```
 
