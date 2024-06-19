@@ -3,7 +3,7 @@ title: "Survey Analysis"
 author:
   - "Eva Kormann"
   - "Thomas Klebel"
-format: pdf
+format: html
 editor: visual
 execute: 
   echo: true

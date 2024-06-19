@@ -3,7 +3,7 @@ title: "Sample Characteristics"
 author:
   - "Eva Kormann"
   - "Thomas Klebel"
-format: pdf
+format: html
 editor: visual
 execute: 
   echo: false
