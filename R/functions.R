@@ -40,7 +40,7 @@ create_var_overview <- function(path) {
       as.integer(sub("X", "", var_id)) >= 15 & 
         as.integer(sub("X", "", var_id))  <= 23 ~ "agreement",
       as.integer(sub("X", "", var_id)) >= 24 & 
-        as.integer(sub("X", "", var_id))  <= 37 ~ "institutional occurrence",
+        as.integer(sub("X", "", var_id))  <= 37 ~ "frequency",
       as.integer(sub("X", "", var_id)) >= 38 & 
         as.integer(sub("X", "", var_id))  <= 53 ~ "agreement"
     )) 
@@ -87,7 +87,7 @@ likert_to_factor <- function(df, var_overview){
   agreement_levels = c("strongly agree", "rather agree", "rather disagree",
                        "strongly disagree", "don't know")
   frequency <- var_overview$var_id[
-    var_overview$instruction == 'institutional occurrence'] %>% 
+    var_overview$instruction == 'frequency'] %>% 
     na.omit(.)
   
   frequency_levels = c("very often", "frequently", "sometimes", "rarely",
