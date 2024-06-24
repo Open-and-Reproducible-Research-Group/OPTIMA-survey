@@ -57,7 +57,8 @@ plot_agreement_overview <- function(
   step1 <- df %>% 
     select(all_of(columns)) %>% 
     pivot_longer(everything(), names_to = "var", values_to = "val") %>%
-    count(var, val)
+    count(var, val) %>% 
+    mutate(total_perc = n/nrow(df))
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
@@ -102,13 +103,13 @@ plot_agreement_overview <- function(
     left_join(select(pdata_item, var, order)) %>% 
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
-    group_by(label, order) %>% 
-    summarise(n = sum(n))
+    group_by(label, order)
   
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
+    ggplot(aes(y = fct_reorder(label, order), x = total_perc)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in thousand)") +
+    labs(x = NULL, y = "Proportion 'don't know' or NA") +
+    scale_x_continuous(labels = function(x) paste0(round(x * 100, 0), "%")) +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
@@ -139,7 +140,8 @@ plot_frequency_overview <- function(
   step1 <- df %>% 
     select(all_of(columns)) %>% 
     pivot_longer(everything(), names_to = "var", values_to = "val") %>%
-    count(var, val)
+    count(var, val) %>% 
+    mutate(total_perc = n/nrow(df))
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
@@ -185,14 +187,14 @@ plot_frequency_overview <- function(
     left_join(select(pdata_item, var, order)) %>% 
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
-    group_by(label, order) %>% 
-    summarise(n = sum(n))
+    group_by(label, order)
   
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = n/1000)) +
+    ggplot(aes(y = fct_reorder(label, order), x = total_perc)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA (in thousands)") +
+    labs(x = NULL, y = "Proportion 'don't know'") +
     scale_y_discrete(position = "right") +
+    scale_x_continuous(labels = function(x) paste0(round(x * 100, 0), "%")) +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
           axis.text.y = element_blank(),
           axis.title.y = element_text( angle = 270),
@@ -335,7 +337,7 @@ plot_frequency <- function(
     ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order),
                x = perc)) +
     geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Number 'don't know' or NA") +
+    labs(x = NULL, y = "Proportion 'don't know'") +
     scale_x_continuous(labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),

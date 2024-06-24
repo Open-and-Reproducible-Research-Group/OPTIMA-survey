@@ -21,19 +21,21 @@ library(patchwork)
 library(janitor)
 library(hrbrthemes)
 
-source("R/analysis.R")
 
 # Get data
 use_targets <- TRUE # Set to false if data is not received by targets pipeline
 
 if (use_targets) {
   
+  source("R/analysis.R")
   df <- targets::tar_read(recoded_data)
   var_overview <- targets::tar_read(var_overview)
 
 } else {
   
   library(here)
+  functions <- here("R", "analysis.R")
+  source(functions)
   data <- here("data", "processed", "preprocessed_data.csv")
   vars <- here("data", "processed", "var_overview.csv")
   df <- read_csv(data)
