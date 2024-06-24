@@ -344,10 +344,11 @@ However, the number of respondents who took less than three minutes for the surv
 
 ```{r}
 
-# Calculate number of "don't" know answers
+# Calculate number of "don't know" answers
 df <- df %>% 
   rowwise() %>% 
   mutate(dontknow = sum(na.omit(c_across(X15:X53)) == "don't know"))
+
 
 know <- describe(df$dontknow)
 
@@ -375,3 +376,40 @@ ggplot(df, aes(x = dontknow, y = X8)) +
 ```
 
 In the plot some groups appear to have answered quite rarely with "don't know", mainly university administrators and research staff. Students in their early years of study might also be less familiar with the topic. One notable outlier can be seen in librarians who indicated that they were not able to answer a question the most (however, this is one of the smallest groups among survey respondents).
+
+```{r}
+#| warning: false
+
+# Plot number of "don't know" answer by response to clarity question
+ggplot(df, aes(x = dontknow, y = X53)) +
+  stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "olivedrab3",
+                      vline_color = "white") +
+  labs(x = "Number",
+       y = "Response to clarity question",
+       title = "Distribution of \"don't know\" answers") +
+  theme(
+    panel.background = element_rect(fill = "white"),
+    panel.grid.major = element_line(color = "lightgray"),
+    panel.grid.minor = element_line(color = "white")
+  )
+```
+
+## Comparison of NA and "don't know" answers
+
+Missing answers seem to be very rare compared to "don't know" answers. They have almost no weight when examining questions where no specific response on agreement or frequency was provided. Participants mostly did not skip questions, rather answered with "don't know".
+
+```{r}
+
+na <- df %>% 
+  summarise(nas = sum(is.na(c_across(X15:X53))))
+
+df$nas <- na$nas
+
+nonresp <- df %>% 
+  mutate(nontotal = dontknow + nas) %>% 
+  select(c(X1, dontknow, nas, nontotal)) %>% 
+  pivot_longer(cols = c(dontknow, nas, nontotal), names_to = "responses", values_to = "numresp")
+
+ggplot(nonresp, aes(x = responses, y = numresp)) +
+  geom_boxplot()
+```
