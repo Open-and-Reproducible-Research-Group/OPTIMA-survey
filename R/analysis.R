@@ -203,7 +203,7 @@ plot_frequency_overview <- function(
     scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
     scale_y_discrete(position = "right") +
-    scale_x_continuous(breaks = c(0, 0.25, 0.5),
+    scale_x_continuous(breaks = c(0, 0.2, 0.4, 0.6),
                        labels = function(x) paste0(round(x * 100, 0), "%")) +
     guides(fill = guide_legend(ncol = 1)) +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
@@ -357,7 +357,8 @@ plot_frequency <- function(
     geom_col(width = .7) +
     scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
-    scale_x_continuous(labels = function(x) paste0(x, "%")) +
+    scale_x_continuous(breaks = c(0, 30, 60),
+                       labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
