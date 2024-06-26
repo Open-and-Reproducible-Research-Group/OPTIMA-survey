@@ -104,7 +104,7 @@ plot_agreement_overview <- function(
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
     group_by(label, order) %>% 
-    mutate(val = ifelse(is.na(val), "NA", val)) %>%
+    mutate(val = replace(val, is.na(val), "NA")) %>%
     mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
@@ -112,7 +112,8 @@ plot_agreement_overview <- function(
     geom_col(width = .7) +
     scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
-    scale_x_continuous(labels = function(x) paste0(round(x * 100, 0), "%")) +
+    scale_x_continuous(breaks = c(0, 0.1, 0.2, 0.3),
+                       labels = function(x) paste0(round(x * 100, 0), "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
@@ -194,7 +195,7 @@ plot_frequency_overview <- function(
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
     group_by(label, order)  %>% 
-    mutate(val = ifelse(is.na(val), "NA", val)) %>%
+    mutate(val = replace(val, is.na(val), "NA")) %>%
     mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
@@ -270,7 +271,7 @@ plot_agreement <- function(
     left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
     group_by(.data[[group]], order) %>% 
-    mutate(val = ifelse(is.na(val), "NA", val)) %>%
+    mutate(val = replace(val, is.na(val), "NA")) %>%
     mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
@@ -348,7 +349,7 @@ plot_frequency <- function(
     left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
     group_by(.data[[group]], order) %>% 
-    mutate(val = ifelse(is.na(val), "NA", val)) %>%
+    mutate(val = replace(val, is.na(val), "NA")) %>%
     mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 

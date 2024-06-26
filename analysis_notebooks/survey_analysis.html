@@ -103,27 +103,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<section id="comparison-between-items" class="level1">
-<h1>Comparison between items</h1>
-<section id="agreement-x38-x52-open-science-focus" class="level2">
-<h2 class="anchored" data-anchor-id="agreement-x38-x52-open-science-focus">Agreement X38-X52 (open science focus)</h2>
-<p>The overviews are so far produced by the order of items in the survey. However, we plan to rearrange the items more by related topics and create overviews that way.</p>
-<section id="comparison-plot" class="level3">
-<h3 class="anchored" data-anchor-id="comparison-plot">Comparison Plot</h3>
-<p>This plot compares the selected answer categories across different agreement items and sorts them based on how many people agree. For better visualization, the labels are (for now) replaced by the short variable id. It might make sense to include only response from one year in one such plot (because otherwise some respondents would appear multiple times, while others won’t). The option to filter for a specific year is already implemented.</p>
+<section id="overview" class="level1">
+<h1>Overview</h1>
+<section id="research" class="level2">
+<h2 class="anchored" data-anchor-id="research">Research</h2>
+<section id="open-science" class="level3">
+<h3 class="anchored" data-anchor-id="open-science">Open Science</h3>
+<p>Multiple questions within the survey inquired about how much participants agreed with certain statements related to different Open Science practices. The full statements in this group and their respective variable ids are presented in the table below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>columns <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"X"</span>, <span class="dv">38</span><span class="sc">:</span><span class="dv">52</span>)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement_overview</span>(df, var_overview, columns, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid" width="672"></p>
-</div>
-</div>
-</section>
-<section id="full-statements" class="level3">
-<h3 class="anchored" data-anchor-id="full-statements">Full Statements</h3>
-<p>To look up the full statements that are referred to by the variable ids, we derive them here from our variable overview.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> columns, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>os <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X38"</span>, <span class="st">"X39"</span>, <span class="st">"X42"</span>, <span class="st">"X43"</span>, <span class="st">"X45"</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">"X46"</span>, <span class="st">"X48"</span>, <span class="st">"X49"</span>, <span class="st">"X50"</span>, <span class="st">"X52"</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> os, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
@@ -146,14 +137,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">X40</td>
-<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X41</td>
-<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">X42</td>
 <td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
 </tr>
@@ -162,20 +145,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">X44</td>
-<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">X45</td>
 <td style="text-align: left;">Experimental data should be published as openly as possible.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">X46</td>
 <td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X47</td>
-<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X48</td>
@@ -190,10 +165,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">X51</td>
-<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
-</tr>
-<tr class="odd">
 <td style="text-align: left;">X52</td>
 <td style="text-align: left;">I can explain what “open science” is.</td>
 </tr>
@@ -201,30 +172,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-</section>
-</section>
-<section id="agreement-x15-x23-research-integrity-focus" class="level2">
-<h2 class="anchored" data-anchor-id="agreement-x15-x23-research-integrity-focus">Agreement X15-X23 (research integrity focus)</h2>
-<section id="comparison-plot-1" class="level3">
-<h3 class="anchored" data-anchor-id="comparison-plot-1">Comparison Plot</h3>
-<p>Caution: X19 is phrased as an inverted item, while all others are not. This needs to be considered for interpretation</p>
+<p>In the following figure, responses are visualized to the Open Science questions. They are sorted by the amount of agreement with these statements. Proportions of the different answer categories were calculated after removing missing and “don’t know” responses. These responses are plotted separately on the right hand side, indicating their percentage of the total responses.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>columns <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"X"</span>, <span class="dv">15</span><span class="sc">:</span><span class="dv">23</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement_overview</span>(df, var_overview, columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement_overview</span>(df, var_overview, os)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid" width="672"></p>
+<p><img src="survey_analysis_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
 </section>
-<section id="full-statements-1" class="level3">
-<h3 class="anchored" data-anchor-id="full-statements-1">Full Statements</h3>
+<section id="reporting-and-academic-integrity" class="level3">
+<h3 class="anchored" data-anchor-id="reporting-and-academic-integrity">Reporting and Academic Integrity</h3>
+<p>Nine items inquire about the agreement with statements related to reporting and academic integrity. The full items are presented in the table below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> columns, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>raia <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X19"</span>, <span class="st">"X17"</span>, <span class="st">"X18"</span>, <span class="st">"X20"</span>, <span class="st">"X21"</span>,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"X40"</span>, <span class="st">"X44"</span>, <span class="st">"X41"</span>, <span class="st">"X47"</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> raia, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 5%">
-<col style="width: 94%">
+<col style="width: 4%">
+<col style="width: 95%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -233,14 +200,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
-<td style="text-align: left;">X15</td>
-<td style="text-align: left;">Overall, the processes at my higher education institution are organised in a clear and transparent manner</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X16</td>
-<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
-</tr>
 <tr class="odd">
 <td style="text-align: left;">X17</td>
 <td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
@@ -262,35 +221,36 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">X22</td>
-<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">X40</td>
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">X23</td>
-<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">X41</td>
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">X44</td>
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">X47</td>
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
-</section>
-</section>
-<section id="frequency-of-certain-practices-at-own-institution-x24-x37" class="level2">
-<h2 class="anchored" data-anchor-id="frequency-of-certain-practices-at-own-institution-x24-x37">Frequency of certain practices at own institution (X24-X37)</h2>
-<section id="comparison-plot-2" class="level3">
-<h3 class="anchored" data-anchor-id="comparison-plot-2">Comparison Plot</h3>
+<p>Caution: Question X19 (“Changes to the experimental data […] are acceptable”) is the only statement phrased in the opposite direction. This needs to be considered when interpreting the responses.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>columns <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"X"</span>, <span class="dv">24</span><span class="sc">:</span><span class="dv">37</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_frequency_overview</span>(df, var_overview, columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement_overview</span>(df, var_overview, raia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid" width="672"></p>
+<p><img src="survey_analysis_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-<section id="full-statements-2" class="level3">
-<h3 class="anchored" data-anchor-id="full-statements-2">Full Statements</h3>
+<p>Six questions were about the frequency with which certain questionable research practices around reporting occur at the respondent’s institution (see table below).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> columns, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>raif <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X24"</span>, <span class="st">"X25"</span>, <span class="st">"X26"</span>, <span class="st">"X27"</span>, <span class="st">"X28"</span>, <span class="st">"X29"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> raif, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
@@ -328,6 +288,81 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">X29</td>
 <td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
 </tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>The following overview plot is sorted by the proportion of “never” and “rarely” responses. These questions could not be skipped, therefore there are no missing answers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_frequency_overview</span>(df, var_overview, raif)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="survey_analysis_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+</section>
+<section id="education" class="level2">
+<h2 class="anchored" data-anchor-id="education">Education</h2>
+<p>While most questions referred to research, others focused more on education at the respective HEI. Respondents were inquired about their agreement with certain education-related statements (see table below), most of them also related to Open Science, but in an educational context.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>edua <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X16"</span>, <span class="st">"X22"</span>, <span class="st">"X23"</span>, <span class="st">"X51"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> edua, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 95%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">var_id</th>
+<th style="text-align: left;">var_full</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">X16</td>
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">X22</td>
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">X23</td>
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">X51</td>
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement_overview</span>(df, var_overview, edua, <span class="at">sort =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="survey_analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+<p>The occurrence of three different types of student misconduct were also investigated within the survey (see table and figure below).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>eduf <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X30"</span>, <span class="st">"X31"</span>, <span class="st">"X32"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> eduf, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 7%">
+<col style="width: 92%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">var_id</th>
+<th style="text-align: left;">var_full</th>
+</tr>
+</thead>
+<tbody>
 <tr class="odd">
 <td style="text-align: left;">X30</td>
 <td style="text-align: left;">Students help each other during exams or tests.</td>
@@ -340,23 +375,53 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: left;">X32</td>
 <td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
 </tr>
-<tr class="even">
+</tbody>
+</table>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_frequency_overview</span>(df, var_overview, eduf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="survey_analysis_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid" width="672"></p>
+</div>
+</div>
+</section>
+<section id="institutionadministration" class="level2">
+<h2 class="anchored" data-anchor-id="institutionadministration">Institution/Administration</h2>
+<p>The survey contained five questions on how misconduct is handled at the respondent’s respective institution. Respondents indicated the frequency with which certain practices occurred at their institution.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>adm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X33"</span>, <span class="st">"X34"</span>, <span class="st">"X35"</span>, <span class="st">"X36"</span>, <span class="st">"X37"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> adm, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 93%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">var_id</th>
+<th style="text-align: left;">var_full</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
 <td style="text-align: left;">X33</td>
 <td style="text-align: left;">Incitement to violate academic integrity.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">X34</td>
 <td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">X35</td>
 <td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">X36</td>
 <td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td style="text-align: left;">X37</td>
 <td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
 </tr>
@@ -364,43 +429,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </table>
 </div>
 </div>
-</section>
-</section>
-</section>
-<section id="comparison-within-one-item" class="level1">
-<h1>Comparison within one item</h1>
-<section id="agreement" class="level2">
-<h2 class="anchored" data-anchor-id="agreement">Agreement</h2>
-<section id="open-data" class="level3">
-<h3 class="anchored" data-anchor-id="open-data">Open data</h3>
-<p>“Experimental data should be published as openly as possible.” (X45)</p>
-<p>Data here is grouped by the survey year, therefore allowing quick visual comparisons. There is a plan to have more specific visualizations for developments over time.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement</span>(df, var_overview, <span class="st">"X45"</span>, <span class="at">group =</span> <span class="st">"X64"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_frequency_overview</span>(df, var_overview, adm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid" width="672"></p>
+<p><img src="survey_analysis_files/figure-html/unnamed-chunk-13-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-</section>
-<section id="frequency-of-certain-practices-at-own-institution" class="level2">
-<h2 class="anchored" data-anchor-id="frequency-of-certain-practices-at-own-institution">Frequency of certain practices at own institution</h2>
-<section id="fabrications" class="level3">
-<h3 class="anchored" data-anchor-id="fabrications">Fabrications</h3>
-<p>“Making up data or facts about a scientific activity, for example, a research experiment.” (X26)</p>
-<p>Data here is filtered for the year 2023 and grouped by academic role (which is a variable that could benefit from merging some categories). The groups are sorted by the frequency they estimate. However, we could sort the groups also in some other way as desired.</p>
+<p>One general item also inquired about the following statement: “Overall, the processes at my higher education institution are organised in a clear and transparent manner”. The agreement is visualized by the different institutional surveys vs.&nbsp;the national survey.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_frequency</span>(df, var_overview, <span class="st">"X26"</span>, <span class="at">group =</span> <span class="st">"X8"</span>,</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">filter =</span> <span class="st">"X64"</span>, <span class="at">filter_val =</span> <span class="st">"2023"</span>, <span class="at">sort =</span> <span class="cn">TRUE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>X63 <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>X63, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"National"</span>, <span class="st">"LPU"</span>, <span class="st">"SumDU"</span>, <span class="st">"DonNU"</span>, <span class="st">"LutskNTU"</span>))</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement</span>(df, var_overview, <span class="st">"X15"</span>, <span class="at">group =</span> <span class="st">"X63"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/unnamed-chunk-9-1.png" class="img-fluid" width="672"></p>
+<p><img src="survey_analysis_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid" width="672"></p>
 </div>
 </div>
-</section>
-</section>
-<section id="section" class="level2">
-<h2 class="anchored" data-anchor-id="section"></h2>
-<p>Additionally to these plots, we can also produce large overview tables that would allow to investigate certain items, groups or categories more closely. However, these were left out for now due to their size. Visualizations will also be adapted and optimized (e.g., labelling of axes), but some issues at the moment are also caused by rendering that will be solved later.</p>
 </section>
 </section>
 
