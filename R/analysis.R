@@ -90,7 +90,7 @@ plot_agreement_overview <- function(
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4", "goldenrod2", "indianred")) +
+    scale_fill_manual(values = c("#1065ab", "#8ec4ca", "#f6a582", "#b31529")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
@@ -103,15 +103,21 @@ plot_agreement_overview <- function(
     left_join(select(pdata_item, var, order)) %>% 
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
-    group_by(label, order)
+    group_by(label, order) %>% 
+    mutate(val = ifelse(is.na(val), "NA", val)) %>%
+    mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = total_perc)) +
-    geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Proportion 'don't know' or NA") +
+    ggplot(aes(y = fct_reorder(label, order), x = total_perc, fill = val)) +
+    geom_col(width = .7) +
+    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
+    labs(x = NULL, y = NULL) +
     scale_x_continuous(labels = function(x) paste0(round(x * 100, 0), "%")) +
     scale_y_discrete(position = "right") +
+    guides(fill = guide_legend(ncol = 1)) +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+          legend.position = "top",
+          legend.title = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
@@ -173,8 +179,8 @@ plot_frequency_overview <- function(
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4", "lightgoldenrod",
-                                 "tan2", "indianred")) +
+    scale_fill_manual(values = c("#1065ab", "#8ec4ca", "#e0e0e0",
+                                 "#f6a582", "#b31529")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
@@ -187,15 +193,22 @@ plot_frequency_overview <- function(
     left_join(select(pdata_item, var, order)) %>% 
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
-    group_by(label, order)
+    group_by(label, order)  %>% 
+    mutate(val = ifelse(is.na(val), "NA", val)) %>%
+    mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
-    ggplot(aes(y = fct_reorder(label, order), x = total_perc)) +
-    geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Proportion 'don't know'") +
+    ggplot(aes(y = fct_reorder(label, order), x = total_perc, fill = val)) +
+    geom_col(width = .7) +
+    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
+    labs(x = NULL, y = NULL) +
     scale_y_discrete(position = "right") +
-    scale_x_continuous(labels = function(x) paste0(round(x * 100, 0), "%")) +
+    scale_x_continuous(breaks = c(0, 0.25, 0.5),
+                       labels = function(x) paste0(round(x * 100, 0), "%")) +
+    guides(fill = guide_legend(ncol = 1)) +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+          legend.position = "top",
+          legend.title = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
@@ -244,8 +257,7 @@ plot_agreement <- function(
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4",
-                                 "goldenrod2", "indianred")) +
+    scale_fill_manual(values = c("#1065ab", "#8ec4ca", "#f6a582", "#b31529")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
@@ -258,16 +270,21 @@ plot_agreement <- function(
     left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
     group_by(.data[[group]], order) %>% 
-    summarise(perc = sum(perc))
+    mutate(val = ifelse(is.na(val), "NA", val)) %>%
+    mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
     ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order),
-               x = perc)) +
-    geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Proportion 'don't know' or NA") +
+               x = perc, fill = val)) +
+    geom_col(width = .7) +
+    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
+    labs(x = NULL, y = NULL) +
     scale_x_continuous(labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
+    guides(fill = guide_legend(ncol = 1)) +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+          legend.position = "top",
+          legend.title = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
@@ -317,8 +334,8 @@ plot_frequency <- function(
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("steelblue", "olivedrab4", "lightgoldenrod",
-                                 "tan2", "indianred")) +
+    scale_fill_manual(values = c("#1065ab", "#8ec4ca", "#e0e0e0",
+                                 "#f6a582", "#b31529")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
@@ -331,16 +348,21 @@ plot_frequency <- function(
     left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
     group_by(.data[[group]], order) %>% 
-    summarise(perc = sum(perc))
+    mutate(val = ifelse(is.na(val), "NA", val)) %>%
+    mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
     ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order),
-               x = perc)) +
-    geom_col(fill = "grey50", width = .7) +
-    labs(x = NULL, y = "Proportion 'don't know'") +
+               x = perc, fill = val)) +
+    geom_col(width = .7) +
+    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
+    labs(x = NULL, y = NULL) +
     scale_x_continuous(labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
+    guides(fill = guide_legend(ncol = 1)) +
     theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+          legend.position = "top",
+          legend.title = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
