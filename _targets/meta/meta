@@ -1,5 +1,5 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|957053ac5fed9cde|||||||||||||||
+.Random.seed|object|3b8438ca15d62c70|||||||||||||||
 combine_data|function|50d960a282aa8f2c|||||||||||||||
 combined_data|stem|12e2bda8d335247f|c300f2e323804349|954ef89b0b1f7c21|-773924101||t19842.472244155s|5d24a090d10722bf|1032702|rds|local|vector|||0.44||
 combined_data_path|stem|a2406a6a9d86388a|9882248158d62772|fd53a77a6cee2887|-447225091||t19842.4722336002s|40b3a10246f0095b|83|rds|local|vector|||2.47||
@@ -8,7 +8,7 @@ likert_to_factor|function|2d09674c8e5de638|||||||||||||||
 process_combined_data|function|26f67203b8b541d1|||||||||||||||
 processed_data|stem|86b24f3a397b732d|a9357c417cb94c92|b26329bced88944e|-3324243||t19843.4888769778s|eb891b2a70d00622|1098615|rds|local|vector|||0.04||
 recoded_data|stem|1bdb7954794ffa64|c2c67c8c58572208|67ac7ccb85b12553|940689413||t19893.493836758s|af365951d312fca2|971073|rds|local|vector|||0.03||
-sample_characteristics|stem|c1d177f5e4fb7202|2075d070eec004bf|9213acfbadb5666c|-960148809|analysis_notebooks/sample_characteristics.html*analysis_notebooks/sample_characteristics.qmd|t19900.3696718622s|c750e9ab04513ece|64129|file|local|vector|||96.9||
+sample_characteristics|stem|493e055ba9042117|2075d070eec004bf|9213acfbadb5666c|-960148809|analysis_notebooks/sample_characteristics.html*analysis_notebooks/sample_characteristics.qmd|t19905.5704546962s|92ae96de937bb6a1|63914|file|local|vector|||89.71||
 save_processed_data|stem|86b24f3a397b732d|4dd05b1f22fe71c9|bbc0aa70674198ff|904200634||t19842.4865584359s|eb891b2a70d00622|1098615|rds|local|vector|||0.57||
-survey_analysis|stem|0de259610b0bda66|ac1a5acf21dc4d65|29902f26915c3a0b|2127549828|analysis_notebooks/survey_analysis.html*analysis_notebooks/survey_analysis.qmd|t19900.4595835488s|3668089a2dc858b3|39246|file|local|vector|||8.02||
+survey_analysis|stem|32547bf5b5293d3e|ac1a5acf21dc4d65|29902f26915c3a0b|2127549828|analysis_notebooks/survey_analysis.html*analysis_notebooks/survey_analysis.qmd|t19905.5799251699s|9e320a5a3873e370|48554|file|local|vector|||25.02||
 var_overview|stem|a00f7885ab530c80|a8f1edf33cfd0eff|f4c6da257b9a0db3|364917392||t19893.4938243462s|6ef8d6ed055fd755|2655|rds|local|vector|||0.22||

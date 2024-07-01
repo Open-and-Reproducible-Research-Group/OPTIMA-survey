@@ -20,7 +20,9 @@ library(ggchicklet)
 library(patchwork)
 library(janitor)
 library(hrbrthemes)
+library(gridExtra)
 
+knitr::opts_chunk$set(dpi = 400)
 
 # Get data
 use_targets <- TRUE # Set to false if data is not received by targets pipeline
@@ -136,4 +138,40 @@ One general item also inquired about the following statement: "Overall, the proc
 df$X63 <- factor(df$X63,
                  levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
 plot_agreement(df, var_overview, "X15", group = "X63")
+```
+
+# Development over Time
+
+```{r}
+knitr::kable(var_overview[var_overview$var_id %in% raia, 1:2])
+```
+
+```{r}
+#| warning : false
+
+plots <- list()
+
+plots_list <- list()
+for (q in raia) {
+  plot <- plot_agreement_development(df, question = q, legend = FALSE)
+  plots[[q]] <- plot
+}
+
+grid <- grid.arrange(grobs = plots, ncol = 3)
+```
+
+```{r}
+knitr::kable(var_overview[var_overview$var_id %in% raif, 1:2])
+```
+
+```{r}
+plots <- list()
+
+plots_list <- list()
+for (q in raif) {
+  plot <- plot_frequency_development(df, question = q, legend = FALSE)
+  plots[[q]] <- plot
+}
+
+grid <- grid.arrange(grobs = plots, ncol = 3)
 ```

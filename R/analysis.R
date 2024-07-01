@@ -116,7 +116,7 @@ plot_agreement_overview <- function(
                        labels = function(x) paste0(round(x * 100, 0), "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
-    theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+    theme(#panel.border = element_rect(fill = NA, colour = "grey80"),
           legend.position = "top",
           legend.title = element_blank(),
           axis.text.y = element_blank(),
@@ -207,7 +207,7 @@ plot_frequency_overview <- function(
     scale_x_continuous(breaks = c(0, 0.2, 0.4, 0.6),
                        labels = function(x) paste0(round(x * 100, 0), "%")) +
     guides(fill = guide_legend(ncol = 1)) +
-    theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+    theme(#panel.border = element_rect(fill = NA, colour = "grey80"),
           legend.position = "top",
           legend.title = element_blank(),
           axis.text.y = element_blank(),
@@ -283,7 +283,7 @@ plot_agreement <- function(
     scale_x_continuous(labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
-    theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+    theme(#panel.border = element_rect(fill = NA, colour = "grey80"),
           legend.position = "top",
           legend.title = element_blank(),
           axis.text.y = element_blank(),
@@ -362,7 +362,7 @@ plot_frequency <- function(
                        labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
-    theme(panel.border = element_rect(fill = NA, colour = "grey80"),
+    theme(#panel.border = element_rect(fill = NA, colour = "grey80"),
           legend.position = "top",
           legend.title = element_blank(),
           axis.text.y = element_blank(),
@@ -376,5 +376,81 @@ plot_frequency <- function(
     plot_layout(widths = c(6, 1))
   
   final_plot
+  
+}
+
+
+
+plot_agreement_development <- function(df, question, legend = TRUE) {
+  
+  props <- table_answers(df, question, group = "X64") %>% 
+    mutate(val = replace(val, is.na(val), "NA")) %>%
+    mutate(val = fct_relevel(val, "NA", "don't know",
+                             "strongly disagree", "rather disagree",
+                             "rather agree", "strongly agree")) %>% 
+    group_by(var)
+  
+  plot <- ggplot(props, aes(x = X64, y = perc, fill = val)) + 
+    geom_area(alpha = 0.8, size = 0.5, colour = "black") +
+    labs(x = "Survey Year", y = "Proportions", fill = "Responses", title = question) +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30",
+                                 "strongly disagree" = "#b31529",
+                                 "rather disagree" = "#f6a582",
+                                 "rather agree" = "#8ec4ca",
+                                 "strongly agree" = "#1065ab")) +
+    geom_segment(aes(x = 2021, y = 0, xend = 2023, yend = 0)) +
+    geom_segment(aes(x = 2021, y = 0, xend = 2021, yend = 100)) +
+    geom_segment(aes(x = 2023, y = 0, xend = 2023, yend = 100)) +
+    scale_y_continuous(labels = function(x) paste0(x, "%")) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5))
+  
+  if (!legend) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+  
+  plot
+}
+
+
+
+plot_frequency_development <- function(df, question, legend = TRUE) {
+  
+  props <- table_answers(df, question, group = "X64") %>% 
+    mutate(val = replace(val, is.na(val), "NA")) %>%
+    mutate(val = fct_relevel(val, "don't know", "never",
+                             "rarely", "sometimes",
+                             "frequently", "very often")) %>% 
+    group_by(var)
+  
+  plot <- ggplot(props, aes(x = X64, y = perc, fill = val)) + 
+    geom_area(alpha = 0.8, size = 0.7, colour = "black") +
+    labs(x = "Survey Year", y = "Proportions", fill = "Responses", title = question) +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_fill_manual(values = c("don't know" = "grey30",
+                                 "never" = "#b31529",
+                                 "rarely" = "#f6a582",
+                                 "sometimes" = "#e0e0e0",
+                                 "frequently" = "#8ec4ca",
+                                 "very often" = "#1065ab")) +
+    geom_segment(aes(x = 2021, y = 0, xend = 2023, yend = 0)) +
+    geom_segment(aes(x = 2021, y = 0, xend = 2021, yend = 100)) +
+    geom_segment(aes(x = 2023, y = 0, xend = 2023, yend = 100)) +
+    scale_y_continuous(labels = function(x) paste0(x, "%")) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          plot.title = element_text(hjust = 0.5))
+  
+  if (!legend) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+  
+  plot
   
 }
