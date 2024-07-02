@@ -62,7 +62,7 @@ plot_agreement_overview <- function(
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
-    filter(val == "don't know" | val == "NA")
+    filter(val %in% c("NA", "don't know"))
   
   pdata <- step1 %>% 
     anti_join(nas) %>% 
@@ -94,7 +94,8 @@ plot_agreement_overview <- function(
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank()) +
+          panel.grid.minor = element_blank(),
+          axis.ticks = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
     labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
   
@@ -115,14 +116,14 @@ plot_agreement_overview <- function(
                        labels = function(x) paste0(round(x * 100, 0), "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
-    theme(#panel.border = element_rect(fill = NA, colour = "grey80"),
-          legend.position = "top",
+    theme(legend.position = "top",
           legend.title = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank())
+          panel.grid.minor = element_blank(),
+          axis.ticks = element_blank())
   
   final_plot <- p1 + 
     theme(plot.margin = margin()) + p2 +
@@ -151,7 +152,7 @@ plot_frequency_overview <- function(
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
-    filter(val == "don't know" | val == "NA")
+    filter(val %in% c("NA", "don't know"))
   
   pdata <- step1 %>% 
     anti_join(nas) %>% 
@@ -184,7 +185,8 @@ plot_frequency_overview <- function(
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank()) +
+          panel.grid.minor = element_blank(),
+          axis.ticks = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
     labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
   
@@ -212,7 +214,8 @@ plot_frequency_overview <- function(
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank())
+          panel.grid.minor = element_blank(),
+          axis.ticks = element_blank())
   
   final_plot <- p1 + 
     theme(plot.margin = margin()) + p2 +
@@ -237,7 +240,7 @@ plot_agreement <- function(
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
-    filter(val == "don't know" | val == "NA")
+    filter(val %in% c("NA", "don't know"))
   
   pdata <- step1 %>% 
     anti_join(nas) %>% 
@@ -260,7 +263,8 @@ plot_agreement <- function(
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank()) +
+          panel.grid.minor = element_blank(),
+          axis.ticks = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
     labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
   
@@ -287,7 +291,8 @@ plot_agreement <- function(
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank())
+          panel.grid.minor = element_blank(),
+          axis.ticks = element_blank())
   
   final_plot <- p1 + 
     theme(plot.margin = margin()) + p2 +
@@ -313,7 +318,7 @@ plot_frequency <- function(
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
-    filter(val == "don't know" | val == "NA")
+    filter(val %in% c("NA", "don't know"))
   
   pdata <- step1 %>% 
     anti_join(nas) %>% 
@@ -337,7 +342,8 @@ plot_frequency <- function(
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank()) +
+          panel.grid.minor = element_blank(),
+          axis.ticks = element_blank()) +
     guides(fill = guide_legend(nrow = 2, byrow = TRUE)) +
     labs(x = NULL, y = NULL, fill = NULL, title = str_to_title(filter_val))
   
@@ -365,7 +371,8 @@ plot_frequency <- function(
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank())
+          panel.grid.minor = element_blank(),
+          axis.ticks = element_blank())
   
   final_plot <- p1 + 
     theme(plot.margin = margin()) + p2 +
@@ -377,7 +384,7 @@ plot_frequency <- function(
 
 
 
-plot_agreement_development <- function(df, question, legend = TRUE) {
+plot_agreement_area <- function(df, question, legend = TRUE) {
   
   props <- table_answers(df, question, group = "X64") %>% 
     mutate(val = fct_relevel(val, "NA", "don't know",
@@ -401,7 +408,8 @@ plot_agreement_development <- function(df, question, legend = TRUE) {
     theme(panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank(),
           panel.background = element_blank(),
-          plot.title = element_text(size = 10, hjust = 0.5))
+          plot.title = element_text(size = 10, hjust = 0.5),
+          axis.ticks = element_blank())
   
   if (!legend) {
     plot <- plot +
@@ -413,7 +421,7 @@ plot_agreement_development <- function(df, question, legend = TRUE) {
 
 
 
-plot_frequency_development <- function(df, question, legend = TRUE) {
+plot_frequency_area <- function(df, question, legend = TRUE) {
   
   props <- table_answers(df, question, group = "X64") %>%
     mutate(val = fct_relevel(val, "don't know", "never",
@@ -428,7 +436,7 @@ plot_frequency_development <- function(df, question, legend = TRUE) {
     scale_fill_manual(values = c("don't know" = "grey30",
                                  "never" = "#b31529",
                                  "rarely" = "#f6a582",
-                                 "sometimes" = "#e0e0e0",
+                                 "sometimes" = "#cdcdc8",
                                  "frequently" = "#8ec4ca",
                                  "very often" = "#1065ab")) +
     geom_segment(aes(x = 2021, y = 0, xend = 2023, yend = 0)) +
@@ -438,7 +446,8 @@ plot_frequency_development <- function(df, question, legend = TRUE) {
     theme(panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank(),
           panel.background = element_blank(),
-          plot.title = element_text(size = 10, hjust = 0.5))
+          plot.title = element_text(size = 10, hjust = 0.5),
+          axis.ticks = element_blank())
   
   if (!legend) {
     plot <- plot +
@@ -447,4 +456,73 @@ plot_frequency_development <- function(df, question, legend = TRUE) {
   
   plot
   
+}
+
+
+
+plot_agreement_line <- function(df, question, legend = TRUE, ylim = 75) {
+  
+  props <- table_answers(df, question, group = "X64") %>% 
+    mutate(val = fct_relevel(val, "NA", "don't know",
+                             "strongly disagree", "rather disagree",
+                             "rather agree", "strongly agree")) %>% 
+    group_by(var)
+  
+  plot <- ggplot(props, aes(x = X64, y = perc, color = val)) + 
+    geom_line(size = 0.8) +
+    labs(x = "Survey Year", y = "Proportions", color = "Responses", title = question) +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_color_manual(values = c("NA" = "grey70", "don't know" = "grey30",
+                                  "strongly disagree" = "#b31529",
+                                  "rather disagree" = "#f6a582",
+                                  "rather agree" = "#8ec4ca",
+                                  "strongly agree" = "#1065ab")) +
+    scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, ylim)) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          plot.title = element_text(size = 10, hjust = 0.5),
+          axis.ticks = element_blank())
+  
+  if (!legend) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+  
+  plot
+}
+
+
+
+plot_frequency_line <- function(df, question, legend = TRUE, ylim = 65) {
+  
+  props <- table_answers(df, question, group = "X64") %>% 
+    mutate(val = fct_relevel(val, "don't know", "never",
+                             "rarely", "sometimes",
+                             "frequently", "very often")) %>% 
+    group_by(var)
+  
+  plot <- ggplot(props, aes(x = X64, y = perc, color = val)) + 
+    geom_line(size = 0.8) +
+    labs(x = "Survey Year", y = "Proportions", color = "Responses", title = question) +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_color_manual(values = c("don't know" = "grey30",
+                                 "never" = "#b31529",
+                                 "rarely" = "#f6a582",
+                                 "sometimes" = "#e0e0e0",
+                                 "frequently" = "#8ec4ca",
+                                 "very often" = "#1065ab")) +
+    scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, ylim)) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_blank(),
+          panel.background = element_blank(),
+          plot.title = element_text(size = 10, hjust = 0.5),
+          axis.ticks = element_blank())
+  
+  if (!legend) {
+    plot <- plot +
+      theme(legend.position = "none")
+  }
+  
+  plot
 }
