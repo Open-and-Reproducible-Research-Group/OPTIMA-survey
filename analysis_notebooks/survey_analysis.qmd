@@ -149,7 +149,7 @@ plot_agreement(df, var_overview, "X15", group = "X63")
 knitr::kable(var_overview[var_overview$var_id %in% os, 1:2])
 ```
 
-```{r os_development, fig.height = 9, fig.width = 8}
+```{r os_development, fig.height = 15, fig.width = 8}
 
 plots <- list()
 
@@ -161,7 +161,7 @@ for (q in os) {
   plots[[q]] <- plot
 }
 
-wrap_plots(plots, ncol = 3) +
+wrap_plots(plots, ncol = 2) +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = 'A') & 
   theme(plot.tag = element_text(size = 10))
@@ -173,7 +173,7 @@ wrap_plots(plots, ncol = 3) +
 knitr::kable(var_overview[var_overview$var_id %in% raia, 1:2])
 ```
 
-```{r raia_development, fig.height = 7, fig.width = 8}
+```{r raia_development, fig.height = 15, fig.width = 8}
  
 plots <- list()
 
@@ -185,7 +185,7 @@ for (q in raia) {
   plots[[q]] <- plot
 }
 
-wrap_plots(plots, ncol = 3) +
+wrap_plots(plots, ncol = 2) +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = 'A') & 
   theme(plot.tag = element_text(size = 10))
@@ -195,7 +195,7 @@ wrap_plots(plots, ncol = 3) +
 knitr::kable(var_overview[var_overview$var_id %in% raif, 1:2])
 ```
 
-```{r raif_development, fig.height = 5, fig.width = 8}
+```{r raif_development, fig.height = 9, fig.width = 8}
 
 plots <- list()
 
@@ -204,7 +204,7 @@ for (q in raif) {
   plots[[q]] <- plot
 }
 
-wrap_plots(plots, ncol = 3) +
+wrap_plots(plots, ncol = 2) +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = 'A') & 
   theme(plot.tag = element_text(size = 10))
@@ -238,7 +238,7 @@ wrap_plots(plots, ncol = 2) +
 knitr::kable(var_overview[var_overview$var_id %in% eduf, 1:2])
 ```
 
-```{r eduf_development, fig.height = 2.5, fig.width = 8}
+```{r eduf_development, fig.height = 5.5, fig.width = 8}
 
 plots <- list()
 
@@ -247,7 +247,7 @@ for (q in eduf) {
   plots[[q]] <- plot
 }
 
-wrap_plots(plots, ncol = 3) +
+wrap_plots(plots, ncol = 2) +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = 'A') & 
   theme(plot.tag = element_text(size = 10))
@@ -259,7 +259,7 @@ wrap_plots(plots, ncol = 3) +
 knitr::kable(var_overview[var_overview$var_id %in% adm, 1:2])
 ```
 
-```{r adm_development, fig.height = 5, fig.width = 8}
+```{r adm_development, fig.height = 9, fig.width = 8}
 
 plots <- list()
 
@@ -268,13 +268,13 @@ for (q in adm) {
   plots[[q]] <- plot
 }
 
-wrap_plots(plots, ncol = 3) +
+wrap_plots(plots, ncol = 2) +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = 'A') & 
   theme(plot.tag = element_text(size = 10))
 ```
 
-An alternative plot type to the line plot is the area plot. For the following exemplary item ("Overall, the processes at my higher education institution are organised in a clear and transparent manner") both plots are shown for comparison.
+An alternative plot type to the line plot is the area plot. For the following exemplary item (X15: "Overall, the processes at my higher education institution are organised in a clear and transparent manner") both plots are shown for comparison.
 
 ```{r hei_processes_comparison, fig.height = 3.2, fig.width = 8}
 

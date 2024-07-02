@@ -110,7 +110,7 @@ plot_agreement_overview <- function(
   p2 <- p_nas %>% 
     ggplot(aes(y = fct_reorder(label, order), x = total_perc, fill = val)) +
     geom_col(width = .7) +
-    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
+    scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
     scale_x_continuous(breaks = c(0, 0.1, 0.2, 0.3),
                        labels = function(x) paste0(round(x * 100, 0), "%")) +
@@ -201,14 +201,13 @@ plot_frequency_overview <- function(
   p2 <- p_nas %>% 
     ggplot(aes(y = fct_reorder(label, order), x = total_perc, fill = val)) +
     geom_col(width = .7) +
-    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
+    scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
     scale_y_discrete(position = "right") +
     scale_x_continuous(breaks = c(0, 0.2, 0.4, 0.6),
                        labels = function(x) paste0(round(x * 100, 0), "%")) +
     guides(fill = guide_legend(ncol = 1)) +
-    theme(#panel.border = element_rect(fill = NA, colour = "grey80"),
-          legend.position = "top",
+    theme(legend.position = "top",
           legend.title = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_text( angle = 270),
@@ -279,13 +278,12 @@ plot_agreement <- function(
     ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order),
                x = perc, fill = val)) +
     geom_col(width = .7) +
-    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
+    scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
     scale_x_continuous(labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
-    theme(#panel.border = element_rect(fill = NA, colour = "grey80"),
-          legend.position = "top",
+    theme(legend.position = "top",
           legend.title = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_text( angle = 270),
@@ -358,14 +356,13 @@ plot_frequency <- function(
     ggplot(aes(y = fct_reorder(as.factor(.data[[group]]), order),
                x = perc, fill = val)) +
     geom_col(width = .7) +
-    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30")) +
+    scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
     scale_x_continuous(breaks = c(0, 30, 60),
                        labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
-    theme(#panel.border = element_rect(fill = NA, colour = "grey80"),
-          legend.position = "top",
+    theme(legend.position = "top",
           legend.title = element_blank(),
           axis.text.y = element_blank(),
           axis.title.y = element_text( angle = 270),
@@ -396,7 +393,7 @@ plot_agreement_area <- function(df, question, legend = TRUE) {
     geom_area(alpha = 0.8, size = 0.5, colour = "black") +
     labs(x = "Survey Year", y = "Proportions", fill = "Responses", title = question) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
-    scale_fill_manual(values = c("NA" = "grey70", "don't know" = "grey30",
+    scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30",
                                  "strongly disagree" = "#b31529",
                                  "rather disagree" = "#f6a582",
                                  "rather agree" = "#8ec4ca",
@@ -436,7 +433,7 @@ plot_frequency_area <- function(df, question, legend = TRUE) {
     scale_fill_manual(values = c("don't know" = "grey30",
                                  "never" = "#b31529",
                                  "rarely" = "#f6a582",
-                                 "sometimes" = "#cdcdc8",
+                                 "sometimes" = "#e0e0e0",
                                  "frequently" = "#8ec4ca",
                                  "very often" = "#1065ab")) +
     geom_segment(aes(x = 2021, y = 0, xend = 2023, yend = 0)) +
@@ -444,7 +441,7 @@ plot_frequency_area <- function(df, question, legend = TRUE) {
     geom_segment(aes(x = 2023, y = 0, xend = 2023, yend = 100)) +
     scale_y_continuous(labels = function(x) paste0(x, "%")) +
     theme(panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank(),
+          panel.grid.minor = element_line(color = "grey90"),
           panel.background = element_blank(),
           plot.title = element_text(size = 10, hjust = 0.5),
           axis.ticks = element_blank())
@@ -472,14 +469,14 @@ plot_agreement_line <- function(df, question, legend = TRUE, ylim = 75) {
     geom_line(size = 0.8) +
     labs(x = "Survey Year", y = "Proportions", color = "Responses", title = question) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
-    scale_color_manual(values = c("NA" = "grey70", "don't know" = "grey30",
+    scale_color_manual(values = c("NA" = "grey50", "don't know" = "grey30",
                                   "strongly disagree" = "#b31529",
                                   "rather disagree" = "#f6a582",
                                   "rather agree" = "#8ec4ca",
                                   "strongly agree" = "#1065ab")) +
     scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, ylim)) +
     theme(panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank(),
+          panel.grid.minor = element_line(color = "grey90"),
           panel.background = element_blank(),
           plot.title = element_text(size = 10, hjust = 0.5),
           axis.ticks = element_blank())
@@ -509,12 +506,12 @@ plot_frequency_line <- function(df, question, legend = TRUE, ylim = 65) {
     scale_color_manual(values = c("don't know" = "grey30",
                                  "never" = "#b31529",
                                  "rarely" = "#f6a582",
-                                 "sometimes" = "#e0e0e0",
+                                 "sometimes" = "#cdcdc8",
                                  "frequently" = "#8ec4ca",
                                  "very often" = "#1065ab")) +
     scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, ylim)) +
     theme(panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank(),
+          panel.grid.minor = element_line(color = "grey90"),
           panel.background = element_blank(),
           plot.title = element_text(size = 10, hjust = 0.5),
           axis.ticks = element_blank())
