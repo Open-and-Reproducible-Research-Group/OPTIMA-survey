@@ -151,7 +151,6 @@ knitr::kable(var_overview[var_overview$var_id %in% raia, 1:2])
 
 plots <- list()
 
-plots_list <- list()
 for (q in raia) {
   plot <- plot_agreement_development(df, question = q, legend = FALSE)
   plots[[q]] <- plot
@@ -161,13 +160,16 @@ grid <- grid.arrange(grobs = plots, ncol = 3)
 ```
 
 ```{r}
+plot_agreement_development(df, "X44", legend = TRUE)
+```
+
+```{r}
 knitr::kable(var_overview[var_overview$var_id %in% raif, 1:2])
 ```
 
 ```{r}
 plots <- list()
 
-plots_list <- list()
 for (q in raif) {
   plot <- plot_frequency_development(df, question = q, legend = FALSE)
   plots[[q]] <- plot

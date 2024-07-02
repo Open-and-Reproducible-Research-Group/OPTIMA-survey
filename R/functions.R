@@ -85,19 +85,26 @@ likert_to_factor <- function(df, var_overview){
     var_overview$instruction == 'agreement'] %>% 
     na.omit(.)
   agreement_levels = c("strongly agree", "rather agree", "rather disagree",
-                       "strongly disagree", "don't know")
+                       "strongly disagree", "don't know", "NA")
+  
   frequency <- var_overview$var_id[
     var_overview$instruction == 'frequency'] %>% 
     na.omit(.)
   
   frequency_levels = c("very often", "frequently", "sometimes", "rarely",
-                       "never", "don't know")
+                       "never", "don't know", "NA")
   
   df[agreement] <- lapply(df[agreement],
-                                function(x) factor(x,levels = agreement_levels))
+                                function(x) {
+                                  x[is.na(x)] <- "NA"
+                                  factor(x,levels = agreement_levels)
+                                  })
   
   df[frequency] <- lapply(df[frequency],
-                          function(x) factor(x,levels = frequency_levels))
+                          function(x) {
+                            x[is.na(x)] <- "NA"
+                            factor(x,levels = frequency_levels)
+                          })
   
   
   df

@@ -924,6 +924,12 @@ ul.task-list li input[type="checkbox"] {
 <td style="text-align: right;">543</td>
 <td style="text-align: right;">83</td>
 </tr>
+<tr class="odd">
+<td style="text-align: left;">NA</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">0</td>
+</tr>
 </tbody>
 </table>
 
@@ -940,7 +946,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 </div>
 <p>When investigated in relation to response time, the most notable deviation in distribution can be seen in those not answering the clarity question or answering “don’t know” to this question. These respondents tended to finish the survey more quickly.</p>
-<p>However, the number of respondents who took less than three minutes for the survey and indicated low clarity (or did not answer the clarity question) only lies at 88.</p>
+<p>However, the number of respondents who took less than three minutes for the survey and indicated low clarity (or did not answer the clarity question) only lies at 113.</p>
 </section>
 <section id="dont-know-answers" class="level2">
 <h2 class="anchored" data-anchor-id="dont-know-answers">“Don’t know” Answers</h2>
@@ -966,7 +972,13 @@ ul.task-list li input[type="checkbox"] {
 </section>
 <section id="na-answers" class="level2">
 <h2 class="anchored" data-anchor-id="na-answers">NA answers</h2>
-<p>Only certain questions could be skipped. Of the content questions, only items X38 to X52 were not mandatory. Therefore a maximum of 15 responses can be missing per person. Participants skipped a mean of 0.3 questions (<em>SD</em> = 1.69), ranging from 0 to 15 missings. Number of NAs is correlated with total response time with a Kendall correlation coefficient of -0.07. In total, missing responses are very rare within the data set.</p>
+<div class="cell">
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning in cor(df$duration, df$nas, method = "kendall"): the standard deviation
+is zero</code></pre>
+</div>
+</div>
+<p>Only certain questions could be skipped. Of the content questions, only items X38 to X52 were not mandatory. Therefore a maximum of 15 responses can be missing per person. Participants skipped a mean of 0 questions (<em>SD</em> = 0), ranging from 0 to 0 missings. Number of NAs is correlated with total response time with a Kendall correlation coefficient of NA. In total, missing responses are very rare within the data set.</p>
 <div class="cell">
 <div class="cell-output-display">
 <p><img src="sample_characteristics_files/figure-html/unnamed-chunk-26-1.png" class="img-fluid" width="672"></p>

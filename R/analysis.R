@@ -62,7 +62,7 @@ plot_agreement_overview <- function(
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
-    filter(val == "don't know" | is.na(val))
+    filter(val == "don't know" | val == "NA")
   
   pdata <- step1 %>% 
     anti_join(nas) %>% 
@@ -104,7 +104,6 @@ plot_agreement_overview <- function(
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
     group_by(label, order) %>% 
-    mutate(val = replace(val, is.na(val), "NA")) %>%
     mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
@@ -152,7 +151,7 @@ plot_frequency_overview <- function(
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
-    filter(val == "don't know" | is.na(val))
+    filter(val == "don't know" | val == "NA")
   
   pdata <- step1 %>% 
     anti_join(nas) %>% 
@@ -195,7 +194,6 @@ plot_frequency_overview <- function(
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
     group_by(label, order)  %>% 
-    mutate(val = replace(val, is.na(val), "NA")) %>%
     mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
@@ -239,7 +237,7 @@ plot_agreement <- function(
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
-    filter(val == "don't know" | is.na(val))
+    filter(val == "don't know" | val == "NA")
   
   pdata <- step1 %>% 
     anti_join(nas) %>% 
@@ -271,7 +269,6 @@ plot_agreement <- function(
     left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
     group_by(.data[[group]], order) %>% 
-    mutate(val = replace(val, is.na(val), "NA")) %>%
     mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
@@ -316,7 +313,7 @@ plot_frequency <- function(
   
   # Remove "don't know" answers and NAs
   nas <- step1 %>% 
-    filter(val == "don't know" | is.na(val))
+    filter(val == "don't know" | val == "NA")
   
   pdata <- step1 %>% 
     anti_join(nas) %>% 
@@ -349,7 +346,6 @@ plot_frequency <- function(
     left_join(select(pdata, var, order)) %>% 
     distinct() %>% 
     group_by(.data[[group]], order) %>% 
-    mutate(val = replace(val, is.na(val), "NA")) %>%
     mutate(val = factor(val, levels = c("NA", "don't know")))
   
   p2 <- p_nas %>% 
@@ -384,7 +380,6 @@ plot_frequency <- function(
 plot_agreement_development <- function(df, question, legend = TRUE) {
   
   props <- table_answers(df, question, group = "X64") %>% 
-    mutate(val = replace(val, is.na(val), "NA")) %>%
     mutate(val = fct_relevel(val, "NA", "don't know",
                              "strongly disagree", "rather disagree",
                              "rather agree", "strongly agree")) %>% 
@@ -406,7 +401,7 @@ plot_agreement_development <- function(df, question, legend = TRUE) {
     theme(panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank(),
           panel.background = element_blank(),
-          plot.title = element_text(hjust = 0.5))
+          plot.title = element_text(size = 10, hjust = 0.5))
   
   if (!legend) {
     plot <- plot +
@@ -420,8 +415,7 @@ plot_agreement_development <- function(df, question, legend = TRUE) {
 
 plot_frequency_development <- function(df, question, legend = TRUE) {
   
-  props <- table_answers(df, question, group = "X64") %>% 
-    mutate(val = replace(val, is.na(val), "NA")) %>%
+  props <- table_answers(df, question, group = "X64") %>%
     mutate(val = fct_relevel(val, "don't know", "never",
                              "rarely", "sometimes",
                              "frequently", "very often")) %>% 
@@ -444,7 +438,7 @@ plot_frequency_development <- function(df, question, legend = TRUE) {
     theme(panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_blank(),
           panel.background = element_blank(),
-          plot.title = element_text(hjust = 0.5))
+          plot.title = element_text(size = 10, hjust = 0.5))
   
   if (!legend) {
     plot <- plot +
