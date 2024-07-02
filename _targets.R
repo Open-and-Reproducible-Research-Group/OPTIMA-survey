@@ -26,12 +26,12 @@ list(
     process_combined_data(combined_data)
   ),
   tar_target(
-    save_processed_data,
-    write_csv(processed_data, "data/processed/preprocessed_data.csv")
-  ),
-  tar_target(
     recoded_data,
     likert_to_factor(processed_data, var_overview)
+  ),
+  tar_target(
+    save_data,
+    write_csv(recoded_data, "data/processed/preprocessed_data.csv")
   ),
   tar_quarto(sample_characteristics,
              "analysis_notebooks/sample_characteristics.qmd",
