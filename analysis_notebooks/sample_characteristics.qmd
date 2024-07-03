@@ -15,6 +15,7 @@ execute:
 
 library(here)
 library(tidyverse)
+library(janitor)
 library(sf)
 library(fuzzyjoin)
 library(psych)
@@ -75,13 +76,29 @@ Participants indicated what they are best described by in terms of academic role
 
 ```{r}
 df$X8 <- factor(df$X8, levels = c("student - 1st year", "student - 2nd year", "student - 3rd year", "student - 4th year", "master student", "doctoral student - PhD", "doctoral student - ScD (higher doctorate)", "faculty", "research staff", "university administrator", "librarian", "other"))
-knitr::kable(table(df$X8, df$X64), format = "html")
+
+roles <- df %>% 
+  tabyl(X8, X64) %>% 
+  adorn_totals("row") %>% 
+  adorn_percentages("col") %>% 
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns()
+
+knitr::kable(roles, format = "html")
 ```
 
 ## Gender
 
 ```{r}
-knitr::kable(table(df$X9, df$X64), format = "html")
+gender <- df %>% 
+  tabyl(X9, X64) %>% 
+  adorn_totals("row") %>% 
+  adorn_percentages("col") %>% 
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns()
+
+
+knitr::kable(gender, format = "html")
 ```
 
 ## Degree
@@ -90,7 +107,15 @@ knitr::kable(table(df$X9, df$X64), format = "html")
 
 ```{r}
 df$X10 <- factor(df$X10, levels = c("none (still studying)", "bachelor", "master", "PhD", "ScD (higher doctorate)"))
-knitr::kable(table(df$X10, df$X64), format = "html")
+
+degrees <- df %>% 
+  tabyl(X10, X64) %>% 
+  adorn_totals("row") %>% 
+  adorn_percentages("col") %>% 
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns()
+
+knitr::kable(degrees, format = "html")
 ```
 
 ## Work experience
@@ -99,7 +124,15 @@ knitr::kable(table(df$X10, df$X64), format = "html")
 
 ```{r}
 df$X11 <- factor(df$X11, levels = c("I have never worked in this sphere", "less than 1 year", "1-5 years", "5-10 years", "more than 10 years"))
-knitr::kable(table(df$X11, df$X64), format = "html")
+
+experience <- df %>% 
+  tabyl(X11, X64) %>% 
+  adorn_totals("row") %>% 
+  adorn_percentages("col") %>% 
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns()
+
+knitr::kable(experience, format = "html")
 ```
 
 ## Field/Discipline
@@ -107,8 +140,14 @@ knitr::kable(table(df$X11, df$X64), format = "html")
 *"What is your field of study or work?"*
 
 ```{r}
-field <- as.data.frame.matrix(table(df$X12, df$X64))
-rownames(field) <- gsub("\\s*\\(.*?\\)", "", rownames(field))
+field <- as.data.frame.matrix(tabyl(df, X12, X64))
+field$X12 <- gsub("\\s*\\(.*?\\)", "", field$X12)
+
+field <- field %>%
+  adorn_totals("row") %>% 
+  adorn_percentages("col") %>%
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns()
 
 knitr::kable(field, format = "html")
 ```
@@ -119,7 +158,15 @@ knitr::kable(field, format = "html")
 
 ```{r}
 df$X13 <- factor(df$X13, levels = c("0", "1-5", "6-10", "11-20", "21-30", "more than 30"))
-knitr::kable(table(df$X13, df$X64), format = "html")
+
+publications <- df %>%
+  tabyl(X13, X64) %>% 
+  adorn_totals("row") %>% 
+  adorn_percentages("col") %>%
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns()
+
+knitr::kable(publications, format = "html")
 ```
 
 ## Peer review
@@ -127,7 +174,16 @@ knitr::kable(table(df$X13, df$X64), format = "html")
 *"How many peer reviews of research outputs (articles, monographs, reports) have you written in the last 3 years?"*
 
 ```{r}
-knitr::kable(table(df$X14, df$X64), format = "html")
+df$X14 <- factor(df$X14, levels = c("0", "1-5", "6-10", "11-20", "21-30", "more than 30"))
+
+review <- df %>%
+  tabyl(X14, X64) %>% 
+  adorn_totals("row") %>% 
+  adorn_percentages("col") %>%
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns()
+
+knitr::kable(review, format = "html")
 ```
 
 ## Type of institution
@@ -135,7 +191,14 @@ knitr::kable(table(df$X14, df$X64), format = "html")
 *"What type of higher education institution do you study or work at?"*
 
 ```{r}
-knitr::kable(table(df$X54, df$X64), format = "html")
+institutions <- df %>%
+  tabyl(X54, X64) %>% 
+  adorn_totals("row") %>% 
+  adorn_percentages("col") %>%
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns()
+
+knitr::kable(institutions, format = "html")
 ```
 
 ## Location
