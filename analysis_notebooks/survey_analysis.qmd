@@ -20,6 +20,7 @@ library(ggchicklet)
 library(patchwork)
 library(janitor)
 library(hrbrthemes)
+library(RColorBrewer)
 
 knitr::opts_chunk$set(dpi = 400)
 
@@ -301,7 +302,10 @@ groups <- df %>%
   filter(X52d %in% c("agree", "disagree")) %>% 
   group_by(X8, X64) %>% 
   summarise(perc = sum(X52d == "agree") / n()) %>% 
-  ungroup()
+  ungroup() %>% 
+  mutate(X8 = fct_recode(X8,
+                         "doctoral student - ScD" =
+                           "doctoral student - ScD (higher doctorate)"))
 
 students <- groups %>% 
   filter(str_detect(X8, "student"))
@@ -314,9 +318,10 @@ staff <- groups %>%
 ggplot(students, aes(x = X64, y = perc, color = X8)) + 
     geom_line(size = 0.8) +
     geom_point() +
-    labs(x = "Survey Year", y = "Agreement", color = "Groups") +
+    labs(x = "Survey Year", y = "Agreement", color = "Academic Role") +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_y_continuous(labels = scales::percent, limits = c(0.7, 1)) +
+    scale_color_brewer(palette = "Dark2") +
     theme(panel.grid.major = element_line(color = "grey80"),
           #panel.grid.minor = element_line(color = "grey90"),
           panel.background = element_blank(),
@@ -327,13 +332,28 @@ ggplot(students, aes(x = X64, y = perc, color = X8)) +
 ```{r}
 ggplot(staff, aes(x = X64, y = perc, color = X8)) + 
     geom_line(size = 0.8) +
-    geom_point() +
-    labs(x = "Survey Year", y = "Agreement", color = "Groups") +
+    geom_point(shape = 15) +
+    labs(x = "Survey Year", y = "Agreement", color = "Academic Role") +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_y_continuous(labels = scales::percent, limits = c(0.7, 1)) +
+    scale_color_brewer(palette = "Dark2") +
     theme(panel.grid.major = element_line(color = "grey80"),
           #panel.grid.minor = element_line(color = "grey90"),
           panel.background = element_blank(),
           plot.title = element_text(size = 10, hjust = 0.5),
           axis.ticks = element_blank())
+```
+
+```{r}
+ggplot(groups, aes(x = X8, y = perc, fill = as.factor(X64))) +
+  geom_bar(stat = "identity", position = "dodge", color = "black") +
+  geom_hline(yintercept = 0) +
+  labs(x = "Academic Role", y = "Agreement", fill = "Survey Year") +
+  scale_y_continuous(labels = scales::percent) +
+  scale_fill_brewer(palette = "Blues") +
+  theme(panel.grid.major = element_line(color = "grey80"),
+        panel.background = element_blank(),
+        plot.title = element_text(size = 10, hjust = 0.5),
+        axis.ticks = element_blank(),
+        axis.text.x = element_text(angle = 45, hjust = 1))
 ```
