@@ -478,7 +478,7 @@ There seems to be only some difference in the distribution of "don't know" respo
 ```{r}
 
 na <- df %>% 
-  summarise(nas = sum(is.na(c_across(X38:X52))))
+  summarise(nas = sum(c_across(X38:X52) == "NA"))
 
 df$nas <- na$nas
 
