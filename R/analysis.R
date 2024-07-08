@@ -467,6 +467,7 @@ plot_agreement_line <- function(df, question, legend = TRUE, ylim = 75) {
   
   plot <- ggplot(props, aes(x = X64, y = perc, color = val)) + 
     geom_line(size = 0.8) +
+    geom_point() +
     labs(x = "Survey Year", y = "Proportions", color = "Responses", title = question) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_color_manual(values = c("NA" = "grey50", "don't know" = "grey30",
@@ -501,6 +502,7 @@ plot_frequency_line <- function(df, question, legend = TRUE, ylim = 65) {
   
   plot <- ggplot(props, aes(x = X64, y = perc, color = val)) + 
     geom_line(size = 0.8) +
+    geom_point() +
     labs(x = "Survey Year", y = "Proportions", color = "Responses", title = question) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_color_manual(values = c("don't know" = "grey30",

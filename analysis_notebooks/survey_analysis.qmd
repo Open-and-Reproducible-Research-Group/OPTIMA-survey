@@ -283,3 +283,57 @@ area <- plot_agreement_area(df, "X15", TRUE)
 
 line + area
 ```
+
+# Comparison Between Groups
+
+```{r}
+
+df$X8 <- factor(df$X8, levels = c("student - 1st year", "student - 2nd year", "student - 3rd year", "student - 4th year", "master student", "doctoral student - PhD", "doctoral student - ScD (higher doctorate)", "faculty", "research staff", "university administrator", "librarian", "other"))
+
+groups <- df %>% 
+  # Dichotomize agreement
+  mutate(X52d = case_when(
+    str_detect(X52, "\\sagree$") ~ "agree",
+    str_detect(X52, "\\sdisagree$") ~ "disagree",
+    is.na(X52) ~ "NA",
+    TRUE ~ X52)) %>% 
+  # Filter to calculate proportions of those that knew a response
+  filter(X52d %in% c("agree", "disagree")) %>% 
+  group_by(X8, X64) %>% 
+  summarise(perc = sum(X52d == "agree") / n()) %>% 
+  ungroup()
+
+students <- groups %>% 
+  filter(str_detect(X8, "student"))
+
+staff <- groups %>% 
+  filter(!str_detect(X8, "student"))
+```
+
+```{r}
+ggplot(students, aes(x = X64, y = perc, color = X8)) + 
+    geom_line(size = 0.8) +
+    geom_point() +
+    labs(x = "Survey Year", y = "Agreement", color = "Groups") +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_y_continuous(labels = scales::percent, limits = c(0.7, 1)) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          #panel.grid.minor = element_line(color = "grey90"),
+          panel.background = element_blank(),
+          plot.title = element_text(size = 10, hjust = 0.5),
+          axis.ticks = element_blank())
+```
+
+```{r}
+ggplot(staff, aes(x = X64, y = perc, color = X8)) + 
+    geom_line(size = 0.8) +
+    geom_point() +
+    labs(x = "Survey Year", y = "Agreement", color = "Groups") +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_y_continuous(labels = scales::percent, limits = c(0.7, 1)) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          #panel.grid.minor = element_line(color = "grey90"),
+          panel.background = element_blank(),
+          plot.title = element_text(size = 10, hjust = 0.5),
+          axis.ticks = element_blank())
+```
