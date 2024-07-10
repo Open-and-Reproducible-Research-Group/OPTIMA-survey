@@ -16,6 +16,25 @@ table_answers <- function(df, question, group,
   answers
 }
 
+
+# Function to create a table with answer categories separated by year
+table_answers_year <- function(df, question, group,
+                               filter = NULL, filter_val = NULL) {
+  
+  if (!is.null(filter)) {
+    df <- df %>% 
+      filter(.data[[filter]] == filter_val)
+  }
+  
+  answers <- df %>%
+    group_by(.data[[group]], X64) %>%
+    pivot_longer(question, names_to = "var", values_to = "val") %>%
+    count(var, val) %>% 
+    mutate(perc = round((n/sum(n) * 100), 2))
+  
+  answers
+}
+
   
 # Create a stand-alone overview table for grouped item responses
 table_answers_overview <- function(df, columns, group,
@@ -524,4 +543,59 @@ plot_frequency_line <- function(df, question, legend = TRUE, ylim = 65) {
   }
   
   plot
+}
+
+
+# Dichotomize agreement response into agree/disagree
+dichotomize_agreement <- function(df, question) {
+  
+  var <- sym(question)
+  
+  dichotomized <- df %>% 
+    # Dichotomize agreement
+    mutate({{ var }} := case_when(
+      str_detect({{ var }}, "\\sagree$") ~ "agree",
+      str_detect({{ var }}, "\\sdisagree$") ~ "disagree",
+      is.na({{ var }}) ~ "NA",
+      TRUE ~ {{ var }}))
+  
+  dichotomized
+}
+
+
+# Plot dichotomized agreement over time
+plot_agreement_groups <- function(df, question, group,
+                                  filter_dks = FALSE, filter_nas = FALSE,
+                                  legend_reverse = TRUE) {
+  
+  df <- df %>% 
+    dichotomize_agreement(., question)
+  
+  if (filter_dks) {
+    df <- df %>% 
+      filter(.data[[question]] != "don't know")
+  }
+  
+  if (filter_nas) {
+    df <- df %>% 
+      filter(.data[[question]] != "NA")
+  }
+  
+  groups <- table_answers_year(df, question, group) %>% 
+    filter(val == "agree")
+  
+  ggplot(groups, aes(x = X64, y = perc, color = .data[[group]])) + 
+    geom_line(size = 0.8, alpha = 0.8) +
+    geom_point() +
+    labs(x = "Survey Year", y = "Agreement", color = NULL, title = question) +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(25, 100)) +
+    scale_color_brewer(palette = "Dark2") +
+    guides(color = guide_legend(reverse = legend_reverse)) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_line(color = "grey90"),
+          panel.background = element_blank(),
+          plot.title = element_text(size = 10, hjust = 0.5),
+          axis.ticks = element_blank())
+  
 }

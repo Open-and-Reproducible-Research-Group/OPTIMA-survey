@@ -287,73 +287,65 @@ line + area
 
 # Comparison Between Groups
 
+To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. At the moment, "NA" and "don't know" answers are removed before the percentage of agreement is calculated. The numbers therefore represent proportions based on all respondents that gave some answer.
+
+## Academic Roles
+
+To compare respondents with different academic roles, students are first summarized for purposes of visualization (see below for differentiated visualizations for this group). The "other" category was additionally excluded, since it is quite small and difficult to characterize.
+
 ```{r}
 
-df$X8 <- factor(df$X8, levels = c("student - 1st year", "student - 2nd year", "student - 3rd year", "student - 4th year", "master student", "doctoral student - PhD", "doctoral student - ScD (higher doctorate)", "faculty", "research staff", "university administrator", "librarian", "other"))
-
-groups <- df %>% 
-  # Dichotomize agreement
-  mutate(X52d = case_when(
-    str_detect(X52, "\\sagree$") ~ "agree",
-    str_detect(X52, "\\sdisagree$") ~ "disagree",
-    is.na(X52) ~ "NA",
-    TRUE ~ X52)) %>% 
-  # Filter to calculate proportions of those that knew a response
-  filter(X52d %in% c("agree", "disagree")) %>% 
-  group_by(X8, X64) %>% 
-  summarise(perc = sum(X52d == "agree") / n()) %>% 
-  ungroup() %>% 
-  mutate(X8 = fct_recode(X8,
-                         "doctoral student - ScD" =
-                           "doctoral student - ScD (higher doctorate)"))
-
-students <- groups %>% 
-  filter(str_detect(X8, "student"))
-
-staff <- groups %>% 
-  filter(!str_detect(X8, "student"))
+roles <- df %>% 
+  filter(X8 != "other") %>% 
+  mutate(roles = case_when(
+    str_detect(X8, "student.*year") ~ "student",
+    X8 == "master student" ~ "student",
+    X8 == "doctoral student - ScD (higher doctorate)" ~ "doctoral student - ScD",
+    TRUE ~ X8),
+  roles = factor(roles, levels = c("student", "doctoral student - PhD",
+                                   "doctoral student - ScD",
+                                   "faculty", "research staff",
+                                   "university administrator", "librarian")))
 ```
 
-```{r}
-ggplot(students, aes(x = X64, y = perc, color = X8)) + 
-    geom_line(size = 0.8) +
-    geom_point() +
-    labs(x = "Survey Year", y = "Agreement", color = "Academic Role") +
-    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
-    scale_y_continuous(labels = scales::percent, limits = c(0.7, 1)) +
-    scale_color_brewer(palette = "Dark2") +
-    theme(panel.grid.major = element_line(color = "grey80"),
-          #panel.grid.minor = element_line(color = "grey90"),
-          panel.background = element_blank(),
-          plot.title = element_text(size = 10, hjust = 0.5),
-          axis.ticks = element_blank())
+### Open Science
+
+```{r os_roles, fig.height = 18, fig.width = 8}
+
+plots <- list()
+
+for (q in os) {
+  plot <- plot_agreement_groups(roles, question = q, "roles", TRUE, TRUE)
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
 ```
 
-```{r}
-ggplot(staff, aes(x = X64, y = perc, color = X8)) + 
-    geom_line(size = 0.8) +
-    geom_point(shape = 15) +
-    labs(x = "Survey Year", y = "Agreement", color = "Academic Role") +
-    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
-    scale_y_continuous(labels = scales::percent, limits = c(0.7, 1)) +
-    scale_color_brewer(palette = "Dark2") +
-    theme(panel.grid.major = element_line(color = "grey80"),
-          #panel.grid.minor = element_line(color = "grey90"),
-          panel.background = element_blank(),
-          plot.title = element_text(size = 10, hjust = 0.5),
-          axis.ticks = element_blank())
-```
+## Students by Year
+
+Since it is of interest how students' perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures.
 
 ```{r}
-ggplot(groups, aes(x = X8, y = perc, fill = as.factor(X64))) +
-  geom_bar(stat = "identity", position = "dodge", color = "black") +
-  geom_hline(yintercept = 0) +
-  labs(x = "Academic Role", y = "Agreement", fill = "Survey Year") +
-  scale_y_continuous(labels = scales::percent) +
-  scale_fill_brewer(palette = "Blues") +
-  theme(panel.grid.major = element_line(color = "grey80"),
-        panel.background = element_blank(),
-        plot.title = element_text(size = 10, hjust = 0.5),
-        axis.ticks = element_blank(),
-        axis.text.x = element_text(angle = 45, hjust = 1))
+
+students <- df %>% 
+  filter(str_detect(X8, "student.*year") | X8 == "master student")
+```
+
+### Open Science
+
+```{r os_students, fig.height = 18, fig.width = 8}
+
+plots <- list()
+
+for (q in os) {
+  plot <- plot_agreement_groups(students, question = q, "X8", TRUE, TRUE)
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
 ```
