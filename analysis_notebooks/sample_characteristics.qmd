@@ -22,6 +22,7 @@ library(psych)
 library(ggridges)
 
 options(dplyr.summarise.inform = FALSE)
+knitr::opts_chunk$set(dpi = 400)
 
 # Get data
 
@@ -55,7 +56,7 @@ In addition to a broad national survey, participants were also specifically recr
 -   Vasyl' Stus Donetsk National University (DonNU)
 -   Lutsk National Technical University (LutskNTU)
 
-```{r}
+```{r surveys}
 
 df$X63 <- factor(df$X63, levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
 
@@ -63,11 +64,15 @@ knitr::kable(table(df$X63, df$X64), format = "html")
 
 
 ggplot(df, aes(x = X63, fill = as_factor(X64))) +
-  geom_bar(position = "dodge") +
-  labs(title = "Number of Survey Respondents by Survey and Year", x = "Survey", y = "Count") +
-  theme_minimal() +
-  theme(legend.title = element_blank(),
-        plot.title = element_text(hjust = 0.5))
+  geom_bar(position = "dodge", color = "black", size = 0.8) +
+  labs(title = "Number of Survey Respondents by Survey and Year",
+       x = "Survey", y = "Count", fill = NULL) +
+  scale_fill_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a")) +
+  theme(panel.grid.major = element_line(color = "grey80"),
+        panel.grid.minor = element_line(color = "grey90"),
+        panel.background = element_blank(),
+        plot.title = element_text(size = 12, hjust = 0.5),
+        axis.ticks = element_blank())
 ```
 
 ## Academic role
@@ -245,7 +250,7 @@ map_counts <- stringdist_join(ukraine_map, locations,
 map_counts <- st_as_sf(map_counts)
 ```
 
-```{r}
+```{r map_2021}
 # Plot number of respondents by region in year 2021
 ggplot() +
   geom_sf(data = map_counts, aes(fill = `2021`), color = "white") +
@@ -265,7 +270,7 @@ ggplot() +
         panel.grid = element_blank())  # Hide grid lines
 ```
 
-```{r}
+```{r map_2022}
 # Plot number of respondents by region in year 2022
 ggplot() +
   geom_sf(data = map_counts, aes(fill = `2022`), color = "white") +
@@ -285,7 +290,7 @@ ggplot() +
         panel.grid = element_blank())  # Hide grid lines
 ```
 
-```{r}
+```{r map_2023}
 # Plot number of respondents by region in year 2023
 ggplot() +
   geom_sf(data = map_counts, aes(fill = `2023`), color = "white") +
@@ -311,7 +316,7 @@ Time stamps were collected within the survey for start and finish. Total respons
 
 First, basic descriptive statistics are examined for total response time. Additionally, a simple boxplot is created.
 
-```{r}
+```{r response_boxplot}
 knitr::kable(describe(df$duration) %>% 
                mutate_if(is.numeric, ~round(., 2)) %>%
                select(-c(n, trimmed, kurtosis)),
@@ -323,7 +328,7 @@ Especially the range of response times from 0 to over 5000 minutes (about three 
 
 To have a closer look at the distribution of total response times, a histogram is created. Only times ranging from 0 to 30 minutes will be plotted for better visibility (extreme outliers are omitted).
 
-```{r}
+```{r response_hist}
 hist(df$duration[df$duration >= 0 & df$duration <= 30], breaks = 30,
      main = "Histogram of Total Response Times", xlab = "Duration")
 ```
@@ -332,7 +337,7 @@ Only a small share of respondents finished the survey in less then 3 minutes. Th
 
 Since different groups in the academic context might vary in their familiarity with the topic, they might differ in their response times. To detect possible pronounced differences, distribution of total response time is plotted separately by academic role indicated (again limiting the range of visualized values from 0 to 30).
 
-```{r}
+```{r response_role}
 #| warning: false
 
 ggplot(df, aes(x = duration, y = X8)) +
@@ -357,7 +362,7 @@ While students have a lower median than, e.g., faculty, there are no major diffe
 
 At the end of the survey, one question asked respondents whether they agreed to following statement: *"All the questions in this questionnaire were clear to me."*
 
-```{r}
+```{r clarity_year}
 df$X53 <-  fct_na_value_to_level(df$X53)
 knitr::kable(table(df$X53, df$X64), format = "html")
 
@@ -373,7 +378,7 @@ ggplot(df, aes(x = X53, fill = as_factor(X64))) +
 
 While the survey questions were clear to the large majority of respondents, there is still a considerable number of people disagreeing on this statement.
 
-```{r}
+```{r clarity_duration}
 #| warning: false
 
 ggplot(df, aes(x = duration, y = X53)) +
@@ -419,7 +424,7 @@ corc <- cor(df$duration, df$dontknow, method = "kendall")
 
 Participants were able to answer the agreement and frequency questions with "don't know" (39 question in total). Comparing the frequency with which this answer was chosen between groups might also help to investigate response behaviors more closely. Participants responded to a mean of `r round(know$mean, 2)` questions with "don't know" (*SD* = `r round(know$sd, 2)`), ranging from `r know$min` to `r know$max` such answers. Number of these answers is correlated with total response time with a Kendall correlation coefficient of `r round(corc, 2)`. In general, there seems to be no relationship between response time and number of "don't know" responses. On visual inspection, participants that took quite long also responded less with "don't know", however, these participants generally only make up a small part of the sample (median response time is presented in the figure as the red vertical line).
 
-```{r}
+```{r dontknow_duration}
 #| warning: false
 
 ggplot(df, aes(x = duration, y = dontknow)) +
@@ -434,7 +439,7 @@ ggplot(df, aes(x = duration, y = dontknow)) +
 
 Differences in academic groups might also be of interest here, since some might be more familiar with the topics of the survey than others.
 
-```{r}
+```{r dontknow_role}
 #| warning: false
 
 # Plot number of "don't know" answer by academic groups
@@ -454,7 +459,7 @@ ggplot(df, aes(x = dontknow, y = X8)) +
 
 In the plot some groups appear to have answered quite rarely with "don't know", mainly university administrators and research staff. Students in their early years of study might also be less familiar with the topic. One notable outlier can be seen in librarians who indicated that they were not able to answer a question the most (however, this is one of the smallest groups among survey respondents).
 
-```{r}
+```{r dontknow_clarity}
 #| warning: false
 
 # Plot number of "don't know" answer by response to clarity question
@@ -489,7 +494,7 @@ corc <- cor(df$duration, df$nas, method = "kendall")
 
 Only certain questions could be skipped. Of the content questions, only items X38 to X52 were not mandatory. Therefore a maximum of 15 responses can be missing per person. Participants skipped a mean of `r round(nas$mean, 2)` questions (*SD* = `r round(nas$sd, 2)`), ranging from `r nas$min` to `r nas$max` missings. Number of NAs is correlated with total response time with a Kendall correlation coefficient of `r round(corc, 2)`. In total, missing responses are very rare within the data set.
 
-```{r}
+```{r na_hist}
 
 hist(df$nas, breaks = 15,
      main = "Histogram of NAs", xlab = "Number NAs")
