@@ -14,6 +14,7 @@ execute:
 #| output: false
 #| echo: false
 
+library(here)
 library(tidyverse)
 library(psych)
 library(ggchicklet)
@@ -24,24 +25,26 @@ library(RColorBrewer)
 
 knitr::opts_chunk$set(dpi = 400)
 
+# Get var overview including short titles
+vars <- here("data", "additional", "var_short_titles.csv")
+var_overview <- read_csv(vars)
+
+# Get functions for analysis
+functions <- here("R", "analysis.R")
+source(functions)
+
 # Get data
 use_targets <- TRUE # Set to false if data is not received by targets pipeline
 
 if (use_targets) {
   
-  source("R/analysis.R")
   df <- targets::tar_read(recoded_data)
-  var_overview <- targets::tar_read(var_overview)
 
 } else {
   
-  library(here)
-  functions <- here("R", "analysis.R")
-  source(functions)
   data <- here("data", "processed", "preprocessed_data.csv")
-  vars <- here("data", "processed", "var_overview.csv")
   df <- read_csv(data)
-  var_overview <- read_csv(vars)
+  
 }
 ```
 
@@ -57,12 +60,12 @@ Multiple questions within the survey inquired about how much participants agreed
 os <- c("X38", "X39", "X42", "X43", "X45",
         "X46", "X48", "X49", "X50", "X52")
 
-knitr::kable(var_overview[var_overview$var_id %in% os, 1:2])
+knitr::kable(var_overview[var_overview$var_id %in% os, c(1, 2, 4)])
 ```
 
 In the following figure, responses are visualized to the Open Science questions. They are sorted by the amount of agreement with these statements. Proportions of the different answer categories were calculated after removing missing and "don't know" responses. These responses are plotted separately on the right hand side, indicating their percentage of the total responses.
 
-```{r os_overview, fig.height = 7.5, fig.width = 8}
+```{r os_overview, fig.height = 7.5, fig.width = 9}
 plot_agreement_overview(df, var_overview, os)
 ```
 
@@ -73,12 +76,12 @@ Nine items inquire about the agreement with statements related to reporting and 
 ```{r}
 raia <- c("X19", "X17", "X18", "X20", "X21",
           "X40", "X44", "X41", "X47")
-knitr::kable(var_overview[var_overview$var_id %in% raia, 1:2])
+knitr::kable(var_overview[var_overview$var_id %in% raia, c(1, 2, 4)])
 ```
 
 Caution: Question X19 ("Changes to the experimental data \[...\] are acceptable") is the only statement phrased in the opposite direction. This needs to be considered when interpreting the responses.
 
-```{r raia_overview, fig.height = 7, fig.width = 8}
+```{r raia_overview, fig.height = 7, fig.width = 9}
 plot_agreement_overview(df, var_overview, raia)
 ```
 
@@ -86,12 +89,12 @@ Six questions were about the frequency with which certain questionable research 
 
 ```{r}
 raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
-knitr::kable(var_overview[var_overview$var_id %in% raif, 1:2])
+knitr::kable(var_overview[var_overview$var_id %in% raif, c(1, 2, 4)])
 ```
 
 The following overview plot is sorted by the proportion of "never" and "rarely" responses. These questions could not be skipped, therefore there are no missing answers.
 
-```{r raif_overview, fig.height = 5, fig.width = 8}
+```{r raif_overview, fig.height = 5, fig.width = 9}
 plot_frequency_overview(df, var_overview, raif)
 ```
 
@@ -101,10 +104,10 @@ While most questions referred to research, others focused more on education at t
 
 ```{r}
 edua <- c("X16", "X22", "X23", "X51")
-knitr::kable(var_overview[var_overview$var_id %in% edua, 1:2])
+knitr::kable(var_overview[var_overview$var_id %in% edua, c(1, 2, 4)])
 ```
 
-```{r edua_overview, fig.height = 4, fig.width = 8}
+```{r edua_overview, fig.height = 4, fig.width = 9}
 plot_agreement_overview(df, var_overview, edua, sort = FALSE)
 ```
 
@@ -112,10 +115,10 @@ The occurrence of three different types of student misconduct were also investig
 
 ```{r}
 eduf <- c("X30", "X31", "X32")
-knitr::kable(var_overview[var_overview$var_id %in% eduf, 1:2])
+knitr::kable(var_overview[var_overview$var_id %in% eduf, c(1, 2, 4)])
 ```
 
-```{r eduf_overview, fig.height = 3.5, fig.width = 8}
+```{r eduf_overview, fig.height = 3.5, fig.width = 9}
 plot_frequency_overview(df, var_overview, eduf)
 ```
 
@@ -125,16 +128,16 @@ The survey contained five questions on how misconduct is handled at the responde
 
 ```{r}
 adm <- c("X33", "X34", "X35", "X36", "X37")
-knitr::kable(var_overview[var_overview$var_id %in% adm, 1:2])
+knitr::kable(var_overview[var_overview$var_id %in% adm, c(1, 2, 4)])
 ```
 
-```{r adm_overview, fig.height = 4.5, fig.width = 8}
+```{r adm_overview, fig.height = 4.5, fig.width = 9}
 plot_frequency_overview(df, var_overview, adm)
 ```
 
 One general item also inquired about the following statement: "Overall, the processes at my higher education institution are organised in a clear and transparent manner". The agreement is visualized by the different institutional vs. the national survey.
 
-```{r hei_processes, fig.height = 4.5, fig.width = 8}
+```{r hei_processes, fig.height = 4.5, fig.width = 9}
 df$X63 <- factor(df$X63,
                  levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
 plot_agreement(df, var_overview, "X15", group = "X63")
@@ -145,10 +148,6 @@ plot_agreement(df, var_overview, "X15", group = "X63")
 ## Research
 
 ### Open Science
-
-```{r}
-knitr::kable(var_overview[var_overview$var_id %in% os, 1:2])
-```
 
 ```{r os_development, fig.height = 15, fig.width = 8}
 
@@ -170,10 +169,6 @@ wrap_plots(plots, ncol = 2) +
 
 ### Reporting and Academic Integrity
 
-```{r}
-knitr::kable(var_overview[var_overview$var_id %in% raia, 1:2])
-```
-
 ```{r raia_development, fig.height = 15, fig.width = 8}
  
 plots <- list()
@@ -190,10 +185,6 @@ wrap_plots(plots, ncol = 2) +
   plot_layout(guides = "collect") +
   plot_annotation(tag_levels = 'A') & 
   theme(plot.tag = element_text(size = 10))
-```
-
-```{r}
-knitr::kable(var_overview[var_overview$var_id %in% raif, 1:2])
 ```
 
 ```{r raif_development, fig.height = 9, fig.width = 8}
@@ -213,10 +204,6 @@ wrap_plots(plots, ncol = 2) +
 
 ### Education
 
-```{r}
-knitr::kable(var_overview[var_overview$var_id %in% edua, 1:2])
-```
-
 ```{r edua_development, fig.height = 5.5, fig.width = 8}
  
 plots <- list()
@@ -235,10 +222,6 @@ wrap_plots(plots, ncol = 2) +
   theme(plot.tag = element_text(size = 10))
 ```
 
-```{r}
-knitr::kable(var_overview[var_overview$var_id %in% eduf, 1:2])
-```
-
 ```{r eduf_development, fig.height = 5.5, fig.width = 8}
 
 plots <- list()
@@ -255,10 +238,6 @@ wrap_plots(plots, ncol = 2) +
 ```
 
 ### Institution/Administration
-
-```{r}
-knitr::kable(var_overview[var_overview$var_id %in% adm, 1:2])
-```
 
 ```{r adm_development, fig.height = 9, fig.width = 8}
 

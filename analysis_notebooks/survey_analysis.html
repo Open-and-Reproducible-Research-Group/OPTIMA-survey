@@ -114,59 +114,71 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>os <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X38"</span>, <span class="st">"X39"</span>, <span class="st">"X42"</span>, <span class="st">"X43"</span>, <span class="st">"X45"</span>,</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">"X46"</span>, <span class="st">"X48"</span>, <span class="st">"X49"</span>, <span class="st">"X50"</span>, <span class="st">"X52"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> os, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> os, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 4%">
-<col style="width: 95%">
+<col style="width: 3%">
+<col style="width: 78%">
+<col style="width: 17%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">var_id</th>
 <th style="text-align: left;">var_full</th>
+<th style="text-align: left;">var_short</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X38</td>
 <td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">Open access to research results</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X39</td>
 <td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">Access prior to peer review</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X42</td>
 <td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">Manuscripts on open platforms</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X43</td>
 <td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">Appropriate metadata</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X45</td>
 <td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">Open experimental data</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X46</td>
 <td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">Open source code</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X48</td>
 <td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">Open peer reviewer identity</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X49</td>
 <td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">Open peer review reports</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X50</td>
 <td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">Open peer review interaction</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X52</td>
 <td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">Understanding “Open Science”</td>
 </tr>
 </tbody>
 </table>
@@ -176,7 +188,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement_overview</span>(df, var_overview, os)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/os_overview-1.png" class="img-fluid" width="3200"></p>
+<p><img src="survey_analysis_files/figure-html/os_overview-1.png" class="img-fluid" width="3600"></p>
 </div>
 </div>
 </section>
@@ -186,55 +198,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>raia <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X19"</span>, <span class="st">"X17"</span>, <span class="st">"X18"</span>, <span class="st">"X20"</span>, <span class="st">"X21"</span>,</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"X40"</span>, <span class="st">"X44"</span>, <span class="st">"X41"</span>, <span class="st">"X47"</span>)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> raia, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> raia, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 4%">
-<col style="width: 95%">
+<col style="width: 3%">
+<col style="width: 76%">
+<col style="width: 19%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">var_id</th>
 <th style="text-align: left;">var_full</th>
+<th style="text-align: left;">var_short</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X17</td>
 <td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">Publication of all results</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X18</td>
 <td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">Full co-author responsibility</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X19</td>
 <td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">Post-hoc changes to data</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X20</td>
 <td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">Authorship for all contributors</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X21</td>
 <td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">Disclosure of conflicts of interest</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X40</td>
 <td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">Retained intellectual property rights</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X41</td>
 <td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">Clear public communication</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X44</td>
 <td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">Detailed research methodology</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X47</td>
 <td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">Research serving public purpose</td>
 </tr>
 </tbody>
 </table>
@@ -244,49 +267,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement_overview</span>(df, var_overview, raia)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/raia_overview-1.png" class="img-fluid" width="3200"></p>
+<p><img src="survey_analysis_files/figure-html/raia_overview-1.png" class="img-fluid" width="3600"></p>
 </div>
 </div>
 <p>Six questions were about the frequency with which certain questionable research practices around reporting occur at the respondent’s institution (see table below).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>raif <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X24"</span>, <span class="st">"X25"</span>, <span class="st">"X26"</span>, <span class="st">"X27"</span>, <span class="st">"X28"</span>, <span class="st">"X29"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> raif, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> raif, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 3%">
-<col style="width: 96%">
+<col style="width: 2%">
+<col style="width: 86%">
+<col style="width: 11%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">var_id</th>
 <th style="text-align: left;">var_full</th>
+<th style="text-align: left;">var_short</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X24</td>
 <td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">Sources not referenced</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X25</td>
 <td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">Self-plagiarism</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X26</td>
 <td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">Fabrication of data/facts</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X27</td>
 <td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">Selective citations</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X28</td>
 <td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">Plagiarism</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X29</td>
 <td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">Academic ghostwriting</td>
 </tr>
 </tbody>
 </table>
@@ -296,7 +327,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_frequency_overview</span>(df, var_overview, raif)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/raif_overview-1.png" class="img-fluid" width="3200"></p>
+<p><img src="survey_analysis_files/figure-html/raif_overview-1.png" class="img-fluid" width="3600"></p>
 </div>
 </div>
 </section>
@@ -306,35 +337,41 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>While most questions referred to research, others focused more on education at the respective HEI. Respondents were inquired about their agreement with certain education-related statements (see table below), most of them also related to Open Science, but in an educational context.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>edua <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X16"</span>, <span class="st">"X22"</span>, <span class="st">"X23"</span>, <span class="st">"X51"</span>)</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> edua, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> edua, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 4%">
-<col style="width: 95%">
+<col style="width: 3%">
+<col style="width: 78%">
+<col style="width: 17%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">var_id</th>
 <th style="text-align: left;">var_full</th>
+<th style="text-align: left;">var_short</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X16</td>
 <td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">High quality educational services</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X22</td>
 <td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">Open access to diploma theses</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X23</td>
 <td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">Students reporting misconduct</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X51</td>
 <td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">Open educational resources</td>
 </tr>
 </tbody>
 </table>
@@ -343,37 +380,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement_overview</span>(df, var_overview, edua, <span class="at">sort =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/edua_overview-1.png" class="img-fluid" width="3200"></p>
+<p><img src="survey_analysis_files/figure-html/edua_overview-1.png" class="img-fluid" width="3600"></p>
 </div>
 </div>
 <p>The occurrence of three different types of student misconduct were also investigated within the survey (see table and figure below).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>eduf <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X30"</span>, <span class="st">"X31"</span>, <span class="st">"X32"</span>)</span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> eduf, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> eduf, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 7%">
-<col style="width: 92%">
+<col style="width: 5%">
+<col style="width: 70%">
+<col style="width: 24%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">var_id</th>
 <th style="text-align: left;">var_full</th>
+<th style="text-align: left;">var_short</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X30</td>
 <td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">Collaboration during exams</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X31</td>
 <td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">Unauthorized aids during exams</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X32</td>
 <td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">Use of pirated software</td>
 </tr>
 </tbody>
 </table>
@@ -382,7 +424,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_frequency_overview</span>(df, var_overview, eduf)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/eduf_overview-1.png" class="img-fluid" width="3200"></p>
+<p><img src="survey_analysis_files/figure-html/eduf_overview-1.png" class="img-fluid" width="3600"></p>
 </div>
 </div>
 </section>
@@ -391,39 +433,46 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The survey contained five questions on how misconduct is handled at the respondent’s respective institution. Respondents indicated the frequency with which certain practices occurred at their institution.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>adm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X33"</span>, <span class="st">"X34"</span>, <span class="st">"X35"</span>, <span class="st">"X36"</span>, <span class="st">"X37"</span>)</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> adm, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> adm, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">4</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table class="table table-sm table-striped small">
 <colgroup>
-<col style="width: 6%">
-<col style="width: 93%">
+<col style="width: 5%">
+<col style="width: 72%">
+<col style="width: 21%">
 </colgroup>
 <thead>
 <tr class="header">
 <th style="text-align: left;">var_id</th>
 <th style="text-align: left;">var_full</th>
+<th style="text-align: left;">var_short</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X33</td>
 <td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">Incited misconduct</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X34</td>
 <td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">Tolerated misconduct</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X35</td>
 <td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">False accusations</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X36</td>
 <td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">Encouraged misconduct</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X37</td>
 <td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">Punishment for whistleblowers</td>
 </tr>
 </tbody>
 </table>
@@ -432,7 +481,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_frequency_overview</span>(df, var_overview, adm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/adm_overview-1.png" class="img-fluid" width="3200"></p>
+<p><img src="survey_analysis_files/figure-html/adm_overview-1.png" class="img-fluid" width="3600"></p>
 </div>
 </div>
 <p>One general item also inquired about the following statement: “Overall, the processes at my higher education institution are organised in a clear and transparent manner”. The agreement is visualized by the different institutional vs.&nbsp;the national survey.</p>
@@ -441,7 +490,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"National"</span>, <span class="st">"LPU"</span>, <span class="st">"SumDU"</span>, <span class="st">"DonNU"</span>, <span class="st">"LutskNTU"</span>))</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement</span>(df, var_overview, <span class="st">"X15"</span>, <span class="at">group =</span> <span class="st">"X63"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/hei_processes-1.png" class="img-fluid" width="3200"></p>
+<p><img src="survey_analysis_files/figure-html/hei_processes-1.png" class="img-fluid" width="3600"></p>
 </div>
 </div>
 </section>
@@ -453,68 +502,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="open-science-1" class="level3">
 <h3 class="anchored" data-anchor-id="open-science-1">Open Science</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> os, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> os) {</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (q <span class="sc">%in%</span> <span class="fu">paste0</span>(<span class="st">"X"</span>, <span class="dv">38</span><span class="sc">:</span><span class="dv">53</span>)) {</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    legend <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {legend <span class="ot">&lt;-</span> <span class="cn">FALSE</span>}</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_agreement_line</span>(df, <span class="at">question =</span> q, legend)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 4%">
-<col style="width: 95%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">var_id</th>
-<th style="text-align: left;">var_full</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X38</td>
-<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X39</td>
-<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X42</td>
-<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X43</td>
-<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X45</td>
-<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X46</td>
-<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X48</td>
-<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X49</td>
-<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X50</td>
-<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X52</td>
-<td style="text-align: left;">I can explain what “open science” is.</td>
-</tr>
-</tbody>
-</table>
+<p><img src="survey_analysis_files/figure-html/os_development-1.png" class="img-fluid" width="3200"></p>
 </div>
 </div>
+</section>
+<section id="reporting-and-academic-integrity-1" class="level3">
+<h3 class="anchored" data-anchor-id="reporting-and-academic-integrity-1">Reporting and Academic Integrity</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> os) {</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> raia) {</span>
 <span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (q <span class="sc">%in%</span> <span class="fu">paste0</span>(<span class="st">"X"</span>, <span class="dv">38</span><span class="sc">:</span><span class="dv">53</span>)) {</span>
 <span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    legend <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
 <span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {legend <span class="ot">&lt;-</span> <span class="cn">FALSE</span>}</span>
@@ -527,71 +539,32 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
 <span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/os_development-1.png" class="img-fluid" width="3200"></p>
+<p><img src="survey_analysis_files/figure-html/raia_development-1.png" class="img-fluid" width="3200"></p>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> raif) {</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_frequency_line</span>(df, <span class="at">question =</span> q, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">ylim =</span> <span class="dv">50</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<p><img src="survey_analysis_files/figure-html/raif_development-1.png" class="img-fluid" width="3200"></p>
 </div>
 </div>
 </section>
-<section id="reporting-and-academic-integrity-1" class="level3">
-<h3 class="anchored" data-anchor-id="reporting-and-academic-integrity-1">Reporting and Academic Integrity</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> raia, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 4%">
-<col style="width: 95%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">var_id</th>
-<th style="text-align: left;">var_full</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X17</td>
-<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X18</td>
-<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X19</td>
-<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X20</td>
-<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X21</td>
-<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X40</td>
-<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X41</td>
-<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X44</td>
-<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X47</td>
-<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
+<section id="education-1" class="level3">
+<h3 class="anchored" data-anchor-id="education-1">Education</h3>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> raia) {</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> edua) {</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (q <span class="sc">%in%</span> <span class="fu">paste0</span>(<span class="st">"X"</span>, <span class="dv">38</span><span class="sc">:</span><span class="dv">53</span>)) {</span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    legend <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
 <span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {legend <span class="ot">&lt;-</span> <span class="cn">FALSE</span>}</span>
@@ -604,168 +577,21 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
 <span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/raia_development-1.png" class="img-fluid" width="3200"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> raif, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 3%">
-<col style="width: 96%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">var_id</th>
-<th style="text-align: left;">var_full</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X24</td>
-<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X25</td>
-<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X26</td>
-<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X27</td>
-<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X28</td>
-<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X29</td>
-<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> raif) {</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_frequency_line</span>(df, <span class="at">question =</span> q, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">ylim =</span> <span class="dv">50</span>)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
-<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<p><img src="survey_analysis_files/figure-html/raif_development-1.png" class="img-fluid" width="3200"></p>
-</div>
-</div>
-</section>
-<section id="education-1" class="level3">
-<h3 class="anchored" data-anchor-id="education-1">Education</h3>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> edua, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 4%">
-<col style="width: 95%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">var_id</th>
-<th style="text-align: left;">var_full</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X16</td>
-<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X22</td>
-<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X23</td>
-<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X51</td>
-<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> edua) {</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (q <span class="sc">%in%</span> <span class="fu">paste0</span>(<span class="st">"X"</span>, <span class="dv">38</span><span class="sc">:</span><span class="dv">53</span>)) {</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    legend <span class="ot">&lt;-</span> <span class="cn">TRUE</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {legend <span class="ot">&lt;-</span> <span class="cn">FALSE</span>}</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_agreement_line</span>(df, <span class="at">question =</span> q, legend)</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
 <p><img src="survey_analysis_files/figure-html/edua_development-1.png" class="img-fluid" width="3200"></p>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> eduf, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 7%">
-<col style="width: 92%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">var_id</th>
-<th style="text-align: left;">var_full</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X30</td>
-<td style="text-align: left;">Students help each other during exams or tests.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X31</td>
-<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X32</td>
-<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> eduf) {</span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_frequency_line</span>(df, <span class="at">question =</span> q, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">ylim =</span> <span class="dv">40</span>)</span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> eduf) {</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_frequency_line</span>(df, <span class="at">question =</span> q, <span class="at">legend =</span> <span class="cn">TRUE</span>, <span class="at">ylim =</span> <span class="dv">40</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="survey_analysis_files/figure-html/eduf_development-1.png" class="img-fluid" width="3200"></p>
 </div>
@@ -774,66 +600,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="institutionadministration-1" class="level3">
 <h3 class="anchored" data-anchor-id="institutionadministration-1">Institution/Administration</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(var_overview[var_overview<span class="sc">$</span>var_id <span class="sc">%in%</span> adm, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table class="table table-sm table-striped small">
-<colgroup>
-<col style="width: 6%">
-<col style="width: 93%">
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">var_id</th>
-<th style="text-align: left;">var_full</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X33</td>
-<td style="text-align: left;">Incitement to violate academic integrity.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X34</td>
-<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X35</td>
-<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X36</td>
-<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X37</td>
-<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> adm) {</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_frequency_line</span>(df, <span class="at">question =</span> q, <span class="at">legend =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> adm) {</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_frequency_line</span>(df, <span class="at">question =</span> q, <span class="at">legend =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">+</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_annotation</span>(<span class="at">tag_levels =</span> <span class="st">'A'</span>) <span class="sc">&amp;</span> </span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="survey_analysis_files/figure-html/adm_development-1.png" class="img-fluid" width="3200"></p>
 </div>
 </div>
 <p>An alternative plot type to the line plot is the area plot. For the following exemplary item (X15: “Overall, the processes at my higher education institution are organised in a clear and transparent manner”) both plots are shown for comparison.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>line <span class="ot">&lt;-</span> <span class="fu">plot_agreement_line</span>(df, <span class="st">"X15"</span>, <span class="cn">FALSE</span>)</span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>area <span class="ot">&lt;-</span> <span class="fu">plot_agreement_area</span>(df, <span class="st">"X15"</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>line <span class="sc">+</span> area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>line <span class="ot">&lt;-</span> <span class="fu">plot_agreement_line</span>(df, <span class="st">"X15"</span>, <span class="cn">FALSE</span>)</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>area <span class="ot">&lt;-</span> <span class="fu">plot_agreement_area</span>(df, <span class="st">"X15"</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>line <span class="sc">+</span> area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="survey_analysis_files/figure-html/hei_processes_comparison-1.png" class="img-fluid" width="3200"></p>
 </div>
@@ -848,31 +635,31 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="academic-roles">Academic Roles</h2>
 <p>To compare respondents with different academic roles, students are first summarized for purposes of visualization (see below for differentiated visualizations for this group). The “other” category was additionally excluded, since it is quite small and difficult to characterize.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>roles <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X8 <span class="sc">!=</span> <span class="st">"other"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">roles =</span> <span class="fu">case_when</span>(</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(X8, <span class="st">"student.*year"</span>) <span class="sc">~</span> <span class="st">"student"</span>,</span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>    X8 <span class="sc">==</span> <span class="st">"master student"</span> <span class="sc">~</span> <span class="st">"student"</span>,</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    X8 <span class="sc">==</span> <span class="st">"doctoral student - ScD (higher doctorate)"</span> <span class="sc">~</span> <span class="st">"doctoral student - ScD"</span>,</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> X8),</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">roles =</span> <span class="fu">factor</span>(roles, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"student"</span>, <span class="st">"doctoral student - PhD"</span>,</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"doctoral student - ScD"</span>,</span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"faculty"</span>, <span class="st">"research staff"</span>,</span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"university administrator"</span>, <span class="st">"librarian"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>roles <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X8 <span class="sc">!=</span> <span class="st">"other"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">roles =</span> <span class="fu">case_when</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(X8, <span class="st">"student.*year"</span>) <span class="sc">~</span> <span class="st">"student"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    X8 <span class="sc">==</span> <span class="st">"master student"</span> <span class="sc">~</span> <span class="st">"student"</span>,</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    X8 <span class="sc">==</span> <span class="st">"doctoral student - ScD (higher doctorate)"</span> <span class="sc">~</span> <span class="st">"doctoral student - ScD"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> X8),</span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">roles =</span> <span class="fu">factor</span>(roles, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"student"</span>, <span class="st">"doctoral student - PhD"</span>,</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"doctoral student - ScD"</span>,</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"faculty"</span>, <span class="st">"research staff"</span>,</span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"university administrator"</span>, <span class="st">"librarian"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="open-science-2" class="level3">
 <h3 class="anchored" data-anchor-id="open-science-2">Open Science</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> os) {</span>
-<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_agreement_groups</span>(roles, <span class="at">question =</span> q, <span class="st">"roles"</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
-<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">&amp;</span> </span>
-<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> os) {</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_agreement_groups</span>(roles, <span class="at">question =</span> q, <span class="st">"roles"</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="survey_analysis_files/figure-html/os_roles-1.png" class="img-fluid" width="3200"></p>
 </div>
@@ -883,22 +670,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="students-by-year">Students by Year</h2>
 <p>Since it is of interest how students’ perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(X8, <span class="st">"student.*year"</span>) <span class="sc">|</span> X8 <span class="sc">==</span> <span class="st">"master student"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(X8, <span class="st">"student.*year"</span>) <span class="sc">|</span> X8 <span class="sc">==</span> <span class="st">"master student"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="open-science-3" class="level3">
 <h3 class="anchored" data-anchor-id="open-science-3">Open Science</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> os) {</span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_agreement_groups</span>(students, <span class="at">question =</span> q, <span class="st">"X8"</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
-<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
-<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
-<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">&amp;</span> </span>
-<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>plots <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (q <span class="cf">in</span> os) {</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>  plot <span class="ot">&lt;-</span> <span class="fu">plot_agreement_groups</span>(students, <span class="at">question =</span> q, <span class="st">"X8"</span>, <span class="cn">TRUE</span>, <span class="cn">TRUE</span>)</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>  plots[[q]] <span class="ot">&lt;-</span> plot</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="fu">wrap_plots</span>(plots, <span class="at">ncol =</span> <span class="dv">2</span>) <span class="sc">+</span></span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot_layout</span>(<span class="at">guides =</span> <span class="st">"collect"</span>) <span class="sc">&amp;</span> </span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.tag =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">10</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="survey_analysis_files/figure-html/os_students-1.png" class="img-fluid" width="3200"></p>
 </div>

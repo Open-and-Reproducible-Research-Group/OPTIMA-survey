@@ -97,15 +97,14 @@ plot_agreement_overview <- function(
   
   labels <- var_overview %>% 
     filter(var_id %in% columns) %>% 
-    mutate(label = str_wrap(var_full, width = 80)) %>%  
+    mutate(label = var_short) %>%  
     select(var_id, label)
   
   pdata_item <- pdata %>% 
     left_join(labels, by = c("var" = "var_id"))
   
   p1 <- pdata_item %>% 
-    # Replace 'var' with 'label' for full item text (needs linebreak solution)
-    ggplot(aes(fct_reorder(var, order), prop, fill = val)) +
+    ggplot(aes(fct_reorder(label, order), prop, fill = val)) +
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
@@ -187,15 +186,14 @@ plot_frequency_overview <- function(
   
   labels <- var_overview %>% 
     filter(var_id %in% columns) %>% 
-    mutate(label = str_wrap(var_full, width = 80)) %>%  
+    mutate(label = var_short) %>%  
     select(var_id, label)
   
   pdata_item <- pdata %>% 
     left_join(labels, by = c("var" = "var_id"))
   
   p1 <- pdata_item %>% 
-    # Replace 'var' with 'label' for full item text (needs linebreak solution)
-    ggplot(aes(fct_reorder(var, order), prop, fill = val)) + 
+    ggplot(aes(fct_reorder(label, order), prop, fill = val)) + 
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
@@ -408,9 +406,11 @@ plot_agreement_area <- function(df, question, legend = TRUE) {
                              "rather agree", "strongly agree")) %>% 
     group_by(var)
   
+  title <- var_overview[var_overview$var_id == question, ]$var_short
+  
   plot <- ggplot(props, aes(x = X64, y = perc, fill = val)) + 
     geom_area(alpha = 0.8, size = 0.5, colour = "black") +
-    labs(x = "Survey Year", y = "Proportions", fill = "Responses", title = question) +
+    labs(x = "Survey Year", y = "Proportions", fill = "Responses", title = title) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30",
                                  "strongly disagree" = "#b31529",
@@ -445,9 +445,11 @@ plot_frequency_area <- function(df, question, legend = TRUE) {
                              "frequently", "very often")) %>% 
     group_by(var)
   
+  title <- var_overview[var_overview$var_id == question, ]$var_short
+  
   plot <- ggplot(props, aes(x = X64, y = perc, fill = val)) + 
     geom_area(alpha = 0.8, size = 0.7, colour = "black") +
-    labs(x = "Survey Year", y = "Proportions", fill = "Responses", title = question) +
+    labs(x = "Survey Year", y = "Proportions", fill = "Responses", title = title) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_fill_manual(values = c("don't know" = "grey30",
                                  "never" = "#b31529",
@@ -484,10 +486,12 @@ plot_agreement_line <- function(df, question, legend = TRUE, ylim = 75) {
                              "rather agree", "strongly agree")) %>% 
     group_by(var)
   
+  title <- var_overview[var_overview$var_id == question, ]$var_short
+  
   plot <- ggplot(props, aes(x = X64, y = perc, color = val)) + 
     geom_line(size = 0.8) +
     geom_point() +
-    labs(x = "Survey Year", y = "Proportions", color = "Responses", title = question) +
+    labs(x = "Survey Year", y = "Proportions", color = "Responses", title = title) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_color_manual(values = c("NA" = "grey50", "don't know" = "grey30",
                                   "strongly disagree" = "#b31529",
@@ -519,10 +523,12 @@ plot_frequency_line <- function(df, question, legend = TRUE, ylim = 65) {
                              "frequently", "very often")) %>% 
     group_by(var)
   
+  title <- var_overview[var_overview$var_id == question, ]$var_short
+  
   plot <- ggplot(props, aes(x = X64, y = perc, color = val)) + 
     geom_line(size = 0.8) +
     geom_point() +
-    labs(x = "Survey Year", y = "Proportions", color = "Responses", title = question) +
+    labs(x = "Survey Year", y = "Proportions", color = "Responses", title = title) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_color_manual(values = c("don't know" = "grey30",
                                  "never" = "#b31529",
@@ -584,10 +590,12 @@ plot_agreement_groups <- function(df, question, group,
   groups <- table_answers_year(df, question, group) %>% 
     filter(val == "agree")
   
+  title <- var_overview[var_overview$var_id == question, ]$var_short
+  
   ggplot(groups, aes(x = X64, y = perc, color = .data[[group]])) + 
     geom_line(size = 0.8, alpha = 0.8) +
     geom_point() +
-    labs(x = "Survey Year", y = "Agreement", color = NULL, title = question) +
+    labs(x = "Survey Year", y = "Agreement", color = NULL, title = title) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(25, 100)) +
     scale_color_brewer(palette = "Dark2") +
