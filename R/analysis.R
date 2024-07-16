@@ -478,7 +478,18 @@ plot_frequency_area <- function(df, question, legend = TRUE) {
 
 
 
-plot_agreement_line <- function(df, question, legend = TRUE, ylim = 75) {
+plot_agreement_line <- function(df, question, legend = TRUE, ylim = 75,
+                                filter_dks = TRUE, filter_nas = TRUE) {
+  
+  if (filter_dks) {
+    df <- df %>% 
+      filter(.data[[question]] != "don't know")
+  }
+  
+  if (filter_nas) {
+    df <- df %>% 
+      filter(.data[[question]] != "NA")
+  }
   
   props <- table_answers(df, question, group = "X64") %>% 
     mutate(val = fct_relevel(val, "NA", "don't know",
@@ -515,7 +526,14 @@ plot_agreement_line <- function(df, question, legend = TRUE, ylim = 75) {
 
 
 
-plot_frequency_line <- function(df, question, legend = TRUE, ylim = 65) {
+plot_frequency_line <- function(df, question, legend = TRUE, ylim = 65,
+                                filter_dks = TRUE) {
+  
+  
+  if (filter_dks) {
+    df <- df %>% 
+      filter(.data[[question]] != "don't know")
+  }
   
   props <- table_answers(df, question, group = "X64") %>% 
     mutate(val = fct_relevel(val, "don't know", "never",
@@ -571,7 +589,7 @@ dichotomize_agreement <- function(df, question) {
 
 # Plot dichotomized agreement over time
 plot_agreement_groups <- function(df, question, group,
-                                  filter_dks = FALSE, filter_nas = FALSE,
+                                  filter_dks = TRUE, filter_nas = TRUE,
                                   legend_reverse = TRUE) {
   
   df <- df %>% 
@@ -605,5 +623,51 @@ plot_agreement_groups <- function(df, question, group,
           panel.background = element_blank(),
           plot.title = element_text(size = 10, hjust = 0.5),
           axis.ticks = element_blank())
+  
+}
+
+
+# Run logistic regressions over multiple agreement items
+agreement_log_regression <- function(df, questions) {
+  
+  results <- data.frame()
+  
+  for (question in questions) {
+    # Binary agreement variable
+    item_data <- df %>% 
+      select(c(.data[[question]], X64)) %>% 
+      filter(.data[[question]] != "don't know") %>% 
+      filter(.data[[question]] != "NA") %>% 
+      mutate(agreement = case_when(
+        str_detect(.data[[question]], "\\sagree$") ~ 1,
+        TRUE ~ 0)) %>% 
+      rename(., year = X64)
+    
+    # Percentage of agreement by year
+    perc <- item_data %>% 
+      group_by(year) %>% 
+      summarise(perc = sum(agreement)/n()) %>% 
+      pivot_wider(names_from = year, values_from = perc, names_prefix = "perc_")
+    
+    # Logistic model
+    log_model <- glm(agreement ~ factor(year),
+                     item_data,
+                     family = "binomial")
+    
+    log_tidy <- tidy(log_model) %>% 
+      pivot_wider(names_from = term,
+                  values_from = c(estimate, std.error, statistic, p.value))
+    
+    
+    # McFadden's R squared
+    r_squared <- with(summary(log_model), 1 - deviance/null.deviance)
+    
+    # Combining values into dataframe row
+    row <- cbind(question, perc, log_tidy, r_squared)
+    
+    results <- rbind(results, row)
+  }
+  
+  results
   
 }

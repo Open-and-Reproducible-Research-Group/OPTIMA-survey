@@ -266,7 +266,7 @@ line + area
 
 # Comparison Between Groups
 
-To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. At the moment, "NA" and "don't know" answers are removed before the percentage of agreement is calculated. The numbers therefore represent proportions based on all respondents that gave some answer.
+To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. At the moment, "NA" and "don't know" answers are removed before the percentage of agreement is calculated. The numbers therefore represent proportions based on all respondents that gave some answer (other than "don't know").
 
 ## Academic Roles
 
@@ -294,7 +294,7 @@ roles <- df %>%
 plots <- list()
 
 for (q in os) {
-  plot <- plot_agreement_groups(roles, question = q, "roles", TRUE, TRUE)
+  plot <- plot_agreement_groups(roles, question = q, "roles")
   plots[[q]] <- plot
 }
 
@@ -327,4 +327,12 @@ for (q in os) {
 wrap_plots(plots, ncol = 2) +
   plot_layout(guides = "collect") & 
   theme(plot.tag = element_text(size = 10))
+```
+
+## Investigation through Inferential Statistics
+
+Logistic regression, dichotomized agreement (with NA and don't know filtered out a priori)
+
+```{r}
+os_log <- agreement_log_regression(df, os)
 ```
