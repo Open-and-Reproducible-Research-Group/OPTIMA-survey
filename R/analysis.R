@@ -613,7 +613,8 @@ plot_agreement_groups <- function(df, question, group,
   ggplot(groups, aes(x = X64, y = perc, color = .data[[group]])) + 
     geom_line(size = 0.8, alpha = 0.8) +
     geom_point() +
-    labs(x = "Survey Year", y = "Agreement", color = NULL, title = title) +
+    labs(x = "Survey Year", y = "% respondents agreeing",
+         color = NULL, title = title) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(25, 100)) +
     scale_color_brewer(palette = "Dark2") +
@@ -651,6 +652,111 @@ agreement_log_regression <- function(df, questions) {
     
     # Logistic model
     log_model <- glm(agreement ~ factor(year),
+                     item_data,
+                     family = "binomial")
+    
+    log_tidy <- tidy(log_model) %>% 
+      pivot_wider(names_from = term,
+                  values_from = c(estimate, std.error, statistic, p.value))
+    
+    
+    # McFadden's R squared
+    r_squared <- with(summary(log_model), 1 - deviance/null.deviance)
+    
+    # Combining values into dataframe row
+    row <- cbind(question, perc, log_tidy, r_squared)
+    
+    results <- rbind(results, row)
+  }
+  
+  results
+  
+}
+
+
+
+
+# Dichotomize frequency response into agree/disagree
+dichotomize_frequency <- function(df, question) {
+  
+  var <- sym(question)
+  
+  dichotomized <- df %>% 
+    # Dichotomize agreement
+    mutate({{ var }} := case_when(
+      {{ var }} == "very often" ~ "often",
+      {{ var }} == "frequently" ~ "often",
+      {{ var }} == "sometimes" ~ "not often",
+      {{ var }} == "rarely" ~ "not often",
+      {{ var }} == "never" ~ "not often",
+      is.na({{ var }}) ~ "NA",
+      TRUE ~ {{ var }}))
+  
+  dichotomized
+}
+
+
+# Plot dichotomized frequency over time
+plot_frequency_groups <- function(df, question, group,
+                                  filter_dks = TRUE,
+                                  legend_reverse = TRUE) {
+  
+  df <- df %>% 
+    dichotomize_frequency(., question)
+  
+  if (filter_dks) {
+    df <- df %>% 
+      filter(.data[[question]] != "don't know")
+  }
+  
+  
+  groups <- table_answers_year(df, question, group) %>% 
+    filter(val == "agree")
+  
+  title <- var_overview[var_overview$var_id == question, ]$var_short
+  
+  ggplot(groups, aes(x = X64, y = perc, color = .data[[group]])) + 
+    geom_line(size = 0.8, alpha = 0.8) +
+    geom_point() +
+    labs(x = "Survey Year", y = "% respondents estimating as frequent",
+         color = NULL, title = title) +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(25, 100)) +
+    scale_color_brewer(palette = "Dark2") +
+    guides(color = guide_legend(reverse = legend_reverse)) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_line(color = "grey90"),
+          panel.background = element_blank(),
+          plot.title = element_text(size = 10, hjust = 0.5),
+          axis.ticks = element_blank())
+  
+}
+
+
+# Run logistic regressions over multiple frequency items
+frequency_log_regression <- function(df, questions) {
+  
+  results <- data.frame()
+  
+  for (question in questions) {
+    # Binary frequency variable
+    item_data <- df %>% 
+      select(c(.data[[question]], X64)) %>% 
+      filter(.data[[question]] != "don't know") %>% 
+      mutate(frequency = dichotomize_frequency(., question),
+             frequency = case_when(
+               frequency == "often" ~ 1,
+               TRUE ~ 0)) %>% 
+      rename(., year = X64)
+    
+    # Percentage of frequency by year
+    perc <- item_data %>% 
+      group_by(year) %>% 
+      summarise(perc = sum(frequency)/n()) %>% 
+      pivot_wider(names_from = year, values_from = perc, names_prefix = "perc_")
+    
+    # Logistic model
+    log_model <- glm(frequency ~ factor(year),
                      item_data,
                      family = "binomial")
     

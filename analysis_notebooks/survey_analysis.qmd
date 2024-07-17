@@ -22,6 +22,7 @@ library(patchwork)
 library(janitor)
 library(hrbrthemes)
 library(RColorBrewer)
+library(broom)
 
 knitr::opts_chunk$set(dpi = 400)
 
@@ -335,4 +336,8 @@ Logistic regression, dichotomized agreement (with NA and don't know filtered out
 
 ```{r}
 os_log <- agreement_log_regression(df, os)
+```
+
+```{r}
+raif_log <- frequency_log_regression(df, raif)
 ```
