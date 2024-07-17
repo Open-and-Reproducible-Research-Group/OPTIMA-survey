@@ -398,7 +398,19 @@ plot_frequency <- function(
 
 
 
-plot_agreement_area <- function(df, question, legend = TRUE) {
+plot_agreement_area <- function(df, question, legend = TRUE,
+                                filter_dks = TRUE, filter_nas = TRUE) {
+  
+  
+  if (filter_dks) {
+    df <- df %>% 
+      filter(.data[[question]] != "don't know")
+  }
+  
+  if (filter_nas) {
+    df <- df %>% 
+      filter(.data[[question]] != "NA")
+  }
   
   props <- table_answers(df, question, group = "X64") %>% 
     mutate(val = fct_relevel(val, "NA", "don't know",
@@ -437,7 +449,13 @@ plot_agreement_area <- function(df, question, legend = TRUE) {
 
 
 
-plot_frequency_area <- function(df, question, legend = TRUE) {
+plot_frequency_area <- function(df, question, legend = TRUE,
+                                filter_dks = TRUE) {
+  
+  if (filter_dks) {
+    df <- df %>% 
+      filter(.data[[question]] != "don't know")
+  }
   
   props <- table_answers(df, question, group = "X64") %>%
     mutate(val = fct_relevel(val, "don't know", "never",
@@ -667,7 +685,11 @@ agreement_log_regression <- function(df, questions) {
     row <- cbind(question, perc, log_tidy, r_squared)
     
     results <- rbind(results, row)
+    
   }
+  
+  results <- results %>%
+    rename_with(~ gsub("factor(year)", "", .x, fixed = TRUE))
   
   results
   
@@ -773,6 +795,9 @@ frequency_log_regression <- function(df, questions) {
     
     results <- rbind(results, row)
   }
+  
+  results <- results %>%
+    rename_with(~ gsub("factor(year)", "", .x, fixed = TRUE))
   
   results
   

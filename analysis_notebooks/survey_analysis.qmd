@@ -271,7 +271,7 @@ line + area
 
 # Comparison Between Groups
 
-To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. Missing responses and "don't know" answers were removed before the percentage of agreement was calculated. As in the previous section, percentages refer to all respondents that chose one of the response categories presented (and not "don't know").
+To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. Frequency responses were recoded into "often" ("very often", "frequently") and "not often" ("sometimes", "rarely", "never"). Missing responses and "don't know" answers were removed before the percentages were calculated. As in the previous section, percentages refer to all respondents that chose one of the response categories presented (and not "don't know").
 
 ## Academic Roles
 
@@ -384,6 +384,11 @@ wrap_plots(plots, ncol = 2) +
   theme(plot.tag = element_text(size = 10))
 ```
 
+```{r, hei_processes_roles, fig.height = 3.5, fig.width = 5}
+
+plot_agreement_groups(roles, "X15", "roles")
+```
+
 ## Students by Year
 
 In the plots above, students were all grouped into one category. Since it is of interest how students' perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures.
@@ -486,14 +491,68 @@ wrap_plots(plots, ncol = 2) +
   theme(plot.tag = element_text(size = 10))
 ```
 
-## Investigation through Inferential Statistics
+```{r, hei_processes_students, fig.height = 3.5, fig.width = 5}
 
-Logistic regression, dichotomized agreement (with NA and don't know filtered out a priori)
+plot_agreement_groups(students, "X15", "X8")
+```
+
+# Investigation through Inferential Statistics
+
+To investigate the changes over time through inferential statistics, logistic regressions were performed for all items. Year was investigated as an ordinal predictor (not a continuous variable), with the year 2022 and 2023 both compared to the baseline from the first wave in 2021. The responses were dichotomized for the outcome into agree/disagree and often/not often (with "sometimes" being coded as "not often"), respectively. Missing and "don't know" responses were filtered out a-priori. McFadden's R^2^ was calculated post-hoc from the model output.
+
+## Open Science
 
 ```{r}
-os_log <- agreement_log_regression(df, os)
+os_log <- agreement_log_regression(df, os) %>% 
+  merge(var_overview[, c(1,4)], ., by.x = "var_id", by.y = "question")
+  
+knitr::kable(os_log, format = "html")
+```
+
+## Reporting and Academic Integrity
+
+```{r}
+raia_log <- agreement_log_regression(df, raia) %>% 
+  merge(var_overview[, c(1,4)], ., by.x = "var_id", by.y = "question")
+
+knitr::kable(raia_log, format = "html")
 ```
 
 ```{r}
-raif_log <- frequency_log_regression(df, raif)
+raif_log <- frequency_log_regression(df, raif) %>% 
+  merge(var_overview[, c(1,4)], ., by.x = "var_id", by.y = "question")
+
+knitr::kable(raif_log, format = "html")
+```
+
+## Education
+
+```{r}
+edua_log <- agreement_log_regression(df, edua) %>% 
+  merge(var_overview[, c(1,4)], ., by.x = "var_id", by.y = "question")
+
+knitr::kable(edua_log, format = "html")
+```
+
+```{r}
+eduf_log <- frequency_log_regression(df, eduf) %>% 
+  merge(var_overview[, c(1,4)], ., by.x = "var_id", by.y = "question")
+
+knitr::kable(eduf_log, format = "html")
+```
+
+## Institution/Administration
+
+```{r}
+adm_log <- frequency_log_regression(df, adm) %>% 
+  merge(var_overview[, c(1,4)], ., by.x = "var_id", by.y = "question")
+
+knitr::kable(adm_log, format = "html")
+```
+
+```{r}
+hei_log <- agreement_log_regression(df, "X15") %>% 
+  merge(var_overview[, c(1,4)], ., by.x = "var_id", by.y = "question")
+
+knitr::kable(hei_log, format = "html")
 ```
