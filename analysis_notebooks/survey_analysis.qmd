@@ -51,11 +51,13 @@ if (use_targets) {
 
 # Overview
 
+The following plots give a top-level overview over the responses to all questions, grouped by topics. They are also differentiated between questions that were about the extent of agreement with certain statements and questions that asked about the estimated frequency with which certain practices occur at the institution. The survey was conducted in three waves in three subsequent years, but all responses are combined for the overview plots.
+
 ## Research
 
 ### Open Science
 
-Multiple questions within the survey inquired about how much participants agreed with certain statements related to different Open Science practices. The full statements in this group and their respective variable ids are presented in the table below.
+Multiple questions within the survey inquired about how much participants agreed with certain statements related to different Open Science practices. The full statements in this group are presented in the table below.
 
 ```{r}
 os <- c("X38", "X39", "X42", "X43", "X45",
@@ -145,6 +147,8 @@ plot_agreement(df, var_overview, "X15", group = "X63")
 ```
 
 # Development over Time
+
+Since the survey was conducted in three separate waves (2021, 2022, 2023), responses are also compared between those years. Similar to the overview plots where "don't know" and missing responses were separated out before calculating proportions of certain response categories, these are also filtered out here. Percentages therefore refer to all respondents that chose one of the response categories presented in the figure.
 
 ## Research
 
@@ -267,11 +271,11 @@ line + area
 
 # Comparison Between Groups
 
-To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. At the moment, "NA" and "don't know" answers are removed before the percentage of agreement is calculated. The numbers therefore represent proportions based on all respondents that gave some answer (other than "don't know").
+To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. Missing responses and "don't know" answers were removed before the percentage of agreement was calculated. As in the previous section, percentages refer to all respondents that chose one of the response categories presented (and not "don't know").
 
 ## Academic Roles
 
-To compare respondents with different academic roles, students are first summarized for purposes of visualization (see below for differentiated visualizations for this group). The "other" category was additionally excluded, since it is quite small and difficult to characterize.
+To compare respondents with different academic roles, students are first summarized for purposes of visualization (see below for differentiated visualizations for this group). The "other" category was additionally excluded, since it is quite small and difficult to characterize. Some groups differ quite substantially in their size (e.g., lot of faculty, only few librarians). This has to be taken into account for interpretation.
 
 ```{r}
 
@@ -304,9 +308,85 @@ wrap_plots(plots, ncol = 2) +
   theme(plot.tag = element_text(size = 10))
 ```
 
+### Reporting and Academic Integrity
+
+```{r raia_roles, fig.height = 18, fig.width = 8}
+
+plots <- list()
+
+for (q in raia) {
+  plot <- plot_agreement_groups(roles, question = q, "roles")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
+```{r raif_roles, fig.height = 10, fig.width = 8}
+
+plots <- list()
+
+for (q in raif) {
+  plot <- plot_frequency_groups(roles, question = q, "roles")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
+### Education
+
+```{r edua_roles, fig.height = 7, fig.width = 8}
+
+plots <- list()
+
+for (q in edua) {
+  plot <- plot_agreement_groups(roles, question = q, "roles")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
+```{r eduf_roles, fig.height = 7, fig.width = 8}
+
+plots <- list()
+
+for (q in eduf) {
+  plot <- plot_frequency_groups(roles, question = q, "roles")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
+### Institution/Administration
+
+```{r, adm_roles, fig.height = 10, fig.width = 8}
+
+plots <- list()
+
+for (q in adm) {
+  plot <- plot_frequency_groups(roles, question = q, "roles")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
 ## Students by Year
 
-Since it is of interest how students' perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures.
+In the plots above, students were all grouped into one category. Since it is of interest how students' perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures.
 
 ```{r}
 
@@ -322,6 +402,82 @@ plots <- list()
 
 for (q in os) {
   plot <- plot_agreement_groups(students, question = q, "X8", TRUE, TRUE)
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
+### Reporting and Academic Integrity
+
+```{r raia_students, fig.height = 18, fig.width = 8}
+
+plots <- list()
+
+for (q in raia) {
+  plot <- plot_agreement_groups(students, question = q, "X8")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
+```{r raif_students, fig.height = 10, fig.width = 8}
+
+plots <- list()
+
+for (q in raif) {
+  plot <- plot_frequency_groups(students, question = q, "X8")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
+### Education
+
+```{r edua_students, fig.height = 7, fig.width = 8}
+
+plots <- list()
+
+for (q in edua) {
+  plot <- plot_agreement_groups(students, question = q, "X8")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
+```{r eduf_students, fig.height = 7, fig.width = 8}
+
+plots <- list()
+
+for (q in eduf) {
+  plot <- plot_frequency_groups(students, question = q, "X8")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect") & 
+  theme(plot.tag = element_text(size = 10))
+```
+
+### Institution/Administration
+
+```{r, adm_students, fig.height = 10, fig.width = 8}
+
+plots <- list()
+
+for (q in adm) {
+  plot <- plot_frequency_groups(students, question = q, "X8")
   plots[[q]] <- plot
 }
 

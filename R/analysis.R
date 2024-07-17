@@ -711,7 +711,7 @@ plot_frequency_groups <- function(df, question, group,
   
   
   groups <- table_answers_year(df, question, group) %>% 
-    filter(val == "agree")
+    filter(val == "often")
   
   title <- var_overview[var_overview$var_id == question, ]$var_short
   
@@ -721,7 +721,7 @@ plot_frequency_groups <- function(df, question, group,
     labs(x = "Survey Year", y = "% respondents estimating as frequent",
          color = NULL, title = title) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
-    scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(25, 100)) +
+    scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, 60)) +
     scale_color_brewer(palette = "Dark2") +
     guides(color = guide_legend(reverse = legend_reverse)) +
     theme(panel.grid.major = element_line(color = "grey80"),
