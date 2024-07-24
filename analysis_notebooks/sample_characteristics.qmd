@@ -84,7 +84,6 @@ df$X8 <- factor(df$X8, levels = c("student - 1st year", "student - 2nd year", "s
 
 roles <- df %>% 
   tabyl(X8, X64) %>% 
-  adorn_totals("row") %>% 
   adorn_percentages("col") %>% 
   adorn_pct_formatting(digits = 1) %>% 
   adorn_ns()
@@ -115,7 +114,6 @@ df$X10 <- factor(df$X10, levels = c("none (still studying)", "bachelor", "master
 
 degrees <- df %>% 
   tabyl(X10, X64) %>% 
-  adorn_totals("row") %>% 
   adorn_percentages("col") %>% 
   adorn_pct_formatting(digits = 1) %>% 
   adorn_ns()
@@ -132,7 +130,6 @@ df$X11 <- factor(df$X11, levels = c("I have never worked in this sphere", "less 
 
 experience <- df %>% 
   tabyl(X11, X64) %>% 
-  adorn_totals("row") %>% 
   adorn_percentages("col") %>% 
   adorn_pct_formatting(digits = 1) %>% 
   adorn_ns()
@@ -149,7 +146,6 @@ field <- as.data.frame.matrix(tabyl(df, X12, X64))
 field$X12 <- gsub("\\s*\\(.*?\\)", "", field$X12)
 
 field <- field %>%
-  adorn_totals("row") %>% 
   adorn_percentages("col") %>%
   adorn_pct_formatting(digits = 1) %>% 
   adorn_ns()
@@ -166,7 +162,6 @@ df$X13 <- factor(df$X13, levels = c("0", "1-5", "6-10", "11-20", "21-30", "more 
 
 publications <- df %>%
   tabyl(X13, X64) %>% 
-  adorn_totals("row") %>% 
   adorn_percentages("col") %>%
   adorn_pct_formatting(digits = 1) %>% 
   adorn_ns()
@@ -183,7 +178,6 @@ df$X14 <- factor(df$X14, levels = c("0", "1-5", "6-10", "11-20", "21-30", "more 
 
 review <- df %>%
   tabyl(X14, X64) %>% 
-  adorn_totals("row") %>% 
   adorn_percentages("col") %>%
   adorn_pct_formatting(digits = 1) %>% 
   adorn_ns()
@@ -198,12 +192,57 @@ knitr::kable(review, format = "html")
 ```{r}
 institutions <- df %>%
   tabyl(X54, X64) %>% 
-  adorn_totals("row") %>% 
   adorn_percentages("col") %>%
   adorn_pct_formatting(digits = 1) %>% 
   adorn_ns()
 
 knitr::kable(institutions, format = "html")
+```
+
+## Sample Comparison over Years
+
+The following figure is intended to explore differences in the sample characteristics between the different years. Multiple characteristics were dichotomized for that purpose (students up to master level vs. others, no degree vs. degree, no peer reviews vs. some, etc.). The figure shows that there was a pronounced increase in 2022 in students and respondents with no degree, work experience, etc. (which also probably relates most to students). The sample in 2023 appears to again be more similar to the 2021 sample.
+
+```{r, sample_years, fig.height = 3.5, fig.width = 5}
+
+years <- df %>% 
+  mutate(
+    student = case_when(
+      str_detect(X8, "student.*year") ~ 1,
+      X8 == "master student" ~ 1,
+      TRUE ~ 0),
+    nodegree = case_when(
+      X10 == "none (still studying)" ~ 1,
+      TRUE ~ 0),
+    nowork = case_when(
+      X11 == "I have never worked in this sphere" ~ 1,
+      TRUE ~ 0),
+    nopubs = case_when(
+      X13 == "0" ~ 1,
+      TRUE ~ 0),
+    nopr = case_when(
+      X14 == "0" ~ 1,
+      TRUE ~ 0)
+    ) %>% 
+  group_by(X64) %>% 
+  summarise_at(c("student", "nodegree", "nowork", "nopubs", "nopr"), mean) %>% 
+  pivot_longer(c("student", "nodegree", "nowork", "nopubs", "nopr"),
+               names_to = "characteristic")
+
+ggplot(years, aes(x = X64, y = value, color = characteristic)) + 
+  geom_line(linewidth = 0.8) +
+  geom_point() +
+  labs(x = "Survey Year", y = "% respondents", color = "Characteristics") +
+  scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+  scale_y_continuous(labels = scales::percent, limits = c(0.25, 0.8)) +
+  scale_color_brewer(palette = "Dark2",
+                     labels = c("No degree", "No peer reviews", "No publications",
+                                "No work experience", "Student (up to\nmaster level)")) +
+  theme(panel.grid.major = element_line(color = "grey80"),
+        panel.grid.minor = element_line(color = "grey90"),
+        panel.background = element_blank(),
+        plot.title = element_text(size = 10, hjust = 0.5),
+        axis.ticks = element_blank())
 ```
 
 ## Location
