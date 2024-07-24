@@ -489,7 +489,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>X63 <span class="ot">&lt;-</span> <span class="fu">factor</span>(df<span class="sc">$</span>X63,</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"National"</span>, <span class="st">"LPU"</span>, <span class="st">"SumDU"</span>, <span class="st">"DonNU"</span>, <span class="st">"LutskNTU"</span>))</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement</span>(df, var_overview, <span class="st">"X15"</span>, <span class="at">group =</span> <span class="st">"X63"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_agreement</span>(df, var_overview, <span class="st">"X15"</span>, <span class="at">group =</span> <span class="st">"X63"</span>, <span class="at">xlim =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <p><img src="survey_analysis_files/figure-html/hei_processes-1.png" class="img-fluid" width="3600"></p>
 </div>
@@ -760,7 +760,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="students-by-year" class="level2">
 <h2 class="anchored" data-anchor-id="students-by-year">Students by Year</h2>
-<p>In the plots above, students were all grouped into one category. Since it is of interest how students’ perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures.</p>
+<p>In the plots above, students were all grouped into one category. Since it is of interest how students’ perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures (these could maybe added to the appendix).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
 <span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(X8, <span class="st">"student.*year"</span>) <span class="sc">|</span> X8 <span class="sc">==</span> <span class="st">"master student"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

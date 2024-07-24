@@ -65,7 +65,7 @@ table_answers_overview <- function(df, columns, group,
 
 # Create an overview plot over the responses to various items (without grouping)
 plot_agreement_overview <- function(
-    df, var_overview, columns, sort = TRUE,
+    df, var_overview, columns, sort = TRUE, xlim = 0.3,
     filter = NULL, filter_val = NULL) {
   
   if (!is.null(filter)) {
@@ -130,7 +130,7 @@ plot_agreement_overview <- function(
     geom_col(width = .7) +
     scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
-    scale_x_continuous(breaks = c(0, 0.1, 0.2, 0.3),
+    scale_x_continuous(limits = c(0, xlim),
                        labels = function(x) paste0(round(x * 100, 0), "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
@@ -154,7 +154,7 @@ plot_agreement_overview <- function(
 
 # Create an overview plot over the responses to various items (without grouping)
 plot_frequency_overview <- function(
-    df, var_overview, columns, sort = TRUE,
+    df, var_overview, columns, sort = TRUE, xlim = 0.6,
     filter = NULL, filter_val = NULL) {
   
   if (!is.null(filter)) {
@@ -221,7 +221,7 @@ plot_frequency_overview <- function(
     scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
     scale_y_discrete(position = "right") +
-    scale_x_continuous(breaks = c(0, 0.2, 0.4, 0.6),
+    scale_x_continuous(limits = c(0, xlim),
                        labels = function(x) paste0(round(x * 100, 0), "%")) +
     guides(fill = guide_legend(ncol = 1)) +
     theme(legend.position = "top",
@@ -244,7 +244,7 @@ plot_frequency_overview <- function(
 
 # Plot answers to agreement items separated by grouping variable
 plot_agreement <- function(
-    df, var_overview, question, group,
+    df, var_overview, question, group, xlim = 30,
     filter = NULL, filter_val = NULL, sort = FALSE) {
   
   if (!is.null(filter)) {
@@ -297,7 +297,7 @@ plot_agreement <- function(
     geom_col(width = .7) +
     scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
-    scale_x_continuous(labels = function(x) paste0(x, "%")) +
+    scale_x_continuous(limits = c(0, xlim), labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
     theme(legend.position = "top",
@@ -321,7 +321,7 @@ plot_agreement <- function(
 
 # Plot answers to frequency items separated by grouping variable
 plot_frequency <- function(
-    df, var_overview, question, group,
+    df, var_overview, question, group, xlim = 60,
     filter = NULL, filter_val = NULL, sort = FALSE) {
   
   if (!is.null(filter)) {
@@ -375,7 +375,7 @@ plot_frequency <- function(
     geom_col(width = .7) +
     scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
-    scale_x_continuous(breaks = c(0, 30, 60),
+    scale_x_continuous(limits = c(0, xlim),
                        labels = function(x) paste0(x, "%")) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +

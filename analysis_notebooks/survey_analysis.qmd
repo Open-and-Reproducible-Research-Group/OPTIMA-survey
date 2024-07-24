@@ -143,7 +143,7 @@ One general item also inquired about the following statement: "Overall, the proc
 ```{r hei_processes, fig.height = 4.5, fig.width = 9}
 df$X63 <- factor(df$X63,
                  levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
-plot_agreement(df, var_overview, "X15", group = "X63")
+plot_agreement(df, var_overview, "X15", group = "X63", xlim = 3)
 ```
 
 # Development over Time
@@ -391,7 +391,7 @@ plot_agreement_groups(roles, "X15", "roles")
 
 ## Students by Year
 
-In the plots above, students were all grouped into one category. Since it is of interest how students' perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures.
+In the plots above, students were all grouped into one category. Since it is of interest how students' perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures (these could maybe added to the appendix).
 
 ```{r}
 
