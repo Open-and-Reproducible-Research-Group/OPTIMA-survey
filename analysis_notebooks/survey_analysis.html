@@ -640,14 +640,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>roles <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(X8 <span class="sc">!=</span> <span class="st">"other"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">roles =</span> <span class="fu">case_when</span>(</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(X8, <span class="st">"student.*year"</span>) <span class="sc">~</span> <span class="st">"student"</span>,</span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    X8 <span class="sc">==</span> <span class="st">"master student"</span> <span class="sc">~</span> <span class="st">"student"</span>,</span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>    X8 <span class="sc">==</span> <span class="st">"doctoral student - ScD (higher doctorate)"</span> <span class="sc">~</span> <span class="st">"doctoral student - ScD"</span>,</span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> X8),</span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">roles =</span> <span class="fu">factor</span>(roles, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"student"</span>, <span class="st">"doctoral student - PhD"</span>,</span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"doctoral student - ScD"</span>,</span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"faculty"</span>, <span class="st">"research staff"</span>,</span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"university administrator"</span>, <span class="st">"librarian"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">str_detect</span>(X8, <span class="st">"student"</span>) <span class="sc">~</span> <span class="st">"student"</span>,</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> X8),</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">roles =</span> <span class="fu">factor</span>(roles, <span class="at">levels =</span> <span class="fu">c</span>(<span class="st">"student"</span>, <span class="st">"faculty"</span>, <span class="st">"research staff"</span>,</span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>                                   <span class="st">"university administrator"</span>, <span class="st">"librarian"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="open-science-2" class="level3">
 <h3 class="anchored" data-anchor-id="open-science-2">Open Science</h3>
@@ -763,7 +759,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In the plots above, students were all grouped into one category. Since it is of interest how students’ perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures (these could maybe added to the appendix).</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>students <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(X8, <span class="st">"student.*year"</span>) <span class="sc">|</span> X8 <span class="sc">==</span> <span class="st">"master student"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">str_detect</span>(X8, <span class="st">"student"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">X8 =</span> <span class="fu">case_when</span>(</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    X8 <span class="sc">==</span> <span class="st">"doctoral student - ScD (higher doctorate)"</span> <span class="sc">~</span> <span class="st">"doctoral student - ScD"</span>,</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="cn">TRUE</span> <span class="sc">~</span> X8))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="open-science-3" class="level3">
 <h3 class="anchored" data-anchor-id="open-science-3">Open Science</h3>

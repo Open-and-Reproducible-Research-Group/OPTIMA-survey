@@ -60,7 +60,9 @@ In addition to a broad national survey, participants were also specifically recr
 
 df$X63 <- factor(df$X63, levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
 
-knitr::kable(table(df$X63, df$X64), format = "html")
+knitr::kable(tabyl(df, X63, X64) %>% 
+               adorn_totals(c("row", "col")),
+             format = "html")
 
 
 ggplot(df, aes(x = X63, fill = as_factor(X64))) +
@@ -208,8 +210,7 @@ The following figure is intended to explore differences in the sample characteri
 years <- df %>% 
   mutate(
     student = case_when(
-      str_detect(X8, "student.*year") ~ 1,
-      X8 == "master student" ~ 1,
+      str_detect(X8, "student") ~ 1,
       TRUE ~ 0),
     nodegree = case_when(
       X10 == "none (still studying)" ~ 1,
@@ -237,7 +238,7 @@ ggplot(years, aes(x = X64, y = value, color = characteristic)) +
   scale_y_continuous(labels = scales::percent, limits = c(0.25, 0.8)) +
   scale_color_brewer(palette = "Dark2",
                      labels = c("No degree", "No peer reviews", "No publications",
-                                "No work experience", "Student (up to\nmaster level)")) +
+                                "No work experience", "Student (up to\nScD level)")) +
   theme(panel.grid.major = element_line(color = "grey80"),
         panel.grid.minor = element_line(color = "grey90"),
         panel.background = element_blank(),

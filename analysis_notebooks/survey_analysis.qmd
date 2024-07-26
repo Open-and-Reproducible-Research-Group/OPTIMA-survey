@@ -282,13 +282,9 @@ To compare respondents with different academic roles, students are first summari
 roles <- df %>% 
   filter(X8 != "other") %>% 
   mutate(roles = case_when(
-    str_detect(X8, "student.*year") ~ "student",
-    X8 == "master student" ~ "student",
-    X8 == "doctoral student - ScD (higher doctorate)" ~ "doctoral student - ScD",
+    str_detect(X8, "student") ~ "student",
     TRUE ~ X8),
-  roles = factor(roles, levels = c("student", "doctoral student - PhD",
-                                   "doctoral student - ScD",
-                                   "faculty", "research staff",
+  roles = factor(roles, levels = c("student", "faculty", "research staff",
                                    "university administrator", "librarian")))
 ```
 
@@ -396,7 +392,10 @@ In the plots above, students were all grouped into one category. Since it is of 
 ```{r}
 
 students <- df %>% 
-  filter(str_detect(X8, "student.*year") | X8 == "master student")
+  filter(str_detect(X8, "student")) %>% 
+  mutate(X8 = case_when(
+    X8 == "doctoral student - ScD (higher doctorate)" ~ "doctoral student - ScD",
+    TRUE ~ X8))
 ```
 
 ### Open Science
