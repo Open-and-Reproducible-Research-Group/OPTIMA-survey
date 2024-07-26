@@ -7,12 +7,10 @@ format: html
 editor: visual
 execute: 
   echo: false
+  warning: false
 ---
 
-## 
-
 ```{r}
-
 library(here)
 library(tidyverse)
 library(readxl)
@@ -26,54 +24,96 @@ df <- read_csv(here("data", "processed", "preprocessed_data.csv"))
 path21 <- here("data", "additional", "hei_stats", "vfpo_Ukr_2021_translated.xlsx")
 path22 <- here("data", "additional", "hei_stats", "vfpo_Ukr_2022_translated.xlsx")
 path23 <- here("data", "additional", "hei_stats", "vfpo_Ukr_2023_translated.xlsx")
-
-# Read in all sheets of one file into a list
-# sheets <- excel_sheets(path2021)
-# stats2021 <- lapply(sheets, function(X) read_excel(path2021, sheet = X))
 ```
 
+## Number of Students
+
 ```{r}
-regions21 <- read_excel(path21, " 2.6", skip = 3) %>% 
+students21 <- read_excel(path21, " 2.6", skip = 3) %>% 
   na.omit() %>% 
   rename(
     region = ...1,
     total21 = ...2
   ) %>%
-  filter(region != "Ukraine") %>% 
   select(c(region, total21))
 
-regions22 <- read_excel(path22, " 2.6", skip = 3) %>% 
+students22 <- read_excel(path22, " 2.6", skip = 3) %>% 
   na.omit() %>% 
   rename(
     region = ...1,
     total22 = ...2
   ) %>%
-  filter(region != "Ukraine") %>% 
   select(c(region, total22))
 
-regions23 <- read_excel(path23, " 2.6", skip = 3) %>% 
+students23 <- read_excel(path23, " 2.6", skip = 3) %>% 
   na.omit() %>% 
   rename(
     region = ...1,
     total23 = ...2
   ) %>%
-  filter(region != "Ukraine") %>% 
   select(c(region, total23))
 ```
 
 ```{r}
-regions_stats <- merge(regions21, regions22, by = "region") %>% 
-  merge(., regions23, by = "region")
+students <- merge(students21, students22, by = "region") %>% 
+  merge(., students23, by = "region")
 
-knitr::kable(regions_stats, format = "html")
+knitr::kable(students, format = "html")
+```
+
+## Number of Staff
+
+```{r}
+staff21 <- read_excel(path21, "2.19", skip = 3) %>% 
+  na.omit() %>% 
+  rename(region = ...1) %>% 
+  # Replace missing data by zero for now (should be NA)
+  mutate(across(2:7, ~ as.numeric(replace(., . == "-", 0)))) %>%
+  mutate(total21 = rowSums(across(c(2, 4, 6)), na.rm = TRUE)) %>% 
+  select(c(region, total21))
+
+staff22 <- read_excel(path22, " 2.17", skip = 2) %>% 
+  na.omit() %>% 
+  rename(region = ...1) %>%
+  # Replace missing data by zero for now (should be NA)
+  mutate(across(2:7, ~ as.numeric(replace(., . == "-", 0)))) %>%
+  mutate(total22 = rowSums(across(c(2, 4, 6)), na.rm = TRUE)) %>% 
+  select(c(region, total22))
+ 
+staff23 <- read_excel(path23, " 2.19", skip = 3) %>% 
+   na.omit() %>% 
+   rename(region = ...1) %>% 
+   # Replace missing data by zero for now (should be NA)
+   mutate(across(2:7, ~ as.numeric(replace(., . == "-", 0)))) %>%
+   mutate(total23 = rowSums(across(c(2, 4, 6)), na.rm = TRUE)) %>% 
+   select(c(region, total23))
 ```
 
 ```{r}
-regions_df <- df %>% 
-  tabyl(X55, X64) %>% 
-  adorn_percentages("col") %>% 
-  adorn_pct_formatting(digits = 1) %>% 
-  adorn_ns()
+staff <- merge(staff21, staff22, by = "region") %>% 
+  merge(., staff23, by = "region")
 
-knitr::kable(regions_df, format = "html")
+knitr::kable(staff, format = "html")
 ```
+
+## Comparison with Survey Data
+
+```{r}
+df <- df %>% 
+  mutate(role = case_when(
+    str_detect(X8, "student") ~ "student",
+    TRUE ~ "staff"))
+
+roles <- df %>% 
+  tabyl(role, X64)
+
+knitr::kable(roles, format = "html")
+```
+
+```{r}
+perc_students21 <- roles[2, 2] / students[students$region == "Ukraine", "total21"]
+
+perc_staff21 <- roles[1, 2] / staff[staff$region == "Ukraine", "total21"]
+```
+
+In 2021, the number of self-identified students among the survey respondents amount to `r round(perc_students21, 3) * 100` % of all students according to the Ukraine State Statistics Service. Self-identified staff among the survey respondents make up `r round(perc_staff21, 3) * 100` % of all recorded staff.
