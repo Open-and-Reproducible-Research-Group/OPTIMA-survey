@@ -66,7 +66,7 @@ knitr::kable(tabyl(df, X63, X64) %>%
 
 
 ggplot(df, aes(x = X63, fill = as_factor(X64))) +
-  geom_bar(position = "dodge", color = "black", size = 0.8) +
+  geom_bar(position = "dodge", color = "black", size = 0.7) +
   labs(title = "Number of Survey Respondents by Survey and Year",
        x = "Survey", y = "Count", fill = NULL) +
   scale_fill_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a")) +
@@ -408,12 +408,16 @@ knitr::kable(table(df$X53, df$X64), format = "html")
 
 
 ggplot(df, aes(x = X53, fill = as_factor(X64))) +
-  geom_bar(position = "dodge") +
-  labs(title = "Clarity of Survey Questions by Year", x = "Clarity", y = "Count") +
-  theme_minimal() +
-  theme(legend.title = element_blank(),
-        plot.title = element_text(hjust = 0.5),
-        axis.text.x = element_text(angle = 45, hjust = 1))
+  geom_bar(position = "dodge", color = "black", size = 0.7) +
+  labs(title = "Clarity of Survey Questions by Year", x = "Clarity",
+       y = "Count", fill = NULL) +
+  scale_fill_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a")) +
+  theme(panel.grid.major = element_line(color = "grey80"),
+        panel.grid.minor = element_line(color = "grey90"),
+        panel.background = element_blank(),
+        plot.title = element_text(size = 12, hjust = 0.5),
+        axis.ticks = element_blank(),
+        axis.text.x = element_text(angle = 45, vjust = 0.5, hjust = 0.5))
 ```
 
 While the survey questions were clear to the large majority of respondents, there is still a considerable number of people disagreeing on this statement.

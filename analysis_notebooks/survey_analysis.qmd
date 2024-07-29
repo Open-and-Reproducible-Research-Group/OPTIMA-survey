@@ -166,9 +166,7 @@ for (q in os) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = 'A') & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ### Reporting and Academic Integrity
@@ -186,9 +184,7 @@ for (q in raia) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = 'A') & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ```{r raif_development, fig.height = 9, fig.width = 8}
@@ -201,9 +197,7 @@ for (q in raif) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = 'A') & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ## Education
@@ -221,9 +215,7 @@ for (q in edua) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = 'A') & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ```{r eduf_development, fig.height = 5.5, fig.width = 8}
@@ -236,9 +228,7 @@ for (q in eduf) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = 'A') & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ## Institution/Administration
@@ -253,9 +243,7 @@ for (q in adm) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") +
-  plot_annotation(tag_levels = 'A') & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 An alternative plot type to the line plot is the area plot. For the following exemplary item (X15: "Overall, the processes at my higher education institution are organised in a clear and transparent manner") both plots are shown for comparison.
@@ -299,8 +287,7 @@ for (q in os) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ### Reporting and Academic Integrity
@@ -315,8 +302,7 @@ for (q in raia) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ```{r raif_roles, fig.height = 10, fig.width = 8}
@@ -329,8 +315,7 @@ for (q in raif) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ### Education
@@ -345,8 +330,7 @@ for (q in edua) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ```{r eduf_roles, fig.height = 7, fig.width = 8}
@@ -359,8 +343,7 @@ for (q in eduf) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ### Institution/Administration
@@ -375,8 +358,7 @@ for (q in adm) {
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ```{r, hei_processes_roles, fig.height = 3.5, fig.width = 5}
@@ -394,7 +376,12 @@ students <- df %>%
   filter(str_detect(X8, "student")) %>% 
   mutate(X8 = case_when(
     X8 == "doctoral student - ScD (higher doctorate)" ~ "doctoral student - ScD",
-    TRUE ~ X8))
+    TRUE ~ X8),
+    X8 = factor(X8,
+                levels = c("student - 1st year", "student - 2nd year",
+                           "student - 3rd year", "student - 4th year",
+                           "master student", "doctoral student - PhD",
+                           "doctoral student - ScD", "faculty")))
 ```
 
 ### Open Science
@@ -404,13 +391,13 @@ students <- df %>%
 plots <- list()
 
 for (q in os) {
-  plot <- plot_agreement_groups(students, question = q, "X8")
+  plot <- plot_agreement_groups(students, question = q, "X8",
+                                legend_reverse = FALSE)
   plots[[q]] <- plot
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ### Reporting and Academic Integrity
@@ -420,13 +407,13 @@ wrap_plots(plots, ncol = 2) +
 plots <- list()
 
 for (q in raia) {
-  plot <- plot_agreement_groups(students, question = q, "X8")
+  plot <- plot_agreement_groups(students, question = q, "X8",
+                                legend_reverse = FALSE)
   plots[[q]] <- plot
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ```{r raif_students, fig.height = 10, fig.width = 8}
@@ -434,13 +421,13 @@ wrap_plots(plots, ncol = 2) +
 plots <- list()
 
 for (q in raif) {
-  plot <- plot_frequency_groups(students, question = q, "X8")
+  plot <- plot_frequency_groups(students, question = q, "X8",
+                                legend_reverse = FALSE)
   plots[[q]] <- plot
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ### Education
@@ -450,13 +437,13 @@ wrap_plots(plots, ncol = 2) +
 plots <- list()
 
 for (q in edua) {
-  plot <- plot_agreement_groups(students, question = q, "X8")
+  plot <- plot_agreement_groups(students, question = q, "X8",
+                                legend_reverse = FALSE)
   plots[[q]] <- plot
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ```{r eduf_students, fig.height = 7, fig.width = 8}
@@ -464,13 +451,13 @@ wrap_plots(plots, ncol = 2) +
 plots <- list()
 
 for (q in eduf) {
-  plot <- plot_frequency_groups(students, question = q, "X8")
+  plot <- plot_frequency_groups(students, question = q, "X8",
+                                legend_reverse = FALSE)
   plots[[q]] <- plot
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ### Institution/Administration
@@ -480,18 +467,18 @@ wrap_plots(plots, ncol = 2) +
 plots <- list()
 
 for (q in adm) {
-  plot <- plot_frequency_groups(students, question = q, "X8")
+  plot <- plot_frequency_groups(students, question = q, "X8",
+                                legend_reverse = FALSE)
   plots[[q]] <- plot
 }
 
 wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect") & 
-  theme(plot.tag = element_text(size = 10))
+  plot_layout(guides = "collect")
 ```
 
 ```{r, hei_processes_students, fig.height = 3.5, fig.width = 5}
 
-plot_agreement_groups(students, "X15", "X8")
+plot_agreement_groups(students, "X15", "X8", legend_reverse = FALSE)
 ```
 
 ## National and Institutional Surveys
