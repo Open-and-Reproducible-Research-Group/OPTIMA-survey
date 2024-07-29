@@ -206,7 +206,7 @@ wrap_plots(plots, ncol = 2) +
   theme(plot.tag = element_text(size = 10))
 ```
 
-### Education
+## Education
 
 ```{r edua_development, fig.height = 5.5, fig.width = 8}
  
@@ -241,7 +241,7 @@ wrap_plots(plots, ncol = 2) +
   theme(plot.tag = element_text(size = 10))
 ```
 
-### Institution/Administration
+## Institution/Administration
 
 ```{r adm_development, fig.height = 9, fig.width = 8}
 
@@ -404,7 +404,7 @@ students <- df %>%
 plots <- list()
 
 for (q in os) {
-  plot <- plot_agreement_groups(students, question = q, "X8", TRUE, TRUE)
+  plot <- plot_agreement_groups(students, question = q, "X8")
   plots[[q]] <- plot
 }
 
@@ -492,4 +492,99 @@ wrap_plots(plots, ncol = 2) +
 ```{r, hei_processes_students, fig.height = 3.5, fig.width = 5}
 
 plot_agreement_groups(students, "X15", "X8")
+```
+
+## National and Institutional Surveys
+
+The survey was conducted both at a national level and separately within the OPTIMA partner HEIs. To compare developments over time between these surveys, following visualizations are created (again with dichotomized responses).
+
+### Open Science
+
+```{r os_surveys, fig.height = 18, fig.width = 8}
+
+plots <- list()
+
+for (q in os) {
+  plot <- plot_agreement_groups(students, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+### Reporting and Academic Integrity
+
+```{r raia_surveys, fig.height = 18, fig.width = 8}
+
+plots <- list()
+
+for (q in raia) {
+  plot <- plot_agreement_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+```{r raif_surveys, fig.height = 10, fig.width = 8}
+
+plots <- list()
+
+for (q in raif) {
+  plot <- plot_frequency_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+### Education
+
+```{r edua_surveys, fig.height = 7, fig.width = 8}
+
+plots <- list()
+
+for (q in edua) {
+  plot <- plot_agreement_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+```{r eduf_surveys, fig.height = 7, fig.width = 8}
+
+plots <- list()
+
+for (q in eduf) {
+  plot <- plot_frequency_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+### Institution/Administration
+
+```{r, adm_surveys, fig.height = 10, fig.width = 8}
+
+plots <- list()
+
+for (q in adm) {
+  plot <- plot_frequency_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+```{r, hei_processes_surveys, fig.height = 3.5, fig.width = 5}
+
+plot_agreement_groups(df, "X15", "X63")
 ```
