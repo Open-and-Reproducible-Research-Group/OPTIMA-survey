@@ -38,5 +38,8 @@ list(
              quiet = FALSE),
   tar_quarto(survey_analysis,
              "analysis_notebooks/survey_analysis.qmd",
+             quiet = FALSE),
+  tar_quarto(inferential_analysis,
+             "analysis_notebooks/inferential_analysis.qmd",
              quiet = FALSE)
 )
