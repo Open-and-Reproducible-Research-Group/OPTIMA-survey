@@ -1,10 +1,10 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|ae906d505bf26baf|||||||||||||||
+.Random.seed|object|5cf5edf0094c0e5c|||||||||||||||
 combine_data|function|50d960a282aa8f2c|||||||||||||||
 combined_data|stem|12e2bda8d335247f|c300f2e323804349|954ef89b0b1f7c21|-773924101||t19842.472244155s|5d24a090d10722bf|1032702|rds|local|vector|||0.44||
 combined_data_path|stem|a2406a6a9d86388a|9882248158d62772|fd53a77a6cee2887|-447225091||t19842.4722336002s|40b3a10246f0095b|83|rds|local|vector|||2.47||
 create_var_overview|function|06b3e7bd6c015596|||||||||||||||
-inferential_analysis|stem|d662a5cf82e7ec35|ef7d71e7f5e8d64c|226b7618c1747749|810102308|analysis_notebooks/inferential_analysis.html*analysis_notebooks/inferential_analysis.qmd|t19933.2979229785s|c7d4bbbe4ce6aa11|71650|file|local|vector|||9.2||
+inferential_analysis|stem|1fabbfc1e51c2a4d|ef7d71e7f5e8d64c|226b7618c1747749|810102308|analysis_notebooks/inferential_analysis.html*analysis_notebooks/inferential_analysis.qmd|t19934.3902562395s|27dcada5574b7fba|142349|file|local|vector|||14.97||
 likert_to_factor|function|72834933e8995f36|||||||||||||||
 process_combined_data|function|26f67203b8b541d1|||||||||||||||
 processed_data|stem|86b24f3a397b732d|a9357c417cb94c92|b26329bced88944e|-3324243||t19843.4888769778s|eb891b2a70d00622|1098615|rds|local|vector|||0.04||
