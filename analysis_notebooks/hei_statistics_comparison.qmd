@@ -26,7 +26,40 @@ path22 <- here("data", "additional", "hei_stats", "vfpo_Ukr_2022_translated.xlsx
 path23 <- here("data", "additional", "hei_stats", "vfpo_Ukr_2023_translated.xlsx")
 ```
 
-## Number of Students
+# Official HEI Statistics
+
+## Student Numbers and Gender Distribution
+
+The following table combines official statistics from the [State Statistics Service of Ukraine](https://ukrstat.gov.ua/operativ/operativ2021/osv/vush_osv/arh_vuz_20_u.html) on HEI student numbers and proportion of women among students. Numbers are collated from datasets between the academic year 2021/2022 to the academic year 2023/2024 (translated from Ukrainian through Google Translate).
+
+```{r}
+wstudents21 <- read_excel(path21, " 2.7.", skip = 3) %>% 
+  na.omit() %>% 
+  rename(
+    region = ...1,
+    wstudents21 = ...2,
+    wperc21 = ...3
+  ) %>%
+  select(c(region, wstudents21, wperc21))
+
+wstudents22 <- read_excel(path22, " 2.7", skip = 3) %>% 
+  na.omit() %>% 
+  rename(
+    region = ...1,
+    wstudents22 = ...2,
+    wperc22 = ...3
+  ) %>%
+  select(c(region, wstudents22, wperc22))
+
+wstudents23 <- read_excel(path23, " 2.7", skip = 3) %>% 
+  na.omit() %>% 
+  rename(
+    region = ...1,
+    wstudents23 = ...2,
+    wperc23 = ...3
+  ) %>%
+  select(c(region, wstudents23, wperc23))
+```
 
 ```{r}
 students21 <- read_excel(path21, " 2.6", skip = 3) %>% 
@@ -35,7 +68,8 @@ students21 <- read_excel(path21, " 2.6", skip = 3) %>%
     region = ...1,
     total21 = ...2
   ) %>%
-  select(c(region, total21))
+  select(c(region, total21)) %>% 
+  merge(., wstudents21, by = "region")
 
 students22 <- read_excel(path22, " 2.6", skip = 3) %>% 
   na.omit() %>% 
@@ -43,7 +77,8 @@ students22 <- read_excel(path22, " 2.6", skip = 3) %>%
     region = ...1,
     total22 = ...2
   ) %>%
-  select(c(region, total22))
+  select(c(region, total22)) %>% 
+  merge(., wstudents22, by = "region")
 
 students23 <- read_excel(path23, " 2.6", skip = 3) %>% 
   na.omit() %>% 
@@ -51,7 +86,8 @@ students23 <- read_excel(path23, " 2.6", skip = 3) %>%
     region = ...1,
     total23 = ...2
   ) %>%
-  select(c(region, total23))
+  select(c(region, total23)) %>% 
+  merge(., wstudents23, by = "region")
 ```
 
 ```{r}
@@ -61,7 +97,9 @@ students <- merge(students21, students22, by = "region") %>%
 knitr::kable(students, format = "html")
 ```
 
-## Number of Staff
+## Staff Numbers and Gender Distribution
+
+The following tables combine numbers from the same datasets as described above. All HEI staff is summed across the categories of scientific workers, scientific and pedagogical workers, and pedagogical workers, since these do not map to any categorization within the survey data. This might not map exactly to the sample where administrators and librarians are also included (although only making up a small proportion of all staff).
 
 ```{r}
 staff21 <- read_excel(path21, "2.19", skip = 3) %>% 
@@ -69,24 +107,30 @@ staff21 <- read_excel(path21, "2.19", skip = 3) %>%
   rename(region = ...1) %>% 
   # Replace missing data by zero for now (should be NA)
   mutate(across(2:7, ~ as.numeric(replace(., . == "-", 0)))) %>%
-  mutate(total21 = rowSums(across(c(2, 4, 6)), na.rm = TRUE)) %>% 
-  select(c(region, total21))
+  mutate(total21 = rowSums(across(c(2, 4, 6)), na.rm = TRUE),
+         wstaff21 = rowSums(across(c(3, 5, 7)), na.rm = TRUE),
+         wperc21 = wstaff21/total21) %>% 
+  select(c(region, total21, wstaff21, wperc21))
 
 staff22 <- read_excel(path22, " 2.17", skip = 2) %>% 
   na.omit() %>% 
   rename(region = ...1) %>%
   # Replace missing data by zero for now (should be NA)
   mutate(across(2:7, ~ as.numeric(replace(., . == "-", 0)))) %>%
-  mutate(total22 = rowSums(across(c(2, 4, 6)), na.rm = TRUE)) %>% 
-  select(c(region, total22))
+  mutate(total22 = rowSums(across(c(2, 4, 6)), na.rm = TRUE),
+         wstaff22 = rowSums(across(c(3, 5, 7)), na.rm = TRUE),
+         wperc22 = wstaff22/total22) %>% 
+  select(c(region, total22, wstaff22, wperc22))
  
 staff23 <- read_excel(path23, " 2.19", skip = 3) %>% 
    na.omit() %>% 
    rename(region = ...1) %>% 
    # Replace missing data by zero for now (should be NA)
    mutate(across(2:7, ~ as.numeric(replace(., . == "-", 0)))) %>%
-   mutate(total23 = rowSums(across(c(2, 4, 6)), na.rm = TRUE)) %>% 
-   select(c(region, total23))
+   mutate(total23 = rowSums(across(c(2, 4, 6)), na.rm = TRUE),
+         wstaff23 = rowSums(across(c(3, 5, 7)), na.rm = TRUE),
+         wperc23 = wstaff23/total23) %>% 
+  select(c(region, total23, wstaff23, wperc23))
 ```
 
 ```{r}
@@ -96,13 +140,15 @@ staff <- merge(staff21, staff22, by = "region") %>%
 knitr::kable(staff, format = "html")
 ```
 
-## Comparison with Survey Data
+# Comparison with Survey Data
+
+## Total Numbers
 
 ```{r}
 df <- df %>% 
   mutate(role = case_when(
     str_detect(X8, "student") ~ "student",
-    TRUE ~ "staff"))
+    TRUE ~ "staff")) 
 
 roles <- df %>% 
   tabyl(role, X64)
@@ -111,9 +157,51 @@ knitr::kable(roles, format = "html")
 ```
 
 ```{r}
-perc_students21 <- roles[2, 2] / students[students$region == "Ukraine", "total21"]
+perc_students21 <- roles[roles$role == "student", "2021"] / students[students$region == "Ukraine", "total21"]
+perc_students22 <- roles[roles$role == "student", "2022"] / students[students$region == "Ukraine", "total21"]
+perc_students23 <- roles[roles$role == "student", "2023"] / students[students$region == "Ukraine", "total21"]
 
-perc_staff21 <- roles[1, 2] / staff[staff$region == "Ukraine", "total21"]
+perc_staff21 <- roles[roles$role == "staff", "2021"] / staff[staff$region == "Ukraine", "total21"]
+perc_staff22 <- roles[roles$role == "staff", "2022"] / staff[staff$region == "Ukraine", "total22"]
+perc_staff23 <- roles[roles$role == "staff", "2023"] / staff[staff$region == "Ukraine", "total23"]
 ```
 
-In 2021, the number of self-identified students among the survey respondents amount to `r round(perc_students21, 3) * 100` % of all students according to the Ukraine State Statistics Service. Self-identified staff among the survey respondents make up `r round(perc_staff21, 3) * 100` % of all recorded staff.
+In 2021, the number of self-identified students among the survey respondents amount to `r round(perc_students21, 3) * 100`% of all students according to the Ukraine State Statistics Service. Self-identified staff among the survey respondents make up `r round(perc_staff21, 3) * 100`% of all recorded staff. In 2022, those numbers lay at `r round(perc_students22, 3) * 100`% and `r round(perc_staff22, 3) * 100`%; in 2023 at `r round(perc_students23, 3) * 100`% and `r round(perc_staff23, 3) * 100`%. Response rates among staff were continuously higher compared to students and highest in 2021. Response rate in students was highest in 2022.
+
+## Gender Distribution
+
+### Students
+
+```{r}
+gender_students <- df %>%
+  filter(role == "student") %>% 
+  tabyl(X9, X64) %>% 
+  adorn_percentages("col") %>% 
+  rename(student = X9)
+
+knitr::kable(gender_students, format = "html")
+```
+
+Of all Ukrainian students, `r students[students$region == "Ukraine", "wperc21"]`% were women in 2021. Within the student survey respondents, `r round(gender_students[gender_students$student == "female", "2021"], 3) * 100`% reported to be women in 2021, signalling that women are represented over-proportionately among students in this sample. In 2022, `r students[students$region == "Ukraine", "wperc22"]`% total compare to a proportion of `r round(gender_students[gender_students$student == "female", "2022"], 3) * 100`% in the sample, in 2023 numbers lay at `r students[students$region == "Ukraine", "wperc23"]`% and `r round(gender_students[gender_students$student == "female", "2023"], 3) * 100`%, repeating the pattern of a higher proportion of women in this sample than within the overall student population.
+
+### Staff
+
+```{r}
+gender_staff <- df %>%
+  filter(role == "staff") %>% 
+  tabyl(X9, X64) %>% 
+  adorn_percentages("col") %>% 
+  rename(staff = X9)
+
+knitr::kable(gender_staff, format = "html")
+```
+
+In staff, proportions of women overall can also be compared to the proportion of women in this survey sample:
+
+-   2021: `r round(staff[staff$region == "Ukraine", "wperc21"], 3) * 100`% vs. `r round(gender_staff[gender_staff$staff == "female", "2021"], 3) * 100`%
+
+-   2022: `r round(staff[staff$region == "Ukraine", "wperc22"], 3) * 100`% vs. `r round(gender_staff[gender_staff$staff == "female", "2022"], 3) * 100`%
+
+-   2023: `r round(staff[staff$region == "Ukraine", "wperc23"], 3) * 100`% vs. `r round(gender_staff[gender_staff$staff == "female", "2023"], 3) * 100`%
+
+This shows that from employees of HEIs, women are also overrepresented.
