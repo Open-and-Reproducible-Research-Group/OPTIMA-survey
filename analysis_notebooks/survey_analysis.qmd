@@ -192,7 +192,7 @@ wrap_plots(plots, ncol = 2) +
 plots <- list()
 
 for (q in raif) {
-  plot <- plot_frequency_line(df, question = q, legend = TRUE, ylim = 50)
+  plot <- plot_frequency_line(df, question = q, legend = TRUE, ylim = 70)
   plots[[q]] <- plot
 }
 
@@ -223,7 +223,7 @@ wrap_plots(plots, ncol = 2) +
 plots <- list()
 
 for (q in eduf) {
-  plot <- plot_frequency_line(df, question = q, legend = TRUE, ylim = 40)
+  plot <- plot_frequency_line(df, question = q, legend = TRUE, ylim = 50)
   plots[[q]] <- plot
 }
 
@@ -238,7 +238,7 @@ wrap_plots(plots, ncol = 2) +
 plots <- list()
 
 for (q in adm) {
-  plot <- plot_frequency_line(df, question = q, legend = TRUE)
+  plot <- plot_frequency_line(df, question = q, legend = TRUE, ylim = 75)
   plots[[q]] <- plot
 }
 
