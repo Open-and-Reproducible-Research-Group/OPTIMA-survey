@@ -20,6 +20,7 @@ library(sf)
 library(fuzzyjoin)
 library(psych)
 library(ggridges)
+library(patchwork)
 
 options(dplyr.summarise.inform = FALSE)
 knitr::opts_chunk$set(dpi = 400)
@@ -66,7 +67,7 @@ knitr::kable(tabyl(df, X63, X64) %>%
 
 
 ggplot(df, aes(x = X63, fill = as_factor(X64))) +
-  geom_bar(position = "dodge", color = "black", size = 0.7) +
+  geom_bar(position = "dodge", color = "black", linewidth = 0.5) +
   labs(title = "Number of Survey Respondents by Survey and Year",
        x = "Survey", y = "Count", fill = NULL) +
   scale_fill_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a")) +
@@ -98,11 +99,9 @@ knitr::kable(roles, format = "html")
 ```{r}
 gender <- df %>% 
   tabyl(X9, X64) %>% 
-  adorn_totals("row") %>% 
   adorn_percentages("col") %>% 
   adorn_pct_formatting(digits = 1) %>% 
   adorn_ns()
-
 
 knitr::kable(gender, format = "html")
 ```
@@ -143,14 +142,21 @@ knitr::kable(experience, format = "html")
 
 *"What is your field of study or work?"*
 
+The table is ordered by the total number of respondents per category across years.
+
 ```{r}
 field <- as.data.frame.matrix(tabyl(df, X12, X64))
 field$X12 <- gsub("\\s*\\(.*?\\)", "", field$X12)
 
 field <- field %>%
+  adorn_totals("col") %>% 
+  arrange(desc(Total)) %>% 
   adorn_percentages("col") %>%
   adorn_pct_formatting(digits = 1) %>% 
-  adorn_ns()
+  adorn_ns() %>% 
+  select(-Total)
+
+row.names(field) <- NULL
 
 knitr::kable(field, format = "html")
 ```
@@ -191,12 +197,19 @@ knitr::kable(review, format = "html")
 
 *"What type of higher education institution do you study or work at?"*
 
+The table is ordered by the total number of respondents per category across years.
+
 ```{r}
 institutions <- df %>%
   tabyl(X54, X64) %>% 
+  adorn_totals("col") %>% 
+  arrange(desc(Total)) %>% 
   adorn_percentages("col") %>%
   adorn_pct_formatting(digits = 1) %>% 
-  adorn_ns()
+  adorn_ns() %>% 
+  select(-Total)
+
+row.names(institutions) <- NULL
 
 knitr::kable(institutions, format = "html")
 ```
@@ -292,7 +305,7 @@ map_counts <- st_as_sf(map_counts)
 
 ```{r map_2021}
 # Plot number of respondents by region in year 2021
-ggplot() +
+map_2021 <- ggplot() +
   geom_sf(data = map_counts, aes(fill = `2021`), color = "white") +
   scale_fill_gradient(low = "white", high = "red", limits = c(0, 2000)) +
   geom_text(data = map_counts,
@@ -300,19 +313,19 @@ ggplot() +
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
             color = "black", size = 2, check_overlap = FALSE) +
-  ggtitle("Respondents by Location in 2021") +
+  ggtitle("2021") +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.ticks = element_blank(), # Hide axis ticks
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
-        plot.title = element_text(hjust = 0.5),
+        plot.title = element_text(hjust = 0.5, size = 12),
         legend.title = element_blank(), # Hide legend title
         panel.grid = element_blank())  # Hide grid lines
 ```
 
 ```{r map_2022}
 # Plot number of respondents by region in year 2022
-ggplot() +
+map_2022 <- ggplot() +
   geom_sf(data = map_counts, aes(fill = `2022`), color = "white") +
   scale_fill_gradient(low = "white", high = "red", limits = c(0, 2000)) +
   geom_text(data = map_counts,
@@ -320,19 +333,19 @@ ggplot() +
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
             color = "black", size = 2, check_overlap = FALSE) +
-   ggtitle("Respondents by Location in 2022") +
+  ggtitle("2022") +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.ticks = element_blank(), # Hide axis ticks
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
-        plot.title = element_text(hjust = 0.5),
+        plot.title = element_text(hjust = 0.5, size = 12),
         legend.title = element_blank(), # Hide legend title
         panel.grid = element_blank())  # Hide grid lines
 ```
 
 ```{r map_2023}
 # Plot number of respondents by region in year 2023
-ggplot() +
+map_2023 <- ggplot() +
   geom_sf(data = map_counts, aes(fill = `2023`), color = "white") +
   scale_fill_gradient(low = "white", high = "red", limits = c(0, 2000)) +
   geom_text(data = map_counts,
@@ -340,14 +353,19 @@ ggplot() +
                 x = st_coordinates(st_centroid(geometry))[, "X"],
                 y = st_coordinates(st_centroid(geometry))[, "Y"]),
             color = "black", size = 2, check_overlap = FALSE) +
-  ggtitle("Respondents by Location in 2023") +
+  ggtitle("2023") +
   theme(axis.text = element_blank(),  # Hide axis labels
         axis.ticks = element_blank(), # Hide axis ticks
         axis.title.x = element_blank(),
         axis.title.y = element_blank(),
-        plot.title = element_text(hjust = 0.5),
+        plot.title = element_text(hjust = 0.5, size = 12),
         legend.title = element_blank(), # Hide legend title
         panel.grid = element_blank())  # Hide grid lines
+```
+
+```{r maps_respondents, fig.height = 12, fig.width = 8}
+map_2021 / map_2022 / map_2023 +
+  plot_layout(guides = "collect")
 ```
 
 ## Investigation of Response Times
@@ -408,7 +426,7 @@ knitr::kable(table(df$X53, df$X64), format = "html")
 
 
 ggplot(df, aes(x = X53, fill = as_factor(X64))) +
-  geom_bar(position = "dodge", color = "black", size = 0.7) +
+  geom_bar(position = "dodge", color = "black", size = 0.5) +
   labs(title = "Clarity of Survey Questions by Year", x = "Clarity",
        y = "Count", fill = NULL) +
   scale_fill_manual(values = c("#a6cee3", "#1f78b4", "#b2df8a")) +
