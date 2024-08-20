@@ -3,6 +3,5 @@
 .RData
 .Ruserdata
 
-data/original
 data/processed
 data/additional/map
