@@ -368,6 +368,72 @@ map_2021 / map_2022 / map_2023 +
   plot_layout(guides = "collect")
 ```
 
+## Displacement
+
+Some universities were also displaced prior to the surveys, some where displaced in between the 2021 and 2022 surveys. In 2022, questions were asked about refugee status, displacement and current whereabouts of the respondent in addition to questions about displacement and status of the respective HEI.
+
+```{r}
+
+df_2022 <- df %>% 
+  filter(X64 == "2022")
+```
+
+"*Have you been an internally displaced person (within Ukraine) from 24.02.2022 to the present day?*"
+
+```{r}
+knitr::kable(df_2022 %>% 
+               tabyl(X56),
+             format = "html")
+```
+
+"*Have you been a refugee abroad from 24.02.2022 to the present day?*"
+
+```{r}
+knitr::kable(df_2022 %>% 
+               tabyl(X57),
+             format = "html")
+```
+
+"*Where are you now?*"
+
+```{r}
+df_2022$X58 <- factor(
+  df_2022$X58, levels = c("at home on the territory controlled by Ukraine",
+                     "at home on the temporarily occupied territory",
+                     "in another region of Ukraine (internally displaced person)",
+                     "abroad as a refugee",
+                     "other"))
+
+knitr::kable(df_2022 %>% 
+               tabyl(X58),
+             format = "html")
+```
+
+"*Was your higher education institution in the area of hostilities or under temporary occupation after 02/24/2022?*"
+
+```{r}
+#df_2022$X61 <- factor(
+#  df_2022$X61, levels = c("no", "yes, now on the territory controlled by Ukraine",
+#                     "yes, still on the temporarily occupied territory",
+#                     "don’t know"))
+
+knitr::kable(df_2022 %>% 
+               tabyl(X61),
+             format = "html")
+```
+
+"*Is your higher education institution a displaced one?*"
+
+```{r}
+#df_2022$X62 <- factor(
+#  df_2022$X62, levels = c("no", "yes, after the full-scale invasion in 2022",
+#                     "yes, after the start of the war in 2014", "don’t know"))
+
+knitr::kable(df_2022 %>% 
+               tabyl(X62),
+             format = "html")
+```
+
 ## Investigation of Response Times
 
 Time stamps were collected within the survey for start and finish. Total response duration was calculated as the difference between those two time stamps in minutes. These were examined more closely to estimate the risk of part of the sample only responding superficially and therefore very quickly.
