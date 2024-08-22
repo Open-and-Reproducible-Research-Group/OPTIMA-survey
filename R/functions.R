@@ -45,6 +45,9 @@ create_var_overview <- function(path) {
         as.integer(sub("X", "", var_id))  <= 53 ~ "agreement"
     )) 
   
+  # check that dir exists and if not, create it
+  if (!dir.exists("data/processed")) dir.create("data/processed")
+  
   write_csv(out, "data/processed/var_overview.csv")
   
   out
