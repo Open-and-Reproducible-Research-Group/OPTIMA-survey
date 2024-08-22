@@ -67,7 +67,7 @@ knitr::kable(var_overview[var_overview$var_id %in% os, c(1, 2, 4)])
 
 In the following figure, responses are visualized to the Open Science questions. They are sorted by the amount of agreement with these statements. Proportions of the different answer categories were calculated after removing missing and "don't know" responses. These responses are plotted separately on the right hand side, indicating their percentage of the total responses.
 
-```{r os_overview, fig.height = 7.5, fig.width = 9}
+```{r os_overview, fig.height = 5.5, fig.width = 7}
 plot_agreement_overview(df, var_overview, os)
 ```
 
