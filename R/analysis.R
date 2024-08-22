@@ -131,7 +131,7 @@ plot_agreement_overview <- function(
     scale_fill_manual(values = c("NA" = "grey50", "don't know" = "grey30")) +
     labs(x = NULL, y = NULL) +
     scale_x_continuous(limits = c(0, xlim),
-                       labels = function(x) paste0(round(x * 100, 0), "%")) +
+                       labels = label_percent()) +
     scale_y_discrete(position = "right") +
     guides(fill = guide_legend(ncol = 1)) +
     theme(legend.position = "top",
@@ -222,7 +222,7 @@ plot_frequency_overview <- function(
     labs(x = NULL, y = NULL) +
     scale_y_discrete(position = "right") +
     scale_x_continuous(limits = c(0, xlim),
-                       labels = function(x) paste0(round(x * 100, 0), "%")) +
+                       labels = label_percent()) +
     guides(fill = guide_legend(ncol = 1)) +
     theme(legend.position = "top",
           legend.title = element_blank(),
