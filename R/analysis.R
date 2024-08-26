@@ -930,3 +930,77 @@ frequency_log_regression_staff <- function(df, questions) {
   results
   
 }
+
+
+
+# Function to calculate percentage of agreement after dichotomization
+percentage_agree <- function(column) {
+  
+  dks_excluded <- column[!is.na(column) & column != "don't know"]
+  
+  percent <- round(sum(dks_excluded == "agree") / length(dks_excluded) * 100, 2)
+  
+  percent
+}
+
+# Function to calculate percentage of frequency after dichotomization
+percentage_often <- function(column) {
+  
+  dks_excluded <- column[column != "don't know"]
+  
+  percent <- round(sum(dks_excluded == "often") / length(dks_excluded) * 100, 2)
+  
+  percent
+}
+
+
+plot_groups_overview_agreement  <- function(df, var_overview, columns, group,
+                                            legend_title, legend_position) {
+  
+  df <- df %>%
+    group_by(.data[[group]]) %>%
+    summarise(across(all_of(columns), percentage_agree), .groups = 'drop') %>%
+    filter(!is.na(.data[[group]]) & .data[[group]] != "don't know") %>%
+    pivot_longer(cols = -.data[[group]], names_to = "Question", values_to = "Percentage") %>%
+    merge(var_overview, by.x = "Question", by.y = "var_id")
+  
+  # Create the plot
+  ggplot(df, aes(x = var_short, y = Percentage, color = .data[[group]])) +
+    geom_point(size = 3) +
+    scale_color_brewer(palette = "Dark2") +
+    labs(x = "Statement",
+         y = "Percentage of Agreement",
+         color = legend_title) +
+    scale_y_continuous(labels = function(x) paste0(x, "%")) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_line(color = "grey90"),
+          panel.background = element_blank(),
+          axis.text.x = element_text(angle = 60, hjust = 1),
+          legend.position = legend_position)
+}
+
+
+plot_groups_overview_frequency  <- function(df, var_overview, columns, group,
+                                            legend_title, legend_position) {
+  
+  df <- df %>%
+    group_by(.data[[group]]) %>%
+    summarise(across(all_of(columns), percentage_often), .groups = 'drop') %>%
+    filter(!is.na(.data[[group]]) & .data[[group]] != "don't know") %>%
+    pivot_longer(cols = -.data[[group]], names_to = "Question", values_to = "Percentage") %>%
+    merge(var_overview, by.x = "Question", by.y = "var_id")
+  
+  # Create the plot
+  ggplot(df, aes(x = var_short, y = Percentage, color = .data[[group]])) +
+    geom_point(size = 3) +
+    scale_color_brewer(palette = "Dark2") +
+    labs(x = "Statement",
+         y = "Percentage of High Frequency",
+         color = legend_title) +
+    scale_y_continuous(labels = function(x) paste0(x, "%")) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_line(color = "grey90"),
+          panel.background = element_blank(),
+          axis.text.x = element_text(angle = 60, hjust = 1),
+          legend.position = legend_position)
+}

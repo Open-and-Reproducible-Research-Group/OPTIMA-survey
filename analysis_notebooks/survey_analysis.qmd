@@ -579,3 +579,72 @@ wrap_plots(plots, ncol = 2) +
 
 plot_agreement_groups(df, "X15", "X63")
 ```
+
+## Displacement
+
+In 2022, respondents were additionally asked about whether their HEI had been displaced (in 2014, 2022, or not at all). The following figures show reponses to the items in comparison between displaced and non-displaced HEIs. Responses were again dichotomized to agreement/disagreement and high frequency/low frequency.
+
+```{r}
+
+agreement_items <- paste0("X", 15:23) %>% 
+  append(paste0("X", 38:52))
+
+frequency_items <- paste0("X", 24:37)
+
+dfd <- df %>% 
+  filter(X64 == "2022")
+
+for (item in agreement_items) {
+  dfd <- dichotomize_agreement(dfd, item)
+}
+
+for (item in frequency_items) {
+  dfd <- dichotomize_frequency(dfd, item)
+}
+```
+
+### Open Science
+
+```{r os_displacement, fig.height = 5.5, fig.width = 6.5}
+plot_groups_overview_agreement(dfd, var_overview, os, "X62",
+                               "HEI displaced:", "bottom")
+```
+
+### Reporting and Academic Integrity
+
+```{r raia_displacement, fig.height = 5.8, fig.width = 6.5}
+plot_groups_overview_agreement(dfd, var_overview, raia, "X62",
+                               "HEI displaced:", "bottom")
+```
+
+```{r raif_displacement, fig.height = 5, fig.width = 7}
+plot_groups_overview_frequency(dfd, var_overview, raif, "X62",
+                               "HEI displaced:", "right")
+```
+
+### Education
+
+```{r edua_displacement, fig.height = 5, fig.width = 7}
+plot_groups_overview_agreement(dfd, var_overview, edua, "X62",
+                               "HEI displaced:", "right")
+```
+
+```{r eduf_displacement, fig.height = 5, fig.width = 6}
+plot_groups_overview_frequency(dfd, var_overview, eduf, "X62",
+                               "HEI displaced:", "right")
+```
+
+### Institution/Administration
+
+```{r, adm_displacement, fig.height = 5, fig.width = 7}
+plot_groups_overview_frequency(dfd, var_overview, adm, "X62",
+                               "HEI displaced:", "right")
+```
+
+```{r, hei_displacement, fig.height = 2, fig.width = 5}
+plot_groups_overview_agreement(dfd, var_overview, c("X15"), "X62",
+                               "HEI displaced:", "bottom") +
+  coord_flip() +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5),
+        axis.title.y = element_blank())
+```
