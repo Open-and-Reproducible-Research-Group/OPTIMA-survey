@@ -42,8 +42,12 @@ if (use_targets) {
 
 } else {
   
+  additional_functions <- here("R", "functions.R")
+  source(additional_functions)
+  
   data <- here("data", "processed", "preprocessed_data.csv")
-  df <- read_csv(data)
+  df <- read_csv(data) %>% 
+    likert_to_factor(., var_overview)
   
 }
 ```
