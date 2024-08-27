@@ -157,8 +157,46 @@ Since the survey was conducted in three separate waves (2021, 2022, 2023), respo
 
 ### Open Science
 
-```{r os_development, fig.height = 15, fig.width = 8}
+```{r os_development, fig.height = 6.5, fig.width = 7}
+os_qs <- df %>% 
+  select(all_of(os), year = X64) %>% 
+  pivot_longer(cols = starts_with("X"), names_to = "var") %>% 
+  filter(!(value %in% c("don't know", "NA"))) %>% 
+  count(year, var, value) %>% 
+  group_by(year, var) %>% 
+  mutate(perc = n/sum(n))
 
+# get titles in
+titles <- var_overview %>% 
+  select(var_id, var_short)
+
+os_qs <- os_qs %>% 
+  left_join(titles, by = join_by(var == var_id))
+
+ggplot(os_qs, aes(x = year, y = perc, color = value)) + 
+    geom_line(size = 0.8) +
+    geom_point() +
+  facet_wrap(vars(var_short), ncol = 3) +
+    labs(x = "Survey Year", y = "Proportions", color = "Responses") +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_color_manual(values = c("NA" = "grey50", "don't know" = "grey30",
+                                  "strongly disagree" = "#b31529",
+                                  "rather disagree" = "#f6a582",
+                                  "rather agree" = "#8ec4ca",
+                                  "strongly agree" = "#1065ab")) +
+    scale_y_continuous(labels = scales::label_percent(), limits = c(0, .75)) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_line(color = "grey90"),
+          panel.spacing.x = unit(1, "lines"),
+          panel.background = element_blank(),
+          axis.ticks = element_blank(),
+          legend.position = "top")
+
+# maybe better to sort similar to the overview plot? so sort by agreement
+
+```
+
+```{r os_development_old, fig.width=8, fig.height=15}
 plots <- list()
 
 for (q in os) {
