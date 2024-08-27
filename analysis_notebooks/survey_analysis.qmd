@@ -173,10 +173,21 @@ titles <- var_overview %>%
 os_qs <- os_qs %>% 
   left_join(titles, by = join_by(var == var_id))
 
-ggplot(os_qs, aes(x = year, y = perc, color = value)) + 
+# sort by agreement
+with_sorting <- os_qs %>% 
+  mutate(cumulative_agreement = cumsum(perc), 
+         agreement_sort = case_when(
+           value == "rather agree" ~ cumulative_agreement,
+           TRUE ~ 0
+         )) 
+
+
+ggplot(with_sorting, aes(x = year, y = perc, color = value)) + 
     geom_line(size = 0.8) +
     geom_point() +
-  facet_wrap(vars(var_short), ncol = 3) +
+  facet_wrap(vars(var_short %>% 
+                    fct_reorder(agreement_sort, .fun = max) %>% 
+                    fct_rev()), ncol = 3) +
     labs(x = "Survey Year", y = "Proportions", color = "Responses") +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_color_manual(values = c("NA" = "grey50", "don't know" = "grey30",
