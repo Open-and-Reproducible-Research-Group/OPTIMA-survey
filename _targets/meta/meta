@@ -1,9 +1,10 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|18daece193a07ea6|||||||||||||||
+.Random.seed|object|e8665961627431cd|||||||||||||||
 combine_data|function|50d960a282aa8f2c|||||||||||||||
 combined_data|stem|12e2bda8d335247f|c300f2e323804349|954ef89b0b1f7c21|-773924101||t19842.472244155s|5d24a090d10722bf|1032702|rds|local|vector|||0.44||
 combined_data_path|stem|a2406a6a9d86388a|9882248158d62772|fd53a77a6cee2887|-447225091||t19842.4722336002s|40b3a10246f0095b|83|rds|local|vector|||2.47||
 create_var_overview|function|3ef18b16344f21e8|||||||||||||||
+hei_statistics_comparison|stem|89590540766475b9|0f8328dff2ffab81|226b7618c1747749|1379817620|analysis_notebooks/hei_statistics_comparison.html*analysis_notebooks/hei_statistics_comparison.qmd|t19962.3357457737s|aa859b7b93cb8efc|50697|file|local|vector|||7.33||
 inferential_analysis|stem|1fabbfc1e51c2a4d|ef7d71e7f5e8d64c|226b7618c1747749|810102308|analysis_notebooks/inferential_analysis.html*analysis_notebooks/inferential_analysis.qmd|t19934.3902562395s|27dcada5574b7fba|142349|file|local|vector|||14.97||
 likert_to_factor|function|72834933e8995f36|||||||||||||||
 process_combined_data|function|26f67203b8b541d1|||||||||||||||

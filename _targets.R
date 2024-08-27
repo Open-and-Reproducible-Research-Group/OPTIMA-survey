@@ -41,5 +41,8 @@ list(
              quiet = FALSE),
   tar_quarto(inferential_analysis,
              "analysis_notebooks/inferential_analysis.qmd",
+             quiet = FALSE),
+  tar_quarto(hei_statistics_comparison,
+             "analysis_notebooks/hei_statistics_comparison.qmd",
              quiet = FALSE)
 )

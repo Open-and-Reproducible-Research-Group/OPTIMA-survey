@@ -15,10 +15,22 @@ library(here)
 library(tidyverse)
 library(readxl)
 library(janitor)
-library(fuzzyjoin)
 
 
-df <- read_csv(here("data", "processed", "preprocessed_data.csv"))
+
+use_targets <- TRUE # Set to false if data is not received by targets pipeline
+
+if (use_targets) {
+  
+  df <- targets::tar_read(recoded_data)
+
+} else {
+  
+  
+  data <- here("data", "processed", "preprocessed_data.csv")
+  df <- read_csv(data)
+  
+}
 
 
 path21 <- here("data", "additional", "hei_stats", "vfpo_Ukr_2021_translated.xlsx")
