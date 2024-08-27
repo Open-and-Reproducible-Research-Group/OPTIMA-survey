@@ -31,7 +31,7 @@ use_targets <- TRUE # Set to false if data is not received by targets pipeline
 
 if (use_targets) {
   
-  df <- targets::tar_read(recoded_data)
+  df <- targets::tar_read(recoded_data, store = here("_targets"))
 
 } else {
 
