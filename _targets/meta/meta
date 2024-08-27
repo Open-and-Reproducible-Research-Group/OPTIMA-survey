@@ -1,10 +1,10 @@
 name|type|data|command|depend|seed|path|time|size|bytes|format|repository|iteration|parent|children|seconds|warnings|error
-.Random.seed|object|e8665961627431cd|||||||||||||||
+.Random.seed|object|ad8e370670e652b3|||||||||||||||
 combine_data|function|50d960a282aa8f2c|||||||||||||||
 combined_data|stem|12e2bda8d335247f|c300f2e323804349|954ef89b0b1f7c21|-773924101||t19842.472244155s|5d24a090d10722bf|1032702|rds|local|vector|||0.44||
 combined_data_path|stem|a2406a6a9d86388a|9882248158d62772|fd53a77a6cee2887|-447225091||t19842.4722336002s|40b3a10246f0095b|83|rds|local|vector|||2.47||
 create_var_overview|function|3ef18b16344f21e8|||||||||||||||
-hei_statistics_comparison|stem|89590540766475b9|0f8328dff2ffab81|226b7618c1747749|1379817620|analysis_notebooks/hei_statistics_comparison.html*analysis_notebooks/hei_statistics_comparison.qmd|t19962.3357457737s|aa859b7b93cb8efc|50697|file|local|vector|||7.33||
+hei_statistics_comparison|stem|fd7d195a03b910bf|0f8328dff2ffab81|226b7618c1747749|1379817620|analysis_notebooks/hei_statistics_comparison.html*analysis_notebooks/hei_statistics_comparison.qmd|t19962.5313195099s|3ce8870ce5cb58d4|53322|file|local|vector|||12.5||
 inferential_analysis|stem|1fabbfc1e51c2a4d|ef7d71e7f5e8d64c|226b7618c1747749|810102308|analysis_notebooks/inferential_analysis.html*analysis_notebooks/inferential_analysis.qmd|t19934.3902562395s|27dcada5574b7fba|142349|file|local|vector|||14.97||
 likert_to_factor|function|72834933e8995f36|||||||||||||||
 process_combined_data|function|26f67203b8b541d1|||||||||||||||
@@ -13,5 +13,5 @@ recoded_data|stem|83cdc9a382e80d49|c2c67c8c58572208|95b7c169da254eb9|940689413||
 sample_characteristics|stem|105332ecc5908753|2075d070eec004bf|226b7618c1747749|-960148809|analysis_notebooks/sample_characteristics.html*analysis_notebooks/sample_characteristics.qmd|t19955.5336154304s|3863bf59d60a7acc|81666|file|local|vector|||96.01||
 save_data|stem|83cdc9a382e80d49|df3fe5f34b3831d0|226b7618c1747749|-934457909||t19906.4121604597s|33e03350407994df|966339|rds|local|vector|||0.61||
 save_processed_data|stem|86b24f3a397b732d|4dd05b1f22fe71c9|bbc0aa70674198ff|904200634||t19842.4865584359s|eb891b2a70d00622|1098615|rds|local|vector|||0.57||
-survey_analysis|stem|5236aac49b0cb6a4|5608f4b6dc36bbd9|226b7618c1747749|2127549828|analysis_notebooks/survey_analysis.html*analysis_notebooks/survey_analysis.qmd|t19962.3200706144s|afbda4c00e5fd8cc|125139|file|local|vector|||273.29||
+survey_analysis|stem|5236aac49b0cb6a4|5608f4b6dc36bbd9|226b7618c1747749|2127549828|analysis_notebooks/survey_analysis.html*analysis_notebooks/survey_analysis.qmd|t19962.5113309618s|afbda4c00e5fd8cc|125139|file|local|vector|||273.29||
 var_overview|stem|a00f7885ab530c80|a8f1edf33cfd0eff|93be34a98fb4d3d5|364917392||t19961.5930716998s|6ef8d6ed055fd755|2655|rds|local|vector|||0.16||
