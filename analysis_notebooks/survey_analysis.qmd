@@ -648,3 +648,17 @@ plot_groups_overview_agreement(dfd, var_overview, c("X15"), "X62",
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5),
         axis.title.y = element_blank())
 ```
+
+# National Open Science Plan
+
+In 2022, one additional question inquire participants about whether they were aware that the Ukrainian government had recently approved a National Open Science Plan.
+
+```{r}
+os_plan <- dfd %>% 
+  tabyl(X59) %>% 
+  adorn_percentages("col") %>% 
+  adorn_pct_formatting(digits = 1) %>% 
+  adorn_ns()
+
+knitr::kable(os_plan, format = "html")
+```
