@@ -7,3 +7,5 @@ data/processed
 data/additional/map
 
 _targets
+
+analysis_notebooks/*/libs/*
