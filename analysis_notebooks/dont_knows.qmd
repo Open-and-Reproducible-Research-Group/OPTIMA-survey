@@ -1,0 +1,57 @@
+---
+title: "Don't know answers"
+author: "Thomas Klebel & Eva Kormann"
+format: html
+---
+
+```{r}
+#| output: false
+#| echo: false
+#| 
+library(here)
+library(tidyverse)
+# library(ggchicklet)
+library(patchwork)
+library(hrbrthemes)
+# library(RColorBrewer)
+
+knitr::opts_chunk$set(dpi = 400)
+
+# Get var overview including short titles
+vars <- here("data", "additional", "var_short_titles.csv")
+var_overview <- read_csv(vars)
+
+# Get functions for analysis
+functions <- here("R", "analysis.R")
+source(functions)
+
+df <- targets::tar_read(recoded_data, store = here("_targets"))
+```
+
+```{r}
+var_groups <- var_overview %>% 
+  select(var = var_id, var_group)
+
+dont_knows <- df %>% 
+  select(X15:X52, year = X64) %>% 
+  pivot_longer(starts_with("X"), names_to = "var") %>% 
+  count(year, var, value) %>% 
+  group_by(year, var) %>% 
+  mutate(perc = n/sum(n)) %>% 
+  filter(value == "don't know") %>% 
+  group_by(year) %>% 
+  mutate(avg_dont_knows = mean(perc)) %>% 
+  left_join(var_groups)
+```
+
+```{r, fig.width=10, fig.height=4}
+dont_knows %>% 
+  ggplot(aes(var, perc)) +
+  geom_point() +
+  facet_grid(vars(year), cols = vars(var_group), scales = "free_x") 
+```
+
+
+Possibly compare groups (X8), but with different design.
+
+Think about ways to visualise "don't know" over time.
