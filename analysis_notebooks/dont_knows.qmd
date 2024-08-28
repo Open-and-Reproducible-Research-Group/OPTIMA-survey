@@ -79,7 +79,7 @@ yearly_change <- dont_knows_year %>%
 ```
 
 
-```{r yearly-change, fig.width=11, fig.height=3}
+```{r yearly-change, fig.width=10, fig.height=2.5}
 text_labels <- tribble(
   ~var, ~value, ~var_group, ~label, ~year,
   "Q39", .05,  "Open Science", "Increase in 2022", "2022",
@@ -100,8 +100,8 @@ yearly_change %>%
   labs(y = "Change in percentage points\ncompared to 2021", x = NULL) +
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major.x = element_blank(),
-        axis.text.x = element_text(angle = 90, vjust = .5))
-
+        axis.text.x = element_text(angle = 90, vjust = .5),
+        axis.text.y = element_text(angle = 90, hjust = .5))
 ```
 
 
@@ -123,14 +123,13 @@ dont_knows <- df %>%
          var = str_replace_all(var, "X", "Q"))
 ```
 
-```{r overall-comparison, fig.width=11, fig.height=3}
+```{r overall-comparison, fig.width=10, fig.height=2.5}
 # create labels for annotation
 text_labels <- tribble(
   ~var, ~perc, ~var_group, ~label,
   "Q16", .22,  "Education", "Overall average",
   "Q33", .285, "Institution/Administration", "Group average"
 )
-
 dont_knows %>% 
   ggplot(aes(var, perc)) +
   geom_hline(aes(yintercept = avg_dont_knows), color = "#8ec4ca") +
@@ -144,8 +143,8 @@ dont_knows %>%
             show.legend = FALSE, hjust = "left") +
   theme(panel.background = element_rect(fill = "white"),
     panel.grid.major.x = element_blank(),
-    # axis.ticks.x = element_blank(),
-    axis.text.x = element_text(angle = 90, vjust = .5)) +
+    axis.text.x = element_text(angle = 90, vjust = .5),
+    axis.text.y = element_text(angle = 90, hjust = .5)) +
   labs(y = "Share of 'don't know' answers", x = NULL)
 ```
 
