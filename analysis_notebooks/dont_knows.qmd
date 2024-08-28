@@ -13,6 +13,7 @@ library(tidyverse)
 # library(ggchicklet)
 library(patchwork)
 library(hrbrthemes)
+library(ggforce)
 # library(RColorBrewer)
 
 knitr::opts_chunk$set(dpi = 400)
@@ -28,11 +29,12 @@ source(functions)
 df <- targets::tar_read(recoded_data, store = here("_targets"))
 ```
 
+# By year
 ```{r}
 var_groups <- var_overview %>% 
-  select(var = var_id, var_group)
+  select(var = var_id, var_full, var_group)
 
-dont_knows <- df %>% 
+dont_knows_year <- df %>% 
   select(X15:X52, year = X64) %>% 
   pivot_longer(starts_with("X"), names_to = "var") %>% 
   count(year, var, value) %>% 
@@ -41,14 +43,79 @@ dont_knows <- df %>%
   filter(value == "don't know") %>% 
   group_by(year) %>% 
   mutate(avg_dont_knows = mean(perc)) %>% 
-  left_join(var_groups)
+  left_join(var_groups) %>% 
+  group_by(year, var_group) %>% 
+  mutate(avg_group_dont_knows = mean(perc))
 ```
 
-```{r, fig.width=10, fig.height=4}
+```{r year-comparison, fig.width=10, fig.height=4}
+dont_knows_year %>% 
+  ggplot(aes(var, perc)) +
+  geom_hline(aes(yintercept = avg_dont_knows), color = "#8ec4ca") +
+  geom_hline(aes(yintercept = avg_group_dont_knows), linetype = 2, 
+             color = "#1065ab") +
+  geom_segment(aes(x = var, y = avg_group_dont_knows, yend = perc)) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  # geom_point(size = 1) +
+  facet_grid(vars(year), cols = vars(var_group), scales = "free_x") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major.y = element_line(color = "grey80"),
+        panel.grid.minor.y = element_line(color = "grey90"),
+        panel.grid.major.x = element_blank())
+```
+
+## Compare across time
+
+# Across all years
+```{r}
+dont_knows <- df %>% 
+  select(X15:X52) %>% 
+  pivot_longer(starts_with("X"), names_to = "var") %>% 
+  count(var, value) %>% 
+  group_by(var) %>% 
+  mutate(perc = n/sum(n)) %>% 
+  filter(value == "don't know") %>% 
+  ungroup() %>% 
+  mutate(avg_dont_knows = mean(perc)) %>% 
+  left_join(var_groups) %>% 
+  group_by(var_group) %>% 
+  mutate(avg_group_dont_knows = mean(perc),
+         var = str_replace_all(var, "X", "Q"))
+```
+
+```{r overall-comparison, fig.width=11, fig.height=3}
+# create labels for annotation
+text_labels <- tribble(
+  ~var, ~perc, ~var_group, ~label,
+  "Q16", .22,  "Education", "Overall average",
+  "Q33", .285, "Institution/Administration", "Group average"
+)
+
 dont_knows %>% 
   ggplot(aes(var, perc)) +
-  geom_point() +
-  facet_grid(vars(year), cols = vars(var_group), scales = "free_x") 
+  geom_hline(aes(yintercept = avg_dont_knows), color = "#8ec4ca") +
+  geom_hline(aes(yintercept = avg_group_dont_knows), linetype = 2, 
+             color = "#1065ab") +
+  geom_segment(aes(x = var, y = avg_group_dont_knows, yend = perc)) +
+  scale_y_continuous(labels = scales::label_percent()) +
+  scale_color_manual(values = c("#8ec4ca", "#1065ab")) +
+  facet_row(vars(var_group), scales = "free_x", space = "free") +
+  geom_text(data = text_labels, aes(label = label, colour = var), 
+            show.legend = FALSE, hjust = "left") +
+  theme(panel.background = element_rect(fill = "white"),
+    panel.grid.major.x = element_blank(),
+    # axis.ticks.x = element_blank(),
+    axis.text.x = element_text(angle = 90, vjust = .5)) +
+  labs(y = "Share of 'don't know' answers", x = NULL)
+```
+
+```{r}
+var_overview %>% 
+  filter(var_id %in% paste0("X", 15:52)) %>% 
+  arrange(var_group, var_id) %>% 
+  select(var_group, var_id, var_full) %>% 
+  mutate(var_id = str_replace_all(var_id, "X", "Q")) %>% 
+  knitr::kable()
 ```
 
 
