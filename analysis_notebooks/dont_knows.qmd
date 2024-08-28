@@ -65,6 +65,46 @@ dont_knows_year %>%
 ```
 
 ## Compare across time
+```{r}
+yearly_change <- dont_knows_year %>% 
+  select(year, var, value, perc, var_group) %>% 
+  pivot_wider(names_from = year, values_from = perc) %>% 
+  mutate(change_2022 = `2022` - `2021`,
+         change_2023 = `2023` - `2021`) %>% 
+  select(var, response = value, var_group, contains("change")) %>% 
+  pivot_longer(contains("change"), names_to = "year", 
+               names_pattern = "change_(\\d+)") %>% 
+  mutate(negative_change = if_else(value < 0, TRUE, FALSE),
+         var = str_replace_all(var, "X", "Q"))
+```
+
+
+```{r yearly-change, fig.width=11, fig.height=3}
+text_labels <- tribble(
+  ~var, ~value, ~var_group, ~label, ~year,
+  "Q39", .05,  "Open Science", "Increase in 2022", "2022",
+  "Q19", -.06, "Reporting and Academic Integrity", "Decrease in 2023", "2023"
+)
+
+yearly_change %>% 
+  ggplot(aes(var, value, colour = year)) +
+  geom_hline(yintercept = 0) +
+  geom_segment(aes(x = var, y = 0, yend = value), show.legend = FALSE,
+               position = position_dodge(width = .2)) +
+  geom_text(data = text_labels, aes(label = label, colour = year), 
+            show.legend = FALSE, hjust = "left") +
+  facet_row(vars(var_group), scales = "free_x", space = "free") +
+  scale_y_continuous(labels = function(x) x * 100, 
+                     breaks = c(-.08, -.04, 0, .04)) +
+  scale_colour_manual(values = c(`2022` = "#b31529", `2023` = "#1065ab")) +
+  labs(y = "Change in percentage points\ncompared to 2021", x = NULL) +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = .5))
+
+```
+
+
 
 # Across all years
 ```{r}
@@ -121,4 +161,3 @@ var_overview %>%
 
 Possibly compare groups (X8), but with different design.
 
-Think about ways to visualise "don't know" over time.
