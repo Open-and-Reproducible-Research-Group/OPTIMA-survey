@@ -10,11 +10,9 @@ format: html
 
 library(here)
 library(tidyverse)
-# library(ggchicklet)
 library(patchwork)
 library(hrbrthemes)
 library(ggforce)
-# library(RColorBrewer)
 
 knitr::opts_chunk$set(dpi = 400)
 
