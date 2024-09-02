@@ -187,16 +187,6 @@ plot_time(df, var_overview, eduf, type = "frequency")
 plot_time(df, var_overview, adm, type = "frequency")
 ```
 
-An alternative plot type to the line plot is the area plot. For the following exemplary item (X15: "Overall, the processes at my higher education institution are organised in a clear and transparent manner") both plots are shown for comparison.
-
-```{r hei_processes_comparison, fig.height = 3.2, fig.width = 8}
-
-line <- plot_agreement_line(df, "X15", FALSE)
-area <- plot_agreement_area(df, "X15", TRUE)
-
-line + area
-```
-
 # Comparison Between Groups
 
 To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. Frequency responses were recoded into "often" ("very often", "frequently") and "not often" ("sometimes", "rarely", "never"). Missing responses and "don't know" answers were removed before the percentages were calculated. As in the previous section, percentages refer to all respondents that chose one of the response categories presented (and not "don't know").
