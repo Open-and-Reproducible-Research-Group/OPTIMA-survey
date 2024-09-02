@@ -7,7 +7,7 @@ format: html
 ```{r}
 #| output: false
 #| echo: false
-#| 
+
 library(here)
 library(tidyverse)
 # library(ggchicklet)
@@ -48,23 +48,6 @@ dont_knows_year <- df %>%
   mutate(avg_group_dont_knows = mean(perc))
 ```
 
-```{r year-comparison, fig.width=10, fig.height=4}
-dont_knows_year %>% 
-  ggplot(aes(var, perc)) +
-  geom_hline(aes(yintercept = avg_dont_knows), color = "#8ec4ca") +
-  geom_hline(aes(yintercept = avg_group_dont_knows), linetype = 2, 
-             color = "#1065ab") +
-  geom_segment(aes(x = var, y = avg_group_dont_knows, yend = perc)) +
-  scale_y_continuous(labels = scales::label_percent()) +
-  # geom_point(size = 1) +
-  facet_grid(vars(year), cols = vars(var_group), scales = "free_x") +
-  theme(panel.background = element_rect(fill = "white"),
-        panel.grid.major.y = element_line(color = "grey80"),
-        panel.grid.minor.y = element_line(color = "grey90"),
-        panel.grid.major.x = element_blank())
-```
-
-## Compare across time
 ```{r}
 yearly_change <- dont_knows_year %>% 
   select(year, var, value, perc, var_group) %>% 
@@ -90,7 +73,8 @@ yearly_change %>%
   ggplot(aes(var, value, colour = year)) +
   geom_hline(yintercept = 0) +
   geom_segment(aes(x = var, y = 0, yend = value), show.legend = FALSE,
-               position = position_dodge(width = .2)) +
+               position = position_dodge(width = .25),
+               linewidth = 1) +
   geom_text(data = text_labels, aes(label = label, colour = year), 
             show.legend = FALSE, hjust = "left") +
   facet_row(vars(var_group), scales = "free_x", space = "free") +
@@ -100,9 +84,83 @@ yearly_change %>%
   labs(y = "Change in percentage points\ncompared to 2021", x = NULL) +
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major.x = element_blank(),
-        axis.text.x = element_text(angle = 90, vjust = .5),
-        axis.text.y = element_text(angle = 90, hjust = .5))
+        axis.text.x = element_text(angle = 90, vjust = .5))
 ```
+
+## Across time and by degree
+
+```{r}
+dont_knows_degree <- df %>% 
+  mutate(has_degree = case_when(X10 == "none (still studying)" ~ FALSE,
+                                is.na(X10) ~ NA,
+                                TRUE ~ TRUE)) %>% 
+  select(X15:X52, year = X64, has_degree) %>% 
+  pivot_longer(starts_with("X"), names_to = "var") %>% 
+  count(year, has_degree, var, value) %>% 
+  group_by(year, has_degree, var) %>% 
+  mutate(perc = n/sum(n)) %>% 
+  filter(value == "don't know") %>% 
+  group_by(year, has_degree) %>% 
+  mutate(avg_dont_knows = mean(perc)) %>% 
+  left_join(var_groups) %>% 
+  group_by(year, has_degree, var_group) %>% 
+  mutate(avg_group_dont_knows = mean(perc))
+```
+
+```{r}
+yearly_change_degree <- dont_knows_degree %>% 
+  select(year, has_degree, var, value, perc, var_group) %>% 
+  pivot_wider(names_from = year, values_from = perc) %>% 
+  mutate(change_2022 = `2022` - `2021`,
+         change_2023 = `2023` - `2021`) %>% 
+  select(has_degree, var, response = value, var_group, contains("change")) %>% 
+  pivot_longer(contains("change"), names_to = "year", 
+               names_pattern = "change_(\\d+)") %>% 
+  mutate(negative_change = if_else(value < 0, TRUE, FALSE),
+         var = str_replace_all(var, "X", "Q"))
+```
+
+
+```{r yearly-change-w-degree, fig.width=10, fig.height=3}
+yearly_change_degree %>% 
+  filter(has_degree) %>% 
+  ggplot(aes(var, value, colour = year)) +
+  geom_hline(yintercept = 0) +
+  geom_segment(aes(x = var, y = 0, yend = value), show.legend = TRUE,
+               position = position_dodge(width = .25),
+               linewidth = 1) +
+  facet_row(vars(var_group), scales = "free_x", space = "free") +
+  scale_y_continuous(labels = function(x) x * 100, 
+                     breaks = seq(-.05, .05, by = .025)) +
+  scale_colour_manual(values = c(`2022` = "#b31529", `2023` = "#1065ab")) +
+  labs(y = "Change in percentage points\ncompared to 2021", x = NULL,
+       title = "Respondents with any type of degree", colour = "Change in") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = .5),
+        legend.position = "top")
+```
+
+```{r yearly-change-wo-degree, fig.width=10.5, fig.height=3.5}
+yearly_change_degree %>% 
+  filter(!has_degree) %>% 
+  ggplot(aes(var, value, colour = year)) +
+  geom_hline(yintercept = 0) +
+  geom_segment(aes(x = var, y = 0, yend = value), show.legend = TRUE,
+               position = position_dodge(width = .25),
+               linewidth = 1) +
+  facet_row(vars(var_group), scales = "free_x", space = "free") +
+  scale_y_continuous(labels = function(x) x * 100, 
+                     breaks = c(-.12, -.08, -.04, 0, .04)) +
+  scale_colour_manual(values = c(`2022` = "#b31529", `2023` = "#1065ab")) +
+  labs(y = "Change in percentage points\ncompared to 2021", x = NULL,
+       title = "Respondents without a degree", colour = "Change in") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = .5),
+        legend.position = "top")
+```
+
 
 
 
