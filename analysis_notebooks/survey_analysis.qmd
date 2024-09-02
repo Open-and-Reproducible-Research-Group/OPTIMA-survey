@@ -157,146 +157,34 @@ Since the survey was conducted in three separate waves (2021, 2022, 2023), respo
 
 ### Open Science
 
-```{r os_development, fig.height = 6.5, fig.width = 7}
-os_qs <- df %>% 
-  select(all_of(os), year = X64) %>% 
-  pivot_longer(cols = starts_with("X"), names_to = "var") %>% 
-  filter(!(value %in% c("don't know", "NA"))) %>% 
-  count(year, var, value) %>% 
-  group_by(year, var) %>% 
-  mutate(perc = n/sum(n))
-
-# get titles in
-titles <- var_overview %>% 
-  select(var_id, var_short)
-
-os_qs <- os_qs %>% 
-  left_join(titles, by = join_by(var == var_id))
-
-# sort by agreement
-with_sorting <- os_qs %>% 
-  mutate(cumulative_agreement = cumsum(perc), 
-         agreement_sort = case_when(
-           value == "rather agree" ~ cumulative_agreement,
-           TRUE ~ 0
-         )) 
-
-
-ggplot(with_sorting, aes(x = year, y = perc, color = value)) + 
-    geom_line(size = 0.8) +
-    geom_point() +
-  facet_wrap(vars(var_short %>% 
-                    fct_reorder(agreement_sort, .fun = max) %>% 
-                    fct_rev()), ncol = 3) +
-    labs(x = "Survey Year", y = "Proportions", color = "Responses") +
-    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
-    scale_color_manual(values = c("NA" = "grey50", "don't know" = "grey30",
-                                  "strongly disagree" = "#b31529",
-                                  "rather disagree" = "#f6a582",
-                                  "rather agree" = "#8ec4ca",
-                                  "strongly agree" = "#1065ab")) +
-    scale_y_continuous(labels = scales::label_percent(), limits = c(0, .75)) +
-    theme(panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_line(color = "grey90"),
-          panel.spacing.x = unit(1, "lines"),
-          panel.background = element_blank(),
-          axis.ticks = element_blank(),
-          legend.position = "top")
-
-# maybe better to sort similar to the overview plot? so sort by agreement
-
-```
-
-```{r os_development_old, fig.width=8, fig.height=15}
-plots <- list()
-
-for (q in os) {
-  if (q %in% paste0("X", 38:53)) {
-    legend <- TRUE
-  } else {legend <- FALSE}
-  plot <- plot_agreement_line(df, question = q, legend)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r os_development, fig.height = 10, fig.width = 5.5}
+plot_time(df, var_overview, os, type = "agreement")
 ```
 
 ### Reporting and Academic Integrity
 
-```{r raia_development, fig.height = 15, fig.width = 8}
- 
-plots <- list()
-
-for (q in raia) {
-  if (q %in% paste0("X", 38:53)) {
-    legend <- TRUE
-  } else {legend <- FALSE}
-  plot <- plot_agreement_line(df, question = q, legend)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r raia_development, fig.height = 10, fig.width = 5.5}
+plot_time(df, var_overview, raia, type = "agreement")
 ```
 
-```{r raif_development, fig.height = 9, fig.width = 8}
-
-plots <- list()
-
-for (q in raif) {
-  plot <- plot_frequency_line(df, question = q, legend = TRUE, ylim = 70)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r raif_development, fig.height = 6.5, fig.width = 5.5}
+plot_time(df, var_overview, raif, type = "frequency")
 ```
 
 ## Education
 
 ```{r edua_development, fig.height = 5.5, fig.width = 8}
- 
-plots <- list()
-
-for (q in edua) {
-  if (q %in% paste0("X", 38:53)) {
-    legend <- TRUE
-  } else {legend <- FALSE}
-  plot <- plot_agreement_line(df, question = q, legend)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+plot_time(df, var_overview, edua, type = "agreement")
 ```
 
 ```{r eduf_development, fig.height = 5.5, fig.width = 8}
-
-plots <- list()
-
-for (q in eduf) {
-  plot <- plot_frequency_line(df, question = q, legend = TRUE, ylim = 50)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+plot_time(df, var_overview, eduf, type = "frequency")
 ```
 
 ## Institution/Administration
 
 ```{r adm_development, fig.height = 9, fig.width = 8}
-
-plots <- list()
-
-for (q in adm) {
-  plot <- plot_frequency_line(df, question = q, legend = TRUE, ylim = 75)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+plot_time(df, var_overview, adm, type = "frequency")
 ```
 
 An alternative plot type to the line plot is the area plot. For the following exemplary item (X15: "Overall, the processes at my higher education institution are organised in a clear and transparent manner") both plots are shown for comparison.
