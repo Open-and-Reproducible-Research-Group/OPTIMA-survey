@@ -213,5 +213,9 @@ var_overview %>%
 ```
 
 
+Across all years, the rate of "don't know" answers is
+`r scales::percent(unique(dont_knows$avg_dont_knows), .1)`
+
+
 Possibly compare groups (X8), but with different design.
 
