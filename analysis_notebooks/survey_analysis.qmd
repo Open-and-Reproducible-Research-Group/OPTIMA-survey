@@ -167,23 +167,23 @@ plot_time(df, var_overview, os, type = "agreement")
 plot_time(df, var_overview, raia, type = "agreement")
 ```
 
-```{r raif_development, fig.height = 6.5, fig.width = 5.5}
+```{r raif_development, fig.height = 7, fig.width = 5.5}
 plot_time(df, var_overview, raif, type = "frequency")
 ```
 
 ## Education
 
-```{r edua_development, fig.height = 5.5, fig.width = 8}
+```{r edua_development, fig.height = 4.5, fig.width = 5.5}
 plot_time(df, var_overview, edua, type = "agreement")
 ```
 
-```{r eduf_development, fig.height = 5.5, fig.width = 8}
+```{r eduf_development, fig.height = 4, fig.width = 5.5}
 plot_time(df, var_overview, eduf, type = "frequency")
 ```
 
 ## Institution/Administration
 
-```{r adm_development, fig.height = 9, fig.width = 8}
+```{r adm_development, fig.height = 6, fig.width = 5.5}
 plot_time(df, var_overview, adm, type = "frequency")
 ```
 
