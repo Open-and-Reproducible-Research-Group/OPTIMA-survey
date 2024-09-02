@@ -512,12 +512,12 @@ plot_time <- function(df, var_overview, questions, legend = TRUE,
       ),
     frequency = list(
       scale_color_manual(
-        values = c("NA" = "grey50", 
-                   "don't know" = "grey30",
-                   "strongly disagree" = "#b31529",
-                   "rather disagree" = "#f6a582",
-                   "rather agree" = "#8ec4ca",
-                   "strongly agree" = "#1065ab"))
+        values = c("don't know" = "grey30",
+                   "never" = "#b31529",
+                   "rarely" = "#f6a582",
+                   "sometimes" = "#cdcdc8",
+                   "frequently" = "#8ec4ca",
+                   "very often" = "#1065ab"))
     )
   )
   
