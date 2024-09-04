@@ -542,6 +542,7 @@ plot_time <- function(df, var_overview, questions, legend = TRUE, ncol = 3,
     mutate(cumulative_agreement = cumsum(perc), 
            agreement_sort = case_when(
              value == "rather agree" ~ cumulative_agreement,
+             value == "frequently" ~ cumulative_agreement,
              TRUE ~ 0
            )) 
   
