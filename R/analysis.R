@@ -495,8 +495,8 @@ plot_frequency_area <- function(df, question, legend = TRUE,
   
 }
 
-plot_time <- function(df, var_overview, questions, legend = TRUE, 
-                      type = c("agreement", "frequency"), var_wrap = 40) {
+plot_time <- function(df, var_overview, questions, legend = TRUE, ncol = 3,
+                      type = c("agreement", "frequency"), var_wrap = 35) {
   
   type <- match.arg(type)
   
@@ -547,12 +547,12 @@ plot_time <- function(df, var_overview, questions, legend = TRUE,
   
   
   p <- ggplot(with_sorting, aes(x = year, y = perc, color = value)) +
-    geom_line(size = 0.8) +
+    geom_line(linewidth = 0.8) +
     geom_point() +
     facet_wrap(vars(var_label %>% 
                       fct_reorder(agreement_sort, .fun = max) %>% 
                       fct_rev()), 
-               ncol = 2) +
+               ncol = ncol) +
     labs(x = "Survey Year", y = "Proportions", colour = NULL) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_y_continuous(labels = scales::label_percent()) +
