@@ -157,33 +157,33 @@ Since the survey was conducted in three separate waves (2021, 2022, 2023), respo
 
 ### Open Science
 
-```{r os_development, fig.height = 10, fig.width = 5.5}
+```{r os_development, fig.height = 8, fig.width = 7.5}
 plot_time(df, var_overview, os, type = "agreement")
 ```
 
 ### Reporting and Academic Integrity
 
-```{r raia_development, fig.height = 10, fig.width = 5.5}
+```{r raia_development, fig.height = 8, fig.width = 7.5}
 plot_time(df, var_overview, raia, type = "agreement")
 ```
 
-```{r raif_development, fig.height = 7, fig.width = 5.5}
+```{r raif_development, fig.height = 5.5, fig.width = 7.5}
 plot_time(df, var_overview, raif, type = "frequency")
 ```
 
 ## Education
 
-```{r edua_development, fig.height = 4.5, fig.width = 5.5}
-plot_time(df, var_overview, edua, type = "agreement")
+```{r edua_development, fig.height = 4.5, fig.width = 6}
+plot_time(df, var_overview, edua, type = "agreement", ncol = 2, var_wrap = 40)
 ```
 
-```{r eduf_development, fig.height = 4, fig.width = 5.5}
+```{r eduf_development, fig.height = 3, fig.width = 7.5}
 plot_time(df, var_overview, eduf, type = "frequency")
 ```
 
 ## Institution/Administration
 
-```{r adm_development, fig.height = 6, fig.width = 5.5}
+```{r adm_development, fig.height = 5.5, fig.width = 7.5}
 plot_time(df, var_overview, adm, type = "frequency")
 ```
 
