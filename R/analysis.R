@@ -66,7 +66,7 @@ table_answers_overview <- function(df, columns, group,
 # Create an overview plot over the responses to various items (without grouping)
 plot_agreement_overview <- function(
     df, var_overview, columns, sort = TRUE, xlim = 0.3,
-    filter = NULL, filter_val = NULL, label_width = 40) {
+    filter = NULL, filter_val = NULL, label_width = 75) {
   
   if (!is.null(filter)) {
     df <- df %>% 
