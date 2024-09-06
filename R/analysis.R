@@ -119,7 +119,7 @@ plot_agreement_overview <- function(
   
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
-    left_join(select(pdata_item, var, order)) %>% 
+    left_join(distinct(pdata_item, var, order)) %>% 
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
     group_by(label, order) %>% 
