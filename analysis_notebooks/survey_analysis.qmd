@@ -71,8 +71,8 @@ knitr::kable(var_overview[var_overview$var_id %in% os, c(1, 2, 4)])
 
 In the following figure, responses are visualized to the Open Science questions. They are sorted by the amount of agreement with these statements. Proportions of the different answer categories were calculated after removing missing and "don't know" responses. These responses are plotted separately on the right hand side, indicating their percentage of the total responses.
 
-```{r os_overview, fig.height = 4.5, fig.width = 6.5}
-plot_agreement_overview(df, var_overview, os)
+```{r os_overview, fig.height = 5, fig.width = 10}
+plot_agreement_overview(df, var_overview, os, label_width = 75)
 ```
 
 ### Reporting and Academic Integrity
@@ -87,7 +87,7 @@ knitr::kable(var_overview[var_overview$var_id %in% raia, c(1, 2, 4)])
 
 Caution: Question X19 ("Changes to the experimental data \[...\] are acceptable") is the only statement phrased in the opposite direction. This needs to be considered when interpreting the responses.
 
-```{r raia_overview, fig.height = 4.5, fig.width = 6.5}
+```{r raia_overview, fig.height = 5, fig.width = 10}
 plot_agreement_overview(df, var_overview, raia)
 ```
 
@@ -100,7 +100,7 @@ knitr::kable(var_overview[var_overview$var_id %in% raif, c(1, 2, 4)])
 
 The following overview plot is sorted by the proportion of "never" and "rarely" responses. These questions could not be skipped, therefore there are no missing answers.
 
-```{r raif_overview, fig.height = 3.6, fig.width = 6.5}
+```{r raif_overview, fig.height = 4, fig.width = 10}
 plot_frequency_overview(df, var_overview, raif)
 ```
 
@@ -113,7 +113,7 @@ edua <- c("X16", "X22", "X23", "X51")
 knitr::kable(var_overview[var_overview$var_id %in% edua, c(1, 2, 4)])
 ```
 
-```{r edua_overview, fig.height = 2.7, fig.width = 6.5}
+```{r edua_overview, fig.height = 3.5, fig.width = 10}
 plot_agreement_overview(df, var_overview, edua, sort = FALSE)
 ```
 
@@ -124,7 +124,7 @@ eduf <- c("X30", "X31", "X32")
 knitr::kable(var_overview[var_overview$var_id %in% eduf, c(1, 2, 4)])
 ```
 
-```{r eduf_overview, fig.height = 2.6, fig.width = 6.5}
+```{r eduf_overview, fig.height = 3, fig.width = 10}
 plot_frequency_overview(df, var_overview, eduf)
 ```
 
@@ -137,7 +137,7 @@ adm <- c("X33", "X34", "X35", "X36", "X37")
 knitr::kable(var_overview[var_overview$var_id %in% adm, c(1, 2, 4)])
 ```
 
-```{r adm_overview, fig.height = 3, fig.width = 6.5}
+```{r adm_overview, fig.height = 3, fig.width = 10}
 plot_frequency_overview(df, var_overview, adm)
 ```
 
@@ -208,93 +208,41 @@ roles <- df %>%
 
 ### Open Science
 
-```{r os_roles, fig.height = 18, fig.width = 8}
-
-plots <- list()
-
-for (q in os) {
-  plot <- plot_agreement_groups(roles, question = q, "roles")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r os_roles, fig.height = 9, fig.width = 8}
+plot_time_groups(roles, var_overview, os, group_var = roles)
 ```
 
 ### Reporting and Academic Integrity
 
-```{r raia_roles, fig.height = 18, fig.width = 8}
-
-plots <- list()
-
-for (q in raia) {
-  plot <- plot_agreement_groups(roles, question = q, "roles")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r raia_roles, fig.height = 9, fig.width = 8}
+plot_time_groups(roles, var_overview, raia, group_var = roles)
 ```
 
-```{r raif_roles, fig.height = 10, fig.width = 8}
-
-plots <- list()
-
-for (q in raif) {
-  plot <- plot_frequency_groups(roles, question = q, "roles")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r raif_roles, fig.height = 5, fig.width = 8}
+plot_time_groups(roles, var_overview, raif, group_var = roles, 
+                 type = "frequency")
 ```
 
 ### Education
 
-```{r edua_roles, fig.height = 7, fig.width = 8}
-
-plots <- list()
-
-for (q in edua) {
-  plot <- plot_agreement_groups(roles, question = q, "roles")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r edua_roles, fig.height = 5, fig.width = 6}
+plot_time_groups(roles, var_overview, edua, group_var = roles, ncol = 2)
 ```
 
-```{r eduf_roles, fig.height = 7, fig.width = 8}
-
-plots <- list()
-
-for (q in eduf) {
-  plot <- plot_frequency_groups(roles, question = q, "roles")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r eduf_roles, fig.height = 4, fig.width = 8}
+plot_time_groups(roles, var_overview, eduf, group_var = roles, 
+                 type = "frequency")
 ```
 
 ### Institution/Administration
 
-```{r, adm_roles, fig.height = 10, fig.width = 8}
-
-plots <- list()
-
-for (q in adm) {
-  plot <- plot_frequency_groups(roles, question = q, "roles")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r, adm_roles, fig.height = 5, fig.width = 8}
+plot_time_groups(roles, var_overview, adm, group_var = roles, 
+                 type = "frequency")
 ```
 
 ```{r, hei_processes_roles, fig.height = 3.5, fig.width = 5}
-
-plot_agreement_groups(roles, "X15", "roles")
+plot_time_groups(roles, var_overview, "X15", group_var = roles)
 ```
 
 ## Students by Year
@@ -302,10 +250,9 @@ plot_agreement_groups(roles, "X15", "roles")
 In the plots above, students were all grouped into one category. Since it is of interest how students' perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures (these could maybe added to the appendix).
 
 ```{r}
-
 students <- df %>% 
   filter(str_detect(X8, "student")) %>% 
-  mutate(X8 = case_when(
+  mutate(student_level = case_when(
     X8 == "doctoral student - ScD (higher doctorate)" ~ "doctoral student - ScD",
     TRUE ~ X8),
     X8 = factor(X8,
@@ -317,99 +264,45 @@ students <- df %>%
 
 ### Open Science
 
-```{r os_students, fig.height = 18, fig.width = 8}
-
-plots <- list()
-
-for (q in os) {
-  plot <- plot_agreement_groups(students, question = q, "X8",
-                                legend_reverse = FALSE)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r os_students, fig.height = 9, fig.width = 8}
+plot_time_groups(students, var_overview, os, group_var = student_level,
+                 legend_reverse = FALSE)
 ```
 
 ### Reporting and Academic Integrity
 
-```{r raia_students, fig.height = 18, fig.width = 8}
-
-plots <- list()
-
-for (q in raia) {
-  plot <- plot_agreement_groups(students, question = q, "X8",
-                                legend_reverse = FALSE)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r raia_students, fig.height = 9, fig.width = 8}
+plot_time_groups(students, var_overview, raia, group_var = student_level,
+                 legend_reverse = FALSE)
 ```
 
-```{r raif_students, fig.height = 10, fig.width = 8}
-
-plots <- list()
-
-for (q in raif) {
-  plot <- plot_frequency_groups(students, question = q, "X8",
-                                legend_reverse = FALSE)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r raif_students, fig.height = 5.5, fig.width = 8}
+plot_time_groups(students, var_overview, raif, group_var = student_level,
+                 type = "frequency", legend_reverse = FALSE)
 ```
 
 ### Education
 
-```{r edua_students, fig.height = 7, fig.width = 8}
-
-plots <- list()
-
-for (q in edua) {
-  plot <- plot_agreement_groups(students, question = q, "X8",
-                                legend_reverse = FALSE)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r edua_students, fig.height = 5, fig.width = 6}
+plot_time_groups(students, var_overview, edua, group_var = student_level,
+                 legend_reverse = FALSE, ncol = 2)
 ```
 
-```{r eduf_students, fig.height = 7, fig.width = 8}
-
-plots <- list()
-
-for (q in eduf) {
-  plot <- plot_frequency_groups(students, question = q, "X8",
-                                legend_reverse = FALSE)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r eduf_students, fig.height = 4, fig.width = 8}
+plot_time_groups(students, var_overview, eduf, group_var = student_level,
+                 type = "frequency", legend_reverse = FALSE)
 ```
 
 ### Institution/Administration
 
-```{r, adm_students, fig.height = 10, fig.width = 8}
-
-plots <- list()
-
-for (q in adm) {
-  plot <- plot_frequency_groups(students, question = q, "X8",
-                                legend_reverse = FALSE)
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+```{r, adm_students, fig.height = 6, fig.width = 8}
+plot_time_groups(students, var_overview, adm, group_var = student_level,
+                 type = "frequency", legend_reverse = FALSE)
 ```
 
 ```{r, hei_processes_students, fig.height = 3.5, fig.width = 5}
-
-plot_agreement_groups(students, "X15", "X8", legend_reverse = FALSE)
+plot_time_groups(students, var_overview, "X15", group_var = student_level,
+                 legend_reverse = FALSE)
 ```
 
 ## National and Institutional Surveys
