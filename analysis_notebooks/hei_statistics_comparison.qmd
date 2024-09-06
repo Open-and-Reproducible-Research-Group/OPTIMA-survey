@@ -16,7 +16,7 @@ library(tidyverse)
 library(readxl)
 library(janitor)
 
-
+knitr::opts_chunk$set(dpi = 400)
 
 use_targets <- TRUE # Set to false if data is not received by targets pipeline
 
@@ -217,3 +217,66 @@ In staff, proportions of women overall can also be compared to the proportion of
 -   2023: `r round(staff[staff$region == "Ukraine", "wperc23"], 3) * 100`% vs. `r round(gender_staff[gender_staff$staff == "female", "2023"], 3) * 100`%
 
 This shows that from employees of HEIs, women are also overrepresented.
+
+```{r}
+
+hei_staff_w <- staff %>% 
+  filter(region == "Ukraine") %>% 
+  select(c(wperc21, wperc22, wperc23)) %>% 
+  mutate(across(everything(), ~ round(. * 100, 1)),
+         group = "hei_staff")
+
+hei_w <- students %>% 
+  filter(region == "Ukraine") %>% 
+  select(c(wperc21, wperc22, wperc23)) %>% 
+  mutate(group = "hei_students") %>% 
+  rbind(hei_staff_w) %>% 
+  rename_with(str_replace, pattern = "wperc", replacement = "20", 
+              matches("wperc"))
+
+survey_staff_w <- gender_staff %>% 
+  filter(staff == "female") %>% 
+  select(-c(staff)) %>% 
+  mutate(across(everything(), ~ round(. * 100, 1)),
+         group = "survey_staff")
+
+overview_w <- gender_students %>% 
+  filter(student == "female") %>% 
+  select(-c(student)) %>% 
+  mutate(across(everything(), ~ round(. * 100, 1)),
+         group = "survey_students") %>% 
+  rbind(survey_staff_w) %>% 
+  rbind(hei_w) %>% 
+  mutate(across(1:3, as.numeric)) %>% 
+  pivot_longer(cols = c("2021", "2022", "2023"),
+              names_to = "year", values_to = "wperc") %>% 
+  mutate(year = as.numeric(year),
+         group = factor(group,
+                        levels = c("survey_staff", "hei_staff",
+                                   "survey_students", "hei_students")))
+```
+
+```{r percentages_women, fig.width = 5.5, fig.height = 3}
+
+ggplot(overview_w, aes(x = year, y = wperc, color = group)) + 
+    geom_line(linewidth = 0.8) +
+    geom_point() +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_color_manual(
+    values = c("hei_staff" = "#F9AEEF",
+               "hei_students" = "#94D790",
+               "survey_staff" = "#B96FB0",
+               "survey_students" = "#54984E"),
+    labels = c("hei_staff" = "Staff within HEI Statistics",
+               "hei_students" = "Students within HEI Statistics",
+               "survey_staff" = "Staff within Survey Sample",
+               "survey_students" = "Students within Survey Sample")) +
+    labs(x = "Year", y = "Percentage of Women",
+         color = NULL, linetype = NULL) +
+    scale_y_continuous(labels = function(x) paste0(x, "%")) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_line(color = "grey90"),
+          panel.background = element_blank(),
+          plot.title = element_text(size = 10, hjust = 0.5),
+          axis.ticks = element_blank())
+```

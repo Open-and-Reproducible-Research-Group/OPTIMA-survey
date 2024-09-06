@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.549">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Thomas Klebel &amp; Eva Kormann">
+
+<title>Don’t know answers</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="dont_knows_files/libs/clipboard/clipboard.min.js"></script>
+<script src="dont_knows_files/libs/quarto-html/quarto.js"></script>
+<script src="dont_knows_files/libs/quarto-html/popper.min.js"></script>
+<script src="dont_knows_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="dont_knows_files/libs/quarto-html/anchor.min.js"></script>
+<link href="dont_knows_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="dont_knows_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="dont_knows_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="dont_knows_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="dont_knows_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Don’t know answers</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Thomas Klebel &amp; Eva Kormann </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="by-year" class="level1">
+<h1>By year</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>var_groups <span class="ot">&lt;-</span> var_overview <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="at">var =</span> var_id, var_full, var_group)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>dont_knows_year <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(X15<span class="sc">:</span>X52, <span class="at">year =</span> X64) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"X"</span>), <span class="at">names_to =</span> <span class="st">"var"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, var, value) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, var) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(value <span class="sc">==</span> <span class="st">"don't know"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_dont_knows =</span> <span class="fu">mean</span>(perc)) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(var_groups) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, var_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_group_dont_knows =</span> <span class="fu">mean</span>(perc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(var)`</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>yearly_change <span class="ot">&lt;-</span> dont_knows_year <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, var, value, perc, var_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> perc) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">change_2022 =</span> <span class="st">`</span><span class="at">2022</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">2021</span><span class="st">`</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">change_2023 =</span> <span class="st">`</span><span class="at">2023</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">2021</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(var, <span class="at">response =</span> value, var_group, <span class="fu">contains</span>(<span class="st">"change"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">contains</span>(<span class="st">"change"</span>), <span class="at">names_to =</span> <span class="st">"year"</span>, </span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_pattern =</span> <span class="st">"change_(</span><span class="sc">\\</span><span class="st">d+)"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negative_change =</span> <span class="fu">if_else</span>(value <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">var =</span> <span class="fu">str_replace_all</span>(var, <span class="st">"X"</span>, <span class="st">"Q"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>text_labels <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>var, <span class="sc">~</span>value, <span class="sc">~</span>var_group, <span class="sc">~</span>label, <span class="sc">~</span>year,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Q39"</span>, .<span class="dv">05</span>,  <span class="st">"Open Science"</span>, <span class="st">"Increase in 2022"</span>, <span class="st">"2022"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Q19"</span>, <span class="sc">-</span>.<span class="dv">06</span>, <span class="st">"Reporting and Academic Integrity"</span>, <span class="st">"Decrease in 2023"</span>, <span class="st">"2023"</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>yearly_change <span class="sc">%&gt;%</span> </span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(var, value, <span class="at">colour =</span> year)) <span class="sc">+</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> var, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> value), <span class="at">show.legend =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">25</span>),</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> text_labels, <span class="fu">aes</span>(<span class="at">label =</span> label, <span class="at">colour =</span> year), </span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">hjust =</span> <span class="st">"left"</span>) <span class="sc">+</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_row</span>(<span class="fu">vars</span>(var_group), <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">space =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">100</span>, </span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">08</span>, <span class="sc">-</span>.<span class="dv">04</span>, <span class="dv">0</span>, .<span class="dv">04</span>)) <span class="sc">+</span></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">2022</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#b31529"</span>, <span class="st">`</span><span class="at">2023</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#1065ab"</span>)) <span class="sc">+</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Change in percentage points</span><span class="sc">\n</span><span class="st">compared to 2021"</span>, <span class="at">x =</span> <span class="cn">NULL</span>) <span class="sc">+</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>),</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> .<span class="dv">5</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dont_knows_files/figure-html/yearly-change-1.png" class="img-fluid figure-img" width="4000"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="across-time-and-by-degree" class="level2">
+<h2 class="anchored" data-anchor-id="across-time-and-by-degree">Across time and by degree</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dont_knows_degree <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">has_degree =</span> <span class="fu">case_when</span>(X10 <span class="sc">==</span> <span class="st">"none (still studying)"</span> <span class="sc">~</span> <span class="cn">FALSE</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>                                <span class="fu">is.na</span>(X10) <span class="sc">~</span> <span class="cn">NA</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>                                <span class="cn">TRUE</span> <span class="sc">~</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(X15<span class="sc">:</span>X52, <span class="at">year =</span> X64, has_degree) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"X"</span>), <span class="at">names_to =</span> <span class="st">"var"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(year, has_degree, var, value) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, has_degree, var) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(value <span class="sc">==</span> <span class="st">"don't know"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, has_degree) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_dont_knows =</span> <span class="fu">mean</span>(perc)) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(var_groups) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(year, has_degree, var_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_group_dont_knows =</span> <span class="fu">mean</span>(perc))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(var)`</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>yearly_change_degree <span class="ot">&lt;-</span> dont_knows_degree <span class="sc">%&gt;%</span> </span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(year, has_degree, var, value, perc, var_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from =</span> year, <span class="at">values_from =</span> perc) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">change_2022 =</span> <span class="st">`</span><span class="at">2022</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">2021</span><span class="st">`</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>         <span class="at">change_2023 =</span> <span class="st">`</span><span class="at">2023</span><span class="st">`</span> <span class="sc">-</span> <span class="st">`</span><span class="at">2021</span><span class="st">`</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(has_degree, var, <span class="at">response =</span> value, var_group, <span class="fu">contains</span>(<span class="st">"change"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">contains</span>(<span class="st">"change"</span>), <span class="at">names_to =</span> <span class="st">"year"</span>, </span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_pattern =</span> <span class="st">"change_(</span><span class="sc">\\</span><span class="st">d+)"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">negative_change =</span> <span class="fu">if_else</span>(value <span class="sc">&lt;</span> <span class="dv">0</span>, <span class="cn">TRUE</span>, <span class="cn">FALSE</span>),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>         <span class="at">var =</span> <span class="fu">str_replace_all</span>(var, <span class="st">"X"</span>, <span class="st">"Q"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>yearly_change_degree <span class="sc">%&gt;%</span> </span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(has_degree) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(var, value, <span class="at">colour =</span> year)) <span class="sc">+</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> var, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> value), <span class="at">show.legend =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">25</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_row</span>(<span class="fu">vars</span>(var_group), <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">space =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">100</span>, </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">seq</span>(<span class="sc">-</span>.<span class="dv">05</span>, .<span class="dv">05</span>, <span class="at">by =</span> .<span class="dv">025</span>)) <span class="sc">+</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">2022</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#b31529"</span>, <span class="st">`</span><span class="at">2023</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#1065ab"</span>)) <span class="sc">+</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Change in percentage points</span><span class="sc">\n</span><span class="st">compared to 2021"</span>, <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Respondents with any type of degree"</span>, <span class="at">colour =</span> <span class="st">"Change in"</span>) <span class="sc">+</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>),</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> .<span class="dv">5</span>),</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dont_knows_files/figure-html/yearly-change-w-degree-1.png" class="img-fluid figure-img" width="4000"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>yearly_change_degree <span class="sc">%&gt;%</span> </span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>has_degree) <span class="sc">%&gt;%</span> </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(var, value, <span class="at">colour =</span> year)) <span class="sc">+</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">0</span>) <span class="sc">+</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> var, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">yend =</span> value), <span class="at">show.legend =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">position =</span> <span class="fu">position_dodge</span>(<span class="at">width =</span> .<span class="dv">25</span>),</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>               <span class="at">linewidth =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_row</span>(<span class="fu">vars</span>(var_group), <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">space =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> <span class="cf">function</span>(x) x <span class="sc">*</span> <span class="dv">100</span>, </span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                     <span class="at">breaks =</span> <span class="fu">c</span>(<span class="sc">-</span>.<span class="dv">12</span>, <span class="sc">-</span>.<span class="dv">08</span>, <span class="sc">-</span>.<span class="dv">04</span>, <span class="dv">0</span>, .<span class="dv">04</span>)) <span class="sc">+</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_colour_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">2022</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#b31529"</span>, <span class="st">`</span><span class="at">2023</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"#1065ab"</span>)) <span class="sc">+</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Change in percentage points</span><span class="sc">\n</span><span class="st">compared to 2021"</span>, <span class="at">x =</span> <span class="cn">NULL</span>,</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">"Respondents without a degree"</span>, <span class="at">colour =</span> <span class="st">"Change in"</span>) <span class="sc">+</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>),</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> .<span class="dv">5</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">legend.position =</span> <span class="st">"top"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dont_knows_files/figure-html/yearly-change-wo-degree-1.png" class="img-fluid figure-img" width="4200"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="across-all-years" class="level1">
+<h1>Across all years</h1>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>dont_knows <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span> </span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(X15<span class="sc">:</span>X52) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="fu">starts_with</span>(<span class="st">"X"</span>), <span class="at">names_to =</span> <span class="st">"var"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(var, value) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">perc =</span> n<span class="sc">/</span><span class="fu">sum</span>(n)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(value <span class="sc">==</span> <span class="st">"don't know"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_dont_knows =</span> <span class="fu">mean</span>(perc)) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(var_groups) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(var_group) <span class="sc">%&gt;%</span> </span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">avg_group_dont_knows =</span> <span class="fu">mean</span>(perc),</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>         <span class="at">var =</span> <span class="fu">str_replace_all</span>(var, <span class="st">"X"</span>, <span class="st">"Q"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Joining with `by = join_by(var)`</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create labels for annotation</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>text_labels <span class="ot">&lt;-</span> <span class="fu">tribble</span>(</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="sc">~</span>var, <span class="sc">~</span>perc, <span class="sc">~</span>var_group, <span class="sc">~</span>label,</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Q16"</span>, .<span class="dv">22</span>,  <span class="st">"Education"</span>, <span class="st">"Overall average"</span>,</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">"Q33"</span>, .<span class="dv">285</span>, <span class="st">"Institution/Administration"</span>, <span class="st">"Group average"</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>dont_knows <span class="sc">%&gt;%</span> </span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(var, perc)) <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> avg_dont_knows), <span class="at">color =</span> <span class="st">"#8ec4ca"</span>) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_hline</span>(<span class="fu">aes</span>(<span class="at">yintercept =</span> avg_group_dont_knows), <span class="at">linetype =</span> <span class="dv">2</span>, </span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>             <span class="at">color =</span> <span class="st">"#1065ab"</span>) <span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_segment</span>(<span class="fu">aes</span>(<span class="at">x =</span> var, <span class="at">y =</span> avg_group_dont_knows, <span class="at">yend =</span> perc)) <span class="sc">+</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">label_percent</span>()) <span class="sc">+</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#8ec4ca"</span>, <span class="st">"#1065ab"</span>)) <span class="sc">+</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_row</span>(<span class="fu">vars</span>(var_group), <span class="at">scales =</span> <span class="st">"free_x"</span>, <span class="at">space =</span> <span class="st">"free"</span>) <span class="sc">+</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_text</span>(<span class="at">data =</span> text_labels, <span class="fu">aes</span>(<span class="at">label =</span> label, <span class="at">colour =</span> var), </span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">show.legend =</span> <span class="cn">FALSE</span>, <span class="at">hjust =</span> <span class="st">"left"</span>) <span class="sc">+</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.background =</span> <span class="fu">element_rect</span>(<span class="at">fill =</span> <span class="st">"white"</span>),</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.grid.major.x =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">90</span>, <span class="at">vjust =</span> .<span class="dv">5</span>)) <span class="sc">+</span></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y =</span> <span class="st">"Share of 'don't know' answers"</span>, <span class="at">x =</span> <span class="cn">NULL</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dont_knows_files/figure-html/overall-comparison-1.png" class="img-fluid figure-img" width="4000"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>var_overview <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(var_id <span class="sc">%in%</span> <span class="fu">paste0</span>(<span class="st">"X"</span>, <span class="dv">15</span><span class="sc">:</span><span class="dv">52</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">arrange</span>(var_group, var_id) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(var_group, var_id, var_full) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">var_id =</span> <span class="fu">str_replace_all</span>(var_id, <span class="st">"X"</span>, <span class="st">"Q"</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  knitr<span class="sc">::</span><span class="fu">kable</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 2%">
+<col style="width: 83%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">var_group</th>
+<th style="text-align: left;">var_id</th>
+<th style="text-align: left;">var_full</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Education</td>
+<td style="text-align: left;">Q16</td>
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education</td>
+<td style="text-align: left;">Q22</td>
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Education</td>
+<td style="text-align: left;">Q23</td>
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education</td>
+<td style="text-align: left;">Q30</td>
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Education</td>
+<td style="text-align: left;">Q31</td>
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Education</td>
+<td style="text-align: left;">Q32</td>
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Education</td>
+<td style="text-align: left;">Q51</td>
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Institution/Administration</td>
+<td style="text-align: left;">Q15</td>
+<td style="text-align: left;">Overall, the processes at my higher education institution are organised in a clear and transparent manner</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Institution/Administration</td>
+<td style="text-align: left;">Q33</td>
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Institution/Administration</td>
+<td style="text-align: left;">Q34</td>
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Institution/Administration</td>
+<td style="text-align: left;">Q35</td>
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Institution/Administration</td>
+<td style="text-align: left;">Q36</td>
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Institution/Administration</td>
+<td style="text-align: left;">Q37</td>
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q38</td>
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q39</td>
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q42</td>
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q43</td>
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q45</td>
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q46</td>
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q48</td>
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q49</td>
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q50</td>
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Open Science</td>
+<td style="text-align: left;">Q52</td>
+<td style="text-align: left;">I can explain what “open science” is.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q17</td>
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q18</td>
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q19</td>
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q20</td>
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q21</td>
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q24</td>
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q25</td>
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q26</td>
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q27</td>
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q28</td>
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q29</td>
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q40</td>
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q41</td>
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q44</td>
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Reporting and Academic Integrity</td>
+<td style="text-align: left;">Q47</td>
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Possibly compare groups (X8), but with different design.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

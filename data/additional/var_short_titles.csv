@@ -1,65 +1,65 @@
-var_id,var_full,instruction,var_short
-X1,newID,NA,
-X2,source_file,NA,
-X3,ID,NA,
-X4,Start Time,NA,
-X5,Finish Time,NA,
-X6,E-mail,NA,
-X7,Consent to Participate,NA,
-X8,Which of the following best describes you?,NA,
-X9,Your gender,NA,
-X10,What is the highest completed academic degree you have?,NA,
-X11,How many years have you been working in higher education and/or research?,NA,
-X12,What is your field of study or work?,NA,
-X13,"How many research outputs (articles, monographs, conference papers) have you published in the last 3 years?",NA,
-X14,"How many peer reviews of research outputs (articles, monographs, reports) have you written in the last 3 years?",NA,
-X15,"Overall, the processes at my higher education institution are organised in a clear and transparent manner",agreement,Transparent processes at HEI
-X16,The quality of educational services at my higher education institution is high,agreement,High quality educational services
-X17,Researchers should publish all research results (both positive and negative),agreement,Publication of all results
-X18,"All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution",agreement,Full co-author responsibility
-X19,Changes to experimental data after the end of the experiment are acceptable,agreement,Post-hoc changes to data
-X20,It is necessary to indicate the authorship of all those who have contributed to the research without exception,agreement,Authorship for all contributors
-X21,Researchers should report any conflicts of interest when publishing research results and applying for funding,agreement,Disclosure of conflicts of interest
-X22,Students should openly publish the full texts of their diploma theses,agreement,Open access to diploma theses
-X23,Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities,agreement,Students reporting misconduct
-X24,Using other author's published papers and ideas without proper reference to the original source.,frequency,Sources not referenced
-X25,The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.,frequency,Self-plagiarism
-X26,"Making up data or facts about a scientific activity, for example, a research experiment.",frequency,Fabrication of data/facts
-X27,"Selective citations to support one's conclusions or to please editors, reviewers, colleagues, etc.",frequency,Selective citations
-X28,The author passes off other people's academic achievements as his own.,frequency,Plagiarism
-X29,"A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.",frequency,Academic ghostwriting
-X30,Students help each other during exams or tests.,frequency,Collaboration during exams
-X31,"Students use cheat sheets, smartphones, or other means of cheating during exams or tests.",frequency,Unauthorized aids during exams
-X32,"Students and teachers use unauthorized software (so-called ""pirated software"").",frequency,Use of pirated software
-X33,Incitement to violate academic integrity.,frequency,Incited misconduct
-X34,The administration of the institution tolerates cases of academic dishonesty.,frequency,Tolerated misconduct
-X35,Falsely accusing a student or employee of misconduct or other violations.,frequency,False accusations
-X36,Abuse of official position or authority to encourage academic dishonesty.,frequency,Encouraged misconduct
-X37,The university administration accuses and punishes whistleblowers of academic integrity violations.,frequency,Punishment for whistleblowers
-X38,"Research results should be in open access, i.e. freely available to the academic community and the general public.",agreement,Open access to research results
-X39,"Research papers should be openly available even before the official peer review process, i.e. before a thorough review of their content.",agreement,Access prior to peer review
-X40,"Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication",agreement,Retained intellectual property rights
-X41,Scholars should explain the results of their research to the general public in an understandable way.,agreement,Clear public communication
-X42,"Researchers should publish author's versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.",agreement,Manuscripts on open platforms
-X43,Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.,agreement,Appropriate metadata
-X44,"Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.",agreement,Detailed research methodology
-X45,Experimental data should be published as openly as possible.,agreement,Open experimental data
-X46,"If software development is part of a research project, the source code should be published alongside the relevant scientific papers.",agreement,Open source code
-X47,"Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.",agreement,Research serving public purpose
-X48,"The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.",agreement,Open peer reviewer identity
-X49,The texts of positive and negative peer reviews of research papers should be published alongside these papers.,agreement,Open peer review reports
-X50,Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.,agreement,Open peer review interaction
-X51,"Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.",agreement,Open educational resources
-X52,"I can explain what ""open science"" is.",agreement,"Understanding ""Open Science"""
-X53,All the questions in this questionnaire were clear to me.,agreement,Clear questionnaire
-X54,What type of higher education institution do you study or work at?,NA,
-X55,Your higher education institution is located in,NA,
-X56,Have you been an internally displaced person (within Ukraine) from 24.02.2022 to the present day?,NA,
-X57,Have you been a refugee abroad from 24.02.2022 to the present day?,NA,
-X58,Where are you now?,NA,
-X59,Did you know that the Ukrainian government has recently approved a National Open Science Plan?,NA,
-X60,Your higher education institution is located in (this refers to the original location before 02/24/2022),NA,
-X61,Was your higher education institution in the area of hostilities or under temporary occupation after 02/24/2022?,NA,
-X62,Is your higher education institution a displaced one?,NA,
-X63,Survey,NA,
-X64,Year,NA,
+var_id,var_full,instruction,var_short,var_group
+X1,newID,NA,,
+X2,source_file,NA,,
+X3,ID,NA,,
+X4,Start Time,NA,,
+X5,Finish Time,NA,,
+X6,E-mail,NA,,
+X7,Consent to Participate,NA,,
+X8,Which of the following best describes you?,NA,,
+X9,Your gender,NA,,
+X10,What is the highest completed academic degree you have?,NA,,
+X11,How many years have you been working in higher education and/or research?,NA,,
+X12,What is your field of study or work?,NA,,
+X13,"How many research outputs (articles, monographs, conference papers) have you published in the last 3 years?",NA,,
+X14,"How many peer reviews of research outputs (articles, monographs, reports) have you written in the last 3 years?",NA,,
+X15,"Overall, the processes at my higher education institution are organised in a clear and transparent manner",agreement,Transparent processes at HEI,Institution/Administration
+X16,The quality of educational services at my higher education institution is high,agreement,High quality educational services,Education
+X17,Researchers should publish all research results (both positive and negative),agreement,Publication of all results,Reporting and Academic Integrity
+X18,"All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution",agreement,Full co-author responsibility,Reporting and Academic Integrity
+X19,Changes to experimental data after the end of the experiment are acceptable,agreement,Post-hoc changes to data,Reporting and Academic Integrity
+X20,It is necessary to indicate the authorship of all those who have contributed to the research without exception,agreement,Authorship for all contributors,Reporting and Academic Integrity
+X21,Researchers should report any conflicts of interest when publishing research results and applying for funding,agreement,Disclosure of conflicts of interest,Reporting and Academic Integrity
+X22,Students should openly publish the full texts of their diploma theses,agreement,Open access to diploma theses,Education
+X23,Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities,agreement,Students reporting misconduct,Education
+X24,Using other author's published papers and ideas without proper reference to the original source.,frequency,Sources not referenced,Reporting and Academic Integrity
+X25,The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.,frequency,Self-plagiarism,Reporting and Academic Integrity
+X26,"Making up data or facts about a scientific activity, for example, a research experiment.",frequency,Fabrication of data/facts,Reporting and Academic Integrity
+X27,"Selective citations to support one's conclusions or to please editors, reviewers, colleagues, etc.",frequency,Selective citations,Reporting and Academic Integrity
+X28,The author passes off other people's academic achievements as his own.,frequency,Plagiarism,Reporting and Academic Integrity
+X29,"A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.",frequency,Academic ghostwriting,Reporting and Academic Integrity
+X30,Students help each other during exams or tests.,frequency,Collaboration during exams,Education
+X31,"Students use cheat sheets, smartphones, or other means of cheating during exams or tests.",frequency,Unauthorized aids during exams,Education
+X32,"Students and teachers use unauthorized software (so-called ""pirated software"").",frequency,Use of pirated software,Education
+X33,Incitement to violate academic integrity.,frequency,Incited misconduct,Institution/Administration
+X34,The administration of the institution tolerates cases of academic dishonesty.,frequency,Tolerated misconduct,Institution/Administration
+X35,Falsely accusing a student or employee of misconduct or other violations.,frequency,False accusations,Institution/Administration
+X36,Abuse of official position or authority to encourage academic dishonesty.,frequency,Encouraged misconduct,Institution/Administration
+X37,The university administration accuses and punishes whistleblowers of academic integrity violations.,frequency,Punishment for whistleblowers,Institution/Administration
+X38,"Research results should be in open access, i.e. freely available to the academic community and the general public.",agreement,Open access to research results,Open Science
+X39,"Research papers should be openly available even before the official peer review process, i.e. before a thorough review of their content.",agreement,Access prior to peer review,Open Science
+X40,"Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication",agreement,Retained intellectual property rights,Reporting and Academic Integrity
+X41,Scholars should explain the results of their research to the general public in an understandable way.,agreement,Clear public communication,Reporting and Academic Integrity
+X42,"Researchers should publish author's versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.",agreement,Manuscripts on open platforms,Open Science
+X43,Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.,agreement,Appropriate metadata,Open Science
+X44,"Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.",agreement,Detailed research methodology,Reporting and Academic Integrity
+X45,Experimental data should be published as openly as possible.,agreement,Open experimental data,Open Science
+X46,"If software development is part of a research project, the source code should be published alongside the relevant scientific papers.",agreement,Open source code,Open Science
+X47,"Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.",agreement,Research serving public purpose,Reporting and Academic Integrity
+X48,"The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.",agreement,Open peer reviewer identity,Open Science
+X49,The texts of positive and negative peer reviews of research papers should be published alongside these papers.,agreement,Open peer review reports,Open Science
+X50,Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.,agreement,Open peer review interaction,Open Science
+X51,"Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.",agreement,Open educational resources,Education
+X52,"I can explain what ""open science"" is.",agreement,"Understanding ""Open Science""",Open Science
+X53,All the questions in this questionnaire were clear to me.,agreement,Clear questionnaire,
+X54,What type of higher education institution do you study or work at?,NA,,
+X55,Your higher education institution is located in,NA,,
+X56,Have you been an internally displaced person (within Ukraine) from 24.02.2022 to the present day?,NA,,
+X57,Have you been a refugee abroad from 24.02.2022 to the present day?,NA,,
+X58,Where are you now?,NA,,
+X59,Did you know that the Ukrainian government has recently approved a National Open Science Plan?,NA,,
+X60,Your higher education institution is located in (this refers to the original location before 02/24/2022),NA,,
+X61,Was your higher education institution in the area of hostilities or under temporary occupation after 02/24/2022?,NA,,
+X62,Is your higher education institution a displaced one?,NA,,
+X63,Survey,NA,,
+X64,Year,NA,,
