@@ -574,6 +574,84 @@ plot_time <- function(df, var_overview, questions, legend = TRUE, ncol = 3,
 }
 
 
+plot_time_groups <- function(df, var_overview, questions, group_var,
+                             type = c("agreement", "frequency"),
+                             legend = TRUE, ncol = 3, var_wrap = 35) {
+  type <- match.arg(type)
+  
+  prop_prep <- df %>% 
+    select(all_of(questions), year = X64, {{ group_var }}) %>% 
+    pivot_longer(cols = starts_with("X"), names_to = "var") %>% 
+    filter(!(value %in% c("don't know", "NA")))
+  
+  # dichotomize depending on type
+  prop_dicho <- switch(type,
+    agreement = mutate(prop_prep, value_dichotomized = case_when(
+      str_detect(value, "\\sagree$") ~ "agree",
+      str_detect(value, "\\sdisagree$") ~ "disagree",
+      is.na(value) ~ NA_character_,
+      TRUE ~ "unknown"
+    )),
+    frequency = mutate(prop_prep, value_dichotomized = case_when(
+      value == "very often" ~ "often",
+      value == "frequently" ~ "often",
+      value == "sometimes" ~ "not often",
+      value == "rarely" ~ "not often",
+      value == "never" ~ "not often",
+      is.na(value) ~ "NA",
+      TRUE ~ "unknown"))
+    )
+  
+  prop_df <- prop_dicho %>% 
+    count(year, roles, var, value_dichotomized) %>% 
+    group_by(year, roles, var) %>% 
+    mutate(perc = n/sum(n)) %>% 
+    filter(value_dichotomized %in% c("agree", "often"))
+  
+  # add full variable text
+  titles <- var_overview %>% 
+    mutate(var_label = str_wrap(var_full, width = var_wrap)) %>% 
+    select(var_id, var_label)
+  
+  with_titles <- prop_df %>% 
+    left_join(titles, by = join_by(var == var_id))
+  
+  # sort by agreement
+  with_sorting <- with_titles %>% 
+    group_by(var) %>% 
+    # this is not ideal, it does not fully align with the other plots yet
+    mutate(total_agrees = sum(n))
+  
+  
+  p <- ggplot(with_sorting, aes(x = year, y = perc, color = roles, 
+                                group = roles)) +
+    geom_line(linewidth = 0.8) +
+    geom_point() +
+    facet_wrap(vars(var_label %>% 
+                      fct_reorder(total_agrees, .fun = max) %>% 
+                      fct_rev()), 
+               ncol = 3) +
+    labs(x = "Survey Year", y = "Proportions", colour = NULL) +
+    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
+    scale_y_continuous(labels = scales::label_percent()) +
+    scale_color_brewer(palette = "Dark2") +
+    guides(color = guide_legend(reverse = TRUE)) +
+    theme(panel.grid.major = element_line(color = "grey80"),
+          panel.grid.minor = element_line(color = "grey90"),
+          panel.spacing.x = unit(1, "lines"),
+          panel.background = element_blank(),
+          axis.ticks = element_blank(),
+          legend.position = "top")
+  
+  if (!legend) {
+    p <- p +
+      theme(legend.position = "none")
+  }
+  
+  p
+}
+
+
 # Dichotomize agreement response into agree/disagree
 dichotomize_agreement <- function(df, question) {
   
