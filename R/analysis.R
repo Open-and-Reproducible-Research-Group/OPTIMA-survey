@@ -66,7 +66,7 @@ table_answers_overview <- function(df, columns, group,
 # Create an overview plot over the responses to various items (without grouping)
 plot_agreement_overview <- function(
     df, var_overview, columns, sort = TRUE, xlim = 0.3,
-    filter = NULL, filter_val = NULL) {
+    filter = NULL, filter_val = NULL, label_width = 40) {
   
   if (!is.null(filter)) {
     df <- df %>% 
@@ -97,7 +97,7 @@ plot_agreement_overview <- function(
   
   labels <- var_overview %>% 
     filter(var_id %in% columns) %>% 
-    mutate(label = var_short) %>%  
+    mutate(label = str_wrap(var_full, label_width)) %>%  
     select(var_id, label)
   
   pdata_item <- pdata %>% 
