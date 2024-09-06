@@ -576,7 +576,8 @@ plot_time <- function(df, var_overview, questions, legend = TRUE, ncol = 3,
 
 plot_time_groups <- function(df, var_overview, questions, group_var,
                              type = c("agreement", "frequency"),
-                             legend = TRUE, ncol = 3, var_wrap = 35) {
+                             legend = TRUE, ncol = 3, var_wrap = 35,
+                             legend_reverse = TRUE) {
   type <- match.arg(type)
   
   prop_prep <- df %>% 
@@ -603,8 +604,8 @@ plot_time_groups <- function(df, var_overview, questions, group_var,
     )
   
   prop_df <- prop_dicho %>% 
-    count(year, roles, var, value_dichotomized) %>% 
-    group_by(year, roles, var) %>% 
+    count(year, {{ group_var }}, var, value_dichotomized) %>% 
+    group_by(year, {{ group_var }}, var) %>% 
     mutate(perc = n/sum(n)) %>% 
     filter(value_dichotomized %in% c("agree", "often"))
   
@@ -623,8 +624,8 @@ plot_time_groups <- function(df, var_overview, questions, group_var,
     mutate(total_agrees = sum(n))
   
   
-  p <- ggplot(with_sorting, aes(x = year, y = perc, color = roles, 
-                                group = roles)) +
+  p <- ggplot(with_sorting, aes(x = year, y = perc, color = {{ group_var }}, 
+                                group = {{ group_var }})) +
     geom_line(linewidth = 0.8) +
     geom_point() +
     facet_wrap(vars(var_label %>% 
@@ -635,7 +636,7 @@ plot_time_groups <- function(df, var_overview, questions, group_var,
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_y_continuous(labels = scales::label_percent()) +
     scale_color_brewer(palette = "Dark2") +
-    guides(color = guide_legend(reverse = TRUE)) +
+    guides(color = guide_legend(reverse = legend_reverse)) +
     theme(panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_line(color = "grey90"),
           panel.spacing.x = unit(1, "lines"),
