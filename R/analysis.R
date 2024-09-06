@@ -156,7 +156,7 @@ plot_agreement_overview <- function(
 # Create an overview plot over the responses to various items (without grouping)
 plot_frequency_overview <- function(
     df, var_overview, columns, sort = TRUE, xlim = 0.6,
-    filter = NULL, filter_val = NULL) {
+    filter = NULL, filter_val = NULL, label_width = 75) {
   
   if (!is.null(filter)) {
     df <- df %>% 
@@ -187,7 +187,7 @@ plot_frequency_overview <- function(
   
   labels <- var_overview %>% 
     filter(var_id %in% columns) %>% 
-    mutate(label = var_short) %>%  
+    mutate(label = str_wrap(var_full, label_width)) %>%  
     select(var_id, label)
   
   pdata_item <- pdata %>% 
@@ -210,7 +210,7 @@ plot_frequency_overview <- function(
   
   # Plot "don't know" and missing answers
   p_nas <- nas %>% 
-    left_join(select(pdata_item, var, order)) %>% 
+    left_join(distinct(pdata_item, var, order)) %>% 
     left_join(labels, by = c("var" = "var_id")) %>% 
     distinct() %>% 
     group_by(label, order)  %>% 
@@ -631,7 +631,7 @@ plot_time_groups <- function(df, var_overview, questions, group_var,
     facet_wrap(vars(var_label %>% 
                       fct_reorder(total_agrees, .fun = max) %>% 
                       fct_rev()), 
-               ncol = 3) +
+               ncol = ncol) +
     labs(x = "Survey Year", y = "Proportions", colour = NULL) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_y_continuous(labels = scales::label_percent()) +
