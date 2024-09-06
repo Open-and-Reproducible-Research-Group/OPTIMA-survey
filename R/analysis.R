@@ -495,97 +495,82 @@ plot_frequency_area <- function(df, question, legend = TRUE,
   
 }
 
-
-
-plot_agreement_line <- function(df, question, legend = TRUE, ylim = 75,
-                                filter_dks = TRUE, filter_nas = TRUE) {
+plot_time <- function(df, var_overview, questions, legend = TRUE, ncol = 3,
+                      type = c("agreement", "frequency"), var_wrap = 35) {
   
-  if (filter_dks) {
-    df <- df %>% 
-      filter(.data[[question]] != "don't know")
-  }
+  type <- match.arg(type)
   
-  if (filter_nas) {
-    df <- df %>% 
-      filter(.data[[question]] != "NA")
-  }
+  color_scale <- switch(type,
+    agreement = list(
+      scale_color_manual(
+        values = c("NA" = "grey50", 
+                   "don't know" = "grey30",
+                   "strongly disagree" = "#b31529",
+                   "rather disagree" = "#f6a582",
+                   "rather agree" = "#8ec4ca",
+                   "strongly agree" = "#1065ab"))
+      ),
+    frequency = list(
+      scale_color_manual(
+        values = c("don't know" = "grey30",
+                   "never" = "#b31529",
+                   "rarely" = "#f6a582",
+                   "sometimes" = "#cdcdc8",
+                   "frequently" = "#8ec4ca",
+                   "very often" = "#1065ab"))
+    )
+  )
   
-  props <- table_answers(df, question, group = "X64") %>% 
-    mutate(val = fct_relevel(val, "NA", "don't know",
-                             "strongly disagree", "rather disagree",
-                             "rather agree", "strongly agree")) %>% 
-    group_by(var)
+  prop_df <- df %>% 
+    select(all_of(questions), year = X64) %>% 
+    pivot_longer(cols = starts_with("X"), names_to = "var") %>% 
+    filter(!(value %in% c("don't know", "NA"))) %>% 
+    count(year, var, value) %>% 
+    group_by(year, var) %>% 
+    mutate(perc = n/sum(n))
   
-  title <- var_overview[var_overview$var_id == question, ]$var_short
+  # add full variable text
+  titles <- var_overview %>% 
+    mutate(var_label = str_wrap(var_full, width = var_wrap)) %>% 
+    select(var_id, var_label)
   
-  plot <- ggplot(props, aes(x = X64, y = perc, color = val)) + 
-    geom_line(size = 0.8) +
+  with_titles <- prop_df %>% 
+    left_join(titles, by = join_by(var == var_id))
+  
+  # sort by agreement
+  with_sorting <- with_titles %>% 
+    mutate(cumulative_agreement = cumsum(perc), 
+           agreement_sort = case_when(
+             value == "rather agree" ~ cumulative_agreement,
+             value == "frequently" ~ cumulative_agreement,
+             TRUE ~ 0
+           )) 
+  
+  
+  p <- ggplot(with_sorting, aes(x = year, y = perc, color = value)) +
+    geom_line(linewidth = 0.8) +
     geom_point() +
-    labs(x = "Survey Year", y = "Proportions", color = "Responses", title = title) +
+    facet_wrap(vars(var_label %>% 
+                      fct_reorder(agreement_sort, .fun = max) %>% 
+                      fct_rev()), 
+               ncol = ncol) +
+    labs(x = "Survey Year", y = "Proportions", colour = NULL) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
-    scale_color_manual(values = c("NA" = "grey50", "don't know" = "grey30",
-                                  "strongly disagree" = "#b31529",
-                                  "rather disagree" = "#f6a582",
-                                  "rather agree" = "#8ec4ca",
-                                  "strongly agree" = "#1065ab")) +
-    scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, ylim)) +
+    scale_y_continuous(labels = scales::label_percent()) +
+    color_scale +
     theme(panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_line(color = "grey90"),
+          panel.spacing.x = unit(1, "lines"),
           panel.background = element_blank(),
-          plot.title = element_text(size = 10, hjust = 0.5),
-          axis.ticks = element_blank())
+          axis.ticks = element_blank(),
+          legend.position = "top")
   
   if (!legend) {
-    plot <- plot +
+    p <- p +
       theme(legend.position = "none")
   }
   
-  plot
-}
-
-
-
-plot_frequency_line <- function(df, question, legend = TRUE, ylim = 65,
-                                filter_dks = TRUE) {
-  
-  
-  if (filter_dks) {
-    df <- df %>% 
-      filter(.data[[question]] != "don't know")
-  }
-  
-  props <- table_answers(df, question, group = "X64") %>% 
-    mutate(val = fct_relevel(val, "don't know", "never",
-                             "rarely", "sometimes",
-                             "frequently", "very often")) %>% 
-    group_by(var)
-  
-  title <- var_overview[var_overview$var_id == question, ]$var_short
-  
-  plot <- ggplot(props, aes(x = X64, y = perc, color = val)) + 
-    geom_line(size = 0.8) +
-    geom_point() +
-    labs(x = "Survey Year", y = "Proportions", color = "Responses", title = title) +
-    scale_x_continuous(breaks = c(2021, 2022, 2023)) +
-    scale_color_manual(values = c("don't know" = "grey30",
-                                 "never" = "#b31529",
-                                 "rarely" = "#f6a582",
-                                 "sometimes" = "#cdcdc8",
-                                 "frequently" = "#8ec4ca",
-                                 "very often" = "#1065ab")) +
-    scale_y_continuous(labels = function(x) paste0(x, "%"), limits = c(0, ylim)) +
-    theme(panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_line(color = "grey90"),
-          panel.background = element_blank(),
-          plot.title = element_text(size = 10, hjust = 0.5),
-          axis.ticks = element_blank())
-  
-  if (!legend) {
-    plot <- plot +
-      theme(legend.position = "none")
-  }
-  
-  plot
+  p
 }
 
 
