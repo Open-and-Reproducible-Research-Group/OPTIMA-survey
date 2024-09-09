@@ -76,10 +76,13 @@ adm <- c("X33", "X34", "X35", "X36", "X37")
 ```
 
 # Development over Time
+
 Since the survey was conducted in three separate waves (2021, 2022, 2023), responses are also compared between those years. Similar to the overview plots where "don't know" and missing responses were separated out before calculating proportions of certain response categories, these are also filtered out here. Percentages therefore refer to all respondents that chose one of the response categories presented in the figure.
 
 ## Research
+
 ### Open Science
+
 ```{r os_development, fig.height = 8, fig.width = 7.5}
 out <- plot_time(df, var_overview, os, type = "agreement")
 
@@ -92,8 +95,8 @@ out$p
 knitr::kable(out$data)
 ```
 
-
 ### Reporting and Academic Integrity
+
 ```{r raia_development, fig.height = 8, fig.width = 7.5}
 out <- plot_time(df, var_overview, raia, type = "agreement")
 
@@ -119,6 +122,7 @@ knitr::kable(out$data)
 ```
 
 ## Education
+
 ```{r edua_development, fig.height = 4.5, fig.width = 6}
 out <- plot_time(df, var_overview, edua, type = "agreement", ncol = 2,
                  var_wrap = 40)
@@ -145,6 +149,7 @@ knitr::kable(out$data)
 ```
 
 ## Institution/Administration
+
 ```{r adm_development, fig.height = 5.5, fig.width = 7.5}
 out <- plot_time(df, var_overview, adm, type = "frequency")
 
@@ -156,4 +161,3 @@ out$p
 
 knitr::kable(out$data)
 ```
-
