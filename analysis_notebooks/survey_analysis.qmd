@@ -16,7 +16,6 @@ execute:
 
 library(here)
 library(tidyverse)
-library(psych)
 library(ggchicklet)
 library(patchwork)
 library(janitor)
@@ -200,7 +199,7 @@ knitr::kable(out$data)
 In 2022, one additional question inquire participants about whether they were aware that the Ukrainian government had recently approved a National Open Science Plan.
 
 ```{r}
-os_plan <- dfd %>% 
+os_plan <- df %>% 
   tabyl(X59) %>% 
   adorn_percentages("col") %>% 
   adorn_pct_formatting(digits = 1) %>% 
