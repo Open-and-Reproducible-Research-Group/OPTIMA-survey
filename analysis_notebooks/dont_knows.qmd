@@ -28,9 +28,15 @@ df <- targets::tar_read(recoded_data, store = here("_targets"))
 ```
 
 # By year
+
 ```{r}
 var_groups <- var_overview %>% 
-  select(var = var_id, var_full, var_group)
+  select(var = var_id, var_full, var_group)  %>% 
+  mutate(var_group = factor(var_group, levels =
+                              c("Open Science",
+                                "Reporting and Academic Integrity",
+                                "Education",
+                                "Institution/Administration")))
 
 dont_knows_year <- df %>% 
   select(X15:X52, year = X64) %>% 
@@ -58,7 +64,6 @@ yearly_change <- dont_knows_year %>%
   mutate(negative_change = if_else(value < 0, TRUE, FALSE),
          var = str_replace_all(var, "X", "Q"))
 ```
-
 
 ```{r yearly-change, fig.width=10, fig.height=2.5}
 text_labels <- tribble(
@@ -102,7 +107,12 @@ dont_knows_degree <- df %>%
   mutate(avg_dont_knows = mean(perc)) %>% 
   left_join(var_groups) %>% 
   group_by(year, has_degree, var_group) %>% 
-  mutate(avg_group_dont_knows = mean(perc))
+  mutate(avg_group_dont_knows = mean(perc))  %>% 
+  mutate(var_group = factor(var_group, levels =
+                              c("Open Science",
+                                "Reporting and Academic Integrity",
+                                "Education",
+                                "Institution/Administration")))
 ```
 
 ```{r}
@@ -117,7 +127,6 @@ yearly_change_degree <- dont_knows_degree %>%
   mutate(negative_change = if_else(value < 0, TRUE, FALSE),
          var = str_replace_all(var, "X", "Q"))
 ```
-
 
 ```{r yearly-change-w-degree, fig.width=10, fig.height=3}
 yearly_change_degree %>% 
@@ -159,10 +168,8 @@ yearly_change_degree %>%
         legend.position = "top")
 ```
 
-
-
-
 # Across all years
+
 ```{r}
 dont_knows <- df %>% 
   select(X15:X52) %>% 
@@ -176,7 +183,12 @@ dont_knows <- df %>%
   left_join(var_groups) %>% 
   group_by(var_group) %>% 
   mutate(avg_group_dont_knows = mean(perc),
-         var = str_replace_all(var, "X", "Q"))
+         var = str_replace_all(var, "X", "Q"))  %>% 
+  mutate(var_group = factor(var_group, levels =
+                              c("Open Science",
+                                "Reporting and Academic Integrity",
+                                "Education",
+                                "Institution/Administration")))
 ```
 
 ```{r overall-comparison, fig.width=10, fig.height=2.5}
@@ -212,10 +224,6 @@ var_overview %>%
   knitr::kable()
 ```
 
-
-Across all years, the rate of "don't know" answers is
-`r scales::percent(unique(dont_knows$avg_dont_knows), .1)`
-
+Across all years, the rate of "don't know" answers is `r scales::percent(unique(dont_knows$avg_dont_knows), .1)`
 
 Possibly compare groups (X8), but with different design.
-
