@@ -65,13 +65,11 @@ Multiple questions within the survey inquired about how much participants agreed
 ```{r}
 os <- c("X38", "X39", "X42", "X43", "X45",
         "X46", "X48", "X49", "X50", "X52")
-
-knitr::kable(var_overview[var_overview$var_id %in% os, c(1, 2, 4)])
 ```
 
 In the following figure, responses are visualized to the Open Science questions. They are sorted by the amount of agreement with these statements. Proportions of the different answer categories were calculated after removing missing and "don't know" responses. These responses are plotted separately on the right hand side, indicating their percentage of the total responses.
 
-```{r os_overview, fig.height = 5, fig.width = 10}
+```{r os_overview, fig.height = 5, fig.width = 10, results='asis'}
 plot_agreement_overview(df, var_overview, os, label_width = 75)
 ```
 
@@ -82,12 +80,11 @@ Nine items inquire about the agreement with statements related to reporting and 
 ```{r}
 raia <- c("X19", "X17", "X18", "X20", "X21",
           "X40", "X44", "X41", "X47")
-knitr::kable(var_overview[var_overview$var_id %in% raia, c(1, 2, 4)])
 ```
 
 Caution: Question X19 ("Changes to the experimental data \[...\] are acceptable") is the only statement phrased in the opposite direction. This needs to be considered when interpreting the responses.
 
-```{r raia_overview, fig.height = 5, fig.width = 10}
+```{r raia_overview, fig.height = 5, fig.width = 10, results='asis'}
 plot_agreement_overview(df, var_overview, raia)
 ```
 
@@ -95,12 +92,11 @@ Six questions were about the frequency with which certain questionable research 
 
 ```{r}
 raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
-knitr::kable(var_overview[var_overview$var_id %in% raif, c(1, 2, 4)])
 ```
 
 The following overview plot is sorted by the proportion of "never" and "rarely" responses. These questions could not be skipped, therefore there are no missing answers.
 
-```{r raif_overview, fig.height = 4, fig.width = 10}
+```{r raif_overview, fig.height = 4, fig.width = 10, results='asis'}
 plot_frequency_overview(df, var_overview, raif)
 ```
 
@@ -157,7 +153,7 @@ Since the survey was conducted in three separate waves (2021, 2022, 2023), respo
 
 ### Open Science
 
-```{r os_development, fig.height = 8, fig.width = 7.5}
+```{r os_development, fig.height = 8, fig.width = 7.5, results='asis'}
 plot_time(df, var_overview, os, type = "agreement")
 ```
 
