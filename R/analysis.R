@@ -152,7 +152,7 @@ plot_agreement_overview <- function(
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank(),
+          panel.grid.minor = element_line(color = "grey85"),
           axis.ticks = element_blank())
   
   final_plot <- p1 + 
@@ -244,7 +244,7 @@ plot_frequency_overview <- function(
           axis.title.y = element_text( angle = 270),
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
-          panel.grid.minor = element_blank(),
+          panel.grid.minor = element_line(color = "grey85"),
           axis.ticks = element_blank())
   
   final_plot <- p1 + 
