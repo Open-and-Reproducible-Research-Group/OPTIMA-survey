@@ -72,7 +72,7 @@ text_labels <- tribble(
   "Q19", -.06, "Reporting and Academic Integrity", "Decrease in 2023", "2023"
 )
 
-yearly_change %>% 
+p_yearly_change <- yearly_change %>% 
   ggplot(aes(var, value, colour = year)) +
   geom_hline(yintercept = 0) +
   geom_segment(aes(x = var, y = 0, yend = value), show.legend = FALSE,
@@ -88,6 +88,8 @@ yearly_change %>%
   theme(panel.background = element_rect(fill = "white"),
         panel.grid.major.x = element_blank(),
         axis.text.x = element_text(angle = 90, vjust = .5))
+
+print(p_yearly_change)
 ```
 
 ## Across time and by degree
@@ -198,7 +200,7 @@ text_labels <- tribble(
   "Q16", .22,  "Education", "Overall average",
   "Q33", .285, "Institution/Administration", "Group average"
 )
-dont_knows %>% 
+p_overall <- dont_knows %>% 
   ggplot(aes(var, perc)) +
   geom_hline(aes(yintercept = avg_dont_knows), color = "#8ec4ca") +
   geom_hline(aes(yintercept = avg_group_dont_knows), linetype = 2, 
@@ -213,6 +215,16 @@ dont_knows %>%
     panel.grid.major.x = element_blank(),
     axis.text.x = element_text(angle = 90, vjust = .5)) +
   labs(y = "Share of 'don't know' answers", x = NULL)
+
+print(p_overall)
+```
+
+```{r overall-vs-change, fig.width = 10.5, fig.height = 5}
+
+p_overall / p_yearly_change +
+  plot_annotation(tag_levels = "A", tag_prefix = "(", tag_suffix = ")") &
+  theme(plot.tag.position = c(0, 1.03),
+    plot.tag = element_text(size = 10))
 ```
 
 ```{r}
