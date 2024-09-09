@@ -668,11 +668,11 @@ plot_time_groups <- function(df, var_overview, questions, group_var,
   
   raw_values <- with_sorting %>% 
     ungroup() %>% 
-    arrange(var_label, value_dichotomized, roles, year) %>% 
+    arrange(var_label, value_dichotomized, {{ group_var }}, year) %>% 
     mutate(var_label = str_replace_all(var_label, "\\n", " "),
            perc = scales::percent(perc, .01)) %>% 
-    select(variable = var_label, value = value_dichotomized, roles, year, n, 
-           proportion = perc)
+    select(variable = var_label, value = value_dichotomized, {{ group_var }}, 
+           year, n, proportion = perc)
   
   list(p = p, data = raw_values)
 }
