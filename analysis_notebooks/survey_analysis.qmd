@@ -255,7 +255,7 @@ students <- df %>%
   mutate(student_level = case_when(
     X8 == "doctoral student - ScD (higher doctorate)" ~ "doctoral student - ScD",
     TRUE ~ X8),
-    X8 = factor(X8,
+    student_level = factor(student_level,
                 levels = c("student - 1st year", "student - 2nd year",
                            "student - 3rd year", "student - 4th year",
                            "master student", "doctoral student - PhD",
