@@ -235,7 +235,8 @@ plot_frequency_overview <- function(
     labs(x = NULL, y = NULL) +
     scale_y_discrete(position = "right") +
     scale_x_continuous(limits = c(0, xlim),
-                       labels = scales::label_percent()) +
+                       labels = scales::label_percent(),
+                       n.breaks = 2) +
     guides(fill = guide_legend(ncol = 1)) +
     theme(legend.position = "top",
           legend.title = element_blank(),
