@@ -96,40 +96,96 @@ roles <- df %>%
 ### Open Science
 
 ```{r os_roles, fig.height = 9, fig.width = 8}
-plot_time_groups(roles, var_overview, os, group_var = roles)
+out <- plot_time_groups(roles, var_overview, os, group_var = roles)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ### Reporting and Academic Integrity
 
 ```{r raia_roles, fig.height = 9, fig.width = 8}
-plot_time_groups(roles, var_overview, raia, group_var = roles)
+out <- plot_time_groups(roles, var_overview, raia, group_var = roles)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ```{r raif_roles, fig.height = 5, fig.width = 8}
-plot_time_groups(roles, var_overview, raif, group_var = roles, 
+out <- plot_time_groups(roles, var_overview, raif, group_var = roles, 
                  type = "frequency")
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ### Education
 
 ```{r edua_roles, fig.height = 5, fig.width = 6}
-plot_time_groups(roles, var_overview, edua, group_var = roles, ncol = 2)
+out <- plot_time_groups(roles, var_overview, edua, group_var = roles, ncol = 2)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ```{r eduf_roles, fig.height = 4, fig.width = 8}
-plot_time_groups(roles, var_overview, eduf, group_var = roles, 
-                 type = "frequency")
+out <- plot_time_groups(roles, var_overview, eduf, group_var = roles, 
+                        type = "frequency")
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ### Institution/Administration
 
 ```{r, adm_roles, fig.height = 5, fig.width = 8}
-plot_time_groups(roles, var_overview, adm, group_var = roles, 
-                 type = "frequency")
+out <- plot_time_groups(roles, var_overview, adm, group_var = roles, 
+                        type = "frequency")
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ```{r, hei_processes_roles, fig.height = 3.5, fig.width = 5}
-plot_time_groups(roles, var_overview, "X15", group_var = roles)
+out <- plot_time_groups(roles, var_overview, "X15", group_var = roles)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ## Students by Year
@@ -152,44 +208,100 @@ students <- df %>%
 ### Open Science
 
 ```{r os_students, fig.height = 9, fig.width = 8}
-plot_time_groups(students, var_overview, os, group_var = student_level,
-                 legend_reverse = FALSE)
+out <- plot_time_groups(students, var_overview, os, group_var = student_level,
+                        legend_reverse = FALSE)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ### Reporting and Academic Integrity
 
 ```{r raia_students, fig.height = 9, fig.width = 8}
-plot_time_groups(students, var_overview, raia, group_var = student_level,
+out <- plot_time_groups(students, var_overview, raia, group_var = student_level,
                  legend_reverse = FALSE)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ```{r raif_students, fig.height = 5.5, fig.width = 8}
-plot_time_groups(students, var_overview, raif, group_var = student_level,
+out <- plot_time_groups(students, var_overview, raif, group_var = student_level,
                  type = "frequency", legend_reverse = FALSE)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ### Education
 
 ```{r edua_students, fig.height = 5, fig.width = 6}
-plot_time_groups(students, var_overview, edua, group_var = student_level,
+out <- plot_time_groups(students, var_overview, edua, group_var = student_level,
                  legend_reverse = FALSE, ncol = 2)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ```{r eduf_students, fig.height = 4, fig.width = 8}
-plot_time_groups(students, var_overview, eduf, group_var = student_level,
+out <- plot_time_groups(students, var_overview, eduf, group_var = student_level,
                  type = "frequency", legend_reverse = FALSE)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ### Institution/Administration
 
 ```{r, adm_students, fig.height = 6, fig.width = 8}
-plot_time_groups(students, var_overview, adm, group_var = student_level,
+out <- plot_time_groups(students, var_overview, adm, group_var = student_level,
                  type = "frequency", legend_reverse = FALSE)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ```{r, hei_processes_students, fig.height = 3.5, fig.width = 5}
-plot_time_groups(students, var_overview, "X15", group_var = student_level,
+out <- plot_time_groups(students, var_overview, "X15", group_var = student_level,
                  legend_reverse = FALSE)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ## National and Institutional Surveys
