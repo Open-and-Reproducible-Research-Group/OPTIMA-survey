@@ -60,7 +60,6 @@ if (use_targets) {
   }
 ```
 
-
 ```{r, echo=FALSE}
 # Define item groups
 os <- c("X38", "X39", "X42", "X43", "X45",
@@ -78,12 +77,14 @@ eduf <- c("X30", "X31", "X32")
 adm <- c("X33", "X34", "X35", "X36", "X37")
 ```
 
-
 # Overview
+
 The following plots give a top-level overview over the responses to all questions, grouped by topics. They are also differentiated between questions that were about the extent of agreement with certain statements and questions that asked about the estimated frequency with which certain practices occur at the institution. The survey was conducted in three waves in three subsequent years, but all responses are combined for the overview plots.
 
 ## Research
+
 ### Open Science
+
 Multiple questions within the survey inquired about how much participants agreed with certain statements related to different Open Science practices. The full statements in this group are presented in the table below.
 
 In the following figure, responses are visualized to the Open Science questions. They are sorted by the amount of agreement with these statements. Proportions of the different answer categories were calculated after removing missing and "don't know" responses. These responses are plotted separately on the right hand side, indicating their percentage of the total responses.
@@ -101,6 +102,7 @@ knitr::kable(out$data)
 ```
 
 ### Reporting and Academic Integrity
+
 Nine items inquire about the agreement with statements related to reporting and academic integrity. The full items are presented in the table below.
 
 Caution: Question X19 ("Changes to the experimental data \[...\] are acceptable") is the only statement phrased in the opposite direction. This needs to be considered when interpreting the responses.
@@ -134,6 +136,7 @@ knitr::kable(out$data)
 ```
 
 ## Education
+
 While most questions referred to research, others focused more on education at the respective HEI. Respondents were inquired about their agreement with certain education-related statements (see table below), most of them also related to Open Science, but in an educational context.
 
 ```{r edua_overview, fig.height = 3.5, fig.width = 10}
@@ -166,6 +169,7 @@ knitr::kable(out$data)
 ```
 
 ## Institution/Administration
+
 The survey contained five questions on how misconduct is handled at the respondent's respective institution. Respondents indicated the frequency with which certain practices occurred at their institution.
 
 ```{r adm_overview, fig.height = 3, fig.width = 10}
@@ -178,6 +182,7 @@ out$p
 
 knitr::kable(out$data)
 ```
+
 One general item also inquired about the following statement: "Overall, the processes at my higher education institution are organised in a clear and transparent manner". The agreement is visualized by the different institutional vs. the national survey.
 
 ```{r hei_processes, fig.height = 3, fig.width = 6.5}
