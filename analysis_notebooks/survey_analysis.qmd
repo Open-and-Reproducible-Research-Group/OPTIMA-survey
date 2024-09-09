@@ -52,6 +52,15 @@ if (use_targets) {
 }
 ```
 
+```{css, echo = FALSE}
+/* Make tables scroll */ 
+  
+  .scroll {
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+```
+
 # Overview
 
 The following plots give a top-level overview over the responses to all questions, grouped by topics. They are also differentiated between questions that were about the extent of agreement with certain statements and questions that asked about the estimated frequency with which certain practices occur at the institution. The survey was conducted in three waves in three subsequent years, but all responses are combined for the overview plots.
@@ -69,8 +78,16 @@ os <- c("X38", "X39", "X42", "X43", "X45",
 
 In the following figure, responses are visualized to the Open Science questions. They are sorted by the amount of agreement with these statements. Proportions of the different answer categories were calculated after removing missing and "don't know" responses. These responses are plotted separately on the right hand side, indicating their percentage of the total responses.
 
-```{r os_overview, fig.height = 5, fig.width = 10, results='asis'}
-plot_agreement_overview(df, var_overview, os, label_width = 75)
+```{r os_overview, fig.height = 5, fig.width = 10}
+out <- plot_agreement_overview(df, var_overview, os, label_width = 75)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ### Reporting and Academic Integrity
@@ -84,8 +101,16 @@ raia <- c("X19", "X17", "X18", "X20", "X21",
 
 Caution: Question X19 ("Changes to the experimental data \[...\] are acceptable") is the only statement phrased in the opposite direction. This needs to be considered when interpreting the responses.
 
-```{r raia_overview, fig.height = 5, fig.width = 10, results='asis'}
-plot_agreement_overview(df, var_overview, raia)
+```{r raia_overview, fig.height = 5, fig.width = 10}
+out <- plot_agreement_overview(df, var_overview, raia)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 Six questions were about the frequency with which certain questionable research practices around reporting occur at the respondent's institution (see table below).
@@ -96,8 +121,16 @@ raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
 
 The following overview plot is sorted by the proportion of "never" and "rarely" responses. These questions could not be skipped, therefore there are no missing answers.
 
-```{r raif_overview, fig.height = 4, fig.width = 10, results='asis'}
-plot_frequency_overview(df, var_overview, raif)
+```{r raif_overview, fig.height = 4, fig.width = 10}
+out <- plot_frequency_overview(df, var_overview, raif)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ## Education
@@ -106,22 +139,36 @@ While most questions referred to research, others focused more on education at t
 
 ```{r}
 edua <- c("X16", "X22", "X23", "X51")
-knitr::kable(var_overview[var_overview$var_id %in% edua, c(1, 2, 4)])
 ```
 
 ```{r edua_overview, fig.height = 3.5, fig.width = 10}
-plot_agreement_overview(df, var_overview, edua, sort = FALSE)
+out <- plot_agreement_overview(df, var_overview, edua, sort = FALSE)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 The occurrence of three different types of student misconduct were also investigated within the survey (see table and figure below).
 
 ```{r}
 eduf <- c("X30", "X31", "X32")
-knitr::kable(var_overview[var_overview$var_id %in% eduf, c(1, 2, 4)])
 ```
 
 ```{r eduf_overview, fig.height = 3, fig.width = 10}
-plot_frequency_overview(df, var_overview, eduf)
+out <- plot_frequency_overview(df, var_overview, eduf)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ## Institution/Administration
@@ -130,19 +177,32 @@ The survey contained five questions on how misconduct is handled at the responde
 
 ```{r}
 adm <- c("X33", "X34", "X35", "X36", "X37")
-knitr::kable(var_overview[var_overview$var_id %in% adm, c(1, 2, 4)])
 ```
 
 ```{r adm_overview, fig.height = 3, fig.width = 10}
-plot_frequency_overview(df, var_overview, adm)
+out <- plot_frequency_overview(df, var_overview, adm)
+out$p
 ```
 
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
+```
 One general item also inquired about the following statement: "Overall, the processes at my higher education institution are organised in a clear and transparent manner". The agreement is visualized by the different institutional vs. the national survey.
 
 ```{r hei_processes, fig.height = 3, fig.width = 6.5}
 df$X63 <- factor(df$X63,
                  levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
-plot_agreement(df, var_overview, "X15", group = "X63", xlim = 3)
+out <- plot_agreement(df, var_overview, "X15", group = "X63", xlim = 3)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 # Development over Time
