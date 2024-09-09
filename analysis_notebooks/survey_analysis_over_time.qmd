@@ -1,0 +1,108 @@
+---
+title: "Survey Analysis - plots over time"
+author:
+  - "Eva Kormann"
+  - "Thomas Klebel"
+format: html
+editor: visual
+execute: 
+  echo: true
+  warning: false
+---
+
+```{r}
+#| output: false
+#| echo: false
+
+library(here)
+library(tidyverse)
+library(ggchicklet)
+library(hrbrthemes)
+library(RColorBrewer)
+
+knitr::opts_chunk$set(dpi = 400)
+
+# Get var overview including short titles
+vars <- here("data", "additional", "var_short_titles.csv")
+var_overview <- read_csv(vars)
+
+# Get functions for analysis
+functions <- here("R", "analysis.R")
+source(functions)
+
+# Get data
+use_targets <- TRUE # Set to false if data is not received by targets pipeline
+
+if (use_targets) {
+  
+  df <- targets::tar_read(recoded_data, store = here("_targets"))
+
+} else {
+  
+  additional_functions <- here("R", "functions.R")
+  source(additional_functions)
+  
+  data <- here("data", "processed", "preprocessed_data.csv")
+  df <- read_csv(data) %>% 
+    likert_to_factor(., var_overview)
+  
+}
+```
+
+```{css, echo = FALSE}
+/* Make tables scroll */ 
+  
+  .scroll {
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+```
+
+```{r, echo=FALSE}
+# Define item groups
+os <- c("X38", "X39", "X42", "X43", "X45",
+        "X46", "X48", "X49", "X50", "X52")
+
+raia <- c("X19", "X17", "X18", "X20", "X21",
+          "X40", "X44", "X41", "X47")
+
+raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
+
+edua <- c("X16", "X22", "X23", "X51")
+
+eduf <- c("X30", "X31", "X32")
+
+adm <- c("X33", "X34", "X35", "X36", "X37")
+```
+
+# Development over Time
+Since the survey was conducted in three separate waves (2021, 2022, 2023), responses are also compared between those years. Similar to the overview plots where "don't know" and missing responses were separated out before calculating proportions of certain response categories, these are also filtered out here. Percentages therefore refer to all respondents that chose one of the response categories presented in the figure.
+
+## Research
+### Open Science
+```{r os_development, fig.height = 8, fig.width = 7.5}
+plot_time(df, var_overview, os, type = "agreement")
+```
+
+### Reporting and Academic Integrity
+```{r raia_development, fig.height = 8, fig.width = 7.5}
+plot_time(df, var_overview, raia, type = "agreement")
+```
+
+```{r raif_development, fig.height = 5.5, fig.width = 7.5}
+plot_time(df, var_overview, raif, type = "frequency")
+```
+
+## Education
+```{r edua_development, fig.height = 4.5, fig.width = 6}
+plot_time(df, var_overview, edua, type = "agreement", ncol = 2, var_wrap = 40)
+```
+
+```{r eduf_development, fig.height = 3, fig.width = 7.5}
+plot_time(df, var_overview, eduf, type = "frequency")
+```
+
+## Institution/Administration
+```{r adm_development, fig.height = 5.5, fig.width = 7.5}
+plot_time(df, var_overview, adm, type = "frequency")
+```

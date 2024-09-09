@@ -61,20 +61,31 @@ if (use_targets) {
   }
 ```
 
-# Overview
 
+```{r, echo=FALSE}
+# Define item groups
+os <- c("X38", "X39", "X42", "X43", "X45",
+        "X46", "X48", "X49", "X50", "X52")
+
+raia <- c("X19", "X17", "X18", "X20", "X21",
+          "X40", "X44", "X41", "X47")
+
+raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
+
+edua <- c("X16", "X22", "X23", "X51")
+
+eduf <- c("X30", "X31", "X32")
+
+adm <- c("X33", "X34", "X35", "X36", "X37")
+```
+
+
+# Overview
 The following plots give a top-level overview over the responses to all questions, grouped by topics. They are also differentiated between questions that were about the extent of agreement with certain statements and questions that asked about the estimated frequency with which certain practices occur at the institution. The survey was conducted in three waves in three subsequent years, but all responses are combined for the overview plots.
 
 ## Research
-
 ### Open Science
-
 Multiple questions within the survey inquired about how much participants agreed with certain statements related to different Open Science practices. The full statements in this group are presented in the table below.
-
-```{r}
-os <- c("X38", "X39", "X42", "X43", "X45",
-        "X46", "X48", "X49", "X50", "X52")
-```
 
 In the following figure, responses are visualized to the Open Science questions. They are sorted by the amount of agreement with these statements. Proportions of the different answer categories were calculated after removing missing and "don't know" responses. These responses are plotted separately on the right hand side, indicating their percentage of the total responses.
 
@@ -91,13 +102,7 @@ knitr::kable(out$data)
 ```
 
 ### Reporting and Academic Integrity
-
 Nine items inquire about the agreement with statements related to reporting and academic integrity. The full items are presented in the table below.
-
-```{r}
-raia <- c("X19", "X17", "X18", "X20", "X21",
-          "X40", "X44", "X41", "X47")
-```
 
 Caution: Question X19 ("Changes to the experimental data \[...\] are acceptable") is the only statement phrased in the opposite direction. This needs to be considered when interpreting the responses.
 
@@ -115,10 +120,6 @@ knitr::kable(out$data)
 
 Six questions were about the frequency with which certain questionable research practices around reporting occur at the respondent's institution (see table below).
 
-```{r}
-raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
-```
-
 The following overview plot is sorted by the proportion of "never" and "rarely" responses. These questions could not be skipped, therefore there are no missing answers.
 
 ```{r raif_overview, fig.height = 4, fig.width = 10}
@@ -134,12 +135,7 @@ knitr::kable(out$data)
 ```
 
 ## Education
-
 While most questions referred to research, others focused more on education at the respective HEI. Respondents were inquired about their agreement with certain education-related statements (see table below), most of them also related to Open Science, but in an educational context.
-
-```{r}
-edua <- c("X16", "X22", "X23", "X51")
-```
 
 ```{r edua_overview, fig.height = 3.5, fig.width = 10}
 out <- plot_agreement_overview(df, var_overview, edua, sort = FALSE)
@@ -156,7 +152,6 @@ knitr::kable(out$data)
 The occurrence of three different types of student misconduct were also investigated within the survey (see table and figure below).
 
 ```{r}
-eduf <- c("X30", "X31", "X32")
 ```
 
 ```{r eduf_overview, fig.height = 3, fig.width = 10}
@@ -172,12 +167,7 @@ knitr::kable(out$data)
 ```
 
 ## Institution/Administration
-
 The survey contained five questions on how misconduct is handled at the respondent's respective institution. Respondents indicated the frequency with which certain practices occurred at their institution.
-
-```{r}
-adm <- c("X33", "X34", "X35", "X36", "X37")
-```
 
 ```{r adm_overview, fig.height = 3, fig.width = 10}
 out <- plot_frequency_overview(df, var_overview, adm)
@@ -205,46 +195,8 @@ out$p
 knitr::kable(out$data)
 ```
 
-# Development over Time
-
-Since the survey was conducted in three separate waves (2021, 2022, 2023), responses are also compared between those years. Similar to the overview plots where "don't know" and missing responses were separated out before calculating proportions of certain response categories, these are also filtered out here. Percentages therefore refer to all respondents that chose one of the response categories presented in the figure.
-
-## Research
-
-### Open Science
-
-```{r os_development, fig.height = 8, fig.width = 7.5, results='asis'}
-plot_time(df, var_overview, os, type = "agreement")
-```
-
-### Reporting and Academic Integrity
-
-```{r raia_development, fig.height = 8, fig.width = 7.5}
-plot_time(df, var_overview, raia, type = "agreement")
-```
-
-```{r raif_development, fig.height = 5.5, fig.width = 7.5}
-plot_time(df, var_overview, raif, type = "frequency")
-```
-
-## Education
-
-```{r edua_development, fig.height = 4.5, fig.width = 6}
-plot_time(df, var_overview, edua, type = "agreement", ncol = 2, var_wrap = 40)
-```
-
-```{r eduf_development, fig.height = 3, fig.width = 7.5}
-plot_time(df, var_overview, eduf, type = "frequency")
-```
-
-## Institution/Administration
-
-```{r adm_development, fig.height = 5.5, fig.width = 7.5}
-plot_time(df, var_overview, adm, type = "frequency")
-```
 
 # Comparison Between Groups
-
 To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. Frequency responses were recoded into "often" ("very often", "frequently") and "not often" ("sometimes", "rarely", "never"). Missing responses and "don't know" answers were removed before the percentages were calculated. As in the previous section, percentages refer to all respondents that chose one of the response categories presented (and not "don't know").
 
 ## Academic Roles
