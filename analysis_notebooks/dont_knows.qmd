@@ -25,18 +25,22 @@ functions <- here("R", "analysis.R")
 source(functions)
 
 df <- targets::tar_read(recoded_data, store = here("_targets"))
+
+set_factor <- function(df) {
+  df %>% 
+    mutate(var_group = factor(var_group, levels =
+                              c("Open Science",
+                                "Reporting and Academic Integrity",
+                                "Education",
+                                "Institution/Administration")))
+}
 ```
 
 # By year
 
 ```{r}
 var_groups <- var_overview %>% 
-  select(var = var_id, var_full, var_group)  %>% 
-  mutate(var_group = factor(var_group, levels =
-                              c("Open Science",
-                                "Reporting and Academic Integrity",
-                                "Education",
-                                "Institution/Administration")))
+  select(var = var_id, var_full, var_group)
 
 dont_knows_year <- df %>% 
   select(X15:X52, year = X64) %>% 
@@ -70,9 +74,11 @@ text_labels <- tribble(
   ~var, ~value, ~var_group, ~label, ~year,
   "Q39", .05,  "Open Science", "Increase in 2022", "2022",
   "Q19", -.06, "Reporting and Academic Integrity", "Decrease in 2023", "2023"
-)
+) %>% 
+  set_factor()
 
 p_yearly_change <- yearly_change %>% 
+  set_factor() %>% 
   ggplot(aes(var, value, colour = year)) +
   geom_hline(yintercept = 0) +
   geom_segment(aes(x = var, y = 0, yend = value), show.legend = FALSE,
@@ -109,12 +115,7 @@ dont_knows_degree <- df %>%
   mutate(avg_dont_knows = mean(perc)) %>% 
   left_join(var_groups) %>% 
   group_by(year, has_degree, var_group) %>% 
-  mutate(avg_group_dont_knows = mean(perc))  %>% 
-  mutate(var_group = factor(var_group, levels =
-                              c("Open Science",
-                                "Reporting and Academic Integrity",
-                                "Education",
-                                "Institution/Administration")))
+  mutate(avg_group_dont_knows = mean(perc)) 
 ```
 
 ```{r}
@@ -127,7 +128,8 @@ yearly_change_degree <- dont_knows_degree %>%
   pivot_longer(contains("change"), names_to = "year", 
                names_pattern = "change_(\\d+)") %>% 
   mutate(negative_change = if_else(value < 0, TRUE, FALSE),
-         var = str_replace_all(var, "X", "Q"))
+         var = str_replace_all(var, "X", "Q")) %>% 
+  set_factor()
 ```
 
 ```{r yearly-change-w-degree, fig.width=10, fig.height=3}
@@ -185,32 +187,30 @@ dont_knows <- df %>%
   left_join(var_groups) %>% 
   group_by(var_group) %>% 
   mutate(avg_group_dont_knows = mean(perc),
-         var = str_replace_all(var, "X", "Q"))  %>% 
-  mutate(var_group = factor(var_group, levels =
-                              c("Open Science",
-                                "Reporting and Academic Integrity",
-                                "Education",
-                                "Institution/Administration")))
+         var = str_replace_all(var, "X", "Q"))
 ```
 
 ```{r overall-comparison, fig.width=10, fig.height=2.5}
 # create labels for annotation
 text_labels <- tribble(
   ~var, ~perc, ~var_group, ~label,
-  "Q16", .22,  "Education", "Overall average",
-  "Q33", .285, "Institution/Administration", "Group average"
-)
+  "Q46", .22,  "Open Science", "Overall average",
+  "Q17", .235, "Reporting and Academic Integrity", "Group average"
+) %>% 
+  set_factor()
+
 p_overall <- dont_knows %>% 
+  set_factor() %>% 
   ggplot(aes(var, perc)) +
   geom_hline(aes(yintercept = avg_dont_knows), color = "#8ec4ca") +
   geom_hline(aes(yintercept = avg_group_dont_knows), linetype = 2, 
              color = "#1065ab") +
   geom_segment(aes(x = var, y = avg_group_dont_knows, yend = perc)) +
   scale_y_continuous(labels = scales::label_percent()) +
-  scale_color_manual(values = c("#8ec4ca", "#1065ab")) +
+  scale_color_manual(values = c( "#1065ab", "#8ec4ca")) +
   facet_row(vars(var_group), scales = "free_x", space = "free") +
-  geom_text(data = text_labels, aes(label = label, colour = var), 
-            show.legend = FALSE, hjust = "left") +
+  geom_text(data = text_labels, aes(label = label, colour = var),
+            show.legend = FALSE, hjust = "left", size = 3.8, nudge_x = .1) +
   theme(panel.background = element_rect(fill = "white"),
     panel.grid.major.x = element_blank(),
     axis.text.x = element_text(angle = 90, vjust = .5)) +
