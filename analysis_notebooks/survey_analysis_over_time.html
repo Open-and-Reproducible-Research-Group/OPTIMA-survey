@@ -123,10 +123,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="open-science" class="level3">
 <h3 class="anchored" data-anchor-id="open-science">Open Science</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time</span>(df, var_overview, os, <span class="at">type =</span> <span class="st">"agreement"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$p</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">plot_time</span>(df, var_overview, os, <span class="at">type =</span> <span class="st">"agreement"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -134,33 +133,879 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-$data
-# A tibble: 120 × 5
-   variable                                         value  year     n proportion
-   &lt;chr&gt;                                            &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;     
- 1 Authors of research papers and peer reviewers s… stro…  2021  2717 36.31%    
- 2 Authors of research papers and peer reviewers s… stro…  2022  2952 38.59%    
- 3 Authors of research papers and peer reviewers s… stro…  2023  1974 39.07%    
- 4 Authors of research papers and peer reviewers s… rath…  2021  2943 39.33%    
- 5 Authors of research papers and peer reviewers s… rath…  2022  3167 41.40%    
- 6 Authors of research papers and peer reviewers s… rath…  2023  1849 36.59%    
- 7 Authors of research papers and peer reviewers s… rath…  2021  1121 14.98%    
- 8 Authors of research papers and peer reviewers s… rath…  2022  1038 13.57%    
- 9 Authors of research papers and peer reviewers s… rath…  2023   752 14.88%    
-10 Authors of research papers and peer reviewers s… stro…  2021   702 9.38%     
-# ℹ 110 more rows</code></pre>
+</div>
+<div class="cell scroll">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(out<span class="sc">$</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 78%">
+<col style="width: 9%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 6%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">value</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: left;">proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2717</td>
+<td style="text-align: left;">36.31%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2952</td>
+<td style="text-align: left;">38.59%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1974</td>
+<td style="text-align: left;">39.07%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2943</td>
+<td style="text-align: left;">39.33%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3167</td>
+<td style="text-align: left;">41.40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1849</td>
+<td style="text-align: left;">36.59%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1121</td>
+<td style="text-align: left;">14.98%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1038</td>
+<td style="text-align: left;">13.57%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">752</td>
+<td style="text-align: left;">14.88%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">702</td>
+<td style="text-align: left;">9.38%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">492</td>
+<td style="text-align: left;">6.43%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">478</td>
+<td style="text-align: left;">9.46%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2744</td>
+<td style="text-align: left;">35.84%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2871</td>
+<td style="text-align: left;">36.06%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1929</td>
+<td style="text-align: left;">37.82%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3668</td>
+<td style="text-align: left;">47.90%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3746</td>
+<td style="text-align: left;">47.05%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2300</td>
+<td style="text-align: left;">45.10%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1027</td>
+<td style="text-align: left;">13.41%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1118</td>
+<td style="text-align: left;">14.04%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">691</td>
+<td style="text-align: left;">13.55%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: left;">2.85%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">226</td>
+<td style="text-align: left;">2.84%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">180</td>
+<td style="text-align: left;">3.53%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2821</td>
+<td style="text-align: left;">37.26%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2663</td>
+<td style="text-align: left;">34.62%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2085</td>
+<td style="text-align: left;">41.72%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3969</td>
+<td style="text-align: left;">52.42%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3991</td>
+<td style="text-align: left;">51.88%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2291</td>
+<td style="text-align: left;">45.84%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">635</td>
+<td style="text-align: left;">8.39%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">812</td>
+<td style="text-align: left;">10.56%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">455</td>
+<td style="text-align: left;">9.10%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">147</td>
+<td style="text-align: left;">1.94%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">227</td>
+<td style="text-align: left;">2.95%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">I can explain what “open science” is.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">167</td>
+<td style="text-align: left;">3.34%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1577</td>
+<td style="text-align: left;">24.61%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1675</td>
+<td style="text-align: left;">25.01%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1273</td>
+<td style="text-align: left;">28.18%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2583</td>
+<td style="text-align: left;">40.32%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2648</td>
+<td style="text-align: left;">39.54%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1751</td>
+<td style="text-align: left;">38.76%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1565</td>
+<td style="text-align: left;">24.43%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1662</td>
+<td style="text-align: left;">24.82%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1031</td>
+<td style="text-align: left;">22.82%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">682</td>
+<td style="text-align: left;">10.64%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">712</td>
+<td style="text-align: left;">10.63%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">462</td>
+<td style="text-align: left;">10.23%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1236</td>
+<td style="text-align: left;">15.49%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1237</td>
+<td style="text-align: left;">14.95%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1122</td>
+<td style="text-align: left;">21.56%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1707</td>
+<td style="text-align: left;">21.40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1731</td>
+<td style="text-align: left;">20.92%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1213</td>
+<td style="text-align: left;">23.30%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3119</td>
+<td style="text-align: left;">39.10%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3215</td>
+<td style="text-align: left;">38.85%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1780</td>
+<td style="text-align: left;">34.20%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1916</td>
+<td style="text-align: left;">24.02%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2093</td>
+<td style="text-align: left;">25.29%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e.&nbsp;before a thorough review of their content.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1090</td>
+<td style="text-align: left;">20.94%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">5015</td>
+<td style="text-align: left;">58.22%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">5061</td>
+<td style="text-align: left;">56.48%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">3210</td>
+<td style="text-align: left;">58.32%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2917</td>
+<td style="text-align: left;">33.86%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3202</td>
+<td style="text-align: left;">35.74%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1942</td>
+<td style="text-align: left;">35.28%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">541</td>
+<td style="text-align: left;">6.28%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">571</td>
+<td style="text-align: left;">6.37%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">288</td>
+<td style="text-align: left;">5.23%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">141</td>
+<td style="text-align: left;">1.64%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">126</td>
+<td style="text-align: left;">1.41%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Research results should be in open access, i.e.&nbsp;freely available to the academic community and the general public.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: left;">1.16%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2099</td>
+<td style="text-align: left;">30.09%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2363</td>
+<td style="text-align: left;">32.72%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1522</td>
+<td style="text-align: left;">31.25%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3456</td>
+<td style="text-align: left;">49.55%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3589</td>
+<td style="text-align: left;">49.70%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2378</td>
+<td style="text-align: left;">48.82%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1126</td>
+<td style="text-align: left;">16.14%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1040</td>
+<td style="text-align: left;">14.40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">786</td>
+<td style="text-align: left;">16.14%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">294</td>
+<td style="text-align: left;">4.22%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">230</td>
+<td style="text-align: left;">3.18%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">185</td>
+<td style="text-align: left;">3.80%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2155</td>
+<td style="text-align: left;">31.38%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2184</td>
+<td style="text-align: left;">31.63%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1726</td>
+<td style="text-align: left;">36.12%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2985</td>
+<td style="text-align: left;">43.47%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3117</td>
+<td style="text-align: left;">45.15%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1860</td>
+<td style="text-align: left;">38.92%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1256</td>
+<td style="text-align: left;">18.29%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1192</td>
+<td style="text-align: left;">17.27%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">811</td>
+<td style="text-align: left;">16.97%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">471</td>
+<td style="text-align: left;">6.86%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">411</td>
+<td style="text-align: left;">5.95%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish author’s versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">382</td>
+<td style="text-align: left;">7.99%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3699</td>
+<td style="text-align: left;">46.69%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3872</td>
+<td style="text-align: left;">47.59%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2217</td>
+<td style="text-align: left;">42.75%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2767</td>
+<td style="text-align: left;">34.93%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2995</td>
+<td style="text-align: left;">36.81%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1936</td>
+<td style="text-align: left;">37.33%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">956</td>
+<td style="text-align: left;">12.07%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">901</td>
+<td style="text-align: left;">11.07%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">708</td>
+<td style="text-align: left;">13.65%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">500</td>
+<td style="text-align: left;">6.31%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">369</td>
+<td style="text-align: left;">4.53%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">325</td>
+<td style="text-align: left;">6.27%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2417</td>
+<td style="text-align: left;">31.81%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2611</td>
+<td style="text-align: left;">33.74%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1760</td>
+<td style="text-align: left;">34.62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3045</td>
+<td style="text-align: left;">40.08%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3266</td>
+<td style="text-align: left;">42.21%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1942</td>
+<td style="text-align: left;">38.20%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1504</td>
+<td style="text-align: left;">19.79%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1366</td>
+<td style="text-align: left;">17.65%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">976</td>
+<td style="text-align: left;">19.20%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">632</td>
+<td style="text-align: left;">8.32%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">495</td>
+<td style="text-align: left;">6.40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">406</td>
+<td style="text-align: left;">7.99%</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
 <section id="reporting-and-academic-integrity" class="level3">
 <h3 class="anchored" data-anchor-id="reporting-and-academic-integrity">Reporting and Academic Integrity</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time</span>(df, var_overview, raia, <span class="at">type =</span> <span class="st">"agreement"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$p</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">plot_time</span>(df, var_overview, raia, <span class="at">type =</span> <span class="st">"agreement"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -168,30 +1013,792 @@ $data
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-$data
-# A tibble: 108 × 5
-   variable                                         value  year     n proportion
-   &lt;chr&gt;                                            &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;     
- 1 All co-authors are fully responsible for the co… stro…  2021  5671 63.83%    
- 2 All co-authors are fully responsible for the co… stro…  2022  5708 62.17%    
- 3 All co-authors are fully responsible for the co… stro…  2023  3756 66.07%    
- 4 All co-authors are fully responsible for the co… rath…  2021  2387 26.87%    
- 5 All co-authors are fully responsible for the co… rath…  2022  2730 29.73%    
- 6 All co-authors are fully responsible for the co… rath…  2023  1440 25.33%    
- 7 All co-authors are fully responsible for the co… rath…  2021   668 7.52%     
- 8 All co-authors are fully responsible for the co… rath…  2022   612 6.67%     
- 9 All co-authors are fully responsible for the co… rath…  2023   385 6.77%     
-10 All co-authors are fully responsible for the co… stro…  2021   158 1.78%     
-# ℹ 98 more rows</code></pre>
+</div>
+<div class="cell scroll">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(out<span class="sc">$</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 79%">
+<col style="width: 9%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">value</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: left;">proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">5671</td>
+<td style="text-align: left;">63.83%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">5708</td>
+<td style="text-align: left;">62.17%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">3756</td>
+<td style="text-align: left;">66.07%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2387</td>
+<td style="text-align: left;">26.87%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2730</td>
+<td style="text-align: left;">29.73%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1440</td>
+<td style="text-align: left;">25.33%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">668</td>
+<td style="text-align: left;">7.52%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">612</td>
+<td style="text-align: left;">6.67%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">385</td>
+<td style="text-align: left;">6.77%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">158</td>
+<td style="text-align: left;">1.78%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">132</td>
+<td style="text-align: left;">1.44%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">104</td>
+<td style="text-align: left;">1.83%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3170</td>
+<td style="text-align: left;">42.12%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3335</td>
+<td style="text-align: left;">42.77%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2373</td>
+<td style="text-align: left;">46.97%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3288</td>
+<td style="text-align: left;">43.69%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3452</td>
+<td style="text-align: left;">44.27%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1956</td>
+<td style="text-align: left;">38.72%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">869</td>
+<td style="text-align: left;">11.55%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">841</td>
+<td style="text-align: left;">10.78%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">581</td>
+<td style="text-align: left;">11.50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">199</td>
+<td style="text-align: left;">2.64%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">170</td>
+<td style="text-align: left;">2.18%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">142</td>
+<td style="text-align: left;">2.81%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2217</td>
+<td style="text-align: left;">27.08%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2436</td>
+<td style="text-align: left;">28.93%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1900</td>
+<td style="text-align: left;">35.84%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2594</td>
+<td style="text-align: left;">31.68%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2744</td>
+<td style="text-align: left;">32.59%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1581</td>
+<td style="text-align: left;">29.82%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1659</td>
+<td style="text-align: left;">20.26%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1650</td>
+<td style="text-align: left;">19.60%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">865</td>
+<td style="text-align: left;">16.32%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1718</td>
+<td style="text-align: left;">20.98%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1589</td>
+<td style="text-align: left;">18.87%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">955</td>
+<td style="text-align: left;">18.02%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">6695</td>
+<td style="text-align: left;">74.46%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">7081</td>
+<td style="text-align: left;">74.85%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">4103</td>
+<td style="text-align: left;">71.91%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1987</td>
+<td style="text-align: left;">22.10%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2050</td>
+<td style="text-align: left;">21.67%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1363</td>
+<td style="text-align: left;">23.89%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">259</td>
+<td style="text-align: left;">2.88%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">265</td>
+<td style="text-align: left;">2.80%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">176</td>
+<td style="text-align: left;">3.08%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">51</td>
+<td style="text-align: left;">0.57%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: left;">0.68%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">64</td>
+<td style="text-align: left;">1.12%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">4045</td>
+<td style="text-align: left;">51.25%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">4112</td>
+<td style="text-align: left;">50.87%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2751</td>
+<td style="text-align: left;">52.39%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2995</td>
+<td style="text-align: left;">37.95%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3093</td>
+<td style="text-align: left;">38.27%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1882</td>
+<td style="text-align: left;">35.84%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">636</td>
+<td style="text-align: left;">8.06%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">688</td>
+<td style="text-align: left;">8.51%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">454</td>
+<td style="text-align: left;">8.65%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">216</td>
+<td style="text-align: left;">2.74%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">190</td>
+<td style="text-align: left;">2.35%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">164</td>
+<td style="text-align: left;">3.12%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3975</td>
+<td style="text-align: left;">46.29%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">4189</td>
+<td style="text-align: left;">47.22%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2728</td>
+<td style="text-align: left;">49.32%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3039</td>
+<td style="text-align: left;">35.39%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3178</td>
+<td style="text-align: left;">35.82%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1872</td>
+<td style="text-align: left;">33.85%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1268</td>
+<td style="text-align: left;">14.76%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1247</td>
+<td style="text-align: left;">14.06%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">744</td>
+<td style="text-align: left;">13.45%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">306</td>
+<td style="text-align: left;">3.56%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">257</td>
+<td style="text-align: left;">2.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">187</td>
+<td style="text-align: left;">3.38%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">4153</td>
+<td style="text-align: left;">50.56%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">4078</td>
+<td style="text-align: left;">48.71%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">3007</td>
+<td style="text-align: left;">55.14%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3056</td>
+<td style="text-align: left;">37.20%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3197</td>
+<td style="text-align: left;">38.19%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1912</td>
+<td style="text-align: left;">35.06%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">826</td>
+<td style="text-align: left;">10.06%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">914</td>
+<td style="text-align: left;">10.92%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">445</td>
+<td style="text-align: left;">8.16%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">179</td>
+<td style="text-align: left;">2.18%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">183</td>
+<td style="text-align: left;">2.19%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">89</td>
+<td style="text-align: left;">1.63%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3615</td>
+<td style="text-align: left;">44.20%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3870</td>
+<td style="text-align: left;">45.32%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2504</td>
+<td style="text-align: left;">46.79%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3341</td>
+<td style="text-align: left;">40.85%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3504</td>
+<td style="text-align: left;">41.03%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2007</td>
+<td style="text-align: left;">37.50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">965</td>
+<td style="text-align: left;">11.80%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">964</td>
+<td style="text-align: left;">11.29%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">641</td>
+<td style="text-align: left;">11.98%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">257</td>
+<td style="text-align: left;">3.14%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">202</td>
+<td style="text-align: left;">2.37%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: left;">3.74%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2099</td>
+<td style="text-align: left;">29.47%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2294</td>
+<td style="text-align: left;">31.21%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1681</td>
+<td style="text-align: left;">33.76%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3535</td>
+<td style="text-align: left;">49.63%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3628</td>
+<td style="text-align: left;">49.36%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2349</td>
+<td style="text-align: left;">47.18%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1195</td>
+<td style="text-align: left;">16.78%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1162</td>
+<td style="text-align: left;">15.81%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">746</td>
+<td style="text-align: left;">14.98%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">293</td>
+<td style="text-align: left;">4.11%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">266</td>
+<td style="text-align: left;">3.62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">203</td>
+<td style="text-align: left;">4.08%</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time</span>(df, var_overview, raif, <span class="at">type =</span> <span class="st">"frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$p</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">plot_time</span>(df, var_overview, raif, <span class="at">type =</span> <span class="st">"frequency"</span>)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -199,23 +1806,660 @@ $data
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-$data
-# A tibble: 90 × 5
-   variable                                         value  year     n proportion
-   &lt;chr&gt;                                            &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;     
- 1 A person attributes to himself or herself the a… very…  2021   291 5.15%     
- 2 A person attributes to himself or herself the a… very…  2022   307 5.30%     
- 3 A person attributes to himself or herself the a… very…  2023   253 6.71%     
- 4 A person attributes to himself or herself the a… freq…  2021   531 9.39%     
- 5 A person attributes to himself or herself the a… freq…  2022   453 7.82%     
- 6 A person attributes to himself or herself the a… freq…  2023   392 10.40%    
- 7 A person attributes to himself or herself the a… some…  2021  1145 20.25%    
- 8 A person attributes to himself or herself the a… some…  2022  1044 18.02%    
- 9 A person attributes to himself or herself the a… some…  2023   902 23.93%    
-10 A person attributes to himself or herself the a… rare…  2021  1101 19.48%    
-# ℹ 80 more rows</code></pre>
+</div>
+<div class="cell scroll">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(out<span class="sc">$</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 86%">
+<col style="width: 4%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 4%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">value</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: left;">proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">291</td>
+<td style="text-align: left;">5.15%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">307</td>
+<td style="text-align: left;">5.30%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">253</td>
+<td style="text-align: left;">6.71%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">531</td>
+<td style="text-align: left;">9.39%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">453</td>
+<td style="text-align: left;">7.82%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">392</td>
+<td style="text-align: left;">10.40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1145</td>
+<td style="text-align: left;">20.25%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1044</td>
+<td style="text-align: left;">18.02%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">902</td>
+<td style="text-align: left;">23.93%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1101</td>
+<td style="text-align: left;">19.48%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1139</td>
+<td style="text-align: left;">19.66%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">632</td>
+<td style="text-align: left;">16.77%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2585</td>
+<td style="text-align: left;">45.73%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2850</td>
+<td style="text-align: left;">49.20%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1590</td>
+<td style="text-align: left;">42.19%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">159</td>
+<td style="text-align: left;">2.91%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">164</td>
+<td style="text-align: left;">2.93%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">167</td>
+<td style="text-align: left;">4.56%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">320</td>
+<td style="text-align: left;">5.86%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">256</td>
+<td style="text-align: left;">4.57%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">307</td>
+<td style="text-align: left;">8.39%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">916</td>
+<td style="text-align: left;">16.76%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">769</td>
+<td style="text-align: left;">13.73%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">734</td>
+<td style="text-align: left;">20.06%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1040</td>
+<td style="text-align: left;">19.03%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">985</td>
+<td style="text-align: left;">17.59%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">594</td>
+<td style="text-align: left;">16.23%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3030</td>
+<td style="text-align: left;">55.44%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3426</td>
+<td style="text-align: left;">61.18%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1857</td>
+<td style="text-align: left;">50.75%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">260</td>
+<td style="text-align: left;">4.62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">291</td>
+<td style="text-align: left;">5.24%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">273</td>
+<td style="text-align: left;">7.25%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">764</td>
+<td style="text-align: left;">13.57%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">681</td>
+<td style="text-align: left;">12.26%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">546</td>
+<td style="text-align: left;">14.49%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1467</td>
+<td style="text-align: left;">26.05%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1399</td>
+<td style="text-align: left;">25.19%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">905</td>
+<td style="text-align: left;">24.02%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1298</td>
+<td style="text-align: left;">23.05%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1270</td>
+<td style="text-align: left;">22.87%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">758</td>
+<td style="text-align: left;">20.12%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1842</td>
+<td style="text-align: left;">32.71%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1912</td>
+<td style="text-align: left;">34.43%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Selective citations to support one’s conclusions or to please editors, reviewers, colleagues, etc.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1285</td>
+<td style="text-align: left;">34.11%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">143</td>
+<td style="text-align: left;">2.51%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">142</td>
+<td style="text-align: left;">2.43%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">191</td>
+<td style="text-align: left;">5.13%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">297</td>
+<td style="text-align: left;">5.21%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">248</td>
+<td style="text-align: left;">4.25%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">254</td>
+<td style="text-align: left;">6.82%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">757</td>
+<td style="text-align: left;">13.29%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">671</td>
+<td style="text-align: left;">11.50%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">642</td>
+<td style="text-align: left;">17.25%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1012</td>
+<td style="text-align: left;">17.76%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">975</td>
+<td style="text-align: left;">16.71%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">584</td>
+<td style="text-align: left;">15.69%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3488</td>
+<td style="text-align: left;">61.23%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3800</td>
+<td style="text-align: left;">65.11%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author passes off other people’s academic achievements as his own.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2051</td>
+<td style="text-align: left;">55.10%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">246</td>
+<td style="text-align: left;">4.07%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">236</td>
+<td style="text-align: left;">4.14%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">244</td>
+<td style="text-align: left;">6.09%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">735</td>
+<td style="text-align: left;">12.15%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">604</td>
+<td style="text-align: left;">10.61%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">531</td>
+<td style="text-align: left;">13.26%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1854</td>
+<td style="text-align: left;">30.65%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1664</td>
+<td style="text-align: left;">29.22%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1197</td>
+<td style="text-align: left;">29.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1770</td>
+<td style="text-align: left;">29.26%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1603</td>
+<td style="text-align: left;">28.15%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">973</td>
+<td style="text-align: left;">24.30%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1444</td>
+<td style="text-align: left;">23.87%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1588</td>
+<td style="text-align: left;">27.88%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1059</td>
+<td style="text-align: left;">26.45%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">301</td>
+<td style="text-align: left;">4.59%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">313</td>
+<td style="text-align: left;">4.84%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">254</td>
+<td style="text-align: left;">5.97%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">643</td>
+<td style="text-align: left;">9.80%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">556</td>
+<td style="text-align: left;">8.59%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">444</td>
+<td style="text-align: left;">10.43%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1790</td>
+<td style="text-align: left;">27.27%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1619</td>
+<td style="text-align: left;">25.02%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1182</td>
+<td style="text-align: left;">27.77%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2028</td>
+<td style="text-align: left;">30.90%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1946</td>
+<td style="text-align: left;">30.07%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1131</td>
+<td style="text-align: left;">26.57%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1801</td>
+<td style="text-align: left;">27.44%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2037</td>
+<td style="text-align: left;">31.48%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Using other author’s published papers and ideas without proper reference to the original source.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1246</td>
+<td style="text-align: left;">29.27%</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
@@ -223,10 +2467,10 @@ $data
 <section id="education" class="level2">
 <h2 class="anchored" data-anchor-id="education">Education</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time</span>(df, var_overview, edua, <span class="at">type =</span> <span class="st">"agreement"</span>, <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">var_wrap =</span> <span class="dv">40</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$p</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">plot_time</span>(df, var_overview, edua, <span class="at">type =</span> <span class="st">"agreement"</span>, <span class="at">ncol =</span> <span class="dv">2</span>,</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>                 <span class="at">var_wrap =</span> <span class="dv">40</span>)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -234,30 +2478,372 @@ $data
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-$data
-# A tibble: 48 × 5
-   variable                                         value  year     n proportion
-   &lt;chr&gt;                                            &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;     
- 1 Higher education institutions should provide op… stro…  2021  4026 49.14%    
- 2 Higher education institutions should provide op… stro…  2022  4418 52.29%    
- 3 Higher education institutions should provide op… stro…  2023  2631 49.30%    
- 4 Higher education institutions should provide op… rath…  2021  2415 29.48%    
- 5 Higher education institutions should provide op… rath…  2022  2464 29.16%    
- 6 Higher education institutions should provide op… rath…  2023  1589 29.77%    
- 7 Higher education institutions should provide op… rath…  2021  1206 14.72%    
- 8 Higher education institutions should provide op… rath…  2022  1118 13.23%    
- 9 Higher education institutions should provide op… rath…  2023   735 13.77%    
-10 Higher education institutions should provide op… stro…  2021   546 6.66%     
-# ℹ 38 more rows</code></pre>
+</div>
+<div class="cell scroll">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(out<span class="sc">$</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 79%">
+<col style="width: 9%">
+<col style="width: 2%">
+<col style="width: 2%">
+<col style="width: 5%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">value</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: left;">proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">4026</td>
+<td style="text-align: left;">49.14%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">4418</td>
+<td style="text-align: left;">52.29%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2631</td>
+<td style="text-align: left;">49.30%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2415</td>
+<td style="text-align: left;">29.48%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2464</td>
+<td style="text-align: left;">29.16%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1589</td>
+<td style="text-align: left;">29.77%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1206</td>
+<td style="text-align: left;">14.72%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1118</td>
+<td style="text-align: left;">13.23%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">735</td>
+<td style="text-align: left;">13.77%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">546</td>
+<td style="text-align: left;">6.66%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">449</td>
+<td style="text-align: left;">5.31%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">382</td>
+<td style="text-align: left;">7.16%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">5536</td>
+<td style="text-align: left;">63.81%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">5585</td>
+<td style="text-align: left;">62.18%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">3988</td>
+<td style="text-align: left;">70.53%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2623</td>
+<td style="text-align: left;">30.23%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2875</td>
+<td style="text-align: left;">32.01%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1376</td>
+<td style="text-align: left;">24.34%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">388</td>
+<td style="text-align: left;">4.47%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">391</td>
+<td style="text-align: left;">4.35%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: left;">3.54%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">129</td>
+<td style="text-align: left;">1.49%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">131</td>
+<td style="text-align: left;">1.46%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">90</td>
+<td style="text-align: left;">1.59%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3486</td>
+<td style="text-align: left;">41.41%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3211</td>
+<td style="text-align: left;">37.44%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2584</td>
+<td style="text-align: left;">47.33%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2866</td>
+<td style="text-align: left;">34.04%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2895</td>
+<td style="text-align: left;">33.75%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1833</td>
+<td style="text-align: left;">33.58%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1542</td>
+<td style="text-align: left;">18.32%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1877</td>
+<td style="text-align: left;">21.88%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">805</td>
+<td style="text-align: left;">14.75%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">525</td>
+<td style="text-align: left;">6.24%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">594</td>
+<td style="text-align: left;">6.93%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">237</td>
+<td style="text-align: left;">4.34%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">4058</td>
+<td style="text-align: left;">45.03%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">4228</td>
+<td style="text-align: left;">44.59%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">strongly agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2827</td>
+<td style="text-align: left;">49.48%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3916</td>
+<td style="text-align: left;">43.45%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3979</td>
+<td style="text-align: left;">41.97%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">rather agree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2218</td>
+<td style="text-align: left;">38.82%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">835</td>
+<td style="text-align: left;">9.27%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">972</td>
+<td style="text-align: left;">10.25%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">rather disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">496</td>
+<td style="text-align: left;">8.68%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">203</td>
+<td style="text-align: left;">2.25%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">302</td>
+<td style="text-align: left;">3.19%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
+<td style="text-align: left;">strongly disagree</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">172</td>
+<td style="text-align: left;">3.01%</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time</span>(df, var_overview, eduf, <span class="at">type =</span> <span class="st">"frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$p</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">plot_time</span>(df, var_overview, eduf, <span class="at">type =</span> <span class="st">"frequency"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -265,33 +2851,354 @@ $data
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-$data
-# A tibble: 45 × 5
-   variable                                         value  year     n proportion
-   &lt;chr&gt;                                            &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;     
- 1 "Students and teachers use unauthorized softwar… very…  2021   510 8.81%     
- 2 "Students and teachers use unauthorized softwar… very…  2022   628 10.31%    
- 3 "Students and teachers use unauthorized softwar… very…  2023   433 10.79%    
- 4 "Students and teachers use unauthorized softwar… freq…  2021   702 12.12%    
- 5 "Students and teachers use unauthorized softwar… freq…  2022   695 11.41%    
- 6 "Students and teachers use unauthorized softwar… freq…  2023   555 13.83%    
- 7 "Students and teachers use unauthorized softwar… some…  2021   977 16.87%    
- 8 "Students and teachers use unauthorized softwar… some…  2022   964 15.83%    
- 9 "Students and teachers use unauthorized softwar… some…  2023   808 20.13%    
-10 "Students and teachers use unauthorized softwar… rare…  2021   822 14.19%    
-# ℹ 35 more rows</code></pre>
+</div>
+<div class="cell scroll">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(out<span class="sc">$</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 73%">
+<col style="width: 9%">
+<col style="width: 4%">
+<col style="width: 4%">
+<col style="width: 9%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">value</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: left;">proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">510</td>
+<td style="text-align: left;">8.81%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">628</td>
+<td style="text-align: left;">10.31%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">433</td>
+<td style="text-align: left;">10.79%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">702</td>
+<td style="text-align: left;">12.12%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">695</td>
+<td style="text-align: left;">11.41%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">555</td>
+<td style="text-align: left;">13.83%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">977</td>
+<td style="text-align: left;">16.87%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">964</td>
+<td style="text-align: left;">15.83%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">808</td>
+<td style="text-align: left;">20.13%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">822</td>
+<td style="text-align: left;">14.19%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">817</td>
+<td style="text-align: left;">13.42%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">530</td>
+<td style="text-align: left;">13.20%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2780</td>
+<td style="text-align: left;">48.01%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2986</td>
+<td style="text-align: left;">49.03%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called “pirated software”).</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1688</td>
+<td style="text-align: left;">42.05%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">855</td>
+<td style="text-align: left;">10.98%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">985</td>
+<td style="text-align: left;">12.28%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">601</td>
+<td style="text-align: left;">12.20%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1708</td>
+<td style="text-align: left;">21.93%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1711</td>
+<td style="text-align: left;">21.33%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1103</td>
+<td style="text-align: left;">22.40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2604</td>
+<td style="text-align: left;">33.44%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2523</td>
+<td style="text-align: left;">31.45%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1413</td>
+<td style="text-align: left;">28.69%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1653</td>
+<td style="text-align: left;">21.22%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1660</td>
+<td style="text-align: left;">20.70%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1052</td>
+<td style="text-align: left;">21.36%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">968</td>
+<td style="text-align: left;">12.43%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1142</td>
+<td style="text-align: left;">14.24%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students help each other during exams or tests.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">756</td>
+<td style="text-align: left;">15.35%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">625</td>
+<td style="text-align: left;">8.16%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">627</td>
+<td style="text-align: left;">8.07%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">495</td>
+<td style="text-align: left;">10.24%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1053</td>
+<td style="text-align: left;">13.74%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">973</td>
+<td style="text-align: left;">12.53%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">810</td>
+<td style="text-align: left;">16.75%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2004</td>
+<td style="text-align: left;">26.15%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1960</td>
+<td style="text-align: left;">25.23%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1274</td>
+<td style="text-align: left;">26.35%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2122</td>
+<td style="text-align: left;">27.69%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2097</td>
+<td style="text-align: left;">27.00%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1090</td>
+<td style="text-align: left;">22.54%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1860</td>
+<td style="text-align: left;">24.27%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2110</td>
+<td style="text-align: left;">27.17%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1166</td>
+<td style="text-align: left;">24.12%</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
 <section id="institutionadministration" class="level2">
 <h2 class="anchored" data-anchor-id="institutionadministration">Institution/Administration</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_time</span>(df, var_overview, adm, <span class="at">type =</span> <span class="st">"frequency"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>$p</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">plot_time</span>(df, var_overview, adm, <span class="at">type =</span> <span class="st">"frequency"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>out<span class="sc">$</span>p</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -299,23 +3206,555 @@ $data
 </figure>
 </div>
 </div>
-<div class="cell-output cell-output-stdout">
-<pre><code>
-$data
-# A tibble: 75 × 5
-   variable                                         value  year     n proportion
-   &lt;chr&gt;                                            &lt;fct&gt; &lt;dbl&gt; &lt;int&gt; &lt;chr&gt;     
- 1 Abuse of official position or authority to enco… very…  2021   200 3.18%     
- 2 Abuse of official position or authority to enco… very…  2022   218 3.42%     
- 3 Abuse of official position or authority to enco… very…  2023   210 5.06%     
- 4 Abuse of official position or authority to enco… freq…  2021   244 3.88%     
- 5 Abuse of official position or authority to enco… freq…  2022   274 4.30%     
- 6 Abuse of official position or authority to enco… freq…  2023   279 6.72%     
- 7 Abuse of official position or authority to enco… some…  2021   605 9.62%     
- 8 Abuse of official position or authority to enco… some…  2022   668 10.49%    
- 9 Abuse of official position or authority to enco… some…  2023   552 13.30%    
-10 Abuse of official position or authority to enco… rare…  2021   784 12.47%    
-# ℹ 65 more rows</code></pre>
+</div>
+<div class="cell scroll">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(out<span class="sc">$</span>data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<colgroup>
+<col style="width: 75%">
+<col style="width: 8%">
+<col style="width: 3%">
+<col style="width: 3%">
+<col style="width: 8%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">variable</th>
+<th style="text-align: left;">value</th>
+<th style="text-align: right;">year</th>
+<th style="text-align: right;">n</th>
+<th style="text-align: left;">proportion</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">200</td>
+<td style="text-align: left;">3.18%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">218</td>
+<td style="text-align: left;">3.42%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">210</td>
+<td style="text-align: left;">5.06%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">244</td>
+<td style="text-align: left;">3.88%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">274</td>
+<td style="text-align: left;">4.30%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">279</td>
+<td style="text-align: left;">6.72%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">605</td>
+<td style="text-align: left;">9.62%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">668</td>
+<td style="text-align: left;">10.49%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">552</td>
+<td style="text-align: left;">13.30%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">784</td>
+<td style="text-align: left;">12.47%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">771</td>
+<td style="text-align: left;">12.11%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">460</td>
+<td style="text-align: left;">11.09%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">4456</td>
+<td style="text-align: left;">70.85%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">4435</td>
+<td style="text-align: left;">69.67%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2648</td>
+<td style="text-align: left;">63.82%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: left;">1.85%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">147</td>
+<td style="text-align: left;">2.25%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">156</td>
+<td style="text-align: left;">3.79%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">226</td>
+<td style="text-align: left;">3.61%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">281</td>
+<td style="text-align: left;">4.30%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">236</td>
+<td style="text-align: left;">5.73%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">777</td>
+<td style="text-align: left;">12.40%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">915</td>
+<td style="text-align: left;">13.99%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">652</td>
+<td style="text-align: left;">15.83%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">1188</td>
+<td style="text-align: left;">18.96%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">1262</td>
+<td style="text-align: left;">19.30%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">647</td>
+<td style="text-align: left;">15.71%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3960</td>
+<td style="text-align: left;">63.19%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3935</td>
+<td style="text-align: left;">60.17%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2428</td>
+<td style="text-align: left;">58.95%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">116</td>
+<td style="text-align: left;">1.82%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">129</td>
+<td style="text-align: left;">1.97%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">160</td>
+<td style="text-align: left;">3.91%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">213</td>
+<td style="text-align: left;">3.34%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">214</td>
+<td style="text-align: left;">3.26%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">222</td>
+<td style="text-align: left;">5.42%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">580</td>
+<td style="text-align: left;">9.10%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">576</td>
+<td style="text-align: left;">8.78%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">590</td>
+<td style="text-align: left;">14.40%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">789</td>
+<td style="text-align: left;">12.38%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">813</td>
+<td style="text-align: left;">12.39%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">437</td>
+<td style="text-align: left;">10.67%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">4673</td>
+<td style="text-align: left;">73.35%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">4830</td>
+<td style="text-align: left;">73.61%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2688</td>
+<td style="text-align: left;">65.61%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">234</td>
+<td style="text-align: left;">4.03%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">238</td>
+<td style="text-align: left;">4.08%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">238</td>
+<td style="text-align: left;">5.76%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">436</td>
+<td style="text-align: left;">7.51%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">398</td>
+<td style="text-align: left;">6.82%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">356</td>
+<td style="text-align: left;">8.61%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">668</td>
+<td style="text-align: left;">11.50%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">721</td>
+<td style="text-align: left;">12.36%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">607</td>
+<td style="text-align: left;">14.68%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">669</td>
+<td style="text-align: left;">11.52%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">660</td>
+<td style="text-align: left;">11.31%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">394</td>
+<td style="text-align: left;">9.53%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">3800</td>
+<td style="text-align: left;">65.44%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">3817</td>
+<td style="text-align: left;">65.43%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">2539</td>
+<td style="text-align: left;">61.42%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">258</td>
+<td style="text-align: left;">5.84%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">273</td>
+<td style="text-align: left;">6.34%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">very often</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">300</td>
+<td style="text-align: left;">9.25%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">616</td>
+<td style="text-align: left;">13.95%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">624</td>
+<td style="text-align: left;">14.48%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">frequently</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">446</td>
+<td style="text-align: left;">13.75%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">809</td>
+<td style="text-align: left;">18.32%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">732</td>
+<td style="text-align: left;">16.99%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">sometimes</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">610</td>
+<td style="text-align: left;">18.81%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">599</td>
+<td style="text-align: left;">13.56%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">632</td>
+<td style="text-align: left;">14.67%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">rarely</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">400</td>
+<td style="text-align: left;">12.33%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2021</td>
+<td style="text-align: right;">2134</td>
+<td style="text-align: left;">48.32%</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2022</td>
+<td style="text-align: right;">2047</td>
+<td style="text-align: left;">47.52%</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
+<td style="text-align: left;">never</td>
+<td style="text-align: right;">2023</td>
+<td style="text-align: right;">1487</td>
+<td style="text-align: left;">45.85%</td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </section>
