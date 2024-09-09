@@ -63,6 +63,17 @@ table_answers_overview <- function(df, columns, group,
 }
 
 
+# prepare raw numbers for printing in notebook
+get_raw_numbers <- function(df, var_names = label) {
+  df %>% 
+    ungroup() %>% 
+    arrange(desc(order)) %>% 
+    mutate({{ var_names }} := str_replace_all({{ var_names }}, "\\n", " "),
+           prop = scales::percent(prop, .01)) %>% 
+    select(variable = {{ var_names }}, value = val, n, proportion = prop)
+}
+
+
 # Create an overview plot over the responses to various items (without grouping)
 plot_agreement_overview <- function(
     df, var_overview, columns, sort = TRUE, xlim = 0.3,
@@ -148,8 +159,9 @@ plot_agreement_overview <- function(
     theme(plot.margin = margin()) + p2 +
     plot_layout(widths = c(6, 1))
   
-  final_plot
-  
+
+  # provide raw numbers
+  list(p = final_plot, data = get_raw_numbers(pdata_item))
 }
 
 
@@ -238,8 +250,7 @@ plot_frequency_overview <- function(
     theme(plot.margin = margin()) + p2 +
     plot_layout(widths = c(6, 1))
   
-  final_plot
-  
+  list(p = final_plot, data = get_raw_numbers(pdata_item))
 }
 
 
@@ -315,8 +326,7 @@ plot_agreement <- function(
     plot_layout(widths = c(6, 1))
   
   
-  final_plot
-  
+  list(p = final_plot, data = pdata)
 }
 
 
@@ -570,7 +580,14 @@ plot_time <- function(df, var_overview, questions, legend = TRUE, ncol = 3,
       theme(legend.position = "none")
   }
   
-  p
+  raw_numbers <- with_sorting %>% 
+    ungroup() %>% 
+    arrange(var_label, value, year) %>% 
+    mutate(var_label = str_replace_all(var_label, "\\n", " "),
+           perc = scales::percent(perc, .01)) %>% 
+    select(variable = var_label, value, year, n, proportion = perc)
+  
+  list(p = p, data = raw_numbers)
 }
 
 
