@@ -1,0 +1,357 @@
+---
+title: "Survey Analysis - groups"
+author:
+  - "Eva Kormann"
+  - "Thomas Klebel"
+format: html
+editor: visual
+execute: 
+  echo: true
+  warning: false
+---
+
+```{r}
+#| output: false
+#| echo: false
+
+library(here)
+library(tidyverse)
+library(ggchicklet)
+library(patchwork)
+library(hrbrthemes)
+library(RColorBrewer)
+
+knitr::opts_chunk$set(dpi = 400)
+
+# Get var overview including short titles
+vars <- here("data", "additional", "var_short_titles.csv")
+var_overview <- read_csv(vars)
+
+# Get functions for analysis
+functions <- here("R", "analysis.R")
+source(functions)
+
+# Get data
+use_targets <- TRUE # Set to false if data is not received by targets pipeline
+
+if (use_targets) {
+  
+  df <- targets::tar_read(recoded_data, store = here("_targets"))
+
+} else {
+  
+  additional_functions <- here("R", "functions.R")
+  source(additional_functions)
+  
+  data <- here("data", "processed", "preprocessed_data.csv")
+  df <- read_csv(data) %>% 
+    likert_to_factor(., var_overview)
+  
+}
+```
+
+```{css, echo = FALSE}
+/* Make tables scroll */ 
+  
+  .scroll {
+    max-height: 500px;
+    overflow-y: scroll;
+  }
+```
+
+```{r, echo=FALSE}
+# Define item groups
+os <- c("X38", "X39", "X42", "X43", "X45",
+        "X46", "X48", "X49", "X50", "X52")
+
+raia <- c("X19", "X17", "X18", "X20", "X21",
+          "X40", "X44", "X41", "X47")
+
+raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
+
+edua <- c("X16", "X22", "X23", "X51")
+
+eduf <- c("X30", "X31", "X32")
+
+adm <- c("X33", "X34", "X35", "X36", "X37")
+```
+
+# Comparison Between Groups
+To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. Frequency responses were recoded into "often" ("very often", "frequently") and "not often" ("sometimes", "rarely", "never"). Missing responses and "don't know" answers were removed before the percentages were calculated. As in the previous section, percentages refer to all respondents that chose one of the response categories presented (and not "don't know").
+
+## Academic Roles
+
+To compare respondents with different academic roles, students are first summarized for purposes of visualization (see below for differentiated visualizations for this group). The "other" category was additionally excluded, since it is quite small and difficult to characterize. Some groups differ quite substantially in their size (e.g., lot of faculty, only few librarians). This has to be taken into account for interpretation.
+
+```{r}
+roles <- df %>% 
+  filter(X8 != "other") %>% 
+  mutate(roles = case_when(
+    str_detect(X8, "student") ~ "student",
+    TRUE ~ X8),
+  roles = factor(roles, levels = c("student", "faculty", "research staff",
+                                   "university administrator", "librarian")))
+```
+
+### Open Science
+
+```{r os_roles, fig.height = 9, fig.width = 8}
+plot_time_groups(roles, var_overview, os, group_var = roles)
+```
+
+### Reporting and Academic Integrity
+
+```{r raia_roles, fig.height = 9, fig.width = 8}
+plot_time_groups(roles, var_overview, raia, group_var = roles)
+```
+
+```{r raif_roles, fig.height = 5, fig.width = 8}
+plot_time_groups(roles, var_overview, raif, group_var = roles, 
+                 type = "frequency")
+```
+
+### Education
+
+```{r edua_roles, fig.height = 5, fig.width = 6}
+plot_time_groups(roles, var_overview, edua, group_var = roles, ncol = 2)
+```
+
+```{r eduf_roles, fig.height = 4, fig.width = 8}
+plot_time_groups(roles, var_overview, eduf, group_var = roles, 
+                 type = "frequency")
+```
+
+### Institution/Administration
+
+```{r, adm_roles, fig.height = 5, fig.width = 8}
+plot_time_groups(roles, var_overview, adm, group_var = roles, 
+                 type = "frequency")
+```
+
+```{r, hei_processes_roles, fig.height = 3.5, fig.width = 5}
+plot_time_groups(roles, var_overview, "X15", group_var = roles)
+```
+
+## Students by Year
+
+In the plots above, students were all grouped into one category. Since it is of interest how students' perceptions differ depending on the stage of their studies, they are compared more closely in the subsequent figures (these could maybe added to the appendix).
+
+```{r}
+students <- df %>% 
+  filter(str_detect(X8, "student")) %>% 
+  mutate(student_level = case_when(
+    X8 == "doctoral student - ScD (higher doctorate)" ~ "doctoral student - ScD",
+    TRUE ~ X8),
+    student_level = factor(student_level,
+                levels = c("student - 1st year", "student - 2nd year",
+                           "student - 3rd year", "student - 4th year",
+                           "master student", "doctoral student - PhD",
+                           "doctoral student - ScD", "faculty")))
+```
+
+### Open Science
+
+```{r os_students, fig.height = 9, fig.width = 8}
+plot_time_groups(students, var_overview, os, group_var = student_level,
+                 legend_reverse = FALSE)
+```
+
+### Reporting and Academic Integrity
+
+```{r raia_students, fig.height = 9, fig.width = 8}
+plot_time_groups(students, var_overview, raia, group_var = student_level,
+                 legend_reverse = FALSE)
+```
+
+```{r raif_students, fig.height = 5.5, fig.width = 8}
+plot_time_groups(students, var_overview, raif, group_var = student_level,
+                 type = "frequency", legend_reverse = FALSE)
+```
+
+### Education
+
+```{r edua_students, fig.height = 5, fig.width = 6}
+plot_time_groups(students, var_overview, edua, group_var = student_level,
+                 legend_reverse = FALSE, ncol = 2)
+```
+
+```{r eduf_students, fig.height = 4, fig.width = 8}
+plot_time_groups(students, var_overview, eduf, group_var = student_level,
+                 type = "frequency", legend_reverse = FALSE)
+```
+
+### Institution/Administration
+
+```{r, adm_students, fig.height = 6, fig.width = 8}
+plot_time_groups(students, var_overview, adm, group_var = student_level,
+                 type = "frequency", legend_reverse = FALSE)
+```
+
+```{r, hei_processes_students, fig.height = 3.5, fig.width = 5}
+plot_time_groups(students, var_overview, "X15", group_var = student_level,
+                 legend_reverse = FALSE)
+```
+
+## National and Institutional Surveys
+
+The survey was conducted both at a national level and separately within the OPTIMA partner HEIs. To compare developments over time between these surveys, following visualizations are created (again with dichotomized responses).
+
+### Open Science
+
+```{r os_surveys, fig.height = 18, fig.width = 8}
+
+plots <- list()
+
+for (q in os) {
+  plot <- plot_agreement_groups(students, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+### Reporting and Academic Integrity
+
+```{r raia_surveys, fig.height = 18, fig.width = 8}
+
+plots <- list()
+
+for (q in raia) {
+  plot <- plot_agreement_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+```{r raif_surveys, fig.height = 10, fig.width = 8}
+
+plots <- list()
+
+for (q in raif) {
+  plot <- plot_frequency_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+### Education
+
+```{r edua_surveys, fig.height = 7, fig.width = 8}
+
+plots <- list()
+
+for (q in edua) {
+  plot <- plot_agreement_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+```{r eduf_surveys, fig.height = 7, fig.width = 8}
+
+plots <- list()
+
+for (q in eduf) {
+  plot <- plot_frequency_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+### Institution/Administration
+
+```{r, adm_surveys, fig.height = 10, fig.width = 8}
+
+plots <- list()
+
+for (q in adm) {
+  plot <- plot_frequency_groups(df, question = q, "X63")
+  plots[[q]] <- plot
+}
+
+wrap_plots(plots, ncol = 2) +
+  plot_layout(guides = "collect")
+```
+
+```{r, hei_processes_surveys, fig.height = 3.5, fig.width = 5}
+
+plot_agreement_groups(df, "X15", "X63")
+```
+
+## Displacement
+
+In 2022, respondents were additionally asked about whether their HEI had been displaced (in 2014, 2022, or not at all). The following figures show reponses to the items in comparison between displaced and non-displaced HEIs. Responses were again dichotomized to agreement/disagreement and high frequency/low frequency.
+
+```{r}
+
+agreement_items <- paste0("X", 15:23) %>% 
+  append(paste0("X", 38:52))
+
+frequency_items <- paste0("X", 24:37)
+
+dfd <- df %>% 
+  filter(X64 == "2022")
+
+for (item in agreement_items) {
+  dfd <- dichotomize_agreement(dfd, item)
+}
+
+for (item in frequency_items) {
+  dfd <- dichotomize_frequency(dfd, item)
+}
+```
+
+### Open Science
+
+```{r os_displacement, fig.height = 5.5, fig.width = 6.5}
+plot_groups_overview_agreement(dfd, var_overview, os, "X62",
+                               "HEI displaced:", "bottom")
+```
+
+### Reporting and Academic Integrity
+
+```{r raia_displacement, fig.height = 5.8, fig.width = 6.5}
+plot_groups_overview_agreement(dfd, var_overview, raia, "X62",
+                               "HEI displaced:", "bottom")
+```
+
+```{r raif_displacement, fig.height = 5, fig.width = 7}
+plot_groups_overview_frequency(dfd, var_overview, raif, "X62",
+                               "HEI displaced:", "right")
+```
+
+### Education
+
+```{r edua_displacement, fig.height = 5, fig.width = 7}
+plot_groups_overview_agreement(dfd, var_overview, edua, "X62",
+                               "HEI displaced:", "right")
+```
+
+```{r eduf_displacement, fig.height = 5, fig.width = 6}
+plot_groups_overview_frequency(dfd, var_overview, eduf, "X62",
+                               "HEI displaced:", "right")
+```
+
+### Institution/Administration
+
+```{r, adm_displacement, fig.height = 5, fig.width = 7}
+plot_groups_overview_frequency(dfd, var_overview, adm, "X62",
+                               "HEI displaced:", "right")
+```
+
+```{r, hei_displacement, fig.height = 2, fig.width = 5}
+plot_groups_overview_agreement(dfd, var_overview, c("X15"), "X62",
+                               "HEI displaced:", "bottom") +
+  coord_flip() +
+  theme(axis.text.x = element_text(angle = 0, hjust = 0.5),
+        axis.title.y = element_blank())
+```
