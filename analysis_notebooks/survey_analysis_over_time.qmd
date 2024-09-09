@@ -81,28 +81,79 @@ Since the survey was conducted in three separate waves (2021, 2022, 2023), respo
 ## Research
 ### Open Science
 ```{r os_development, fig.height = 8, fig.width = 7.5}
-plot_time(df, var_overview, os, type = "agreement")
+out <- plot_time(df, var_overview, os, type = "agreement")
+
+out$p
 ```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
+```
+
 
 ### Reporting and Academic Integrity
 ```{r raia_development, fig.height = 8, fig.width = 7.5}
-plot_time(df, var_overview, raia, type = "agreement")
+out <- plot_time(df, var_overview, raia, type = "agreement")
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ```{r raif_development, fig.height = 5.5, fig.width = 7.5}
-plot_time(df, var_overview, raif, type = "frequency")
+out <- plot_time(df, var_overview, raif, type = "frequency")
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ## Education
 ```{r edua_development, fig.height = 4.5, fig.width = 6}
-plot_time(df, var_overview, edua, type = "agreement", ncol = 2, var_wrap = 40)
+out <- plot_time(df, var_overview, edua, type = "agreement", ncol = 2,
+                 var_wrap = 40)
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ```{r eduf_development, fig.height = 3, fig.width = 7.5}
-plot_time(df, var_overview, eduf, type = "frequency")
+out <- plot_time(df, var_overview, eduf, type = "frequency")
+
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
 ```
 
 ## Institution/Administration
 ```{r adm_development, fig.height = 5.5, fig.width = 7.5}
-plot_time(df, var_overview, adm, type = "frequency")
+out <- plot_time(df, var_overview, adm, type = "frequency")
+
+out$p
 ```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
+```
+
