@@ -193,7 +193,8 @@ plot_frequency_overview <- function(
     mutate(prop = n/sum(n),
            order = if (sort) {
              case_when(
-               str_detect(val, "\\brarely\\b|\\bnever\\b") ~ prop,
+               str_detect(
+                 val, "\\bvery often\\b|\\bfrequently\\b") ~ prop,
                TRUE ~ 0) } else {0},
            order = sum(order))
   

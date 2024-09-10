@@ -140,7 +140,7 @@ knitr::kable(out$data)
 While most questions referred to research, others focused more on education at the respective HEI. Respondents were inquired about their agreement with certain education-related statements (see table below), most of them also related to Open Science, but in an educational context.
 
 ```{r edua_overview, fig.height = 3, fig.width = 10}
-out <- plot_agreement_overview(df, var_overview, edua, sort = FALSE)
+out <- plot_agreement_overview(df, var_overview, edua)
 
 out$p
 ```
