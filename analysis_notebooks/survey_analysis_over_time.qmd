@@ -161,3 +161,17 @@ out$p
 
 knitr::kable(out$data)
 ```
+
+```{r, hei_processes_development, fig.height = 2.5, fig.width = 4.5}
+
+out <- plot_time(df, var_overview, "X15")
+
+out$p +
+  theme(legend.position = "right")
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
+```
