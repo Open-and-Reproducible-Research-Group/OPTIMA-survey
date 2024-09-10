@@ -408,46 +408,49 @@ for (item in frequency_items) {
 
 ### Open Science
 
-```{r os_displacement, fig.height = 5.5, fig.width = 6.5}
-plot_groups_overview_agreement(dfd, var_overview, os, "X62",
-                               "HEI displaced:", "bottom")
+```{r os_displacement, fig.height = 4.5, fig.width = 6.5}
+plot_groups_overview_agreement(dfd, os, "X62",
+                               "HEI displaced:", "bottom") +
+  guides(color = guide_legend(nrow = 3))
 ```
 
 ### Reporting and Academic Integrity
 
-```{r raia_displacement, fig.height = 5.8, fig.width = 6.5}
-plot_groups_overview_agreement(dfd, var_overview, raia, "X62",
-                               "HEI displaced:", "bottom")
+```{r raia_displacement, fig.height = 4.5, fig.width = 6}
+plot_groups_overview_agreement(dfd, raia, "X62",
+                               "HEI displaced:", "bottom") +
+  guides(color = guide_legend(nrow = 3))
 ```
 
-```{r raif_displacement, fig.height = 5, fig.width = 7}
-plot_groups_overview_frequency(dfd, var_overview, raif, "X62",
+```{r raif_displacement, fig.height = 4, fig.width = 7}
+plot_groups_overview_frequency(dfd, raif, "X62",
                                "HEI displaced:", "right")
 ```
 
 ### Education
 
-```{r edua_displacement, fig.height = 5, fig.width = 7}
-plot_groups_overview_agreement(dfd, var_overview, edua, "X62",
+```{r edua_displacement, fig.height = 4, fig.width = 6}
+plot_groups_overview_agreement(dfd, edua, "X62",
                                "HEI displaced:", "right")
 ```
 
-```{r eduf_displacement, fig.height = 5, fig.width = 6}
-plot_groups_overview_frequency(dfd, var_overview, eduf, "X62",
+```{r eduf_displacement, fig.height = 4, fig.width = 5}
+plot_groups_overview_frequency(dfd, eduf, "X62",
                                "HEI displaced:", "right")
 ```
 
 ### Institution/Administration
 
-```{r, adm_displacement, fig.height = 5, fig.width = 7}
-plot_groups_overview_frequency(dfd, var_overview, adm, "X62",
+```{r, adm_displacement, fig.height = 4.5, fig.width = 6}
+plot_groups_overview_frequency(dfd, adm, "X62",
                                "HEI displaced:", "right")
 ```
 
-```{r, hei_displacement, fig.height = 2, fig.width = 5}
-plot_groups_overview_agreement(dfd, var_overview, c("X15"), "X62",
+```{r, hei_displacement, fig.height = 2.5, fig.width = 5}
+plot_groups_overview_agreement(dfd, c("X15"), "X62",
                                "HEI displaced:", "bottom") +
   coord_flip() +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5),
-        axis.title.y = element_blank())
+        axis.title.y = element_blank()) +
+  guides(color = guide_legend(nrow = 3))
 ```
