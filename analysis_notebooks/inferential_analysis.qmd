@@ -54,7 +54,7 @@ os <- c("X38", "X39", "X42", "X43", "X45",
 
 
 os_log <- agreement_log_regression(df, os) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
   
 knitr::kable(os_log, format = "html")
 ```
@@ -67,7 +67,7 @@ raia <- c("X19", "X17", "X18", "X20", "X21",
 
 
 raia_log <- agreement_log_regression(df, raia) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(raia_log, format = "html")
 ```
@@ -77,7 +77,7 @@ raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
 
 
 raif_log <- frequency_log_regression(df, raif) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(raif_log, format = "html")
 ```
@@ -89,7 +89,7 @@ edua <- c("X16", "X22", "X23", "X51")
 
 
 edua_log <- agreement_log_regression(df, edua) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(edua_log, format = "html")
 ```
@@ -99,7 +99,7 @@ eduf <- c("X30", "X31", "X32")
 
 
 eduf_log <- frequency_log_regression(df, eduf) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(eduf_log, format = "html")
 ```
@@ -110,14 +110,14 @@ knitr::kable(eduf_log, format = "html")
 adm <- c("X33", "X34", "X35", "X36", "X37")
 
 adm_log <- frequency_log_regression_staff(df, adm) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(adm_log, format = "html")
 ```
 
 ```{r}
 hei_log <- agreement_log_regression(df, "X15") %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(hei_log, format = "html")
 ```
@@ -130,7 +130,7 @@ The same models were repeated while adding the academic role in as a predictor. 
 
 ```{r}
 os_log <- agreement_log_regression_staff(df, os) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
   
 knitr::kable(os_log, format = "html")
 ```
@@ -139,14 +139,14 @@ knitr::kable(os_log, format = "html")
 
 ```{r}
 raia_log <- agreement_log_regression_staff(df, raia) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(raia_log, format = "html")
 ```
 
 ```{r}
 raif_log <- frequency_log_regression_staff(df, raif) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(raif_log, format = "html")
 ```
@@ -155,14 +155,14 @@ knitr::kable(raif_log, format = "html")
 
 ```{r}
 edua_log <- agreement_log_regression_staff(df, edua) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(edua_log, format = "html")
 ```
 
 ```{r}
 eduf_log <- frequency_log_regression_staff(df, eduf) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(eduf_log, format = "html")
 ```
@@ -171,14 +171,14 @@ knitr::kable(eduf_log, format = "html")
 
 ```{r}
 adm_log <- frequency_log_regression_staff(df, adm) %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(adm_log, format = "html")
 ```
 
 ```{r}
 hei_log <- agreement_log_regression_staff(df, "X15") %>% 
-  merge(var_overview, ., by.x = "var_id", by.y = "question")
+  merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(hei_log, format = "html")
 ```
