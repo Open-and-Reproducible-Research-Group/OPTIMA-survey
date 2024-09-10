@@ -211,8 +211,12 @@ plot_frequency_overview <- function(
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("#1065ab", "#8ec4ca", "#e0e0e0",
-                                 "#f6a582", "#b31529")) +
+    scale_fill_manual(values = c("don't know" = "grey30",
+                                 "very often" = "#b31529",
+                                 "frequently" = "#f6a582",
+                                 "sometimes" = "#e0e0e0",
+                                 "rarely" = "#8ec4ca",
+                                 "never" = "#1065ab")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
@@ -365,8 +369,12 @@ plot_frequency <- function(
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("#1065ab", "#8ec4ca", "#e0e0e0",
-                                 "#f6a582", "#b31529")) +
+    scale_fill_manual(values = c("don't know" = "grey30",
+                                 "very often" = "#b31529",
+                                 "frequently" = "#f6a582",
+                                 "sometimes" = "#e0e0e0",
+                                 "rarely" = "#8ec4ca",
+                                 "never" = "#1065ab")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
@@ -483,11 +491,11 @@ plot_frequency_area <- function(df, question, legend = TRUE,
     labs(x = "Survey Year", y = "Proportions", fill = "Responses", title = title) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_fill_manual(values = c("don't know" = "grey30",
-                                 "never" = "#b31529",
-                                 "rarely" = "#f6a582",
+                                 "very often" = "#b31529",
+                                 "frequently" = "#f6a582",
                                  "sometimes" = "#e0e0e0",
-                                 "frequently" = "#8ec4ca",
-                                 "very often" = "#1065ab")) +
+                                 "rarely" = "#8ec4ca",
+                                 "never" = "#1065ab")) +
     geom_segment(aes(x = 2021, y = 0, xend = 2023, yend = 0)) +
     geom_segment(aes(x = 2021, y = 0, xend = 2021, yend = 100)) +
     geom_segment(aes(x = 2023, y = 0, xend = 2023, yend = 100)) +
@@ -525,11 +533,11 @@ plot_time <- function(df, var_overview, questions, legend = TRUE, ncol = 3,
     frequency = list(
       scale_color_manual(
         values = c("don't know" = "grey30",
-                   "never" = "#b31529",
-                   "rarely" = "#f6a582",
-                   "sometimes" = "#cdcdc8",
-                   "frequently" = "#8ec4ca",
-                   "very often" = "#1065ab"))
+                   "very often" = "#b31529",
+                   "frequently" = "#f6a582",
+                   "sometimes" = "#e0e0e0",
+                   "rarely" = "#8ec4ca",
+                   "never" = "#1065ab"))
     )
   )
   
