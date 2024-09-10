@@ -137,7 +137,7 @@ knitr::kable(out$data)
 
 ### Education
 
-```{r edua_roles, fig.height = 5.5, fig.width = 5.5}
+```{r edua_roles, fig.height = 5.5, fig.width = 5.8}
 out <- plot_time_groups(roles, var_overview, edua, group_var = roles, ncol = 2)
 
 out$p
@@ -312,95 +312,75 @@ knitr::kable(out$data)
 
 The survey was conducted both at a national level and separately within the OPTIMA partner HEIs. To compare developments over time between these surveys, following visualizations are created (again with dichotomized responses).
 
+```{r}
+df <- df %>% 
+  mutate(survey = factor(X63,
+                         levels = c("National", "LPU", "SumDU",
+                                    "DonNU", "LutskNTU")))
+```
+
 ### Open Science
 
-```{r os_surveys, fig.height = 18, fig.width = 8}
+```{r os_surveys, fig.height = 10, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, os, group_var = survey,
+                        legend_reverse = FALSE)
 
-for (q in os) {
-  plot <- plot_agreement_groups(students, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
 ### Reporting and Academic Integrity
 
-```{r raia_surveys, fig.height = 18, fig.width = 8}
+```{r raia_surveys, fig.height = 7.8, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, raia, group_var = survey,
+                        legend_reverse = FALSE)
 
-for (q in raia) {
-  plot <- plot_agreement_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
-```{r raif_surveys, fig.height = 10, fig.width = 8}
+```{r raif_surveys, fig.height = 5.8, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, raif, group_var = survey, 
+                 type = "frequency", legend_reverse = FALSE)
 
-for (q in raif) {
-  plot <- plot_frequency_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
 ### Education
 
-```{r edua_surveys, fig.height = 7, fig.width = 8}
+```{r edua_surveys, fig.height = 5.5, fig.width = 5.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, edua, group_var = survey, ncol = 2,
+                        legend_reverse = FALSE)
 
-for (q in edua) {
-  plot <- plot_agreement_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
-```{r eduf_surveys, fig.height = 7, fig.width = 8}
+```{r eduf_surveys, fig.height = 3, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, eduf, group_var = survey, 
+                        type = "frequency", legend_reverse = FALSE)
 
-for (q in eduf) {
-  plot <- plot_frequency_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
 ### Institution/Administration
 
-```{r, adm_surveys, fig.height = 10, fig.width = 8}
+```{r, adm_surveys, fig.height = 5, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, adm, group_var = survey, 
+                        type = "frequency", legend_reverse = FALSE)
 
-for (q in adm) {
-  plot <- plot_frequency_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
-```{r, hei_processes_surveys, fig.height = 3.5, fig.width = 5}
+```{r, hei_processes_surveys, fig.height = 2.5, fig.width = 4.5}
 
-plot_agreement_groups(df, "X15", "X63")
+out <- plot_time_groups(df, var_overview, "X15", group_var = survey)
+
+out$p +
+  theme(legend.position = "right")
 ```
 
 ## Displacement
