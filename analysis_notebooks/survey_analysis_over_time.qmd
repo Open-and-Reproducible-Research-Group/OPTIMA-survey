@@ -83,7 +83,7 @@ Since the survey was conducted in three separate waves (2021, 2022, 2023), respo
 
 ### Open Science
 
-```{r os_development, fig.height = 8, fig.width = 7.5}
+```{r os_development, fig.height = 10, fig.width = 7.5}
 out <- plot_time(df, var_overview, os, type = "agreement")
 
 out$p
@@ -97,7 +97,7 @@ knitr::kable(out$data)
 
 ### Reporting and Academic Integrity
 
-```{r raia_development, fig.height = 8, fig.width = 7.5}
+```{r raia_development, fig.height = 7.8, fig.width = 7.5}
 out <- plot_time(df, var_overview, raia, type = "agreement")
 
 out$p
@@ -109,7 +109,7 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r raif_development, fig.height = 5.5, fig.width = 7.5}
+```{r raif_development, fig.height = 5.8, fig.width = 7.5}
 out <- plot_time(df, var_overview, raif, type = "frequency")
 
 out$p
@@ -123,7 +123,7 @@ knitr::kable(out$data)
 
 ## Education
 
-```{r edua_development, fig.height = 4.5, fig.width = 6}
+```{r edua_development, fig.height = 5.5, fig.width = 5.5}
 out <- plot_time(df, var_overview, edua, type = "agreement", ncol = 2,
                  var_wrap = 40)
 
@@ -150,7 +150,7 @@ knitr::kable(out$data)
 
 ## Institution/Administration
 
-```{r adm_development, fig.height = 5.5, fig.width = 7.5}
+```{r adm_development, fig.height = 5, fig.width = 7.5}
 out <- plot_time(df, var_overview, adm, type = "frequency")
 
 out$p
