@@ -77,6 +77,7 @@ adm <- c("X33", "X34", "X35", "X36", "X37")
 ```
 
 # Comparison Between Groups
+
 To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. Frequency responses were recoded into "often" ("very often", "frequently") and "not often" ("sometimes", "rarely", "never"). Missing responses and "don't know" answers were removed before the percentages were calculated. As in the previous section, percentages refer to all respondents that chose one of the response categories presented (and not "don't know").
 
 ## Academic Roles
@@ -95,7 +96,7 @@ roles <- df %>%
 
 ### Open Science
 
-```{r os_roles, fig.height = 9, fig.width = 8}
+```{r os_roles, fig.height = 10, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, os, group_var = roles)
 
 out$p
@@ -109,7 +110,7 @@ knitr::kable(out$data)
 
 ### Reporting and Academic Integrity
 
-```{r raia_roles, fig.height = 9, fig.width = 8}
+```{r raia_roles, fig.height = 7.8, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, raia, group_var = roles)
 
 out$p
@@ -121,7 +122,7 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r raif_roles, fig.height = 5, fig.width = 8}
+```{r raif_roles, fig.height = 5.8, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, raif, group_var = roles, 
                  type = "frequency")
 
@@ -136,7 +137,7 @@ knitr::kable(out$data)
 
 ### Education
 
-```{r edua_roles, fig.height = 5, fig.width = 6}
+```{r edua_roles, fig.height = 5.5, fig.width = 5.5}
 out <- plot_time_groups(roles, var_overview, edua, group_var = roles, ncol = 2)
 
 out$p
@@ -148,7 +149,7 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r eduf_roles, fig.height = 4, fig.width = 8}
+```{r eduf_roles, fig.height = 3, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, eduf, group_var = roles, 
                         type = "frequency")
 
@@ -163,7 +164,7 @@ knitr::kable(out$data)
 
 ### Institution/Administration
 
-```{r, adm_roles, fig.height = 5, fig.width = 8}
+```{r, adm_roles, fig.height = 5, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, adm, group_var = roles, 
                         type = "frequency")
 
@@ -176,10 +177,11 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r, hei_processes_roles, fig.height = 3.5, fig.width = 5}
+```{r, hei_processes_roles, fig.height = 2.5, fig.width = 5}
 out <- plot_time_groups(roles, var_overview, "X15", group_var = roles)
 
-out$p
+out$p +
+  theme(legend.position = "right")
 ```
 
 ```{r}
@@ -207,7 +209,7 @@ students <- df %>%
 
 ### Open Science
 
-```{r os_students, fig.height = 9, fig.width = 8}
+```{r os_students, fig.height = 10.2, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, os, group_var = student_level,
                         legend_reverse = FALSE)
 
@@ -222,7 +224,7 @@ knitr::kable(out$data)
 
 ### Reporting and Academic Integrity
 
-```{r raia_students, fig.height = 9, fig.width = 8}
+```{r raia_students, fig.height = 8, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, raia, group_var = student_level,
                  legend_reverse = FALSE)
 
@@ -235,7 +237,7 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r raif_students, fig.height = 5.5, fig.width = 8}
+```{r raif_students, fig.height = 6, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, raif, group_var = student_level,
                  type = "frequency", legend_reverse = FALSE)
 
@@ -250,11 +252,12 @@ knitr::kable(out$data)
 
 ### Education
 
-```{r edua_students, fig.height = 5, fig.width = 6}
+```{r edua_students, fig.height = 5.2, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, edua, group_var = student_level,
                  legend_reverse = FALSE, ncol = 2)
 
-out$p
+out$p +
+  theme(legend.position = "right")
 ```
 
 ```{r}
@@ -263,7 +266,7 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r eduf_students, fig.height = 4, fig.width = 8}
+```{r eduf_students, fig.height = 3.2, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, eduf, group_var = student_level,
                  type = "frequency", legend_reverse = FALSE)
 
@@ -278,7 +281,7 @@ knitr::kable(out$data)
 
 ### Institution/Administration
 
-```{r, adm_students, fig.height = 6, fig.width = 8}
+```{r, adm_students, fig.height = 5.2, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, adm, group_var = student_level,
                  type = "frequency", legend_reverse = FALSE)
 
@@ -291,11 +294,12 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r, hei_processes_students, fig.height = 3.5, fig.width = 5}
+```{r, hei_processes_students, fig.height = 2.7, fig.width = 5}
 out <- plot_time_groups(students, var_overview, "X15", group_var = student_level,
                  legend_reverse = FALSE)
 
-out$p
+out$p +
+  theme(legend.position = "right")
 ```
 
 ```{r}
