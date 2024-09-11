@@ -254,7 +254,7 @@ knitr::kable(item_types)
 
 ggplot(item_types, aes(group1, mean)) +
   geom_bar(position = "dodge",stat = "identity",
-           color = "black", linewidth = 0.7, fill = "#8ec4ca") +
+           color = "black", linewidth = 0.5, fill = "#8ec4ca") +
   geom_errorbar(aes(ymin = mean - se, ymax = mean + se),
                 width = 0.1) +
   labs(x = "Instruction", y = "Share of don't know answers") +
