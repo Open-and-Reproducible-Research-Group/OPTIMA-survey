@@ -13,6 +13,7 @@ library(tidyverse)
 library(patchwork)
 library(hrbrthemes)
 library(ggforce)
+library(psych)
 
 knitr::opts_chunk$set(dpi = 400)
 
@@ -40,7 +41,7 @@ set_factor <- function(df) {
 
 ```{r}
 var_groups <- var_overview %>% 
-  select(var = var_id, var_full, var_group)
+  select(var = var_id, var_full, var_group, instruction)
 
 dont_knows_year <- df %>% 
   select(X15:X52, year = X64) %>% 
@@ -239,3 +240,28 @@ var_overview %>%
 Across all years, the rate of "don't know" answers is `r scales::percent(unique(dont_knows$avg_dont_knows), .1)`
 
 Possibly compare groups (X8), but with different design.
+
+# Agreement vs. frequency items
+
+```{r}
+item_types <- describeBy(dont_knows$perc, dont_knows$instruction, mat = TRUE) %>% 
+  select(-c(item, vars))
+
+knitr::kable(item_types)
+```
+
+```{r agreement-vs-frequency, fig.width = 2.5, fig.height = 3.5}
+
+ggplot(item_types, aes(group1, mean)) +
+  geom_bar(position = "dodge",stat = "identity",
+           color = "black", linewidth = 0.7, fill = "#8ec4ca") +
+  geom_errorbar(aes(ymin = mean - se, ymax = mean + se),
+                width = 0.1) +
+  labs(x = "Instruction", y = "Share of don't know answers") +
+  scale_y_continuous(labels = scales::label_percent()) +
+  theme(panel.grid.major = element_line(color = "grey85"),
+        panel.grid.minor = element_line(color = "grey95"),
+        panel.background = element_blank(),
+        plot.title = element_text(size = 12, hjust = 0.5),
+        axis.ticks = element_blank())
+```
