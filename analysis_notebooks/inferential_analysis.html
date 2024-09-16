@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.549">
+<meta name="generator" content="quarto-1.3.450">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -24,7 +24,7 @@ ul.task-list li input[type="checkbox"] {
 }
 /* CSS for syntax highlighting */
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -101,13 +101,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </div>
   
 
-
 </header>
-
 
 <section id="investigation-over-time" class="level1">
 <h1>Investigation over Time</h1>
-<p>To investigate the changes over time through inferential statistics, logistic regressions were performed for all items. Year was investigated as an ordinal predictor (not a continuous variable), with the year 2022 and 2023 both compared to the baseline from the first wave in 2021. The responses were dichotomized for the outcome into agree/disagree and often/not often (with “sometimes” being coded as “not often”), respectively. Missing and “don’t know” responses were filtered out a-priori. McFadden’s R<sup>2</sup> was calculated post-hoc from the model output. Since multiple models are fitted (one for each of 38 items), the significance threshold is corrected using the Bonferroni approach. According to this, the new significance threshold lies at 0.001.</p>
+<p>To investigate the changes over time through inferential statistics, logistic regressions were performed for all items. Year was investigated as an ordinal predictor (not a continuous variable), with the year 2022 and 2023 both compared to the baseline from the first wave in 2021. The responses were dichotomized for the outcome into agree/disagree and often/not often (with “sometimes” being coded as “not often”), respectively. Missing and “don’t know” responses were filtered out a-priori. McFadden’s R<sup>2</sup> was calculated post-hoc from the model output.</p>
 <section id="open-science" class="level2">
 <h2 class="anchored" data-anchor-id="open-science">Open Science</h2>
 <div class="cell">
@@ -116,7 +114,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>os_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, os) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(os_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -124,7 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -146,7 +144,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X38</td>
-<td style="text-align: left;">Open access to research results</td>
+<td style="text-align: left;">Research results should be in open access, i.e. freely available to the academic community and the general public.</td>
 <td style="text-align: right;">0.9208266</td>
 <td style="text-align: right;">0.9222098</td>
 <td style="text-align: right;">0.9360465</td>
@@ -166,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X39</td>
-<td style="text-align: left;">Access prior to peer review</td>
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e. before a thorough review of their content.</td>
 <td style="text-align: right;">0.3688894</td>
 <td style="text-align: right;">0.3586274</td>
 <td style="text-align: right;">0.4486071</td>
@@ -186,7 +184,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X42</td>
-<td style="text-align: left;">Manuscripts on open platforms</td>
+<td style="text-align: left;">Researchers should publish author's versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
 <td style="text-align: right;">0.7485074</td>
 <td style="text-align: right;">0.7678158</td>
 <td style="text-align: right;">0.7503662</td>
@@ -206,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X43</td>
-<td style="text-align: left;">Appropriate metadata</td>
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
 <td style="text-align: right;">0.7964158</td>
 <td style="text-align: right;">0.8241484</td>
 <td style="text-align: right;">0.8006569</td>
@@ -226,7 +224,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X45</td>
-<td style="text-align: left;">Open experimental data</td>
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
 <td style="text-align: right;">0.8374037</td>
 <td style="text-align: right;">0.8311770</td>
 <td style="text-align: right;">0.8292157</td>
@@ -246,7 +244,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X46</td>
-<td style="text-align: left;">Open source code</td>
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
 <td style="text-align: right;">0.6492898</td>
 <td style="text-align: right;">0.6455129</td>
 <td style="text-align: right;">0.6694709</td>
@@ -266,7 +264,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X48</td>
-<td style="text-align: left;">Open peer reviewer identity</td>
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
 <td style="text-align: right;">0.8162080</td>
 <td style="text-align: right;">0.8439228</td>
 <td style="text-align: right;">0.8008099</td>
@@ -286,7 +284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X49</td>
-<td style="text-align: left;">Open peer review reports</td>
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
 <td style="text-align: right;">0.7188734</td>
 <td style="text-align: right;">0.7594986</td>
 <td style="text-align: right;">0.7281668</td>
@@ -306,7 +304,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X50</td>
-<td style="text-align: left;">Open peer review interaction</td>
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
 <td style="text-align: right;">0.7563811</td>
 <td style="text-align: right;">0.7999739</td>
 <td style="text-align: right;">0.7565802</td>
@@ -326,7 +324,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X52</td>
-<td style="text-align: left;">Understanding "Open Science"</td>
+<td style="text-align: left;">I can explain what "open science" is.</td>
 <td style="text-align: right;">0.8967248</td>
 <td style="text-align: right;">0.8649422</td>
 <td style="text-align: right;">0.8755502</td>
@@ -359,7 +357,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>raia_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, raia) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raia_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -367,7 +365,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -389,7 +387,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X17</td>
-<td style="text-align: left;">Publication of all results</td>
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
 <td style="text-align: right;">0.8167210</td>
 <td style="text-align: right;">0.8304588</td>
 <td style="text-align: right;">0.8316760</td>
@@ -409,7 +407,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X18</td>
-<td style="text-align: left;">Full co-author responsibility</td>
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
 <td style="text-align: right;">0.9070239</td>
 <td style="text-align: right;">0.9189719</td>
 <td style="text-align: right;">0.9139842</td>
@@ -429,7 +427,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X19</td>
-<td style="text-align: left;">Post-hoc changes to data</td>
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
 <td style="text-align: right;">0.5875672</td>
 <td style="text-align: right;">0.6152750</td>
 <td style="text-align: right;">0.6566686</td>
@@ -449,7 +447,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X20</td>
-<td style="text-align: left;">Authorship for all contributors</td>
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
 <td style="text-align: right;">0.9655249</td>
 <td style="text-align: right;">0.9652220</td>
 <td style="text-align: right;">0.9579390</td>
@@ -469,7 +467,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X21</td>
-<td style="text-align: left;">Disclosure of conflicts of interest</td>
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
 <td style="text-align: right;">0.8776479</td>
 <td style="text-align: right;">0.8689680</td>
 <td style="text-align: right;">0.9020723</td>
@@ -489,7 +487,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X40</td>
-<td style="text-align: left;">Retained intellectual property rights</td>
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
 <td style="text-align: right;">0.8580919</td>
 <td style="text-align: right;">0.8703514</td>
 <td style="text-align: right;">0.8568884</td>
@@ -509,7 +507,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X41</td>
-<td style="text-align: left;">Clear public communication</td>
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
 <td style="text-align: right;">0.8505747</td>
 <td style="text-align: right;">0.8634660</td>
 <td style="text-align: right;">0.8428625</td>
@@ -529,7 +527,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X44</td>
-<td style="text-align: left;">Detailed research methodology</td>
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
 <td style="text-align: right;">0.7910699</td>
 <td style="text-align: right;">0.8057143</td>
 <td style="text-align: right;">0.8093995</td>
@@ -549,7 +547,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X47</td>
-<td style="text-align: left;">Research serving public purpose</td>
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
 <td style="text-align: right;">0.8920426</td>
 <td style="text-align: right;">0.8913770</td>
 <td style="text-align: right;">0.8823081</td>
@@ -578,7 +576,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>raif_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, raif) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raif_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -586,7 +584,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -608,7 +606,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X24</td>
-<td style="text-align: left;">Sources not referenced</td>
+<td style="text-align: left;">Using other author's published papers and ideas without proper reference to the original source.</td>
 <td style="text-align: right;">0.1438367</td>
 <td style="text-align: right;">0.1342915</td>
 <td style="text-align: right;">0.1639652</td>
@@ -628,7 +626,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X25</td>
-<td style="text-align: left;">Self-plagiarism</td>
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
 <td style="text-align: right;">0.1621756</td>
 <td style="text-align: right;">0.1474978</td>
 <td style="text-align: right;">0.1935564</td>
@@ -648,7 +646,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X26</td>
-<td style="text-align: left;">Fabrication of data/facts</td>
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
 <td style="text-align: right;">0.0876487</td>
 <td style="text-align: right;">0.0750000</td>
 <td style="text-align: right;">0.1295436</td>
@@ -668,7 +666,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X27</td>
-<td style="text-align: left;">Selective citations</td>
+<td style="text-align: left;">Selective citations to support one's conclusions or to please editors, reviewers, colleagues, etc.</td>
 <td style="text-align: right;">0.1818505</td>
 <td style="text-align: right;">0.1750405</td>
 <td style="text-align: right;">0.2174144</td>
@@ -688,7 +686,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X28</td>
-<td style="text-align: left;">Plagiarism</td>
+<td style="text-align: left;">The author passes off other people's academic achievements as his own.</td>
 <td style="text-align: right;">0.0772336</td>
 <td style="text-align: right;">0.0668266</td>
 <td style="text-align: right;">0.1195594</td>
@@ -708,7 +706,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X29</td>
-<td style="text-align: left;">Academic ghostwriting</td>
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
 <td style="text-align: right;">0.1454095</td>
 <td style="text-align: right;">0.1311928</td>
 <td style="text-align: right;">0.1711329</td>
@@ -740,7 +738,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>edua_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, edua) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(edua_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -748,7 +746,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -770,7 +768,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X16</td>
-<td style="text-align: left;">High quality educational services</td>
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
 <td style="text-align: right;">0.8848202</td>
 <td style="text-align: right;">0.8656260</td>
 <td style="text-align: right;">0.8830737</td>
@@ -790,7 +788,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X22</td>
-<td style="text-align: left;">Open access to diploma theses</td>
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
 <td style="text-align: right;">0.7544839</td>
 <td style="text-align: right;">0.7119039</td>
 <td style="text-align: right;">0.8091225</td>
@@ -810,7 +808,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X23</td>
-<td style="text-align: left;">Students reporting misconduct</td>
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
 <td style="text-align: right;">0.9404103</td>
 <td style="text-align: right;">0.9418838</td>
 <td style="text-align: right;">0.9487089</td>
@@ -830,7 +828,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X51</td>
-<td style="text-align: left;">Open educational resources</td>
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
 <td style="text-align: right;">0.7861589</td>
 <td style="text-align: right;">0.8145343</td>
 <td style="text-align: right;">0.7907064</td>
@@ -859,7 +857,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>eduf_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, eduf) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(eduf_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -867,7 +865,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -889,7 +887,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X30</td>
-<td style="text-align: left;">Collaboration during exams</td>
+<td style="text-align: left;">Students help each other during exams or tests.</td>
 <td style="text-align: right;">0.3290960</td>
 <td style="text-align: right;">0.3361177</td>
 <td style="text-align: right;">0.3459898</td>
@@ -909,7 +907,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X31</td>
-<td style="text-align: left;">Unauthorized aids during exams</td>
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
 <td style="text-align: right;">0.2189457</td>
 <td style="text-align: right;">0.2059997</td>
 <td style="text-align: right;">0.2699069</td>
@@ -929,7 +927,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X32</td>
-<td style="text-align: left;">Use of pirated software</td>
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called "pirated software").</td>
 <td style="text-align: right;">0.2092903</td>
 <td style="text-align: right;">0.2172414</td>
 <td style="text-align: right;">0.2461385</td>
@@ -960,7 +958,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>adm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X33"</span>, <span class="st">"X34"</span>, <span class="st">"X35"</span>, <span class="st">"X36"</span>, <span class="st">"X37"</span>)</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>adm_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression_staff</span>(df, adm) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(adm_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -968,7 +966,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -996,7 +994,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X33</td>
-<td style="text-align: left;">Incited misconduct</td>
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
 <td style="text-align: right;">0.0516402</td>
 <td style="text-align: right;">0.0522706</td>
 <td style="text-align: right;">0.0932390</td>
@@ -1022,7 +1020,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X34</td>
-<td style="text-align: left;">Tolerated misconduct</td>
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
 <td style="text-align: right;">0.1153780</td>
 <td style="text-align: right;">0.1090161</td>
 <td style="text-align: right;">0.1436865</td>
@@ -1048,7 +1046,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X35</td>
-<td style="text-align: left;">False accusations</td>
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
 <td style="text-align: right;">0.0545716</td>
 <td style="text-align: right;">0.0654434</td>
 <td style="text-align: right;">0.0951687</td>
@@ -1074,7 +1072,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X36</td>
-<td style="text-align: left;">Encouraged misconduct</td>
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
 <td style="text-align: right;">0.0705995</td>
 <td style="text-align: right;">0.0772856</td>
 <td style="text-align: right;">0.1178597</td>
@@ -1100,7 +1098,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X37</td>
-<td style="text-align: left;">Punishment for whistleblowers</td>
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
 <td style="text-align: right;">0.1979167</td>
 <td style="text-align: right;">0.2082173</td>
 <td style="text-align: right;">0.2300339</td>
@@ -1132,7 +1130,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>hei_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, <span class="st">"X15"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(hei_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1140,7 +1138,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -1162,7 +1160,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X15</td>
-<td style="text-align: left;">Transparent processes at HEI</td>
+<td style="text-align: left;">Overall, the processes at my higher education institution are organised in a clear and transparent manner</td>
 <td style="text-align: right;">0.9047197</td>
 <td style="text-align: right;">0.8839465</td>
 <td style="text-align: right;">0.9042795</td>
@@ -1195,7 +1193,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="open-science-1">Open Science</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>os_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression_staff</span>(df, os) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(os_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1203,7 +1201,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -1231,7 +1229,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X38</td>
-<td style="text-align: left;">Open access to research results</td>
+<td style="text-align: left;">Research results should be in open access, i.e. freely available to the academic community and the general public.</td>
 <td style="text-align: right;">0.9208266</td>
 <td style="text-align: right;">0.9222098</td>
 <td style="text-align: right;">0.9360465</td>
@@ -1257,7 +1255,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X39</td>
-<td style="text-align: left;">Access prior to peer review</td>
+<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e. before a thorough review of their content.</td>
 <td style="text-align: right;">0.3688894</td>
 <td style="text-align: right;">0.3586274</td>
 <td style="text-align: right;">0.4486071</td>
@@ -1283,7 +1281,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X42</td>
-<td style="text-align: left;">Manuscripts on open platforms</td>
+<td style="text-align: left;">Researchers should publish author's versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
 <td style="text-align: right;">0.7485074</td>
 <td style="text-align: right;">0.7678158</td>
 <td style="text-align: right;">0.7503662</td>
@@ -1309,7 +1307,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X43</td>
-<td style="text-align: left;">Appropriate metadata</td>
+<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
 <td style="text-align: right;">0.7964158</td>
 <td style="text-align: right;">0.8241484</td>
 <td style="text-align: right;">0.8006569</td>
@@ -1335,7 +1333,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X45</td>
-<td style="text-align: left;">Open experimental data</td>
+<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
 <td style="text-align: right;">0.8374037</td>
 <td style="text-align: right;">0.8311770</td>
 <td style="text-align: right;">0.8292157</td>
@@ -1361,7 +1359,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X46</td>
-<td style="text-align: left;">Open source code</td>
+<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
 <td style="text-align: right;">0.6492898</td>
 <td style="text-align: right;">0.6455129</td>
 <td style="text-align: right;">0.6694709</td>
@@ -1387,7 +1385,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X48</td>
-<td style="text-align: left;">Open peer reviewer identity</td>
+<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
 <td style="text-align: right;">0.8162080</td>
 <td style="text-align: right;">0.8439228</td>
 <td style="text-align: right;">0.8008099</td>
@@ -1413,7 +1411,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X49</td>
-<td style="text-align: left;">Open peer review reports</td>
+<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
 <td style="text-align: right;">0.7188734</td>
 <td style="text-align: right;">0.7594986</td>
 <td style="text-align: right;">0.7281668</td>
@@ -1439,7 +1437,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X50</td>
-<td style="text-align: left;">Open peer review interaction</td>
+<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
 <td style="text-align: right;">0.7563811</td>
 <td style="text-align: right;">0.7999739</td>
 <td style="text-align: right;">0.7565802</td>
@@ -1465,7 +1463,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X52</td>
-<td style="text-align: left;">Understanding "Open Science"</td>
+<td style="text-align: left;">I can explain what "open science" is.</td>
 <td style="text-align: right;">0.8967248</td>
 <td style="text-align: right;">0.8649422</td>
 <td style="text-align: right;">0.8755502</td>
@@ -1500,7 +1498,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="reporting-and-academic-integrity-1">Reporting and Academic Integrity</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>raia_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression_staff</span>(df, raia) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raia_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1508,7 +1506,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -1536,7 +1534,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X17</td>
-<td style="text-align: left;">Publication of all results</td>
+<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
 <td style="text-align: right;">0.8167210</td>
 <td style="text-align: right;">0.8304588</td>
 <td style="text-align: right;">0.8316760</td>
@@ -1562,7 +1560,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X18</td>
-<td style="text-align: left;">Full co-author responsibility</td>
+<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
 <td style="text-align: right;">0.9070239</td>
 <td style="text-align: right;">0.9189719</td>
 <td style="text-align: right;">0.9139842</td>
@@ -1588,7 +1586,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X19</td>
-<td style="text-align: left;">Post-hoc changes to data</td>
+<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
 <td style="text-align: right;">0.5875672</td>
 <td style="text-align: right;">0.6152750</td>
 <td style="text-align: right;">0.6566686</td>
@@ -1614,7 +1612,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X20</td>
-<td style="text-align: left;">Authorship for all contributors</td>
+<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
 <td style="text-align: right;">0.9655249</td>
 <td style="text-align: right;">0.9652220</td>
 <td style="text-align: right;">0.9579390</td>
@@ -1640,7 +1638,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X21</td>
-<td style="text-align: left;">Disclosure of conflicts of interest</td>
+<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
 <td style="text-align: right;">0.8776479</td>
 <td style="text-align: right;">0.8689680</td>
 <td style="text-align: right;">0.9020723</td>
@@ -1666,7 +1664,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X40</td>
-<td style="text-align: left;">Retained intellectual property rights</td>
+<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
 <td style="text-align: right;">0.8580919</td>
 <td style="text-align: right;">0.8703514</td>
 <td style="text-align: right;">0.8568884</td>
@@ -1692,7 +1690,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X41</td>
-<td style="text-align: left;">Clear public communication</td>
+<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
 <td style="text-align: right;">0.8505747</td>
 <td style="text-align: right;">0.8634660</td>
 <td style="text-align: right;">0.8428625</td>
@@ -1718,7 +1716,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X44</td>
-<td style="text-align: left;">Detailed research methodology</td>
+<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
 <td style="text-align: right;">0.7910699</td>
 <td style="text-align: right;">0.8057143</td>
 <td style="text-align: right;">0.8093995</td>
@@ -1744,7 +1742,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X47</td>
-<td style="text-align: left;">Research serving public purpose</td>
+<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
 <td style="text-align: right;">0.8920426</td>
 <td style="text-align: right;">0.8913770</td>
 <td style="text-align: right;">0.8823081</td>
@@ -1776,7 +1774,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>raif_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression_staff</span>(df, raif) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raif_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1784,7 +1782,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -1812,7 +1810,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X24</td>
-<td style="text-align: left;">Sources not referenced</td>
+<td style="text-align: left;">Using other author's published papers and ideas without proper reference to the original source.</td>
 <td style="text-align: right;">0.1438367</td>
 <td style="text-align: right;">0.1342915</td>
 <td style="text-align: right;">0.1639652</td>
@@ -1838,7 +1836,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X25</td>
-<td style="text-align: left;">Self-plagiarism</td>
+<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
 <td style="text-align: right;">0.1621756</td>
 <td style="text-align: right;">0.1474978</td>
 <td style="text-align: right;">0.1935564</td>
@@ -1864,7 +1862,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X26</td>
-<td style="text-align: left;">Fabrication of data/facts</td>
+<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
 <td style="text-align: right;">0.0876487</td>
 <td style="text-align: right;">0.0750000</td>
 <td style="text-align: right;">0.1295436</td>
@@ -1890,7 +1888,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X27</td>
-<td style="text-align: left;">Selective citations</td>
+<td style="text-align: left;">Selective citations to support one's conclusions or to please editors, reviewers, colleagues, etc.</td>
 <td style="text-align: right;">0.1818505</td>
 <td style="text-align: right;">0.1750405</td>
 <td style="text-align: right;">0.2174144</td>
@@ -1916,7 +1914,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X28</td>
-<td style="text-align: left;">Plagiarism</td>
+<td style="text-align: left;">The author passes off other people's academic achievements as his own.</td>
 <td style="text-align: right;">0.0772336</td>
 <td style="text-align: right;">0.0668266</td>
 <td style="text-align: right;">0.1195594</td>
@@ -1942,7 +1940,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X29</td>
-<td style="text-align: left;">Academic ghostwriting</td>
+<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
 <td style="text-align: right;">0.1454095</td>
 <td style="text-align: right;">0.1311928</td>
 <td style="text-align: right;">0.1711329</td>
@@ -1977,7 +1975,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="education-1">Education</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>edua_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression_staff</span>(df, edua) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(edua_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -1985,7 +1983,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -2013,7 +2011,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X16</td>
-<td style="text-align: left;">High quality educational services</td>
+<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
 <td style="text-align: right;">0.8848202</td>
 <td style="text-align: right;">0.8656260</td>
 <td style="text-align: right;">0.8830737</td>
@@ -2039,7 +2037,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X22</td>
-<td style="text-align: left;">Open access to diploma theses</td>
+<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
 <td style="text-align: right;">0.7544839</td>
 <td style="text-align: right;">0.7119039</td>
 <td style="text-align: right;">0.8091225</td>
@@ -2065,7 +2063,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X23</td>
-<td style="text-align: left;">Students reporting misconduct</td>
+<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
 <td style="text-align: right;">0.9404103</td>
 <td style="text-align: right;">0.9418838</td>
 <td style="text-align: right;">0.9487089</td>
@@ -2091,7 +2089,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X51</td>
-<td style="text-align: left;">Open educational resources</td>
+<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
 <td style="text-align: right;">0.7861589</td>
 <td style="text-align: right;">0.8145343</td>
 <td style="text-align: right;">0.7907064</td>
@@ -2123,7 +2121,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>eduf_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression_staff</span>(df, eduf) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(eduf_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -2131,7 +2129,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
@@ -2159,7 +2157,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X30</td>
-<td style="text-align: left;">Collaboration during exams</td>
+<td style="text-align: left;">Students help each other during exams or tests.</td>
 <td style="text-align: right;">0.3290960</td>
 <td style="text-align: right;">0.3361177</td>
 <td style="text-align: right;">0.3459898</td>
@@ -2185,7 +2183,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="even">
 <td style="text-align: left;">X31</td>
-<td style="text-align: left;">Unauthorized aids during exams</td>
+<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
 <td style="text-align: right;">0.2189457</td>
 <td style="text-align: right;">0.2059997</td>
 <td style="text-align: right;">0.2699069</td>
@@ -2211,7 +2209,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X32</td>
-<td style="text-align: left;">Use of pirated software</td>
+<td style="text-align: left;">Students and teachers use unauthorized software (so-called "pirated software").</td>
 <td style="text-align: right;">0.2092903</td>
 <td style="text-align: right;">0.2172414</td>
 <td style="text-align: right;">0.2461385</td>
@@ -2245,8 +2243,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="institutionadministration-1" class="level2">
 <h2 class="anchored" data-anchor-id="institutionadministration-1">Institution/Administration</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>adm_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression_staff</span>(df, adm) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>adm_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, adm) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(adm_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -2254,161 +2252,125 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X33</td>
-<td style="text-align: left;">Incited misconduct</td>
+<td style="text-align: left;">Incitement to violate academic integrity.</td>
 <td style="text-align: right;">0.0516402</td>
 <td style="text-align: right;">0.0522706</td>
 <td style="text-align: right;">0.0932390</td>
-<td style="text-align: right;">0.0708345</td>
-<td style="text-align: right;">0.0476480</td>
-<td style="text-align: right;">-2.736464</td>
-<td style="text-align: right;">-0.0336325</td>
-<td style="text-align: right;">0.6441766</td>
-<td style="text-align: right;">-0.4656424</td>
-<td style="text-align: right;">0.0610740</td>
-<td style="text-align: right;">0.0795958</td>
-<td style="text-align: right;">0.0781884</td>
-<td style="text-align: right;">0.0699200</td>
-<td style="text-align: right;">-44.80570</td>
-<td style="text-align: right;">-0.4225416</td>
-<td style="text-align: right;">8.238777</td>
-<td style="text-align: right;">-6.659642</td>
+<td style="text-align: right;">-2.910433</td>
+<td style="text-align: right;">0.0127987</td>
+<td style="text-align: right;">0.6357193</td>
+<td style="text-align: right;">0.0566107</td>
+<td style="text-align: right;">0.0792515</td>
+<td style="text-align: right;">0.0780497</td>
+<td style="text-align: right;">-51.41137</td>
+<td style="text-align: right;">0.1614942</td>
+<td style="text-align: right;">8.145061</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.6726297</td>
+<td style="text-align: right;">0.8717042</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0164808</td>
+<td style="text-align: right;">0.0105918</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X34</td>
-<td style="text-align: left;">Tolerated misconduct</td>
+<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
 <td style="text-align: right;">0.1153780</td>
 <td style="text-align: right;">0.1090161</td>
 <td style="text-align: right;">0.1436865</td>
-<td style="text-align: right;">0.1521036</td>
-<td style="text-align: right;">0.0819879</td>
-<td style="text-align: right;">-1.726697</td>
-<td style="text-align: right;">-0.1459326</td>
-<td style="text-align: right;">0.2512068</td>
-<td style="text-align: right;">-0.7253566</td>
-<td style="text-align: right;">0.0455141</td>
-<td style="text-align: right;">0.0593516</td>
-<td style="text-align: right;">0.0608691</td>
-<td style="text-align: right;">0.0529272</td>
-<td style="text-align: right;">-37.93766</td>
-<td style="text-align: right;">-2.4587828</td>
-<td style="text-align: right;">4.127000</td>
-<td style="text-align: right;">-13.704798</td>
+<td style="text-align: right;">-2.036947</td>
+<td style="text-align: right;">-0.0638838</td>
+<td style="text-align: right;">0.2519441</td>
+<td style="text-align: right;">0.0410750</td>
+<td style="text-align: right;">0.0587516</td>
+<td style="text-align: right;">0.0604412</td>
+<td style="text-align: right;">-49.59092</td>
+<td style="text-align: right;">-1.0873541</td>
+<td style="text-align: right;">4.168415</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0139409</td>
-<td style="text-align: right;">0.0000368</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0196697</td>
+<td style="text-align: right;">0.2768804</td>
+<td style="text-align: right;">0.0000307</td>
+<td style="text-align: right;">0.0024850</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X35</td>
-<td style="text-align: left;">False accusations</td>
+<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
 <td style="text-align: right;">0.0545716</td>
 <td style="text-align: right;">0.0654434</td>
 <td style="text-align: right;">0.0951687</td>
-<td style="text-align: right;">0.0872720</td>
-<td style="text-align: right;">0.0404281</td>
-<td style="text-align: right;">-2.554366</td>
-<td style="text-align: right;">0.1057126</td>
-<td style="text-align: right;">0.6244575</td>
-<td style="text-align: right;">-0.8553091</td>
-<td style="text-align: right;">0.0589723</td>
-<td style="text-align: right;">0.0753078</td>
-<td style="text-align: right;">0.0773315</td>
-<td style="text-align: right;">0.0717883</td>
-<td style="text-align: right;">-43.31469</td>
-<td style="text-align: right;">1.4037403</td>
-<td style="text-align: right;">8.075073</td>
-<td style="text-align: right;">-11.914329</td>
+<td style="text-align: right;">-2.852125</td>
+<td style="text-align: right;">0.1932391</td>
+<td style="text-align: right;">0.6000282</td>
+<td style="text-align: right;">0.0556112</td>
+<td style="text-align: right;">0.0747840</td>
+<td style="text-align: right;">0.0768891</td>
+<td style="text-align: right;">-51.28691</td>
+<td style="text-align: right;">2.5839638</td>
+<td style="text-align: right;">7.803812</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1603962</td>
+<td style="text-align: right;">0.0097672</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0261925</td>
+<td style="text-align: right;">0.0073960</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X36</td>
-<td style="text-align: left;">Encouraged misconduct</td>
+<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
 <td style="text-align: right;">0.0705995</td>
 <td style="text-align: right;">0.0772856</td>
 <td style="text-align: right;">0.1178597</td>
-<td style="text-align: right;">0.0926498</td>
-<td style="text-align: right;">0.0731887</td>
-<td style="text-align: right;">-2.459829</td>
-<td style="text-align: right;">0.0677832</td>
-<td style="text-align: right;">0.5716265</td>
-<td style="text-align: right;">-0.2879382</td>
-<td style="text-align: right;">0.0540205</td>
-<td style="text-align: right;">0.0683078</td>
-<td style="text-align: right;">0.0689346</td>
-<td style="text-align: right;">0.0585162</td>
-<td style="text-align: right;">-45.53514</td>
-<td style="text-align: right;">0.9923210</td>
-<td style="text-align: right;">8.292296</td>
-<td style="text-align: right;">-4.920660</td>
+<td style="text-align: right;">-2.577517</td>
+<td style="text-align: right;">0.0977049</td>
+<td style="text-align: right;">0.5646614</td>
+<td style="text-align: right;">0.0492273</td>
+<td style="text-align: right;">0.0680154</td>
+<td style="text-align: right;">0.0688589</td>
+<td style="text-align: right;">-52.35947</td>
+<td style="text-align: right;">1.4365123</td>
+<td style="text-align: right;">8.200270</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.3210410</td>
+<td style="text-align: right;">0.1508566</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">9e-07</td>
-<td style="text-align: right;">0.0101863</td>
+<td style="text-align: right;">0.0076504</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X37</td>
-<td style="text-align: left;">Punishment for whistleblowers</td>
+<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
 <td style="text-align: right;">0.1979167</td>
 <td style="text-align: right;">0.2082173</td>
 <td style="text-align: right;">0.2300339</td>
-<td style="text-align: right;">0.2462630</td>
-<td style="text-align: right;">0.1657934</td>
-<td style="text-align: right;">-1.174023</td>
-<td style="text-align: right;">0.0125179</td>
-<td style="text-align: right;">0.1922722</td>
-<td style="text-align: right;">-0.5043343</td>
-<td style="text-align: right;">0.0425063</td>
-<td style="text-align: right;">0.0536876</td>
-<td style="text-align: right;">0.0565760</td>
-<td style="text-align: right;">0.0468042</td>
-<td style="text-align: right;">-27.61999</td>
-<td style="text-align: right;">0.2331622</td>
-<td style="text-align: right;">3.398479</td>
-<td style="text-align: right;">-10.775401</td>
+<td style="text-align: right;">-1.399366</td>
+<td style="text-align: right;">0.0636615</td>
+<td style="text-align: right;">0.1912468</td>
+<td style="text-align: right;">0.0377689</td>
+<td style="text-align: right;">0.0532399</td>
+<td style="text-align: right;">0.0562801</td>
+<td style="text-align: right;">-37.05075</td>
+<td style="text-align: right;">1.1957486</td>
+<td style="text-align: right;">3.398123</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.8156354</td>
-<td style="text-align: right;">0.0006776</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0106315</td>
+<td style="text-align: right;">0.2317947</td>
+<td style="text-align: right;">0.0006785</td>
+<td style="text-align: right;">0.0009495</td>
 </tr>
 </tbody>
 </table>
@@ -2417,8 +2379,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hei_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression_staff</span>(df, <span class="st">"X15"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">4</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hei_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, <span class="st">"X15"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(hei_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
@@ -2426,57 +2388,45 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_short</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td style="text-align: left;">X15</td>
-<td style="text-align: left;">Transparent processes at HEI</td>
+<td style="text-align: left;">Overall, the processes at my higher education institution are organised in a clear and transparent manner</td>
 <td style="text-align: right;">0.9047197</td>
 <td style="text-align: right;">0.8839465</td>
 <td style="text-align: right;">0.9042795</td>
-<td style="text-align: right;">0.8913672</td>
-<td style="text-align: right;">0.9041392</td>
-<td style="text-align: right;">2.202171</td>
-<td style="text-align: right;">-0.2069822</td>
-<td style="text-align: right;">-0.0076597</td>
-<td style="text-align: right;">0.1126732</td>
-<td style="text-align: right;">0.0403408</td>
-<td style="text-align: right;">0.0483754</td>
-<td style="text-align: right;">0.0574901</td>
-<td style="text-align: right;">0.0439733</td>
-<td style="text-align: right;">54.58912</td>
-<td style="text-align: right;">-4.278665</td>
-<td style="text-align: right;">-0.1332358</td>
-<td style="text-align: right;">2.562307</td>
+<td style="text-align: right;">2.250802</td>
+<td style="text-align: right;">-0.2204572</td>
+<td style="text-align: right;">-0.0050963</td>
+<td style="text-align: right;">0.0358456</td>
+<td style="text-align: right;">0.0480873</td>
+<td style="text-align: right;">0.0574663</td>
+<td style="text-align: right;">62.79159</td>
+<td style="text-align: right;">-4.584518</td>
+<td style="text-align: right;">-0.0886842</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.88e-05</td>
-<td style="text-align: right;">0.8940069</td>
-<td style="text-align: right;">0.0103979</td>
-<td style="text-align: right;">0.0020294</td>
+<td style="text-align: right;">4.6e-06</td>
+<td style="text-align: right;">0.9293329</td>
+<td style="text-align: right;">0.0016195</td>
 </tr>
 </tbody>
 </table>
@@ -2568,9 +2518,10 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     // clear code selection
     e.clearSelection();
   });
-  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+  function tippyHover(el, contentFn) {
     const config = {
       allowHTML: true,
+      content: contentFn,
       maxWidth: 500,
       delay: 100,
       arrow: false,
@@ -2580,17 +2531,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       interactive: true,
       interactiveBorder: 10,
       theme: 'quarto',
-      placement: 'bottom-start',
+      placement: 'bottom-start'
     };
-    if (contentFn) {
-      config.content = contentFn;
-    }
-    if (onTriggerFn) {
-      config.onTrigger = onTriggerFn;
-    }
-    if (onUntriggerFn) {
-      config.onUntrigger = onUntriggerFn;
-    }
     window.tippy(el, config); 
   }
   const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
@@ -2603,125 +2545,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
-    });
-  }
-  const xrefs = window.document.querySelectorAll('a.quarto-xref');
-  const processXRef = (id, note) => {
-    // Strip column container classes
-    const stripColumnClz = (el) => {
-      el.classList.remove("page-full", "page-columns");
-      if (el.children) {
-        for (const child of el.children) {
-          stripColumnClz(child);
-        }
-      }
-    }
-    stripColumnClz(note)
-    if (id === null || id.startsWith('sec-')) {
-      // Special case sections, only their first couple elements
-      const container = document.createElement("div");
-      if (note.children && note.children.length > 2) {
-        container.appendChild(note.children[0].cloneNode(true));
-        for (let i = 1; i < note.children.length; i++) {
-          const child = note.children[i];
-          if (child.tagName === "P" && child.innerText === "") {
-            continue;
-          } else {
-            container.appendChild(child.cloneNode(true));
-            break;
-          }
-        }
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(container);
-        }
-        return container.innerHTML
-      } else {
-        if (window.Quarto?.typesetMath) {
-          window.Quarto.typesetMath(note);
-        }
-        return note.innerHTML;
-      }
-    } else {
-      // Remove any anchor links if they are present
-      const anchorLink = note.querySelector('a.anchorjs-link');
-      if (anchorLink) {
-        anchorLink.remove();
-      }
-      if (window.Quarto?.typesetMath) {
-        window.Quarto.typesetMath(note);
-      }
-      // TODO in 1.5, we should make sure this works without a callout special case
-      if (note.classList.contains("callout")) {
-        return note.outerHTML;
-      } else {
-        return note.innerHTML;
-      }
-    }
-  }
-  for (var i=0; i<xrefs.length; i++) {
-    const xref = xrefs[i];
-    tippyHover(xref, undefined, function(instance) {
-      instance.disable();
-      let url = xref.getAttribute('href');
-      let hash = undefined; 
-      if (url.startsWith('#')) {
-        hash = url;
-      } else {
-        try { hash = new URL(url).hash; } catch {}
-      }
-      if (hash) {
-        const id = hash.replace(/^#\/?/, "");
-        const note = window.document.getElementById(id);
-        if (note !== null) {
-          try {
-            const html = processXRef(id, note.cloneNode(true));
-            instance.setContent(html);
-          } finally {
-            instance.enable();
-            instance.show();
-          }
-        } else {
-          // See if we can fetch this
-          fetch(url.split('#')[0])
-          .then(res => res.text())
-          .then(html => {
-            const parser = new DOMParser();
-            const htmlDoc = parser.parseFromString(html, "text/html");
-            const note = htmlDoc.getElementById(id);
-            if (note !== null) {
-              const html = processXRef(id, note);
-              instance.setContent(html);
-            } 
-          }).finally(() => {
-            instance.enable();
-            instance.show();
-          });
-        }
-      } else {
-        // See if we can fetch a full url (with no hash to target)
-        // This is a special case and we should probably do some content thinning / targeting
-        fetch(url)
-        .then(res => res.text())
-        .then(html => {
-          const parser = new DOMParser();
-          const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.querySelector('main.content');
-          if (note !== null) {
-            // This should only happen for chapter cross references
-            // (since there is no id in the URL)
-            // remove the first header
-            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
-              note.children[0].remove();
-            }
-            const html = processXRef(null, note);
-            instance.setContent(html);
-          } 
-        }).finally(() => {
-          instance.enable();
-          instance.show();
-        });
-      }
-    }, function(instance) {
     });
   }
       let selectedAnnoteEl;
@@ -2765,7 +2588,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
-            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
@@ -2791,32 +2613,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
-        // Handle positioning of the toggle
-    window.addEventListener(
-      "resize",
-      throttle(() => {
-        elRect = undefined;
-        if (selectedAnnoteEl) {
-          selectCodeLines(selectedAnnoteEl);
-        }
-      }, 10)
-    );
-    function throttle(fn, ms) {
-    let throttle = false;
-    let timer;
-      return (...args) => {
-        if(!throttle) { // first call gets through
-            fn.apply(this, args);
-            throttle = true;
-        } else { // all the others get throttled
-            if(timer) clearTimeout(timer); // cancel #2
-            timer = setTimeout(() => {
-              fn.apply(this, args);
-              timer = throttle = false;
-            }, ms);
-        }
-      };
-    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -2877,7 +2673,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-
 
 
 

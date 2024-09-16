@@ -60,7 +60,7 @@ if (use_targets) {
   }
 ```
 
-```{r, echo=FALSE}
+```{r, echo = FALSE}
 # Define item groups
 os <- c("X38", "X39", "X42", "X43", "X45",
         "X46", "X48", "X49", "X50", "X52")
@@ -107,7 +107,7 @@ Nine items inquire about the agreement with statements related to reporting and 
 
 Caution: Question X19 ("Changes to the experimental data \[...\] are acceptable") is the only statement phrased in the opposite direction. This needs to be considered when interpreting the responses.
 
-```{r raia_overview, fig.height = 5, fig.width = 10}
+```{r raia_overview, fig.height = 4.8, fig.width = 10}
 out <- plot_agreement_overview(df, var_overview, raia)
 
 out$p
@@ -123,7 +123,7 @@ Six questions were about the frequency with which certain questionable research 
 
 The following overview plot is sorted by the proportion of "never" and "rarely" responses. These questions could not be skipped, therefore there are no missing answers.
 
-```{r raif_overview, fig.height = 4, fig.width = 10}
+```{r raif_overview, fig.height = 3.8, fig.width = 10}
 out <- plot_frequency_overview(df, var_overview, raif)
 
 out$p
@@ -139,8 +139,8 @@ knitr::kable(out$data)
 
 While most questions referred to research, others focused more on education at the respective HEI. Respondents were inquired about their agreement with certain education-related statements (see table below), most of them also related to Open Science, but in an educational context.
 
-```{r edua_overview, fig.height = 3.5, fig.width = 10}
-out <- plot_agreement_overview(df, var_overview, edua, sort = FALSE)
+```{r edua_overview, fig.height = 3, fig.width = 10}
+out <- plot_agreement_overview(df, var_overview, edua)
 
 out$p
 ```
@@ -156,7 +156,7 @@ The occurrence of three different types of student misconduct were also investig
 ```{r}
 ```
 
-```{r eduf_overview, fig.height = 3, fig.width = 10}
+```{r eduf_overview, fig.height = 2.7, fig.width = 10}
 out <- plot_frequency_overview(df, var_overview, eduf)
 
 out$p
@@ -172,7 +172,7 @@ knitr::kable(out$data)
 
 The survey contained five questions on how misconduct is handled at the respondent's respective institution. Respondents indicated the frequency with which certain practices occurred at their institution.
 
-```{r adm_overview, fig.height = 3, fig.width = 10}
+```{r adm_overview, fig.height = 3.3, fig.width = 10}
 out <- plot_frequency_overview(df, var_overview, adm)
 out$p
 ```
@@ -183,9 +183,22 @@ out$p
 knitr::kable(out$data)
 ```
 
-One general item also inquired about the following statement: "Overall, the processes at my higher education institution are organised in a clear and transparent manner". The agreement is visualized by the different institutional vs. the national survey.
+One general item also inquired about the following statement: "Overall, the processes at my higher education institution are organised in a clear and transparent manner".
 
-```{r hei_processes, fig.height = 3, fig.width = 6.5}
+```{r hei_processes_overview, fig.height = 1.9, fig.width = 10}
+out <- plot_agreement_overview(df, var_overview, "X15")
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
+```
+
+The agreement is subsequently visualized by the different institutional vs. the national survey.
+
+```{r hei_processes_survey, fig.height = 3.3, fig.width = 6.5}
 df$X63 <- factor(df$X63,
                  levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
 out <- plot_agreement(df, var_overview, "X15", group = "X63", xlim = 3)

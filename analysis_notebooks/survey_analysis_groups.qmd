@@ -59,7 +59,7 @@ if (use_targets) {
   }
 ```
 
-```{r, echo=FALSE}
+```{r, echo = FALSE}
 # Define item groups
 os <- c("X38", "X39", "X42", "X43", "X45",
         "X46", "X48", "X49", "X50", "X52")
@@ -77,6 +77,7 @@ adm <- c("X33", "X34", "X35", "X36", "X37")
 ```
 
 # Comparison Between Groups
+
 To compare agreement over time across groups, the responses were dichotomized into agreement ("rather agree", "strongly agree") and disagreement ("rather disagree", "strongly disagree"). This way the percentage of respondents agreeing with a certain statement can be compared across groups and over time. Frequency responses were recoded into "often" ("very often", "frequently") and "not often" ("sometimes", "rarely", "never"). Missing responses and "don't know" answers were removed before the percentages were calculated. As in the previous section, percentages refer to all respondents that chose one of the response categories presented (and not "don't know").
 
 ## Academic Roles
@@ -95,7 +96,7 @@ roles <- df %>%
 
 ### Open Science
 
-```{r os_roles, fig.height = 9, fig.width = 8}
+```{r os_roles, fig.height = 10, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, os, group_var = roles)
 
 out$p
@@ -109,7 +110,7 @@ knitr::kable(out$data)
 
 ### Reporting and Academic Integrity
 
-```{r raia_roles, fig.height = 9, fig.width = 8}
+```{r raia_roles, fig.height = 7.8, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, raia, group_var = roles)
 
 out$p
@@ -121,7 +122,7 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r raif_roles, fig.height = 5, fig.width = 8}
+```{r raif_roles, fig.height = 5.8, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, raif, group_var = roles, 
                  type = "frequency")
 
@@ -136,7 +137,7 @@ knitr::kable(out$data)
 
 ### Education
 
-```{r edua_roles, fig.height = 5, fig.width = 6}
+```{r edua_roles, fig.height = 5.5, fig.width = 5.8}
 out <- plot_time_groups(roles, var_overview, edua, group_var = roles, ncol = 2)
 
 out$p
@@ -148,7 +149,7 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r eduf_roles, fig.height = 4, fig.width = 8}
+```{r eduf_roles, fig.height = 3, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, eduf, group_var = roles, 
                         type = "frequency")
 
@@ -163,7 +164,7 @@ knitr::kable(out$data)
 
 ### Institution/Administration
 
-```{r, adm_roles, fig.height = 5, fig.width = 8}
+```{r, adm_roles, fig.height = 5, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, adm, group_var = roles, 
                         type = "frequency")
 
@@ -176,10 +177,12 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r, hei_processes_roles, fig.height = 3.5, fig.width = 5}
+```{r, hei_processes_roles, fig.height = 2.5, fig.width = 5}
 out <- plot_time_groups(roles, var_overview, "X15", group_var = roles)
 
-out$p
+out$p +
+  theme(legend.position = "right") +
+  scale_y_continuous(limits = c(0.75, 1), labels = scales::label_percent(), n.breaks = 3)
 ```
 
 ```{r}
@@ -207,7 +210,7 @@ students <- df %>%
 
 ### Open Science
 
-```{r os_students, fig.height = 9, fig.width = 8}
+```{r os_students, fig.height = 10.2, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, os, group_var = student_level,
                         legend_reverse = FALSE)
 
@@ -222,7 +225,7 @@ knitr::kable(out$data)
 
 ### Reporting and Academic Integrity
 
-```{r raia_students, fig.height = 9, fig.width = 8}
+```{r raia_students, fig.height = 8, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, raia, group_var = student_level,
                  legend_reverse = FALSE)
 
@@ -235,7 +238,7 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r raif_students, fig.height = 5.5, fig.width = 8}
+```{r raif_students, fig.height = 6, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, raif, group_var = student_level,
                  type = "frequency", legend_reverse = FALSE)
 
@@ -250,11 +253,12 @@ knitr::kable(out$data)
 
 ### Education
 
-```{r edua_students, fig.height = 5, fig.width = 6}
+```{r edua_students, fig.height = 5.2, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, edua, group_var = student_level,
                  legend_reverse = FALSE, ncol = 2)
 
-out$p
+out$p +
+  theme(legend.position = "right")
 ```
 
 ```{r}
@@ -263,7 +267,7 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r eduf_students, fig.height = 4, fig.width = 8}
+```{r eduf_students, fig.height = 3.2, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, eduf, group_var = student_level,
                  type = "frequency", legend_reverse = FALSE)
 
@@ -278,7 +282,7 @@ knitr::kable(out$data)
 
 ### Institution/Administration
 
-```{r, adm_students, fig.height = 6, fig.width = 8}
+```{r, adm_students, fig.height = 5.2, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, adm, group_var = student_level,
                  type = "frequency", legend_reverse = FALSE)
 
@@ -291,11 +295,13 @@ out$p
 knitr::kable(out$data)
 ```
 
-```{r, hei_processes_students, fig.height = 3.5, fig.width = 5}
+```{r, hei_processes_students, fig.height = 2.7, fig.width = 5}
 out <- plot_time_groups(students, var_overview, "X15", group_var = student_level,
                  legend_reverse = FALSE)
 
-out$p
+out$p +
+  theme(legend.position = "right") +
+  scale_y_continuous(limits = c(0.75, 1), labels = scales::label_percent(), n.breaks = 3)
 ```
 
 ```{r}
@@ -308,95 +314,76 @@ knitr::kable(out$data)
 
 The survey was conducted both at a national level and separately within the OPTIMA partner HEIs. To compare developments over time between these surveys, following visualizations are created (again with dichotomized responses).
 
+```{r}
+df <- df %>% 
+  mutate(survey = factor(X63,
+                         levels = c("National", "LPU", "SumDU",
+                                    "DonNU", "LutskNTU")))
+```
+
 ### Open Science
 
-```{r os_surveys, fig.height = 18, fig.width = 8}
+```{r os_surveys, fig.height = 10, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, os, group_var = survey,
+                        legend_reverse = FALSE)
 
-for (q in os) {
-  plot <- plot_agreement_groups(students, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
 ### Reporting and Academic Integrity
 
-```{r raia_surveys, fig.height = 18, fig.width = 8}
+```{r raia_surveys, fig.height = 7.8, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, raia, group_var = survey,
+                        legend_reverse = FALSE)
 
-for (q in raia) {
-  plot <- plot_agreement_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
-```{r raif_surveys, fig.height = 10, fig.width = 8}
+```{r raif_surveys, fig.height = 5.8, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, raif, group_var = survey, 
+                 type = "frequency", legend_reverse = FALSE)
 
-for (q in raif) {
-  plot <- plot_frequency_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
 ### Education
 
-```{r edua_surveys, fig.height = 7, fig.width = 8}
+```{r edua_surveys, fig.height = 5.5, fig.width = 5.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, edua, group_var = survey, ncol = 2,
+                        legend_reverse = FALSE)
 
-for (q in edua) {
-  plot <- plot_agreement_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
-```{r eduf_surveys, fig.height = 7, fig.width = 8}
+```{r eduf_surveys, fig.height = 3, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, eduf, group_var = survey, 
+                        type = "frequency", legend_reverse = FALSE)
 
-for (q in eduf) {
-  plot <- plot_frequency_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
 ### Institution/Administration
 
-```{r, adm_surveys, fig.height = 10, fig.width = 8}
+```{r, adm_surveys, fig.height = 5, fig.width = 7.5}
 
-plots <- list()
+out <- plot_time_groups(df, var_overview, adm, group_var = survey, 
+                        type = "frequency", legend_reverse = FALSE)
 
-for (q in adm) {
-  plot <- plot_frequency_groups(df, question = q, "X63")
-  plots[[q]] <- plot
-}
-
-wrap_plots(plots, ncol = 2) +
-  plot_layout(guides = "collect")
+out$p
 ```
 
-```{r, hei_processes_surveys, fig.height = 3.5, fig.width = 5}
+```{r, hei_processes_surveys, fig.height = 2.5, fig.width = 4.5}
 
-plot_agreement_groups(df, "X15", "X63")
+out <- plot_time_groups(df, var_overview, "X15", group_var = survey)
+
+out$p +
+  theme(legend.position = "right") +
+  scale_y_continuous(limits = c(0.75, 1), labels = scales::label_percent(), n.breaks = 3)
 ```
 
 ## Displacement
@@ -424,46 +411,49 @@ for (item in frequency_items) {
 
 ### Open Science
 
-```{r os_displacement, fig.height = 5.5, fig.width = 6.5}
-plot_groups_overview_agreement(dfd, var_overview, os, "X62",
-                               "HEI displaced:", "bottom")
+```{r os_displacement, fig.height = 4.5, fig.width = 6.5}
+plot_groups_overview_agreement(dfd, os, "X62",
+                               "HEI displaced:", "bottom") +
+  guides(color = guide_legend(nrow = 3))
 ```
 
 ### Reporting and Academic Integrity
 
-```{r raia_displacement, fig.height = 5.8, fig.width = 6.5}
-plot_groups_overview_agreement(dfd, var_overview, raia, "X62",
-                               "HEI displaced:", "bottom")
+```{r raia_displacement, fig.height = 4.5, fig.width = 6}
+plot_groups_overview_agreement(dfd, raia, "X62",
+                               "HEI displaced:", "bottom") +
+  guides(color = guide_legend(nrow = 3))
 ```
 
-```{r raif_displacement, fig.height = 5, fig.width = 7}
-plot_groups_overview_frequency(dfd, var_overview, raif, "X62",
+```{r raif_displacement, fig.height = 4, fig.width = 7}
+plot_groups_overview_frequency(dfd, raif, "X62",
                                "HEI displaced:", "right")
 ```
 
 ### Education
 
-```{r edua_displacement, fig.height = 5, fig.width = 7}
-plot_groups_overview_agreement(dfd, var_overview, edua, "X62",
+```{r edua_displacement, fig.height = 4, fig.width = 6}
+plot_groups_overview_agreement(dfd, edua, "X62",
                                "HEI displaced:", "right")
 ```
 
-```{r eduf_displacement, fig.height = 5, fig.width = 6}
-plot_groups_overview_frequency(dfd, var_overview, eduf, "X62",
+```{r eduf_displacement, fig.height = 4, fig.width = 5}
+plot_groups_overview_frequency(dfd, eduf, "X62",
                                "HEI displaced:", "right")
 ```
 
 ### Institution/Administration
 
-```{r, adm_displacement, fig.height = 5, fig.width = 7}
-plot_groups_overview_frequency(dfd, var_overview, adm, "X62",
+```{r, adm_displacement, fig.height = 4.5, fig.width = 6}
+plot_groups_overview_frequency(dfd, adm, "X62",
                                "HEI displaced:", "right")
 ```
 
-```{r, hei_displacement, fig.height = 2, fig.width = 5}
-plot_groups_overview_agreement(dfd, var_overview, c("X15"), "X62",
+```{r, hei_displacement, fig.height = 2.5, fig.width = 5}
+plot_groups_overview_agreement(dfd, c("X15"), "X62",
                                "HEI displaced:", "bottom") +
   coord_flip() +
   theme(axis.text.x = element_text(angle = 0, hjust = 0.5),
-        axis.title.y = element_blank())
+        axis.title.y = element_blank()) +
+  guides(color = guide_legend(nrow = 3))
 ```

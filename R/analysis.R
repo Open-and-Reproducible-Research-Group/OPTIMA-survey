@@ -193,7 +193,8 @@ plot_frequency_overview <- function(
     mutate(prop = n/sum(n),
            order = if (sort) {
              case_when(
-               str_detect(val, "\\brarely\\b|\\bnever\\b") ~ prop,
+               str_detect(
+                 val, "\\bvery often\\b|\\bfrequently\\b") ~ prop,
                TRUE ~ 0) } else {0},
            order = sum(order))
   
@@ -210,8 +211,12 @@ plot_frequency_overview <- function(
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("#1065ab", "#8ec4ca", "#e0e0e0",
-                                 "#f6a582", "#b31529")) +
+    scale_fill_manual(values = c("don't know" = "grey30",
+                                 "very often" = "#b31529",
+                                 "frequently" = "#f6a582",
+                                 "sometimes" = "#e0e0e0",
+                                 "rarely" = "#8ec4ca",
+                                 "never" = "#1065ab")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
@@ -364,8 +369,12 @@ plot_frequency <- function(
     geom_chicklet(width = .7) +
     coord_flip() +
     scale_y_continuous(labels = scales::percent) +
-    scale_fill_manual(values = c("#1065ab", "#8ec4ca", "#e0e0e0",
-                                 "#f6a582", "#b31529")) +
+    scale_fill_manual(values = c("don't know" = "grey30",
+                                 "very often" = "#b31529",
+                                 "frequently" = "#f6a582",
+                                 "sometimes" = "#e0e0e0",
+                                 "rarely" = "#8ec4ca",
+                                 "never" = "#1065ab")) +
     theme(legend.position = "top",
           panel.background = element_rect(fill = "white"),
           panel.grid.major = element_line(color = "grey80"),
@@ -482,11 +491,11 @@ plot_frequency_area <- function(df, question, legend = TRUE,
     labs(x = "Survey Year", y = "Proportions", fill = "Responses", title = title) +
     scale_x_continuous(breaks = c(2021, 2022, 2023)) +
     scale_fill_manual(values = c("don't know" = "grey30",
-                                 "never" = "#b31529",
-                                 "rarely" = "#f6a582",
+                                 "very often" = "#b31529",
+                                 "frequently" = "#f6a582",
                                  "sometimes" = "#e0e0e0",
-                                 "frequently" = "#8ec4ca",
-                                 "very often" = "#1065ab")) +
+                                 "rarely" = "#8ec4ca",
+                                 "never" = "#1065ab")) +
     geom_segment(aes(x = 2021, y = 0, xend = 2023, yend = 0)) +
     geom_segment(aes(x = 2021, y = 0, xend = 2021, yend = 100)) +
     geom_segment(aes(x = 2023, y = 0, xend = 2023, yend = 100)) +
@@ -524,11 +533,11 @@ plot_time <- function(df, var_overview, questions, legend = TRUE, ncol = 3,
     frequency = list(
       scale_color_manual(
         values = c("don't know" = "grey30",
-                   "never" = "#b31529",
-                   "rarely" = "#f6a582",
-                   "sometimes" = "#cdcdc8",
-                   "frequently" = "#8ec4ca",
-                   "very often" = "#1065ab"))
+                   "very often" = "#b31529",
+                   "frequently" = "#f6a582",
+                   "sometimes" = "#e0e0e0",
+                   "rarely" = "#8ec4ca",
+                   "never" = "#1065ab"))
     )
   )
   
@@ -1061,53 +1070,55 @@ percentage_often <- function(column) {
 }
 
 
-plot_groups_overview_agreement  <- function(df, var_overview, columns, group,
+plot_groups_overview_agreement  <- function(df, columns, group,
                                             legend_title, legend_position) {
   
   df <- df %>%
     group_by(.data[[group]]) %>%
     summarise(across(all_of(columns), percentage_agree), .groups = 'drop') %>%
     filter(!is.na(.data[[group]]) & .data[[group]] != "don't know") %>%
-    pivot_longer(cols = -.data[[group]], names_to = "Question", values_to = "Percentage") %>%
-    merge(var_overview, by.x = "Question", by.y = "var_id")
+    pivot_longer(cols = -.data[[group]], names_to = "Question",
+                 values_to = "Percentage") %>% 
+    mutate(Question = str_replace_all(Question, "X", "Q"))
   
   # Create the plot
-  ggplot(df, aes(x = var_short, y = Percentage, color = .data[[group]])) +
+  ggplot(df, aes(x = Question, y = Percentage, color = .data[[group]])) +
     geom_point(size = 3) +
     scale_color_brewer(palette = "Dark2") +
-    labs(x = "Statement",
-         y = "Percentage of Agreement",
+    labs(x = NULL,
+         y = "Percentage of agreement",
          color = legend_title) +
     scale_y_continuous(labels = function(x) paste0(x, "%")) +
     theme(panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_line(color = "grey90"),
           panel.background = element_blank(),
-          axis.text.x = element_text(angle = 60, hjust = 1),
+          axis.text.x = element_text(angle = 90, vjust = 0.5),
           legend.position = legend_position)
 }
 
 
-plot_groups_overview_frequency  <- function(df, var_overview, columns, group,
+plot_groups_overview_frequency  <- function(df, columns, group,
                                             legend_title, legend_position) {
   
   df <- df %>%
     group_by(.data[[group]]) %>%
     summarise(across(all_of(columns), percentage_often), .groups = 'drop') %>%
     filter(!is.na(.data[[group]]) & .data[[group]] != "don't know") %>%
-    pivot_longer(cols = -.data[[group]], names_to = "Question", values_to = "Percentage") %>%
-    merge(var_overview, by.x = "Question", by.y = "var_id")
+    pivot_longer(cols = -.data[[group]], names_to = "Question",
+                 values_to = "Percentage") %>% 
+    mutate(Question = str_replace_all(Question, "X", "Q"))
   
   # Create the plot
-  ggplot(df, aes(x = var_short, y = Percentage, color = .data[[group]])) +
+  ggplot(df, aes(x = Question, y = Percentage, color = .data[[group]])) +
     geom_point(size = 3) +
     scale_color_brewer(palette = "Dark2") +
-    labs(x = "Statement",
-         y = "Percentage of High Frequency",
+    labs(x = NULL,
+         y = "Percentage of high frequency",
          color = legend_title) +
     scale_y_continuous(labels = function(x) paste0(x, "%")) +
     theme(panel.grid.major = element_line(color = "grey80"),
           panel.grid.minor = element_line(color = "grey90"),
           panel.background = element_blank(),
-          axis.text.x = element_text(angle = 60, hjust = 1),
+          axis.text.x = element_text(angle = 90, vjust = 0.5),
           legend.position = legend_position)
 }
