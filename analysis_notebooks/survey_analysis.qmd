@@ -60,7 +60,7 @@ if (use_targets) {
   }
 ```
 
-```{r, echo=FALSE}
+```{r, echo = FALSE}
 # Define item groups
 os <- c("X38", "X39", "X42", "X43", "X45",
         "X46", "X48", "X49", "X50", "X52")
@@ -183,9 +183,22 @@ out$p
 knitr::kable(out$data)
 ```
 
-One general item also inquired about the following statement: "Overall, the processes at my higher education institution are organised in a clear and transparent manner". The agreement is visualized by the different institutional vs. the national survey.
+One general item also inquired about the following statement: "Overall, the processes at my higher education institution are organised in a clear and transparent manner".
 
-```{r hei_processes, fig.height = 3.3, fig.width = 6.5}
+```{r adm_overview, fig.height = 1.9, fig.width = 10}
+out <- plot_agreement_overview(df, var_overview, "X15")
+out$p
+```
+
+```{r}
+#| class: scroll
+
+knitr::kable(out$data)
+```
+
+The agreement is subsequently visualized by the different institutional vs. the national survey.
+
+```{r hei_processes_survey, fig.height = 3.3, fig.width = 6.5}
 df$X63 <- factor(df$X63,
                  levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
 out <- plot_agreement(df, var_overview, "X15", group = "X63", xlim = 3)
