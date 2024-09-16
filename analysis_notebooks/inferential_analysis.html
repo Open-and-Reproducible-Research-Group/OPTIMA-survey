@@ -2243,7 +2243,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="institutionadministration-1" class="level2">
 <h2 class="anchored" data-anchor-id="institutionadministration-1">Institution/Administration</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>adm_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression_staff</span>(df, adm) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>adm_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, adm) <span class="sc">%&gt;%</span> </span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(adm_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2256,24 +2256,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
@@ -2284,25 +2278,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">0.0516402</td>
 <td style="text-align: right;">0.0522706</td>
 <td style="text-align: right;">0.0932390</td>
-<td style="text-align: right;">0.0708345</td>
-<td style="text-align: right;">0.0476480</td>
-<td style="text-align: right;">-2.736464</td>
-<td style="text-align: right;">-0.0336325</td>
-<td style="text-align: right;">0.6441766</td>
-<td style="text-align: right;">-0.4656424</td>
-<td style="text-align: right;">0.0610740</td>
-<td style="text-align: right;">0.0795958</td>
-<td style="text-align: right;">0.0781884</td>
-<td style="text-align: right;">0.0699200</td>
-<td style="text-align: right;">-44.80570</td>
-<td style="text-align: right;">-0.4225416</td>
-<td style="text-align: right;">8.238777</td>
-<td style="text-align: right;">-6.659642</td>
+<td style="text-align: right;">-2.910433</td>
+<td style="text-align: right;">0.0127987</td>
+<td style="text-align: right;">0.6357193</td>
+<td style="text-align: right;">0.0566107</td>
+<td style="text-align: right;">0.0792515</td>
+<td style="text-align: right;">0.0780497</td>
+<td style="text-align: right;">-51.41137</td>
+<td style="text-align: right;">0.1614942</td>
+<td style="text-align: right;">8.145061</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.6726297</td>
+<td style="text-align: right;">0.8717042</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0164808</td>
+<td style="text-align: right;">0.0105918</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X34</td>
@@ -2310,25 +2298,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">0.1153780</td>
 <td style="text-align: right;">0.1090161</td>
 <td style="text-align: right;">0.1436865</td>
-<td style="text-align: right;">0.1521036</td>
-<td style="text-align: right;">0.0819879</td>
-<td style="text-align: right;">-1.726697</td>
-<td style="text-align: right;">-0.1459326</td>
-<td style="text-align: right;">0.2512068</td>
-<td style="text-align: right;">-0.7253566</td>
-<td style="text-align: right;">0.0455141</td>
-<td style="text-align: right;">0.0593516</td>
-<td style="text-align: right;">0.0608691</td>
-<td style="text-align: right;">0.0529272</td>
-<td style="text-align: right;">-37.93766</td>
-<td style="text-align: right;">-2.4587828</td>
-<td style="text-align: right;">4.127000</td>
-<td style="text-align: right;">-13.704798</td>
+<td style="text-align: right;">-2.036947</td>
+<td style="text-align: right;">-0.0638838</td>
+<td style="text-align: right;">0.2519441</td>
+<td style="text-align: right;">0.0410750</td>
+<td style="text-align: right;">0.0587516</td>
+<td style="text-align: right;">0.0604412</td>
+<td style="text-align: right;">-49.59092</td>
+<td style="text-align: right;">-1.0873541</td>
+<td style="text-align: right;">4.168415</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0139409</td>
-<td style="text-align: right;">0.0000368</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0196697</td>
+<td style="text-align: right;">0.2768804</td>
+<td style="text-align: right;">0.0000307</td>
+<td style="text-align: right;">0.0024850</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X35</td>
@@ -2336,25 +2318,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">0.0545716</td>
 <td style="text-align: right;">0.0654434</td>
 <td style="text-align: right;">0.0951687</td>
-<td style="text-align: right;">0.0872720</td>
-<td style="text-align: right;">0.0404281</td>
-<td style="text-align: right;">-2.554366</td>
-<td style="text-align: right;">0.1057126</td>
-<td style="text-align: right;">0.6244575</td>
-<td style="text-align: right;">-0.8553091</td>
-<td style="text-align: right;">0.0589723</td>
-<td style="text-align: right;">0.0753078</td>
-<td style="text-align: right;">0.0773315</td>
-<td style="text-align: right;">0.0717883</td>
-<td style="text-align: right;">-43.31469</td>
-<td style="text-align: right;">1.4037403</td>
-<td style="text-align: right;">8.075073</td>
-<td style="text-align: right;">-11.914329</td>
+<td style="text-align: right;">-2.852125</td>
+<td style="text-align: right;">0.1932391</td>
+<td style="text-align: right;">0.6000282</td>
+<td style="text-align: right;">0.0556112</td>
+<td style="text-align: right;">0.0747840</td>
+<td style="text-align: right;">0.0768891</td>
+<td style="text-align: right;">-51.28691</td>
+<td style="text-align: right;">2.5839638</td>
+<td style="text-align: right;">7.803812</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1603962</td>
+<td style="text-align: right;">0.0097672</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0261925</td>
+<td style="text-align: right;">0.0073960</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X36</td>
@@ -2362,25 +2338,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">0.0705995</td>
 <td style="text-align: right;">0.0772856</td>
 <td style="text-align: right;">0.1178597</td>
-<td style="text-align: right;">0.0926498</td>
-<td style="text-align: right;">0.0731887</td>
-<td style="text-align: right;">-2.459829</td>
-<td style="text-align: right;">0.0677832</td>
-<td style="text-align: right;">0.5716265</td>
-<td style="text-align: right;">-0.2879382</td>
-<td style="text-align: right;">0.0540205</td>
-<td style="text-align: right;">0.0683078</td>
-<td style="text-align: right;">0.0689346</td>
-<td style="text-align: right;">0.0585162</td>
-<td style="text-align: right;">-45.53514</td>
-<td style="text-align: right;">0.9923210</td>
-<td style="text-align: right;">8.292296</td>
-<td style="text-align: right;">-4.920660</td>
+<td style="text-align: right;">-2.577517</td>
+<td style="text-align: right;">0.0977049</td>
+<td style="text-align: right;">0.5646614</td>
+<td style="text-align: right;">0.0492273</td>
+<td style="text-align: right;">0.0680154</td>
+<td style="text-align: right;">0.0688589</td>
+<td style="text-align: right;">-52.35947</td>
+<td style="text-align: right;">1.4365123</td>
+<td style="text-align: right;">8.200270</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.3210410</td>
+<td style="text-align: right;">0.1508566</td>
 <td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">9e-07</td>
-<td style="text-align: right;">0.0101863</td>
+<td style="text-align: right;">0.0076504</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X37</td>
@@ -2388,25 +2358,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">0.1979167</td>
 <td style="text-align: right;">0.2082173</td>
 <td style="text-align: right;">0.2300339</td>
-<td style="text-align: right;">0.2462630</td>
-<td style="text-align: right;">0.1657934</td>
-<td style="text-align: right;">-1.174023</td>
-<td style="text-align: right;">0.0125179</td>
-<td style="text-align: right;">0.1922722</td>
-<td style="text-align: right;">-0.5043343</td>
-<td style="text-align: right;">0.0425063</td>
-<td style="text-align: right;">0.0536876</td>
-<td style="text-align: right;">0.0565760</td>
-<td style="text-align: right;">0.0468042</td>
-<td style="text-align: right;">-27.61999</td>
-<td style="text-align: right;">0.2331622</td>
-<td style="text-align: right;">3.398479</td>
-<td style="text-align: right;">-10.775401</td>
+<td style="text-align: right;">-1.399366</td>
+<td style="text-align: right;">0.0636615</td>
+<td style="text-align: right;">0.1912468</td>
+<td style="text-align: right;">0.0377689</td>
+<td style="text-align: right;">0.0532399</td>
+<td style="text-align: right;">0.0562801</td>
+<td style="text-align: right;">-37.05075</td>
+<td style="text-align: right;">1.1957486</td>
+<td style="text-align: right;">3.398123</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">0.8156354</td>
-<td style="text-align: right;">0.0006776</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0106315</td>
+<td style="text-align: right;">0.2317947</td>
+<td style="text-align: right;">0.0006785</td>
+<td style="text-align: right;">0.0009495</td>
 </tr>
 </tbody>
 </table>
@@ -2415,7 +2379,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hei_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression_staff</span>(df, <span class="st">"X15"</span>) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hei_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, <span class="st">"X15"</span>) <span class="sc">%&gt;%</span> </span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(hei_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -2428,24 +2392,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
@@ -2456,25 +2414,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td style="text-align: right;">0.9047197</td>
 <td style="text-align: right;">0.8839465</td>
 <td style="text-align: right;">0.9042795</td>
-<td style="text-align: right;">0.8913672</td>
-<td style="text-align: right;">0.9041392</td>
-<td style="text-align: right;">2.202171</td>
-<td style="text-align: right;">-0.2069822</td>
-<td style="text-align: right;">-0.0076597</td>
-<td style="text-align: right;">0.1126732</td>
-<td style="text-align: right;">0.0403408</td>
-<td style="text-align: right;">0.0483754</td>
-<td style="text-align: right;">0.0574901</td>
-<td style="text-align: right;">0.0439733</td>
-<td style="text-align: right;">54.58912</td>
-<td style="text-align: right;">-4.278665</td>
-<td style="text-align: right;">-0.1332358</td>
-<td style="text-align: right;">2.562307</td>
+<td style="text-align: right;">2.250802</td>
+<td style="text-align: right;">-0.2204572</td>
+<td style="text-align: right;">-0.0050963</td>
+<td style="text-align: right;">0.0358456</td>
+<td style="text-align: right;">0.0480873</td>
+<td style="text-align: right;">0.0574663</td>
+<td style="text-align: right;">62.79159</td>
+<td style="text-align: right;">-4.584518</td>
+<td style="text-align: right;">-0.0886842</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.88e-05</td>
-<td style="text-align: right;">0.8940069</td>
-<td style="text-align: right;">0.0103979</td>
-<td style="text-align: right;">0.0020294</td>
+<td style="text-align: right;">4.6e-06</td>
+<td style="text-align: right;">0.9293329</td>
+<td style="text-align: right;">0.0016195</td>
 </tr>
 </tbody>
 </table>

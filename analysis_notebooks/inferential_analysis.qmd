@@ -170,14 +170,14 @@ knitr::kable(eduf_log, format = "html")
 ## Institution/Administration
 
 ```{r}
-adm_log <- frequency_log_regression_staff(df, adm) %>% 
+adm_log <- frequency_log_regression(df, adm) %>% 
   merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(adm_log, format = "html")
 ```
 
 ```{r}
-hei_log <- agreement_log_regression_staff(df, "X15") %>% 
+hei_log <- agreement_log_regression(df, "X15") %>% 
   merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
 knitr::kable(hei_log, format = "html")
