@@ -779,8 +779,25 @@ agreement_log_regression <- function(df, questions) {
     
   }
   
+  # tidy up output
   results <- results %>%
-    rename_with(~ gsub("factor(year)", "", .x, fixed = TRUE))
+    mutate(across(starts_with("perc"), 
+                  \(x) scales::percent(x, accuracy = .01))) %>% 
+    select(
+      question, `% agreement 2021` = perc_2021,
+      `% agreement 2022` = perc_2022,
+      beta_2022 = `estimate_factor(year)2022`, 
+      se_2022 = `std.error_factor(year)2022`,
+      z_score_2022 = `statistic_factor(year)2022`,
+      p_2022 = `p.value_factor(year)2022`,
+      `% agreement 2023` = perc_2023,
+      beta_2023 = `estimate_factor(year)2023`,
+      se_2023 = `std.error_factor(year)2023`,
+      z_score_2023 = `statistic_factor(year)2023`,
+      p_2023 = `p.value_factor(year)2023`,
+      r_squared) %>% 
+    mutate(across(matches("beta|^se|z_score|squared"), \(x) round(x, digits = 3)),
+           across(starts_with("p_"), \(x) round(x, digits = 4)))
   
   results
   
