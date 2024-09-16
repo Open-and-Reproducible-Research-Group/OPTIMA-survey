@@ -59,7 +59,7 @@ if (use_targets) {
   }
 ```
 
-```{r, echo=FALSE}
+```{r, echo = FALSE}
 # Define item groups
 os <- c("X38", "X39", "X42", "X43", "X45",
         "X46", "X48", "X49", "X50", "X52")
@@ -181,7 +181,8 @@ knitr::kable(out$data)
 out <- plot_time_groups(roles, var_overview, "X15", group_var = roles)
 
 out$p +
-  theme(legend.position = "right")
+  theme(legend.position = "right") +
+  scale_y_continuous(limits = c(0.75, 1), labels = scales::label_percent(), n.breaks = 3)
 ```
 
 ```{r}
