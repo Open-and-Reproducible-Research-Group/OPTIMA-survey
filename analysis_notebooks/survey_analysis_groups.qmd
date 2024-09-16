@@ -300,7 +300,8 @@ out <- plot_time_groups(students, var_overview, "X15", group_var = student_level
                  legend_reverse = FALSE)
 
 out$p +
-  theme(legend.position = "right")
+  theme(legend.position = "right") +
+  scale_y_continuous(limits = c(0.75, 1), labels = scales::label_percent(), n.breaks = 3)
 ```
 
 ```{r}
@@ -381,7 +382,8 @@ out$p
 out <- plot_time_groups(df, var_overview, "X15", group_var = survey)
 
 out$p +
-  theme(legend.position = "right")
+  theme(legend.position = "right") +
+  scale_y_continuous(limits = c(0.75, 1), labels = scales::label_percent(), n.breaks = 3)
 ```
 
 ## Displacement
