@@ -42,6 +42,23 @@ if (use_targets) {
 }
 ```
 
+```{r, echo = FALSE}
+# Define item groups
+os <- c("X38", "X39", "X42", "X43", "X45",
+        "X46", "X48", "X49", "X50", "X52")
+
+raia <- c("X19", "X17", "X18", "X20", "X21",
+          "X40", "X44", "X41", "X47")
+
+raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
+
+edua <- c("X16", "X22", "X23", "X51")
+
+eduf <- c("X30", "X31", "X32")
+
+adm <- c("X33", "X34", "X35", "X36", "X37")
+```
+
 # Investigation over Time
 
 To investigate the changes over time through inferential statistics, logistic regressions were performed for all items. Year was investigated as an ordinal predictor (not a continuous variable), with the year 2022 and 2023 both compared to the baseline from the first wave in 2021. The responses were dichotomized for the outcome into agree/disagree and often/not often (with "sometimes" being coded as "not often"), respectively. Missing and "don't know" responses were filtered out a-priori. McFadden's R^2^ was calculated post-hoc from the model output.
@@ -49,10 +66,6 @@ To investigate the changes over time through inferential statistics, logistic re
 ## Open Science
 
 ```{r}
-os <- c("X38", "X39", "X42", "X43", "X45",
-        "X46", "X48", "X49", "X50", "X52")
-
-
 os_log <- agreement_log_regression(df, os) %>% 
   merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
@@ -62,10 +75,6 @@ knitr::kable(os_log, format = "html")
 ## Reporting and Academic Integrity
 
 ```{r}
-raia <- c("X19", "X17", "X18", "X20", "X21",
-          "X40", "X44", "X41", "X47")
-
-
 raia_log <- agreement_log_regression(df, raia) %>% 
   merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
@@ -73,9 +82,6 @@ knitr::kable(raia_log, format = "html")
 ```
 
 ```{r}
-raif <- c("X24", "X25", "X26", "X27", "X28", "X29")
-
-
 raif_log <- frequency_log_regression(df, raif) %>% 
   merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
@@ -85,9 +91,6 @@ knitr::kable(raif_log, format = "html")
 ## Education
 
 ```{r}
-edua <- c("X16", "X22", "X23", "X51")
-
-
 edua_log <- agreement_log_regression(df, edua) %>% 
   merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
@@ -95,9 +98,6 @@ knitr::kable(edua_log, format = "html")
 ```
 
 ```{r}
-eduf <- c("X30", "X31", "X32")
-
-
 eduf_log <- frequency_log_regression(df, eduf) %>% 
   merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
@@ -107,8 +107,6 @@ knitr::kable(eduf_log, format = "html")
 ## Institution/Administration
 
 ```{r}
-adm <- c("X33", "X34", "X35", "X36", "X37")
-
 adm_log <- frequency_log_regression(df, adm) %>% 
   merge(var_overview[, c(1, 2)], ., by.x = "var_id", by.y = "question")
 
