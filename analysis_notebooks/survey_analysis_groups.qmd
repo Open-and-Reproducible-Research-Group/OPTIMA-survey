@@ -386,7 +386,23 @@ out$p +
   scale_y_continuous(limits = c(0.75, 1), labels = scales::label_percent(), n.breaks = 3)
 ```
 
-## Displacement
+## Peer Review Experience
+
+```{r peer_review_experience, fig.height = 3.2, fig.width = 7.5}
+opr <- c("X48", "X49", "X50")
+
+df <- df %>%
+  mutate(prexp = factor(X14,
+                        levels = c("0", "1-5", "6-10", "11-20",
+                                   "21-30", "more than 30")))
+
+out <- plot_time_groups(df, var_overview, opr, group_var = prexp)
+
+out$p +
+  guides(color = guide_legend(ncol = 6))
+```
+
+##  Displacement
 
 In 2022, respondents were additionally asked about whether their HEI had been displaced (in 2014, 2022, or not at all). The following figures show reponses to the items in comparison between displaced and non-displaced HEIs. Responses were again dichotomized to agreement/disagreement and high frequency/low frequency.
 
