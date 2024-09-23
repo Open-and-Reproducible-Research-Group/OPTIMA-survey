@@ -399,7 +399,15 @@ df <- df %>%
 out <- plot_time_groups(df, var_overview, opr, group_var = prexp)
 
 out$p +
-  guides(color = guide_legend(ncol = 6))
+  guides(color = guide_legend(ncol = 6)) +
+  scale_color_manual(values = c(
+    "0" = "#dadaeb",
+    "1-5" = "#bcbddc",
+    "6-10" = "#9e9ac8",
+    "11-20" = "#807dba",
+    "21-30" = "#6a51a3",
+    "more than 30" = "#4a1486"
+  ))
 ```
 
 ## Publication Experience
