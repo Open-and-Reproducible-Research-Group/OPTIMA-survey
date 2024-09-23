@@ -173,6 +173,80 @@ yearly_change_degree %>%
         legend.position = "top")
 ```
 
+## Across time and by institution
+
+```{r}
+dont_knows_institution <- df %>% 
+  mutate(optima_partner = case_when(X63 == "National" ~ FALSE,
+                                is.na(X63) ~ NA,
+                                TRUE ~ TRUE)) %>% 
+  select(X15:X52, year = X64, optima_partner) %>% 
+  pivot_longer(starts_with("X"), names_to = "var") %>% 
+  count(year, optima_partner, var, value) %>% 
+  group_by(year, optima_partner, var) %>% 
+  mutate(perc = n/sum(n)) %>% 
+  filter(value == "don't know") %>% 
+  group_by(year, optima_partner) %>% 
+  mutate(avg_dont_knows = mean(perc)) %>% 
+  left_join(var_groups) %>% 
+  group_by(year, optima_partner, var_group) %>% 
+  mutate(avg_group_dont_knows = mean(perc)) 
+```
+
+```{r}
+yearly_change_institution <- dont_knows_institution %>% 
+  select(year, optima_partner, var, value, perc, var_group) %>% 
+  pivot_wider(names_from = year, values_from = perc) %>% 
+  mutate(change_2022 = `2022` - `2021`,
+         change_2023 = `2023` - `2021`) %>% 
+  select(optima_partner, var, response = value, var_group, contains("change")) %>% 
+  pivot_longer(contains("change"), names_to = "year", 
+               names_pattern = "change_(\\d+)") %>% 
+  mutate(negative_change = if_else(value < 0, TRUE, FALSE),
+         var = str_replace_all(var, "X", "Q")) %>% 
+  set_factor()
+```
+
+```{r yearly-change-optima-partner, fig.width=10, fig.height=3}
+yearly_change_institution %>% 
+  filter(optima_partner) %>% 
+  ggplot(aes(var, value, colour = year)) +
+  geom_hline(yintercept = 0) +
+  geom_segment(aes(x = var, y = 0, yend = value), show.legend = TRUE,
+               position = position_dodge(width = .25),
+               linewidth = 1) +
+  facet_row(vars(var_group), scales = "free_x", space = "free") +
+  scale_y_continuous(labels = function(x) x * 100, 
+                     breaks = seq(-.05, .05, by = .025)) +
+  scale_colour_manual(values = c(`2022` = "#b31529", `2023` = "#1065ab")) +
+  labs(y = "Change in percentage points\ncompared to 2021", x = NULL,
+       title = "Respondents from OPTIMA partner institutions", colour = "Change in") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = .5),
+        legend.position = "top")
+```
+
+```{r yearly-change-no-optima-partner, fig.width=10.5, fig.height=3.5}
+yearly_change_institution %>% 
+  filter(!optima_partner) %>% 
+  ggplot(aes(var, value, colour = year)) +
+  geom_hline(yintercept = 0) +
+  geom_segment(aes(x = var, y = 0, yend = value), show.legend = TRUE,
+               position = position_dodge(width = .25),
+               linewidth = 1) +
+  facet_row(vars(var_group), scales = "free_x", space = "free") +
+  scale_y_continuous(labels = function(x) x * 100, 
+                     breaks = c(-.12, -.08, -.04, 0, .04)) +
+  scale_colour_manual(values = c(`2022` = "#b31529", `2023` = "#1065ab")) +
+  labs(y = "Change in percentage points\ncompared to 2021", x = NULL,
+       title = "Respondents from institutions not within OPTIMA", colour = "Change in") +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = .5),
+        legend.position = "top")
+```
+
 # Across all years
 
 ```{r}
