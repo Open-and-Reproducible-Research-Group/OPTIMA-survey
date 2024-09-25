@@ -381,7 +381,7 @@ ggplot(df, aes(x = dontknow, y = X8)) +
   stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "#8ec4ca",
                       vline_color = "white") +
   xlim(0, 30) +
-  labs(x = "Total number of \"don't know\" answers"",
+  labs(x = "Total number of \"don't know\" answers",
        y = "Academic role") +
   theme(
     panel.background = element_rect(fill = "white"),
