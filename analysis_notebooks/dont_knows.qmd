@@ -381,9 +381,8 @@ ggplot(df, aes(x = dontknow, y = X8)) +
   stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "#8ec4ca",
                       vline_color = "white") +
   xlim(0, 30) +
-  labs(x = "Number",
-       y = "Academic role",
-       title = "Distribution of \"don't know\" answers") +
+  labs(x = "Total number of \"don't know\" answers"",
+       y = "Academic role") +
   theme(
     panel.background = element_rect(fill = "white"),
     panel.grid.major = element_line(color = "lightgray"),
@@ -396,14 +395,16 @@ In the plot some groups appear to have answered quite rarely with "don't know", 
 ```{r dontknow_surveys}
 #| warning: false
 
+df$X63 <- factor(df$X63,
+                 levels = c("National", "LPU", "SumDU", "DonNU", "LutskNTU"))
+
 # Plot number of "don't know" answer by surveys
 ggplot(df, aes(x = dontknow, y = X63)) +
   stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "#9e9ac8",
                       vline_color = "white") +
   xlim(0, 30) +
-  labs(x = "Number",
-       y = "Survey",
-       title = "Distribution of \"don't know\" answers") +
+  labs(x = "Total number of \"don't know\" answers",
+       y = "Institutional vs. national surveys") +
   theme(
     panel.background = element_rect(fill = "white"),
     panel.grid.major = element_line(color = "lightgray"),
@@ -418,9 +419,8 @@ ggplot(df, aes(x = dontknow, y = X63)) +
 ggplot(df, aes(x = dontknow, y = X53)) +
   stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "olivedrab3",
                       vline_color = "white") +
-  labs(x = "Number",
-       y = "Response to clarity question",
-       title = "Distribution of \"don't know\" answers") +
+  labs(x = "Total number of \"don't know\" answers",
+       y = "Response to clarity question") +
   theme(
     panel.background = element_rect(fill = "white"),
     panel.grid.major = element_line(color = "lightgray"),
