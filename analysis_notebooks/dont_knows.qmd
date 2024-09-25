@@ -13,6 +13,7 @@ library(tidyverse)
 library(patchwork)
 library(hrbrthemes)
 library(ggforce)
+library(ggridges)
 library(psych)
 
 knitr::opts_chunk$set(dpi = 400)
@@ -339,3 +340,74 @@ ggplot(item_types, aes(group1, mean)) +
         plot.title = element_text(size = 12, hjust = 0.5),
         axis.ticks = element_blank())
 ```
+
+# Additional Investigations
+
+```{r}
+
+# Calculate number of "don't know" answers
+df <- df %>% 
+  rowwise() %>% 
+  mutate(dontknow = sum(na.omit(c_across(X15:X53)) == "don't know"))
+
+
+know <- describe(df$dontknow)
+
+corc <- cor(df$duration, df$dontknow, method = "kendall")
+```
+
+Participants were able to answer the agreement and frequency questions with "don't know" (39 question in total when including the clarity question). Comparing the frequency with which this answer was chosen between groups might also help to investigate response behaviors more closely. Participants responded to a mean of `r round(know$mean, 2)` questions with "don't know" (*SD* = `r round(know$sd, 2)`), ranging from `r know$min` to `r know$max` such answers. Number of these answers is correlated with total response time with a Kendall correlation coefficient of `r round(corc, 2)`. In general, there seems to be no relationship between response time and number of "don't know" responses. On visual inspection, participants that took quite long also responded less with "don't know", however, these participants generally only make up a small part of the sample (median response time is presented in the figure as the red vertical line).
+
+```{r dontknow_duration}
+#| warning: false
+
+ggplot(df, aes(x = duration, y = dontknow)) +
+  geom_jitter(alpha = .1) +
+  geom_smooth(color = "#1065ab") +
+  geom_vline(xintercept = know$median, color = "#b31529") +
+  xlim(0, 120) +
+  labs(x = "Total response time in minutes",
+       y = "Number of \"don't know\" responses") +
+  theme_minimal()
+```
+
+Differences in academic groups might also be of interest here, since some might be more familiar with the topics of the survey than others.
+
+```{r dontknow_role}
+#| warning: false
+
+# Plot number of "don't know" answer by academic groups
+ggplot(df, aes(x = dontknow, y = X8)) +
+  stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "mediumorchid",
+                      vline_color = "white") +
+  xlim(0, 30) +
+  labs(x = "Number",
+       y = "Academic role",
+       title = "Distribution of \"don't know\" answers") +
+  theme(
+    panel.background = element_rect(fill = "white"),
+    panel.grid.major = element_line(color = "lightgray"),
+    panel.grid.minor = element_line(color = "white")
+  )
+```
+
+In the plot some groups appear to have answered quite rarely with "don't know", mainly university administrators and research staff. Students in their early years of study might also be less familiar with the topic. One notable outlier can be seen in librarians who indicated that they were not able to answer a question the most (however, this is one of the smallest groups among survey respondents).
+
+```{r dontknow_clarity}
+#| warning: false
+
+# Plot number of "don't know" answer by response to clarity question
+ggplot(df, aes(x = dontknow, y = X53)) +
+  stat_density_ridges(quantile_lines = TRUE, alpha = 0.7, fill = "olivedrab3",
+                      vline_color = "white") +
+  labs(x = "Number",
+       y = "Response to clarity question",
+       title = "Distribution of \"don't know\" answers") +
+  theme(
+    panel.background = element_rect(fill = "white"),
+    panel.grid.major = element_line(color = "lightgray"),
+    panel.grid.minor = element_line(color = "white")
+  )
+```
+
+There seems to be only some difference in the distribution of "don't know" responses in relation to how the clarity questions was answered. Participants that declared that the questions were not clear to them still responded to most of them with something else than "don't know" although to a bit lesser extent. The most notable difference in distribution can be observed for those responding with "don't know" to the clarity question which also responded the same way to almost all content questions. However, this is a comparably small group (see section on clarity question).
