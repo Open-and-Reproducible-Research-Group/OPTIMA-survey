@@ -109,35 +109,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="open-science" class="level2">
 <h2 class="anchored" data-anchor-id="open-science">Open Science</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>os <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X38"</span>, <span class="st">"X39"</span>, <span class="st">"X42"</span>, <span class="st">"X43"</span>, <span class="st">"X45"</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>        <span class="st">"X46"</span>, <span class="st">"X48"</span>, <span class="st">"X49"</span>, <span class="st">"X50"</span>, <span class="st">"X52"</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>os_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, os) <span class="sc">%&gt;%</span> </span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>os_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, os) <span class="sc">%&gt;%</span> </span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(os_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(os_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2021</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2022</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2023</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
@@ -145,202 +137,162 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">X38</td>
 <td style="text-align: left;">Research results should be in open access, i.e. freely available to the academic community and the general public.</td>
-<td style="text-align: right;">0.9208266</td>
-<td style="text-align: right;">0.9222098</td>
-<td style="text-align: right;">0.9360465</td>
-<td style="text-align: right;">2.4536308</td>
-<td style="text-align: right;">0.0191268</td>
-<td style="text-align: right;">0.2298783</td>
-<td style="text-align: right;">0.0399042</td>
-<td style="text-align: right;">0.0561078</td>
-<td style="text-align: right;">0.0680244</td>
-<td style="text-align: right;">61.48802</td>
-<td style="text-align: right;">0.3408929</td>
-<td style="text-align: right;">3.3793484</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.7331842</td>
-<td style="text-align: right;">0.0007266</td>
-<td style="text-align: right;">0.0010796</td>
+<td style="text-align: left;">92.08%</td>
+<td style="text-align: left;">92.22%</td>
+<td style="text-align: left;">93.60%</td>
+<td style="text-align: right;">0.019</td>
+<td style="text-align: right;">0.056</td>
+<td style="text-align: right;">0.341</td>
+<td style="text-align: right;">0.7332</td>
+<td style="text-align: right;">0.230</td>
+<td style="text-align: right;">0.068</td>
+<td style="text-align: right;">3.379</td>
+<td style="text-align: right;">0.0007</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X39</td>
 <td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e. before a thorough review of their content.</td>
-<td style="text-align: right;">0.3688894</td>
-<td style="text-align: right;">0.3586274</td>
-<td style="text-align: right;">0.4486071</td>
-<td style="text-align: right;">-0.5369841</td>
-<td style="text-align: right;">-0.0443427</td>
-<td style="text-align: right;">0.3306839</td>
-<td style="text-align: right;">0.0232034</td>
-<td style="text-align: right;">0.0326147</td>
-<td style="text-align: right;">0.0362643</td>
-<td style="text-align: right;">-23.14245</td>
-<td style="text-align: right;">-1.3595920</td>
-<td style="text-align: right;">9.1187277</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1739591</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0042212</td>
+<td style="text-align: left;">36.89%</td>
+<td style="text-align: left;">35.86%</td>
+<td style="text-align: left;">44.86%</td>
+<td style="text-align: right;">-0.044</td>
+<td style="text-align: right;">0.033</td>
+<td style="text-align: right;">-1.360</td>
+<td style="text-align: right;">0.1740</td>
+<td style="text-align: right;">0.331</td>
+<td style="text-align: right;">0.036</td>
+<td style="text-align: right;">9.119</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.004</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X42</td>
 <td style="text-align: left;">Researchers should publish author's versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
-<td style="text-align: right;">0.7485074</td>
-<td style="text-align: right;">0.7678158</td>
-<td style="text-align: right;">0.7503662</td>
-<td style="text-align: right;">1.0906673</td>
-<td style="text-align: right;">0.1053513</td>
-<td style="text-align: right;">0.0098990</td>
-<td style="text-align: right;">0.0278135</td>
-<td style="text-align: right;">0.0398254</td>
-<td style="text-align: right;">0.0434819</td>
-<td style="text-align: right;">39.21361</td>
-<td style="text-align: right;">2.6453299</td>
-<td style="text-align: right;">0.2276570</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0081611</td>
-<td style="text-align: right;">0.8199129</td>
-<td style="text-align: right;">0.0003967</td>
+<td style="text-align: left;">74.85%</td>
+<td style="text-align: left;">76.78%</td>
+<td style="text-align: left;">75.04%</td>
+<td style="text-align: right;">0.105</td>
+<td style="text-align: right;">0.040</td>
+<td style="text-align: right;">2.645</td>
+<td style="text-align: right;">0.0082</td>
+<td style="text-align: right;">0.010</td>
+<td style="text-align: right;">0.043</td>
+<td style="text-align: right;">0.228</td>
+<td style="text-align: right;">0.8199</td>
+<td style="text-align: right;">0.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X43</td>
 <td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
-<td style="text-align: right;">0.7964158</td>
-<td style="text-align: right;">0.8241484</td>
-<td style="text-align: right;">0.8006569</td>
-<td style="text-align: right;">1.3640416</td>
-<td style="text-align: right;">0.1806688</td>
-<td style="text-align: right;">0.0263638</td>
-<td style="text-align: right;">0.0297362</td>
-<td style="text-align: right;">0.0428912</td>
-<td style="text-align: right;">0.0465888</td>
-<td style="text-align: right;">45.87138</td>
-<td style="text-align: right;">4.2122590</td>
-<td style="text-align: right;">0.5658828</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000253</td>
-<td style="text-align: right;">0.5714735</td>
-<td style="text-align: right;">0.0010740</td>
+<td style="text-align: left;">79.64%</td>
+<td style="text-align: left;">82.41%</td>
+<td style="text-align: left;">80.07%</td>
+<td style="text-align: right;">0.181</td>
+<td style="text-align: right;">0.043</td>
+<td style="text-align: right;">4.212</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.026</td>
+<td style="text-align: right;">0.047</td>
+<td style="text-align: right;">0.566</td>
+<td style="text-align: right;">0.5715</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X45</td>
 <td style="text-align: left;">Experimental data should be published as openly as possible.</td>
-<td style="text-align: right;">0.8374037</td>
-<td style="text-align: right;">0.8311770</td>
-<td style="text-align: right;">0.8292157</td>
-<td style="text-align: right;">1.6390357</td>
-<td style="text-align: right;">-0.0450439</td>
-<td style="text-align: right;">-0.0589569</td>
-<td style="text-align: right;">0.0309705</td>
-<td style="text-align: right;">0.0430614</td>
-<td style="text-align: right;">0.0484108</td>
-<td style="text-align: right;">52.92255</td>
-<td style="text-align: right;">-1.0460371</td>
-<td style="text-align: right;">-1.2178461</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.2955439</td>
-<td style="text-align: right;">0.2232825</td>
-<td style="text-align: right;">0.0000956</td>
+<td style="text-align: left;">83.74%</td>
+<td style="text-align: left;">83.12%</td>
+<td style="text-align: left;">82.92%</td>
+<td style="text-align: right;">-0.045</td>
+<td style="text-align: right;">0.043</td>
+<td style="text-align: right;">-1.046</td>
+<td style="text-align: right;">0.2955</td>
+<td style="text-align: right;">-0.059</td>
+<td style="text-align: right;">0.048</td>
+<td style="text-align: right;">-1.218</td>
+<td style="text-align: right;">0.2233</td>
+<td style="text-align: right;">0.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X46</td>
 <td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
-<td style="text-align: right;">0.6492898</td>
-<td style="text-align: right;">0.6455129</td>
-<td style="text-align: right;">0.6694709</td>
-<td style="text-align: right;">0.6159191</td>
-<td style="text-align: right;">-0.0165458</td>
-<td style="text-align: right;">0.0898739</td>
-<td style="text-align: right;">0.0261806</td>
-<td style="text-align: right;">0.0365783</td>
-<td style="text-align: right;">0.0410597</td>
-<td style="text-align: right;">23.52581</td>
-<td style="text-align: right;">-0.4523383</td>
-<td style="text-align: right;">2.1888561</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.6510253</td>
-<td style="text-align: right;">0.0286073</td>
-<td style="text-align: right;">0.0003292</td>
+<td style="text-align: left;">64.93%</td>
+<td style="text-align: left;">64.55%</td>
+<td style="text-align: left;">66.95%</td>
+<td style="text-align: right;">-0.017</td>
+<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">-0.452</td>
+<td style="text-align: right;">0.6510</td>
+<td style="text-align: right;">0.090</td>
+<td style="text-align: right;">0.041</td>
+<td style="text-align: right;">2.189</td>
+<td style="text-align: right;">0.0286</td>
+<td style="text-align: right;">0.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X48</td>
 <td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
-<td style="text-align: right;">0.8162080</td>
-<td style="text-align: right;">0.8439228</td>
-<td style="text-align: right;">0.8008099</td>
-<td style="text-align: right;">1.4908647</td>
-<td style="text-align: right;">0.1968457</td>
-<td style="text-align: right;">-0.0995010</td>
-<td style="text-align: right;">0.0290081</td>
-<td style="text-align: right;">0.0421247</td>
-<td style="text-align: right;">0.0452804</td>
-<td style="text-align: right;">51.39482</td>
-<td style="text-align: right;">4.6729237</td>
-<td style="text-align: right;">-2.1974414</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000030</td>
-<td style="text-align: right;">0.0279889</td>
-<td style="text-align: right;">0.0022558</td>
+<td style="text-align: left;">81.62%</td>
+<td style="text-align: left;">84.39%</td>
+<td style="text-align: left;">80.08%</td>
+<td style="text-align: right;">0.197</td>
+<td style="text-align: right;">0.042</td>
+<td style="text-align: right;">4.673</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">-0.100</td>
+<td style="text-align: right;">0.045</td>
+<td style="text-align: right;">-2.197</td>
+<td style="text-align: right;">0.0280</td>
+<td style="text-align: right;">0.002</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X49</td>
 <td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
-<td style="text-align: right;">0.7188734</td>
-<td style="text-align: right;">0.7594986</td>
-<td style="text-align: right;">0.7281668</td>
-<td style="text-align: right;">0.9388801</td>
-<td style="text-align: right;">0.2110523</td>
-<td style="text-align: right;">0.0464614</td>
-<td style="text-align: right;">0.0255195</td>
-<td style="text-align: right;">0.0368612</td>
-<td style="text-align: right;">0.0405581</td>
-<td style="text-align: right;">36.79063</td>
-<td style="text-align: right;">5.7256002</td>
-<td style="text-align: right;">1.1455516</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.2519807</td>
-<td style="text-align: right;">0.0014994</td>
+<td style="text-align: left;">71.89%</td>
+<td style="text-align: left;">75.95%</td>
+<td style="text-align: left;">72.82%</td>
+<td style="text-align: right;">0.211</td>
+<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">5.726</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.046</td>
+<td style="text-align: right;">0.041</td>
+<td style="text-align: right;">1.146</td>
+<td style="text-align: right;">0.2520</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X50</td>
 <td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
-<td style="text-align: right;">0.7563811</td>
-<td style="text-align: right;">0.7999739</td>
-<td style="text-align: right;">0.7565802</td>
-<td style="text-align: right;">1.1329404</td>
-<td style="text-align: right;">0.2531906</td>
-<td style="text-align: right;">0.0010809</td>
-<td style="text-align: right;">0.0269300</td>
-<td style="text-align: right;">0.0392714</td>
-<td style="text-align: right;">0.0424241</td>
-<td style="text-align: right;">42.06986</td>
-<td style="text-align: right;">6.4471986</td>
-<td style="text-align: right;">0.0254782</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.9796736</td>
-<td style="text-align: right;">0.0023993</td>
+<td style="text-align: left;">75.64%</td>
+<td style="text-align: left;">80.00%</td>
+<td style="text-align: left;">75.66%</td>
+<td style="text-align: right;">0.253</td>
+<td style="text-align: right;">0.039</td>
+<td style="text-align: right;">6.447</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.001</td>
+<td style="text-align: right;">0.042</td>
+<td style="text-align: right;">0.025</td>
+<td style="text-align: right;">0.9797</td>
+<td style="text-align: right;">0.002</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X52</td>
 <td style="text-align: left;">I can explain what "open science" is.</td>
-<td style="text-align: right;">0.8967248</td>
-<td style="text-align: right;">0.8649422</td>
-<td style="text-align: right;">0.8755502</td>
-<td style="text-align: right;">2.1613515</td>
-<td style="text-align: right;">-0.3043920</td>
-<td style="text-align: right;">-0.2104012</td>
-<td style="text-align: right;">0.0377608</td>
-<td style="text-align: right;">0.0503848</td>
-<td style="text-align: right;">0.0571148</td>
-<td style="text-align: right;">57.23790</td>
-<td style="text-align: right;">-6.0413443</td>
-<td style="text-align: right;">-3.6838290</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0002298</td>
-<td style="text-align: right;">0.0025308</td>
+<td style="text-align: left;">89.67%</td>
+<td style="text-align: left;">86.49%</td>
+<td style="text-align: left;">87.56%</td>
+<td style="text-align: right;">-0.304</td>
+<td style="text-align: right;">0.050</td>
+<td style="text-align: right;">-6.041</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">-0.210</td>
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">-3.684</td>
+<td style="text-align: right;">0.0002</td>
+<td style="text-align: right;">0.003</td>
 </tr>
 </tbody>
 </table>
@@ -352,35 +304,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="reporting-and-academic-integrity" class="level2">
 <h2 class="anchored" data-anchor-id="reporting-and-academic-integrity">Reporting and Academic Integrity</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>raia <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X19"</span>, <span class="st">"X17"</span>, <span class="st">"X18"</span>, <span class="st">"X20"</span>, <span class="st">"X21"</span>,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>          <span class="st">"X40"</span>, <span class="st">"X44"</span>, <span class="st">"X41"</span>, <span class="st">"X47"</span>)</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>raia_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, raia) <span class="sc">%&gt;%</span> </span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>raia_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, raia) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raia_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raia_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2021</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2022</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2023</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
@@ -388,182 +332,146 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">X17</td>
 <td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
-<td style="text-align: right;">0.8167210</td>
-<td style="text-align: right;">0.8304588</td>
-<td style="text-align: right;">0.8316760</td>
-<td style="text-align: right;">1.4942880</td>
-<td style="text-align: right;">0.0945943</td>
-<td style="text-align: right;">0.1032643</td>
-<td style="text-align: right;">0.0278908</td>
-<td style="text-align: right;">0.0397307</td>
-<td style="text-align: right;">0.0454907</td>
-<td style="text-align: right;">53.57640</td>
-<td style="text-align: right;">2.3808867</td>
-<td style="text-align: right;">2.2700106</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0172710</td>
-<td style="text-align: right;">0.0232069</td>
-<td style="text-align: right;">0.0003542</td>
+<td style="text-align: left;">81.67%</td>
+<td style="text-align: left;">83.05%</td>
+<td style="text-align: left;">83.17%</td>
+<td style="text-align: right;">0.095</td>
+<td style="text-align: right;">0.040</td>
+<td style="text-align: right;">2.381</td>
+<td style="text-align: right;">0.0173</td>
+<td style="text-align: right;">0.103</td>
+<td style="text-align: right;">0.045</td>
+<td style="text-align: right;">2.270</td>
+<td style="text-align: right;">0.0232</td>
+<td style="text-align: right;">0.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X18</td>
 <td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
-<td style="text-align: right;">0.9070239</td>
-<td style="text-align: right;">0.9189719</td>
-<td style="text-align: right;">0.9139842</td>
-<td style="text-align: right;">2.2778259</td>
-<td style="text-align: right;">0.1506337</td>
-<td style="text-align: right;">0.0854560</td>
-<td style="text-align: right;">0.0365343</td>
-<td style="text-align: right;">0.0528900</td>
-<td style="text-align: right;">0.0597679</td>
-<td style="text-align: right;">62.34763</td>
-<td style="text-align: right;">2.8480564</td>
-<td style="text-align: right;">1.4297981</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0043987</td>
-<td style="text-align: right;">0.1527750</td>
-<td style="text-align: right;">0.0005831</td>
+<td style="text-align: left;">90.70%</td>
+<td style="text-align: left;">91.90%</td>
+<td style="text-align: left;">91.40%</td>
+<td style="text-align: right;">0.151</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">2.848</td>
+<td style="text-align: right;">0.0044</td>
+<td style="text-align: right;">0.085</td>
+<td style="text-align: right;">0.060</td>
+<td style="text-align: right;">1.430</td>
+<td style="text-align: right;">0.1528</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X19</td>
 <td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
-<td style="text-align: right;">0.5875672</td>
-<td style="text-align: right;">0.6152750</td>
-<td style="text-align: right;">0.6566686</td>
-<td style="text-align: right;">0.3539172</td>
-<td style="text-align: right;">0.1156232</td>
-<td style="text-align: right;">0.2945659</td>
-<td style="text-align: right;">0.0224495</td>
-<td style="text-align: right;">0.0317138</td>
-<td style="text-align: right;">0.0366156</td>
-<td style="text-align: right;">15.76507</td>
-<td style="text-align: right;">3.6458320</td>
-<td style="text-align: right;">8.0448201</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0002665</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0022350</td>
+<td style="text-align: left;">58.76%</td>
+<td style="text-align: left;">61.53%</td>
+<td style="text-align: left;">65.67%</td>
+<td style="text-align: right;">0.116</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">3.646</td>
+<td style="text-align: right;">0.0003</td>
+<td style="text-align: right;">0.295</td>
+<td style="text-align: right;">0.037</td>
+<td style="text-align: right;">8.045</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.002</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X20</td>
 <td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
-<td style="text-align: right;">0.9655249</td>
-<td style="text-align: right;">0.9652220</td>
-<td style="text-align: right;">0.9579390</td>
-<td style="text-align: right;">3.3324349</td>
-<td style="text-align: right;">-0.0090622</td>
-<td style="text-align: right;">-0.2067715</td>
-<td style="text-align: right;">0.0578012</td>
-<td style="text-align: right;">0.0805606</td>
-<td style="text-align: right;">0.0876961</td>
-<td style="text-align: right;">57.65334</td>
-<td style="text-align: right;">-0.1124886</td>
-<td style="text-align: right;">-2.3578191</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.9104360</td>
-<td style="text-align: right;">0.0183827</td>
-<td style="text-align: right;">0.0008818</td>
+<td style="text-align: left;">96.55%</td>
+<td style="text-align: left;">96.52%</td>
+<td style="text-align: left;">95.79%</td>
+<td style="text-align: right;">-0.009</td>
+<td style="text-align: right;">0.081</td>
+<td style="text-align: right;">-0.112</td>
+<td style="text-align: right;">0.9104</td>
+<td style="text-align: right;">-0.207</td>
+<td style="text-align: right;">0.088</td>
+<td style="text-align: right;">-2.358</td>
+<td style="text-align: right;">0.0184</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X21</td>
 <td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
-<td style="text-align: right;">0.8776479</td>
-<td style="text-align: right;">0.8689680</td>
-<td style="text-align: right;">0.9020723</td>
-<td style="text-align: right;">1.9703427</td>
-<td style="text-align: right;">-0.0784781</td>
-<td style="text-align: right;">0.2501220</td>
-<td style="text-align: right;">0.0336709</td>
-<td style="text-align: right;">0.0467200</td>
-<td style="text-align: right;">0.0566503</td>
-<td style="text-align: right;">58.51773</td>
-<td style="text-align: right;">-1.6797533</td>
-<td style="text-align: right;">4.4151925</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0930053</td>
-<td style="text-align: right;">0.0000101</td>
-<td style="text-align: right;">0.0022573</td>
+<td style="text-align: left;">87.76%</td>
+<td style="text-align: left;">86.90%</td>
+<td style="text-align: left;">90.21%</td>
+<td style="text-align: right;">-0.078</td>
+<td style="text-align: right;">0.047</td>
+<td style="text-align: right;">-1.680</td>
+<td style="text-align: right;">0.0930</td>
+<td style="text-align: right;">0.250</td>
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">4.415</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.002</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X40</td>
 <td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
-<td style="text-align: right;">0.8580919</td>
-<td style="text-align: right;">0.8703514</td>
-<td style="text-align: right;">0.8568884</td>
-<td style="text-align: right;">1.7995319</td>
-<td style="text-align: right;">0.1045371</td>
-<td style="text-align: right;">-0.0098493</td>
-<td style="text-align: right;">0.0330330</td>
-<td style="text-align: right;">0.0471978</td>
-<td style="text-align: right;">0.0520125</td>
-<td style="text-align: right;">54.47687</td>
-<td style="text-align: right;">2.2148736</td>
-<td style="text-align: right;">-0.1893642</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0267687</td>
-<td style="text-align: right;">0.8498074</td>
-<td style="text-align: right;">0.0004087</td>
+<td style="text-align: left;">85.81%</td>
+<td style="text-align: left;">87.04%</td>
+<td style="text-align: left;">85.69%</td>
+<td style="text-align: right;">0.105</td>
+<td style="text-align: right;">0.047</td>
+<td style="text-align: right;">2.215</td>
+<td style="text-align: right;">0.0268</td>
+<td style="text-align: right;">-0.010</td>
+<td style="text-align: right;">0.052</td>
+<td style="text-align: right;">-0.189</td>
+<td style="text-align: right;">0.8498</td>
+<td style="text-align: right;">0.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X41</td>
 <td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
-<td style="text-align: right;">0.8505747</td>
-<td style="text-align: right;">0.8634660</td>
-<td style="text-align: right;">0.8428625</td>
-<td style="text-align: right;">1.7391157</td>
-<td style="text-align: right;">0.1052655</td>
-<td style="text-align: right;">-0.0594333</td>
-<td style="text-align: right;">0.0310176</td>
-<td style="text-align: right;">0.0442192</td>
-<td style="text-align: right;">0.0487117</td>
-<td style="text-align: right;">56.06868</td>
-<td style="text-align: right;">2.3805395</td>
-<td style="text-align: right;">-1.2201017</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0172873</td>
-<td style="text-align: right;">0.2224263</td>
-<td style="text-align: right;">0.0006649</td>
+<td style="text-align: left;">85.06%</td>
+<td style="text-align: left;">86.35%</td>
+<td style="text-align: left;">84.29%</td>
+<td style="text-align: right;">0.105</td>
+<td style="text-align: right;">0.044</td>
+<td style="text-align: right;">2.381</td>
+<td style="text-align: right;">0.0173</td>
+<td style="text-align: right;">-0.059</td>
+<td style="text-align: right;">0.049</td>
+<td style="text-align: right;">-1.220</td>
+<td style="text-align: right;">0.2224</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X44</td>
 <td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
-<td style="text-align: right;">0.7910699</td>
-<td style="text-align: right;">0.8057143</td>
-<td style="text-align: right;">0.8093995</td>
-<td style="text-align: right;">1.3313867</td>
-<td style="text-align: right;">0.0910126</td>
-<td style="text-align: right;">0.1147261</td>
-<td style="text-align: right;">0.0291468</td>
-<td style="text-align: right;">0.0414569</td>
-<td style="text-align: right;">0.0463834</td>
-<td style="text-align: right;">45.67865</td>
-<td style="text-align: right;">2.1953534</td>
-<td style="text-align: right;">2.4734331</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0281383</td>
-<td style="text-align: right;">0.0133822</td>
-<td style="text-align: right;">0.0003918</td>
+<td style="text-align: left;">79.11%</td>
+<td style="text-align: left;">80.57%</td>
+<td style="text-align: left;">80.94%</td>
+<td style="text-align: right;">0.091</td>
+<td style="text-align: right;">0.041</td>
+<td style="text-align: right;">2.195</td>
+<td style="text-align: right;">0.0281</td>
+<td style="text-align: right;">0.115</td>
+<td style="text-align: right;">0.046</td>
+<td style="text-align: right;">2.473</td>
+<td style="text-align: right;">0.0134</td>
+<td style="text-align: right;">0.000</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X47</td>
 <td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
-<td style="text-align: right;">0.8920426</td>
-<td style="text-align: right;">0.8913770</td>
-<td style="text-align: right;">0.8823081</td>
-<td style="text-align: right;">2.1117769</td>
-<td style="text-align: right;">-0.0068930</td>
-<td style="text-align: right;">-0.0973055</td>
-<td style="text-align: right;">0.0362721</td>
-<td style="text-align: right;">0.0509247</td>
-<td style="text-align: right;">0.0561212</td>
-<td style="text-align: right;">58.22047</td>
-<td style="text-align: right;">-0.1353568</td>
-<td style="text-align: right;">-1.7338454</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.8923297</td>
-<td style="text-align: right;">0.0829455</td>
-<td style="text-align: right;">0.0002386</td>
+<td style="text-align: left;">89.20%</td>
+<td style="text-align: left;">89.14%</td>
+<td style="text-align: left;">88.23%</td>
+<td style="text-align: right;">-0.007</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: right;">-0.135</td>
+<td style="text-align: right;">0.8923</td>
+<td style="text-align: right;">-0.097</td>
+<td style="text-align: right;">0.056</td>
+<td style="text-align: right;">-1.734</td>
+<td style="text-align: right;">0.0829</td>
+<td style="text-align: right;">0.000</td>
 </tr>
 </tbody>
 </table>
@@ -572,34 +480,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>raif <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X24"</span>, <span class="st">"X25"</span>, <span class="st">"X26"</span>, <span class="st">"X27"</span>, <span class="st">"X28"</span>, <span class="st">"X29"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>raif_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, raif) <span class="sc">%&gt;%</span> </span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>raif_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, raif) <span class="sc">%&gt;%</span> </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raif_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raif_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% frequent 2021</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% frequent 2022</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% frequent 2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2023</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
@@ -607,122 +508,98 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">X24</td>
 <td style="text-align: left;">Using other author's published papers and ideas without proper reference to the original source.</td>
-<td style="text-align: right;">0.1438367</td>
-<td style="text-align: right;">0.1342915</td>
-<td style="text-align: right;">0.1639652</td>
-<td style="text-align: right;">-1.783783</td>
-<td style="text-align: right;">-0.0797530</td>
-<td style="text-align: right;">0.1547670</td>
-<td style="text-align: right;">0.0351751</td>
-<td style="text-align: right;">0.0506611</td>
-<td style="text-align: right;">0.0543225</td>
-<td style="text-align: right;">-50.71149</td>
-<td style="text-align: right;">-1.5742468</td>
-<td style="text-align: right;">2.849042</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1154304</td>
-<td style="text-align: right;">0.0043851</td>
-<td style="text-align: right;">0.0012639</td>
+<td style="text-align: left;">14.38%</td>
+<td style="text-align: left;">13.43%</td>
+<td style="text-align: left;">16.40%</td>
+<td style="text-align: right;">-0.080</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: right;">-1.574</td>
+<td style="text-align: right;">0.1154</td>
+<td style="text-align: right;">0.155</td>
+<td style="text-align: right;">0.054</td>
+<td style="text-align: right;">2.849</td>
+<td style="text-align: right;">0.0044</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X25</td>
 <td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
-<td style="text-align: right;">0.1621756</td>
-<td style="text-align: right;">0.1474978</td>
-<td style="text-align: right;">0.1935564</td>
-<td style="text-align: right;">-1.642129</td>
-<td style="text-align: right;">-0.1122334</td>
-<td style="text-align: right;">0.2150643</td>
-<td style="text-align: right;">0.0348810</td>
-<td style="text-align: right;">0.0511188</td>
-<td style="text-align: right;">0.0530726</td>
-<td style="text-align: right;">-47.07803</td>
-<td style="text-align: right;">-2.1955398</td>
-<td style="text-align: right;">4.052268</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0281249</td>
-<td style="text-align: right;">0.0000507</td>
-<td style="text-align: right;">0.0025595</td>
+<td style="text-align: left;">16.22%</td>
+<td style="text-align: left;">14.75%</td>
+<td style="text-align: left;">19.36%</td>
+<td style="text-align: right;">-0.112</td>
+<td style="text-align: right;">0.051</td>
+<td style="text-align: right;">-2.196</td>
+<td style="text-align: right;">0.0281</td>
+<td style="text-align: right;">0.215</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">4.052</td>
+<td style="text-align: right;">0.0001</td>
+<td style="text-align: right;">0.003</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X26</td>
 <td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
-<td style="text-align: right;">0.0876487</td>
-<td style="text-align: right;">0.0750000</td>
-<td style="text-align: right;">0.1295436</td>
-<td style="text-align: right;">-2.342689</td>
-<td style="text-align: right;">-0.1696170</td>
-<td style="text-align: right;">0.4376884</td>
-<td style="text-align: right;">0.0478356</td>
-<td style="text-align: right;">0.0697298</td>
-<td style="text-align: right;">0.0686434</td>
-<td style="text-align: right;">-48.97376</td>
-<td style="text-align: right;">-2.4324894</td>
-<td style="text-align: right;">6.376261</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0149954</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0084340</td>
+<td style="text-align: left;">8.76%</td>
+<td style="text-align: left;">7.50%</td>
+<td style="text-align: left;">12.95%</td>
+<td style="text-align: right;">-0.170</td>
+<td style="text-align: right;">0.070</td>
+<td style="text-align: right;">-2.432</td>
+<td style="text-align: right;">0.0150</td>
+<td style="text-align: right;">0.438</td>
+<td style="text-align: right;">0.069</td>
+<td style="text-align: right;">6.376</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.008</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X27</td>
 <td style="text-align: left;">Selective citations to support one's conclusions or to please editors, reviewers, colleagues, etc.</td>
-<td style="text-align: right;">0.1818505</td>
-<td style="text-align: right;">0.1750405</td>
-<td style="text-align: right;">0.2174144</td>
-<td style="text-align: right;">-1.503860</td>
-<td style="text-align: right;">-0.0464564</td>
-<td style="text-align: right;">0.2230622</td>
-<td style="text-align: right;">0.0345489</td>
-<td style="text-align: right;">0.0494037</td>
-<td style="text-align: right;">0.0524770</td>
-<td style="text-align: right;">-43.52851</td>
-<td style="text-align: right;">-0.9403436</td>
-<td style="text-align: right;">4.250666</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.3470413</td>
-<td style="text-align: right;">0.0000213</td>
-<td style="text-align: right;">0.0019483</td>
+<td style="text-align: left;">18.19%</td>
+<td style="text-align: left;">17.50%</td>
+<td style="text-align: left;">21.74%</td>
+<td style="text-align: right;">-0.046</td>
+<td style="text-align: right;">0.049</td>
+<td style="text-align: right;">-0.940</td>
+<td style="text-align: right;">0.3470</td>
+<td style="text-align: right;">0.223</td>
+<td style="text-align: right;">0.052</td>
+<td style="text-align: right;">4.251</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.002</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X28</td>
 <td style="text-align: left;">The author passes off other people's academic achievements as his own.</td>
-<td style="text-align: right;">0.0772336</td>
-<td style="text-align: right;">0.0668266</td>
-<td style="text-align: right;">0.1195594</td>
-<td style="text-align: right;">-2.480541</td>
-<td style="text-align: right;">-0.1559489</td>
-<td style="text-align: right;">0.4839317</td>
-<td style="text-align: right;">0.0496281</td>
-<td style="text-align: right;">0.0721849</td>
-<td style="text-align: right;">0.0708188</td>
-<td style="text-align: right;">-49.98260</td>
-<td style="text-align: right;">-2.1604097</td>
-<td style="text-align: right;">6.833384</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0307410</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0093538</td>
+<td style="text-align: left;">7.72%</td>
+<td style="text-align: left;">6.68%</td>
+<td style="text-align: left;">11.96%</td>
+<td style="text-align: right;">-0.156</td>
+<td style="text-align: right;">0.072</td>
+<td style="text-align: right;">-2.160</td>
+<td style="text-align: right;">0.0307</td>
+<td style="text-align: right;">0.484</td>
+<td style="text-align: right;">0.071</td>
+<td style="text-align: right;">6.833</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.009</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X29</td>
 <td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
-<td style="text-align: right;">0.1454095</td>
-<td style="text-align: right;">0.1311928</td>
-<td style="text-align: right;">0.1711329</td>
-<td style="text-align: right;">-1.771068</td>
-<td style="text-align: right;">-0.1193847</td>
-<td style="text-align: right;">0.1934492</td>
-<td style="text-align: right;">0.0377298</td>
-<td style="text-align: right;">0.0542035</td>
-<td style="text-align: right;">0.0573937</td>
-<td style="text-align: right;">-46.94078</td>
-<td style="text-align: right;">-2.2025293</td>
-<td style="text-align: right;">3.370567</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0276279</td>
-<td style="text-align: right;">0.0007501</td>
-<td style="text-align: right;">0.0022689</td>
+<td style="text-align: left;">14.54%</td>
+<td style="text-align: left;">13.12%</td>
+<td style="text-align: left;">17.11%</td>
+<td style="text-align: right;">-0.119</td>
+<td style="text-align: right;">0.054</td>
+<td style="text-align: right;">-2.203</td>
+<td style="text-align: right;">0.0276</td>
+<td style="text-align: right;">0.193</td>
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">3.371</td>
+<td style="text-align: right;">0.0008</td>
+<td style="text-align: right;">0.002</td>
 </tr>
 </tbody>
 </table>
@@ -734,34 +611,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="education" class="level2">
 <h2 class="anchored" data-anchor-id="education">Education</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>edua <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X16"</span>, <span class="st">"X22"</span>, <span class="st">"X23"</span>, <span class="st">"X51"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>edua_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, edua) <span class="sc">%&gt;%</span> </span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>edua_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, edua) <span class="sc">%&gt;%</span> </span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(edua_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(edua_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2021</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2022</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2023</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
@@ -769,82 +639,66 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">X16</td>
 <td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
-<td style="text-align: right;">0.8848202</td>
-<td style="text-align: right;">0.8656260</td>
-<td style="text-align: right;">0.8830737</td>
-<td style="text-align: right;">2.038890</td>
-<td style="text-align: right;">-0.1760646</td>
-<td style="text-align: right;">-0.0170257</td>
-<td style="text-align: right;">0.0329965</td>
-<td style="text-align: right;">0.0446715</td>
-<td style="text-align: right;">0.0527631</td>
-<td style="text-align: right;">61.79118</td>
-<td style="text-align: right;">-3.9413189</td>
-<td style="text-align: right;">-0.3226818</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000810</td>
-<td style="text-align: right;">0.7469362</td>
-<td style="text-align: right;">0.0010114</td>
+<td style="text-align: left;">88.48%</td>
+<td style="text-align: left;">86.56%</td>
+<td style="text-align: left;">88.31%</td>
+<td style="text-align: right;">-0.176</td>
+<td style="text-align: right;">0.045</td>
+<td style="text-align: right;">-3.941</td>
+<td style="text-align: right;">0.0001</td>
+<td style="text-align: right;">-0.017</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">-0.323</td>
+<td style="text-align: right;">0.7469</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X22</td>
 <td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
-<td style="text-align: right;">0.7544839</td>
-<td style="text-align: right;">0.7119039</td>
-<td style="text-align: right;">0.8091225</td>
-<td style="text-align: right;">1.122671</td>
-<td style="text-align: right;">-0.2180225</td>
-<td style="text-align: right;">0.3216473</td>
-<td style="text-align: right;">0.0253224</td>
-<td style="text-align: right;">0.0347806</td>
-<td style="text-align: right;">0.0427471</td>
-<td style="text-align: right;">44.33516</td>
-<td style="text-align: right;">-6.2685094</td>
-<td style="text-align: right;">7.5244278</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0068679</td>
+<td style="text-align: left;">75.45%</td>
+<td style="text-align: left;">71.19%</td>
+<td style="text-align: left;">80.91%</td>
+<td style="text-align: right;">-0.218</td>
+<td style="text-align: right;">0.035</td>
+<td style="text-align: right;">-6.269</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.322</td>
+<td style="text-align: right;">0.043</td>
+<td style="text-align: right;">7.524</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.007</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X23</td>
 <td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
-<td style="text-align: right;">0.9404103</td>
-<td style="text-align: right;">0.9418838</td>
-<td style="text-align: right;">0.9487089</td>
-<td style="text-align: right;">2.758834</td>
-<td style="text-align: right;">0.0266028</td>
-<td style="text-align: right;">0.1587503</td>
-<td style="text-align: right;">0.0453515</td>
-<td style="text-align: right;">0.0639579</td>
-<td style="text-align: right;">0.0754398</td>
-<td style="text-align: right;">60.83229</td>
-<td style="text-align: right;">0.4159431</td>
-<td style="text-align: right;">2.1043321</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.6774516</td>
-<td style="text-align: right;">0.0353495</td>
-<td style="text-align: right;">0.0004724</td>
+<td style="text-align: left;">94.04%</td>
+<td style="text-align: left;">94.19%</td>
+<td style="text-align: left;">94.87%</td>
+<td style="text-align: right;">0.027</td>
+<td style="text-align: right;">0.064</td>
+<td style="text-align: right;">0.416</td>
+<td style="text-align: right;">0.6775</td>
+<td style="text-align: right;">0.159</td>
+<td style="text-align: right;">0.075</td>
+<td style="text-align: right;">2.104</td>
+<td style="text-align: right;">0.0353</td>
+<td style="text-align: right;">0.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X51</td>
 <td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
-<td style="text-align: right;">0.7861589</td>
-<td style="text-align: right;">0.8145343</td>
-<td style="text-align: right;">0.7907064</td>
-<td style="text-align: right;">1.301926</td>
-<td style="text-align: right;">0.1778205</td>
-<td style="text-align: right;">0.0272628</td>
-<td style="text-align: right;">0.0269450</td>
-<td style="text-align: right;">0.0388523</td>
-<td style="text-align: right;">0.0431074</td>
-<td style="text-align: right;">48.31797</td>
-<td style="text-align: right;">4.5768366</td>
-<td style="text-align: right;">0.6324381</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000047</td>
-<td style="text-align: right;">0.5271006</td>
-<td style="text-align: right;">0.0010586</td>
+<td style="text-align: left;">78.62%</td>
+<td style="text-align: left;">81.45%</td>
+<td style="text-align: left;">79.07%</td>
+<td style="text-align: right;">0.178</td>
+<td style="text-align: right;">0.039</td>
+<td style="text-align: right;">4.577</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.027</td>
+<td style="text-align: right;">0.043</td>
+<td style="text-align: right;">0.632</td>
+<td style="text-align: right;">0.5271</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 </tbody>
 </table>
@@ -853,34 +707,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>eduf <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X30"</span>, <span class="st">"X31"</span>, <span class="st">"X32"</span>)</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>eduf_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, eduf) <span class="sc">%&gt;%</span> </span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>eduf_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, eduf) <span class="sc">%&gt;%</span> </span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(eduf_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(eduf_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% frequent 2021</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% frequent 2022</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% frequent 2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2023</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
@@ -888,62 +735,50 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">X30</td>
 <td style="text-align: left;">Students help each other during exams or tests.</td>
-<td style="text-align: right;">0.3290960</td>
-<td style="text-align: right;">0.3361177</td>
-<td style="text-align: right;">0.3459898</td>
-<td style="text-align: right;">-0.7122764</td>
-<td style="text-align: right;">0.0316328</td>
-<td style="text-align: right;">0.0755629</td>
-<td style="text-align: right;">0.0241155</td>
-<td style="text-align: right;">0.0337679</td>
-<td style="text-align: right;">0.0384561</td>
-<td style="text-align: right;">-29.53610</td>
-<td style="text-align: right;">0.9367734</td>
-<td style="text-align: right;">1.964913</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.3488751</td>
-<td style="text-align: right;">0.0494243</td>
-<td style="text-align: right;">0.0001458</td>
+<td style="text-align: left;">32.91%</td>
+<td style="text-align: left;">33.61%</td>
+<td style="text-align: left;">34.60%</td>
+<td style="text-align: right;">0.032</td>
+<td style="text-align: right;">0.034</td>
+<td style="text-align: right;">0.937</td>
+<td style="text-align: right;">0.3489</td>
+<td style="text-align: right;">0.076</td>
+<td style="text-align: right;">0.038</td>
+<td style="text-align: right;">1.965</td>
+<td style="text-align: right;">0.0494</td>
+<td style="text-align: right;">0.000</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X31</td>
 <td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
-<td style="text-align: right;">0.2189457</td>
-<td style="text-align: right;">0.2059997</td>
-<td style="text-align: right;">0.2699069</td>
-<td style="text-align: right;">-1.2718208</td>
-<td style="text-align: right;">-0.0773881</td>
-<td style="text-align: right;">0.2767260</td>
-<td style="text-align: right;">0.0276225</td>
-<td style="text-align: right;">0.0393720</td>
-<td style="text-align: right;">0.0425743</td>
-<td style="text-align: right;">-46.04291</td>
-<td style="text-align: right;">-1.9655599</td>
-<td style="text-align: right;">6.499836</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0493495</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0032966</td>
+<td style="text-align: left;">21.89%</td>
+<td style="text-align: left;">20.60%</td>
+<td style="text-align: left;">26.99%</td>
+<td style="text-align: right;">-0.077</td>
+<td style="text-align: right;">0.039</td>
+<td style="text-align: right;">-1.966</td>
+<td style="text-align: right;">0.0493</td>
+<td style="text-align: right;">0.277</td>
+<td style="text-align: right;">0.043</td>
+<td style="text-align: right;">6.500</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.003</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X32</td>
 <td style="text-align: left;">Students and teachers use unauthorized software (so-called "pirated software").</td>
-<td style="text-align: right;">0.2092903</td>
-<td style="text-align: right;">0.2172414</td>
-<td style="text-align: right;">0.2461385</td>
-<td style="text-align: right;">-1.3292087</td>
-<td style="text-align: right;">0.0473935</td>
-<td style="text-align: right;">0.2098945</td>
-<td style="text-align: right;">0.0323028</td>
-<td style="text-align: right;">0.0448230</td>
-<td style="text-align: right;">0.0488475</td>
-<td style="text-align: right;">-41.14842</td>
-<td style="text-align: right;">1.0573465</td>
-<td style="text-align: right;">4.296931</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.2903535</td>
-<td style="text-align: right;">0.0000173</td>
-<td style="text-align: right;">0.0011592</td>
+<td style="text-align: left;">20.93%</td>
+<td style="text-align: left;">21.72%</td>
+<td style="text-align: left;">24.61%</td>
+<td style="text-align: right;">0.047</td>
+<td style="text-align: right;">0.045</td>
+<td style="text-align: right;">1.057</td>
+<td style="text-align: right;">0.2904</td>
+<td style="text-align: right;">0.210</td>
+<td style="text-align: right;">0.049</td>
+<td style="text-align: right;">4.297</td>
+<td style="text-align: right;">0.0000</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 </tbody>
 </table>
@@ -955,39 +790,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="institutionadministration" class="level2">
 <h2 class="anchored" data-anchor-id="institutionadministration">Institution/Administration</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>adm <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X33"</span>, <span class="st">"X34"</span>, <span class="st">"X35"</span>, <span class="st">"X36"</span>, <span class="st">"X37"</span>)</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>adm_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression_staff</span>(df, adm) <span class="sc">%&gt;%</span> </span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(adm_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>adm_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, adm) <span class="sc">%&gt;%</span> </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(adm_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <table data-quarto-postprocess="true" class="table table-sm table-striped small">
 <thead>
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% frequent 2021</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% frequent 2022</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% frequent 2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2023</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
@@ -995,132 +818,82 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">X33</td>
 <td style="text-align: left;">Incitement to violate academic integrity.</td>
-<td style="text-align: right;">0.0516402</td>
-<td style="text-align: right;">0.0522706</td>
-<td style="text-align: right;">0.0932390</td>
-<td style="text-align: right;">0.0708345</td>
-<td style="text-align: right;">0.0476480</td>
-<td style="text-align: right;">-2.736464</td>
-<td style="text-align: right;">-0.0336325</td>
-<td style="text-align: right;">0.6441766</td>
-<td style="text-align: right;">-0.4656424</td>
-<td style="text-align: right;">0.0610740</td>
-<td style="text-align: right;">0.0795958</td>
-<td style="text-align: right;">0.0781884</td>
-<td style="text-align: right;">0.0699200</td>
-<td style="text-align: right;">-44.80570</td>
-<td style="text-align: right;">-0.4225416</td>
-<td style="text-align: right;">8.238777</td>
-<td style="text-align: right;">-6.659642</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.6726297</td>
-<td style="text-align: right;">0.0000000</td>
+<td style="text-align: left;">5.16%</td>
+<td style="text-align: left;">5.23%</td>
+<td style="text-align: left;">9.32%</td>
+<td style="text-align: right;">0.013</td>
+<td style="text-align: right;">0.079</td>
+<td style="text-align: right;">0.161</td>
+<td style="text-align: right;">0.8717</td>
+<td style="text-align: right;">0.636</td>
+<td style="text-align: right;">0.078</td>
+<td style="text-align: right;">8.145</td>
 <td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0164808</td>
+<td style="text-align: right;">0.011</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X34</td>
 <td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
-<td style="text-align: right;">0.1153780</td>
-<td style="text-align: right;">0.1090161</td>
-<td style="text-align: right;">0.1436865</td>
-<td style="text-align: right;">0.1521036</td>
-<td style="text-align: right;">0.0819879</td>
-<td style="text-align: right;">-1.726697</td>
-<td style="text-align: right;">-0.1459326</td>
-<td style="text-align: right;">0.2512068</td>
-<td style="text-align: right;">-0.7253566</td>
-<td style="text-align: right;">0.0455141</td>
-<td style="text-align: right;">0.0593516</td>
-<td style="text-align: right;">0.0608691</td>
-<td style="text-align: right;">0.0529272</td>
-<td style="text-align: right;">-37.93766</td>
-<td style="text-align: right;">-2.4587828</td>
-<td style="text-align: right;">4.127000</td>
-<td style="text-align: right;">-13.704798</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0139409</td>
-<td style="text-align: right;">0.0000368</td>
+<td style="text-align: left;">11.54%</td>
+<td style="text-align: left;">10.90%</td>
+<td style="text-align: left;">14.37%</td>
+<td style="text-align: right;">-0.064</td>
+<td style="text-align: right;">0.059</td>
+<td style="text-align: right;">-1.087</td>
+<td style="text-align: right;">0.2769</td>
+<td style="text-align: right;">0.252</td>
+<td style="text-align: right;">0.060</td>
+<td style="text-align: right;">4.168</td>
 <td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0196697</td>
+<td style="text-align: right;">0.002</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X35</td>
 <td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
-<td style="text-align: right;">0.0545716</td>
-<td style="text-align: right;">0.0654434</td>
-<td style="text-align: right;">0.0951687</td>
-<td style="text-align: right;">0.0872720</td>
-<td style="text-align: right;">0.0404281</td>
-<td style="text-align: right;">-2.554366</td>
-<td style="text-align: right;">0.1057126</td>
-<td style="text-align: right;">0.6244575</td>
-<td style="text-align: right;">-0.8553091</td>
-<td style="text-align: right;">0.0589723</td>
-<td style="text-align: right;">0.0753078</td>
-<td style="text-align: right;">0.0773315</td>
-<td style="text-align: right;">0.0717883</td>
-<td style="text-align: right;">-43.31469</td>
-<td style="text-align: right;">1.4037403</td>
-<td style="text-align: right;">8.075073</td>
-<td style="text-align: right;">-11.914329</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1603962</td>
-<td style="text-align: right;">0.0000000</td>
+<td style="text-align: left;">5.46%</td>
+<td style="text-align: left;">6.54%</td>
+<td style="text-align: left;">9.52%</td>
+<td style="text-align: right;">0.193</td>
+<td style="text-align: right;">0.075</td>
+<td style="text-align: right;">2.584</td>
+<td style="text-align: right;">0.0098</td>
+<td style="text-align: right;">0.600</td>
+<td style="text-align: right;">0.077</td>
+<td style="text-align: right;">7.804</td>
 <td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0261925</td>
+<td style="text-align: right;">0.007</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">X36</td>
 <td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
-<td style="text-align: right;">0.0705995</td>
-<td style="text-align: right;">0.0772856</td>
-<td style="text-align: right;">0.1178597</td>
-<td style="text-align: right;">0.0926498</td>
-<td style="text-align: right;">0.0731887</td>
-<td style="text-align: right;">-2.459829</td>
-<td style="text-align: right;">0.0677832</td>
-<td style="text-align: right;">0.5716265</td>
-<td style="text-align: right;">-0.2879382</td>
-<td style="text-align: right;">0.0540205</td>
-<td style="text-align: right;">0.0683078</td>
-<td style="text-align: right;">0.0689346</td>
-<td style="text-align: right;">0.0585162</td>
-<td style="text-align: right;">-45.53514</td>
-<td style="text-align: right;">0.9923210</td>
-<td style="text-align: right;">8.292296</td>
-<td style="text-align: right;">-4.920660</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.3210410</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">9e-07</td>
-<td style="text-align: right;">0.0101863</td>
+<td style="text-align: left;">7.06%</td>
+<td style="text-align: left;">7.73%</td>
+<td style="text-align: left;">11.79%</td>
+<td style="text-align: right;">0.098</td>
+<td style="text-align: right;">0.068</td>
+<td style="text-align: right;">1.437</td>
+<td style="text-align: right;">0.1509</td>
+<td style="text-align: right;">0.565</td>
+<td style="text-align: right;">0.069</td>
+<td style="text-align: right;">8.200</td>
+<td style="text-align: right;">0e+00</td>
+<td style="text-align: right;">0.008</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">X37</td>
 <td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
-<td style="text-align: right;">0.1979167</td>
-<td style="text-align: right;">0.2082173</td>
-<td style="text-align: right;">0.2300339</td>
-<td style="text-align: right;">0.2462630</td>
-<td style="text-align: right;">0.1657934</td>
-<td style="text-align: right;">-1.174023</td>
-<td style="text-align: right;">0.0125179</td>
-<td style="text-align: right;">0.1922722</td>
-<td style="text-align: right;">-0.5043343</td>
-<td style="text-align: right;">0.0425063</td>
-<td style="text-align: right;">0.0536876</td>
-<td style="text-align: right;">0.0565760</td>
-<td style="text-align: right;">0.0468042</td>
-<td style="text-align: right;">-27.61999</td>
-<td style="text-align: right;">0.2331622</td>
-<td style="text-align: right;">3.398479</td>
-<td style="text-align: right;">-10.775401</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.8156354</td>
-<td style="text-align: right;">0.0006776</td>
-<td style="text-align: right;">0e+00</td>
-<td style="text-align: right;">0.0106315</td>
+<td style="text-align: left;">19.79%</td>
+<td style="text-align: left;">20.82%</td>
+<td style="text-align: left;">23.00%</td>
+<td style="text-align: right;">0.064</td>
+<td style="text-align: right;">0.053</td>
+<td style="text-align: right;">1.196</td>
+<td style="text-align: right;">0.2318</td>
+<td style="text-align: right;">0.191</td>
+<td style="text-align: right;">0.056</td>
+<td style="text-align: right;">3.398</td>
+<td style="text-align: right;">7e-04</td>
+<td style="text-align: right;">0.001</td>
 </tr>
 </tbody>
 </table>
@@ -1139,21 +912,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="header">
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
 <th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2021</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2022</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">% agreement 2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2022</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">beta_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">se_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">z_score_2023</th>
+<th style="text-align: right;" data-quarto-table-cell-role="th">p_2023</th>
 <th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
 </tr>
 </thead>
@@ -1161,1272 +930,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <tr class="odd">
 <td style="text-align: left;">X15</td>
 <td style="text-align: left;">Overall, the processes at my higher education institution are organised in a clear and transparent manner</td>
-<td style="text-align: right;">0.9047197</td>
-<td style="text-align: right;">0.8839465</td>
-<td style="text-align: right;">0.9042795</td>
-<td style="text-align: right;">2.250802</td>
-<td style="text-align: right;">-0.2204572</td>
-<td style="text-align: right;">-0.0050963</td>
-<td style="text-align: right;">0.0358456</td>
-<td style="text-align: right;">0.0480873</td>
-<td style="text-align: right;">0.0574663</td>
-<td style="text-align: right;">62.79159</td>
-<td style="text-align: right;">-4.584518</td>
-<td style="text-align: right;">-0.0886842</td>
+<td style="text-align: left;">90.47%</td>
+<td style="text-align: left;">88.39%</td>
+<td style="text-align: left;">90.43%</td>
+<td style="text-align: right;">-0.22</td>
+<td style="text-align: right;">0.048</td>
+<td style="text-align: right;">-4.585</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">4.6e-06</td>
-<td style="text-align: right;">0.9293329</td>
-<td style="text-align: right;">0.0016195</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</section>
-</section>
-<section id="models-with-academic-role-as-additional-predictor" class="level1">
-<h1>Models with Academic Role as Additional Predictor</h1>
-<p>The same models were repeated while adding the academic role in as a predictor. Academic role was dichotomized into staff vs.&nbsp;student (all self-identified students up to ScD level).</p>
-<section id="open-science-1" class="level2">
-<h2 class="anchored" data-anchor-id="open-science-1">Open Science</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>os_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression_staff</span>(df, os) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(os_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X38</td>
-<td style="text-align: left;">Research results should be in open access, i.e. freely available to the academic community and the general public.</td>
-<td style="text-align: right;">0.9208266</td>
-<td style="text-align: right;">0.9222098</td>
-<td style="text-align: right;">0.9360465</td>
-<td style="text-align: right;">0.9144893</td>
-<td style="text-align: right;">0.9397252</td>
-<td style="text-align: right;">2.2983754</td>
-<td style="text-align: right;">0.0608502</td>
-<td style="text-align: right;">0.2221838</td>
-<td style="text-align: right;">0.3716720</td>
-<td style="text-align: right;">0.0447687</td>
-<td style="text-align: right;">0.0564589</td>
-<td style="text-align: right;">0.0681042</td>
-<td style="text-align: right;">0.0531812</td>
-<td style="text-align: right;">51.33886</td>
-<td style="text-align: right;">1.0777797</td>
-<td style="text-align: right;">3.2624081</td>
-<td style="text-align: right;">6.988792</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.2811321</td>
-<td style="text-align: right;">0.0011047</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0051743</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X39</td>
-<td style="text-align: left;">Research papers should be openly available even before the official peer review process, i.e. before a thorough review of their content.</td>
-<td style="text-align: right;">0.3688894</td>
-<td style="text-align: right;">0.3586274</td>
-<td style="text-align: right;">0.4486071</td>
-<td style="text-align: right;">0.3922952</td>
-<td style="text-align: right;">0.3734253</td>
-<td style="text-align: right;">-0.4874275</td>
-<td style="text-align: right;">-0.0570026</td>
-<td style="text-align: right;">0.3326995</td>
-<td style="text-align: right;">-0.1069106</td>
-<td style="text-align: right;">0.0267138</td>
-<td style="text-align: right;">0.0328021</td>
-<td style="text-align: right;">0.0362817</td>
-<td style="text-align: right;">0.0287465</td>
-<td style="text-align: right;">-18.24630</td>
-<td style="text-align: right;">-1.7377736</td>
-<td style="text-align: right;">9.1698894</td>
-<td style="text-align: right;">-3.719081</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0822507</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0001999</td>
-<td style="text-align: right;">0.0047059</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X42</td>
-<td style="text-align: left;">Researchers should publish author's versions of manuscripts on open online resources such as Zenodo, institutional repositories, etc.</td>
-<td style="text-align: right;">0.7485074</td>
-<td style="text-align: right;">0.7678158</td>
-<td style="text-align: right;">0.7503662</td>
-<td style="text-align: right;">0.7955376</td>
-<td style="text-align: right;">0.7088232</td>
-<td style="text-align: right;">1.3350143</td>
-<td style="text-align: right;">0.0529864</td>
-<td style="text-align: right;">0.0065799</td>
-<td style="text-align: right;">-0.4637672</td>
-<td style="text-align: right;">0.0339226</td>
-<td style="text-align: right;">0.0402094</td>
-<td style="text-align: right;">0.0437008</td>
-<td style="text-align: right;">0.0345802</td>
-<td style="text-align: right;">39.35467</td>
-<td style="text-align: right;">1.3177625</td>
-<td style="text-align: right;">0.1505677</td>
-<td style="text-align: right;">-13.411354</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1875831</td>
-<td style="text-align: right;">0.8803167</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0091662</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X43</td>
-<td style="text-align: left;">Researchers should invest time in describing their experimental data with appropriate metadata so that the data can be easily found and reused.</td>
-<td style="text-align: right;">0.7964158</td>
-<td style="text-align: right;">0.8241484</td>
-<td style="text-align: right;">0.8006569</td>
-<td style="text-align: right;">0.8319853</td>
-<td style="text-align: right;">0.7761358</td>
-<td style="text-align: right;">1.5329441</td>
-<td style="text-align: right;">0.1427192</td>
-<td style="text-align: right;">0.0314543</td>
-<td style="text-align: right;">-0.3425344</td>
-<td style="text-align: right;">0.0354814</td>
-<td style="text-align: right;">0.0431811</td>
-<td style="text-align: right;">0.0467021</td>
-<td style="text-align: right;">0.0371299</td>
-<td style="text-align: right;">43.20418</td>
-<td style="text-align: right;">3.3051326</td>
-<td style="text-align: right;">0.6735093</td>
-<td style="text-align: right;">-9.225289</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0009493</td>
-<td style="text-align: right;">0.5006234</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0056282</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X45</td>
-<td style="text-align: left;">Experimental data should be published as openly as possible.</td>
-<td style="text-align: right;">0.8374037</td>
-<td style="text-align: right;">0.8311770</td>
-<td style="text-align: right;">0.8292157</td>
-<td style="text-align: right;">0.8170597</td>
-<td style="text-align: right;">0.8538624</td>
-<td style="text-align: right;">1.5159847</td>
-<td style="text-align: right;">-0.0125710</td>
-<td style="text-align: right;">-0.0618998</td>
-<td style="text-align: right;">0.2706021</td>
-<td style="text-align: right;">0.0351960</td>
-<td style="text-align: right;">0.0433498</td>
-<td style="text-align: right;">0.0484752</td>
-<td style="text-align: right;">0.0385386</td>
-<td style="text-align: right;">43.07266</td>
-<td style="text-align: right;">-0.2899905</td>
-<td style="text-align: right;">-1.2769387</td>
-<td style="text-align: right;">7.021584</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.7718235</td>
-<td style="text-align: right;">0.2016239</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0027678</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X46</td>
-<td style="text-align: left;">If software development is part of a research project, the source code should be published alongside the relevant scientific papers.</td>
-<td style="text-align: right;">0.6492898</td>
-<td style="text-align: right;">0.6455129</td>
-<td style="text-align: right;">0.6694709</td>
-<td style="text-align: right;">0.6705457</td>
-<td style="text-align: right;">0.6288032</td>
-<td style="text-align: right;">0.7068408</td>
-<td style="text-align: right;">-0.0398044</td>
-<td style="text-align: right;">0.0909925</td>
-<td style="text-align: right;">-0.1930407</td>
-<td style="text-align: right;">0.0304000</td>
-<td style="text-align: right;">0.0368245</td>
-<td style="text-align: right;">0.0411031</td>
-<td style="text-align: right;">0.0322197</td>
-<td style="text-align: right;">23.25133</td>
-<td style="text-align: right;">-1.0809199</td>
-<td style="text-align: right;">2.2137627</td>
-<td style="text-align: right;">-5.991381</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.2797327</td>
-<td style="text-align: right;">0.0268451</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0019048</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X48</td>
-<td style="text-align: left;">The names of peer reviewers of research papers should be made public, regardless of whether their conclusion is positive or negative.</td>
-<td style="text-align: right;">0.8162080</td>
-<td style="text-align: right;">0.8439228</td>
-<td style="text-align: right;">0.8008099</td>
-<td style="text-align: right;">0.8880881</td>
-<td style="text-align: right;">0.7374905</td>
-<td style="text-align: right;">2.0589080</td>
-<td style="text-align: right;">0.0770084</td>
-<td style="text-align: right;">-0.0883693</td>
-<td style="text-align: right;">-1.0248493</td>
-<td style="text-align: right;">0.0379919</td>
-<td style="text-align: right;">0.0431162</td>
-<td style="text-align: right;">0.0461679</td>
-<td style="text-align: right;">0.0376242</td>
-<td style="text-align: right;">54.19340</td>
-<td style="text-align: right;">1.7860657</td>
-<td style="text-align: right;">-1.9140849</td>
-<td style="text-align: right;">-27.239100</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0740886</td>
-<td style="text-align: right;">0.0556093</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0413193</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X49</td>
-<td style="text-align: left;">The texts of positive and negative peer reviews of research papers should be published alongside these papers.</td>
-<td style="text-align: right;">0.7188734</td>
-<td style="text-align: right;">0.7594986</td>
-<td style="text-align: right;">0.7281668</td>
-<td style="text-align: right;">0.8327095</td>
-<td style="text-align: right;">0.6129213</td>
-<td style="text-align: right;">1.5576827</td>
-<td style="text-align: right;">0.0814159</td>
-<td style="text-align: right;">0.0560655</td>
-<td style="text-align: right;">-1.1390273</td>
-<td style="text-align: right;">0.0332072</td>
-<td style="text-align: right;">0.0381969</td>
-<td style="text-align: right;">0.0418416</td>
-<td style="text-align: right;">0.0333328</td>
-<td style="text-align: right;">46.90803</td>
-<td style="text-align: right;">2.1314784</td>
-<td style="text-align: right;">1.3399478</td>
-<td style="text-align: right;">-34.171410</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0330497</td>
-<td style="text-align: right;">0.1802623</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0533210</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X50</td>
-<td style="text-align: left;">Authors of research papers and peer reviewers should be able to communicate directly without intermediaries.</td>
-<td style="text-align: right;">0.7563811</td>
-<td style="text-align: right;">0.7999739</td>
-<td style="text-align: right;">0.7565802</td>
-<td style="text-align: right;">0.8729931</td>
-<td style="text-align: right;">0.6495131</td>
-<td style="text-align: right;">1.8826593</td>
-<td style="text-align: right;">0.1074427</td>
-<td style="text-align: right;">-0.0004239</td>
-<td style="text-align: right;">-1.2992340</td>
-<td style="text-align: right;">0.0367693</td>
-<td style="text-align: right;">0.0408551</td>
-<td style="text-align: right;">0.0439766</td>
-<td style="text-align: right;">0.0361869</td>
-<td style="text-align: right;">51.20188</td>
-<td style="text-align: right;">2.6298514</td>
-<td style="text-align: right;">-0.0096385</td>
-<td style="text-align: right;">-35.903481</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0085422</td>
-<td style="text-align: right;">0.9923097</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0666005</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X52</td>
-<td style="text-align: left;">I can explain what "open science" is.</td>
-<td style="text-align: right;">0.8967248</td>
-<td style="text-align: right;">0.8649422</td>
-<td style="text-align: right;">0.8755502</td>
-<td style="text-align: right;">0.8377454</td>
-<td style="text-align: right;">0.9331451</td>
-<td style="text-align: right;">1.7846516</td>
-<td style="text-align: right;">-0.2047691</td>
-<td style="text-align: right;">-0.2312050</td>
-<td style="text-align: right;">0.9848708</td>
-<td style="text-align: right;">0.0408150</td>
-<td style="text-align: right;">0.0510522</td>
-<td style="text-align: right;">0.0577592</td>
-<td style="text-align: right;">0.0498567</td>
-<td style="text-align: right;">43.72543</td>
-<td style="text-align: right;">-4.0109780</td>
-<td style="text-align: right;">-4.0029102</td>
-<td style="text-align: right;">19.754050</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000605</td>
-<td style="text-align: right;">0.0000626</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0318155</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</section>
-<section id="reporting-and-academic-integrity-1" class="level2">
-<h2 class="anchored" data-anchor-id="reporting-and-academic-integrity-1">Reporting and Academic Integrity</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>raia_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression_staff</span>(df, raia) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raia_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X17</td>
-<td style="text-align: left;">Researchers should publish all research results (both positive and negative)</td>
-<td style="text-align: right;">0.8167210</td>
-<td style="text-align: right;">0.8304588</td>
-<td style="text-align: right;">0.8316760</td>
-<td style="text-align: right;">0.8560024</td>
-<td style="text-align: right;">0.7821814</td>
-<td style="text-align: right;">1.7435091</td>
-<td style="text-align: right;">0.0346357</td>
-<td style="text-align: right;">0.1129124</td>
-<td style="text-align: right;">-0.5063773</td>
-<td style="text-align: right;">0.0337087</td>
-<td style="text-align: right;">0.0401379</td>
-<td style="text-align: right;">0.0457064</td>
-<td style="text-align: right;">0.0352111</td>
-<td style="text-align: right;">51.72278</td>
-<td style="text-align: right;">0.8629168</td>
-<td style="text-align: right;">2.4703848</td>
-<td style="text-align: right;">-14.381165</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.3881832</td>
-<td style="text-align: right;">0.0134968</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0100638</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X18</td>
-<td style="text-align: left;">All co-authors are fully responsible for the content of the publication, regardless of the amount of their contribution</td>
-<td style="text-align: right;">0.9070239</td>
-<td style="text-align: right;">0.9189719</td>
-<td style="text-align: right;">0.9139842</td>
-<td style="text-align: right;">0.8983389</td>
-<td style="text-align: right;">0.9349033</td>
-<td style="text-align: right;">2.0751738</td>
-<td style="text-align: right;">0.2076296</td>
-<td style="text-align: right;">0.0765389</td>
-<td style="text-align: right;">0.5064860</td>
-<td style="text-align: right;">0.0406206</td>
-<td style="text-align: right;">0.0532691</td>
-<td style="text-align: right;">0.0599182</td>
-<td style="text-align: right;">0.0500606</td>
-<td style="text-align: right;">51.08671</td>
-<td style="text-align: right;">3.8977534</td>
-<td style="text-align: right;">1.2773910</td>
-<td style="text-align: right;">10.117452</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000971</td>
-<td style="text-align: right;">0.2014642</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0082442</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X19</td>
-<td style="text-align: left;">Changes to experimental data after the end of the experiment are acceptable</td>
-<td style="text-align: right;">0.5875672</td>
-<td style="text-align: right;">0.6152750</td>
-<td style="text-align: right;">0.6566686</td>
-<td style="text-align: right;">0.6975682</td>
-<td style="text-align: right;">0.4963317</td>
-<td style="text-align: right;">0.7636554</td>
-<td style="text-align: right;">0.0125262</td>
-<td style="text-align: right;">0.3201188</td>
-<td style="text-align: right;">-0.8701208</td>
-<td style="text-align: right;">0.0269324</td>
-<td style="text-align: right;">0.0325999</td>
-<td style="text-align: right;">0.0374464</td>
-<td style="text-align: right;">0.0288340</td>
-<td style="text-align: right;">28.35454</td>
-<td style="text-align: right;">0.3842391</td>
-<td style="text-align: right;">8.5487279</td>
-<td style="text-align: right;">-30.176886</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.7008012</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0339753</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X20</td>
-<td style="text-align: left;">It is necessary to indicate the authorship of all those who have contributed to the research without exception</td>
-<td style="text-align: right;">0.9655249</td>
-<td style="text-align: right;">0.9652220</td>
-<td style="text-align: right;">0.9579390</td>
-<td style="text-align: right;">0.9599778</td>
-<td style="text-align: right;">0.9689970</td>
-<td style="text-align: right;">3.2159661</td>
-<td style="text-align: right;">0.0237721</td>
-<td style="text-align: right;">-0.2129995</td>
-<td style="text-align: right;">0.2818400</td>
-<td style="text-align: right;">0.0641571</td>
-<td style="text-align: right;">0.0809951</td>
-<td style="text-align: right;">0.0877420</td>
-<td style="text-align: right;">0.0728511</td>
-<td style="text-align: right;">50.12645</td>
-<td style="text-align: right;">0.2935007</td>
-<td style="text-align: right;">-2.4275657</td>
-<td style="text-align: right;">3.868711</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.7691394</td>
-<td style="text-align: right;">0.0152005</td>
-<td style="text-align: right;">0.0001094</td>
-<td style="text-align: right;">0.0029120</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X21</td>
-<td style="text-align: left;">Researchers should report any conflicts of interest when publishing research results and applying for funding</td>
-<td style="text-align: right;">0.8776479</td>
-<td style="text-align: right;">0.8689680</td>
-<td style="text-align: right;">0.9020723</td>
-<td style="text-align: right;">0.8456107</td>
-<td style="text-align: right;">0.9281102</td>
-<td style="text-align: right;">1.6445725</td>
-<td style="text-align: right;">0.0106844</td>
-<td style="text-align: right;">0.2439566</td>
-<td style="text-align: right;">0.8469190</td>
-<td style="text-align: right;">0.0369806</td>
-<td style="text-align: right;">0.0472955</td>
-<td style="text-align: right;">0.0570851</td>
-<td style="text-align: right;">0.0473285</td>
-<td style="text-align: right;">44.47122</td>
-<td style="text-align: right;">0.2259073</td>
-<td style="text-align: right;">4.2735591</td>
-<td style="text-align: right;">17.894479</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.8212735</td>
-<td style="text-align: right;">0.0000192</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0240503</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X40</td>
-<td style="text-align: left;">Authors should retain intellectual property rights to their published works, even at the cost of giving up some opportunities for free publication</td>
-<td style="text-align: right;">0.8580919</td>
-<td style="text-align: right;">0.8703514</td>
-<td style="text-align: right;">0.8568884</td>
-<td style="text-align: right;">0.8690813</td>
-<td style="text-align: right;">0.8536277</td>
-<td style="text-align: right;">1.8566143</td>
-<td style="text-align: right;">0.0905484</td>
-<td style="text-align: right;">-0.0091386</td>
-<td style="text-align: right;">-0.1187153</td>
-<td style="text-align: right;">0.0387470</td>
-<td style="text-align: right;">0.0474580</td>
-<td style="text-align: right;">0.0520243</td>
-<td style="text-align: right;">0.0411868</td>
-<td style="text-align: right;">47.91633</td>
-<td style="text-align: right;">1.9079696</td>
-<td style="text-align: right;">-0.1756604</td>
-<td style="text-align: right;">-2.882365</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0563951</td>
-<td style="text-align: right;">0.8605607</td>
-<td style="text-align: right;">0.0039470</td>
-<td style="text-align: right;">0.0009163</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X41</td>
-<td style="text-align: left;">Scholars should explain the results of their research to the general public in an understandable way.</td>
-<td style="text-align: right;">0.8505747</td>
-<td style="text-align: right;">0.8634660</td>
-<td style="text-align: right;">0.8428625</td>
-<td style="text-align: right;">0.8719875</td>
-<td style="text-align: right;">0.8285253</td>
-<td style="text-align: right;">1.9027771</td>
-<td style="text-align: right;">0.0655252</td>
-<td style="text-align: right;">-0.0547368</td>
-<td style="text-align: right;">-0.3325714</td>
-<td style="text-align: right;">0.0369833</td>
-<td style="text-align: right;">0.0445353</td>
-<td style="text-align: right;">0.0488023</td>
-<td style="text-align: right;">0.0384850</td>
-<td style="text-align: right;">51.44964</td>
-<td style="text-align: right;">1.4713085</td>
-<td style="text-align: right;">-1.1216035</td>
-<td style="text-align: right;">-8.641585</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1412077</td>
-<td style="text-align: right;">0.2620311</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0047155</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X44</td>
-<td style="text-align: left;">Time should be invested in describing research methodology, tools, and experimental results in detail so that other researchers can reproduce them.</td>
-<td style="text-align: right;">0.7910699</td>
-<td style="text-align: right;">0.8057143</td>
-<td style="text-align: right;">0.8093995</td>
-<td style="text-align: right;">0.8125348</td>
-<td style="text-align: right;">0.7873053</td>
-<td style="text-align: right;">1.4090678</td>
-<td style="text-align: right;">0.0726904</td>
-<td style="text-align: right;">0.1144825</td>
-<td style="text-align: right;">-0.1547463</td>
-<td style="text-align: right;">0.0345965</td>
-<td style="text-align: right;">0.0416989</td>
-<td style="text-align: right;">0.0464054</td>
-<td style="text-align: right;">0.0362703</td>
-<td style="text-align: right;">40.72861</td>
-<td style="text-align: right;">1.7432229</td>
-<td style="text-align: right;">2.4670096</td>
-<td style="text-align: right;">-4.266468</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0812947</td>
-<td style="text-align: right;">0.0136247</td>
-<td style="text-align: right;">0.0000199</td>
-<td style="text-align: right;">0.0013287</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X47</td>
-<td style="text-align: left;">Researchers should always strive to ensure that their research serves a broad public purpose, regardless of the field of science in which they work.</td>
-<td style="text-align: right;">0.8920426</td>
-<td style="text-align: right;">0.8913770</td>
-<td style="text-align: right;">0.8823081</td>
-<td style="text-align: right;">0.8651704</td>
-<td style="text-align: right;">0.9205170</td>
-<td style="text-align: right;">1.8569342</td>
-<td style="text-align: right;">0.0614982</td>
-<td style="text-align: right;">-0.1028785</td>
-<td style="text-align: right;">0.6032468</td>
-<td style="text-align: right;">0.0402798</td>
-<td style="text-align: right;">0.0513644</td>
-<td style="text-align: right;">0.0563691</td>
-<td style="text-align: right;">0.0471138</td>
-<td style="text-align: right;">46.10085</td>
-<td style="text-align: right;">1.1972906</td>
-<td style="text-align: right;">-1.8250872</td>
-<td style="text-align: right;">12.804025</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.2311933</td>
-<td style="text-align: right;">0.0679879</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0119087</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>raif_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression_staff</span>(df, raif) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(raif_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X24</td>
-<td style="text-align: left;">Using other author's published papers and ideas without proper reference to the original source.</td>
-<td style="text-align: right;">0.1438367</td>
-<td style="text-align: right;">0.1342915</td>
-<td style="text-align: right;">0.1639652</td>
-<td style="text-align: right;">0.1654231</td>
-<td style="text-align: right;">0.1162562</td>
-<td style="text-align: right;">-1.605118</td>
-<td style="text-align: right;">-0.1281285</td>
-<td style="text-align: right;">0.1664782</td>
-<td style="text-align: right;">-0.4364311</td>
-<td style="text-align: right;">0.0391958</td>
-<td style="text-align: right;">0.0510225</td>
-<td style="text-align: right;">0.0545004</td>
-<td style="text-align: right;">0.0459945</td>
-<td style="text-align: right;">-40.95131</td>
-<td style="text-align: right;">-2.511214</td>
-<td style="text-align: right;">3.054625</td>
-<td style="text-align: right;">-9.488771</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0120317</td>
-<td style="text-align: right;">0.0022534</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0077512</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X25</td>
-<td style="text-align: left;">The author uses his own previous publications as part of a new work without proper acknowledgment or citation of the original.</td>
-<td style="text-align: right;">0.1621756</td>
-<td style="text-align: right;">0.1474978</td>
-<td style="text-align: right;">0.1935564</td>
-<td style="text-align: right;">0.1736711</td>
-<td style="text-align: right;">0.1546364</td>
-<td style="text-align: right;">-1.563988</td>
-<td style="text-align: right;">-0.1291495</td>
-<td style="text-align: right;">0.2149613</td>
-<td style="text-align: right;">-0.1598299</td>
-<td style="text-align: right;">0.0405756</td>
-<td style="text-align: right;">0.0513462</td>
-<td style="text-align: right;">0.0530975</td>
-<td style="text-align: right;">0.0435492</td>
-<td style="text-align: right;">-38.54503</td>
-<td style="text-align: right;">-2.515270</td>
-<td style="text-align: right;">4.048423</td>
-<td style="text-align: right;">-3.670098</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0118941</td>
-<td style="text-align: right;">0.0000516</td>
-<td style="text-align: right;">0.0002425</td>
-<td style="text-align: right;">0.0035190</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X26</td>
-<td style="text-align: left;">Making up data or facts about a scientific activity, for example, a research experiment.</td>
-<td style="text-align: right;">0.0876487</td>
-<td style="text-align: right;">0.0750000</td>
-<td style="text-align: right;">0.1295436</td>
-<td style="text-align: right;">0.1021352</td>
-<td style="text-align: right;">0.0789287</td>
-<td style="text-align: right;">-2.213484</td>
-<td style="text-align: right;">-0.2042060</td>
-<td style="text-align: right;">0.4453979</td>
-<td style="text-align: right;">-0.3353397</td>
-<td style="text-align: right;">0.0524793</td>
-<td style="text-align: right;">0.0700517</td>
-<td style="text-align: right;">0.0687484</td>
-<td style="text-align: right;">0.0608905</td>
-<td style="text-align: right;">-42.17822</td>
-<td style="text-align: right;">-2.915075</td>
-<td style="text-align: right;">6.478663</td>
-<td style="text-align: right;">-5.507254</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0035560</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0118544</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X27</td>
-<td style="text-align: left;">Selective citations to support one's conclusions or to please editors, reviewers, colleagues, etc.</td>
-<td style="text-align: right;">0.1818505</td>
-<td style="text-align: right;">0.1750405</td>
-<td style="text-align: right;">0.2174144</td>
-<td style="text-align: right;">0.2120129</td>
-<td style="text-align: right;">0.1554883</td>
-<td style="text-align: right;">-1.333476</td>
-<td style="text-align: right;">-0.0881569</td>
-<td style="text-align: right;">0.2302744</td>
-<td style="text-align: right;">-0.4019566</td>
-<td style="text-align: right;">0.0387031</td>
-<td style="text-align: right;">0.0497341</td>
-<td style="text-align: right;">0.0526504</td>
-<td style="text-align: right;">0.0439511</td>
-<td style="text-align: right;">-34.45393</td>
-<td style="text-align: right;">-1.772563</td>
-<td style="text-align: right;">4.373649</td>
-<td style="text-align: right;">-9.145537</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0763011</td>
-<td style="text-align: right;">0.0000122</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0078699</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X28</td>
-<td style="text-align: left;">The author passes off other people's academic achievements as his own.</td>
-<td style="text-align: right;">0.0772336</td>
-<td style="text-align: right;">0.0668266</td>
-<td style="text-align: right;">0.1195594</td>
-<td style="text-align: right;">0.0959126</td>
-<td style="text-align: right;">0.0645913</td>
-<td style="text-align: right;">-2.297961</td>
-<td style="text-align: right;">-0.2018040</td>
-<td style="text-align: right;">0.4977986</td>
-<td style="text-align: right;">-0.4845123</td>
-<td style="text-align: right;">0.0539776</td>
-<td style="text-align: right;">0.0725220</td>
-<td style="text-align: right;">0.0710170</td>
-<td style="text-align: right;">0.0638278</td>
-<td style="text-align: right;">-42.57246</td>
-<td style="text-align: right;">-2.782659</td>
-<td style="text-align: right;">7.009573</td>
-<td style="text-align: right;">-7.590934</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0053915</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0162385</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X29</td>
-<td style="text-align: left;">A person attributes to himself or herself the authorship of a work (assignment, article, etc.) that he or she did not actually perform, but arranged for others to perform it for a fee or in another way.</td>
-<td style="text-align: right;">0.1454095</td>
-<td style="text-align: right;">0.1311928</td>
-<td style="text-align: right;">0.1711329</td>
-<td style="text-align: right;">0.1612559</td>
-<td style="text-align: right;">0.1225432</td>
-<td style="text-align: right;">-1.634962</td>
-<td style="text-align: right;">-0.1551857</td>
-<td style="text-align: right;">0.2047591</td>
-<td style="text-align: right;">-0.3519793</td>
-<td style="text-align: right;">0.0416731</td>
-<td style="text-align: right;">0.0545041</td>
-<td style="text-align: right;">0.0575297</td>
-<td style="text-align: right;">0.0491750</td>
-<td style="text-align: right;">-39.23301</td>
-<td style="text-align: right;">-2.847230</td>
-<td style="text-align: right;">3.559187</td>
-<td style="text-align: right;">-7.157693</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0044101</td>
-<td style="text-align: right;">0.0003720</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0064252</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</section>
-<section id="education-1" class="level2">
-<h2 class="anchored" data-anchor-id="education-1">Education</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>edua_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression_staff</span>(df, edua) <span class="sc">%&gt;%</span> </span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(edua_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X16</td>
-<td style="text-align: left;">The quality of educational services at my higher education institution is high</td>
-<td style="text-align: right;">0.8848202</td>
-<td style="text-align: right;">0.8656260</td>
-<td style="text-align: right;">0.8830737</td>
-<td style="text-align: right;">0.8631812</td>
-<td style="text-align: right;">0.8972962</td>
-<td style="text-align: right;">1.9106691</td>
-<td style="text-align: right;">-0.1399555</td>
-<td style="text-align: right;">-0.0239667</td>
-<td style="text-align: right;">0.3089289</td>
-<td style="text-align: right;">0.0367299</td>
-<td style="text-align: right;">0.0449627</td>
-<td style="text-align: right;">0.0528326</td>
-<td style="text-align: right;">0.0415765</td>
-<td style="text-align: right;">52.01950</td>
-<td style="text-align: right;">-3.1127052</td>
-<td style="text-align: right;">-0.4536355</td>
-<td style="text-align: right;">7.430378</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0018538</td>
-<td style="text-align: right;">0.6500912</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0041386</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X22</td>
-<td style="text-align: left;">Students should openly publish the full texts of their diploma theses</td>
-<td style="text-align: right;">0.7544839</td>
-<td style="text-align: right;">0.7119039</td>
-<td style="text-align: right;">0.8091225</td>
-<td style="text-align: right;">0.6965320</td>
-<td style="text-align: right;">0.8263568</td>
-<td style="text-align: right;">0.8295815</td>
-<td style="text-align: right;">-0.1440657</td>
-<td style="text-align: right;">0.3175224</td>
-<td style="text-align: right;">0.6988767</td>
-<td style="text-align: right;">0.0284884</td>
-<td style="text-align: right;">0.0352943</td>
-<td style="text-align: right;">0.0431573</td>
-<td style="text-align: right;">0.0333925</td>
-<td style="text-align: right;">29.11995</td>
-<td style="text-align: right;">-4.0818375</td>
-<td style="text-align: right;">7.3573234</td>
-<td style="text-align: right;">20.929160</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0000447</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0250734</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X23</td>
-<td style="text-align: left;">Students must understand what constitutes inappropriate academic behavior and report it to the appropriate authorities</td>
-<td style="text-align: right;">0.9404103</td>
-<td style="text-align: right;">0.9418838</td>
-<td style="text-align: right;">0.9487089</td>
-<td style="text-align: right;">0.9318630</td>
-<td style="text-align: right;">0.9588315</td>
-<td style="text-align: right;">2.5466159</td>
-<td style="text-align: right;">0.0857105</td>
-<td style="text-align: right;">0.1513753</td>
-<td style="text-align: right;">0.5344976</td>
-<td style="text-align: right;">0.0501112</td>
-<td style="text-align: right;">0.0643717</td>
-<td style="text-align: right;">0.0755669</td>
-<td style="text-align: right;">0.0619092</td>
-<td style="text-align: right;">50.81928</td>
-<td style="text-align: right;">1.3314943</td>
-<td style="text-align: right;">2.0031951</td>
-<td style="text-align: right;">8.633568</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1830264</td>
-<td style="text-align: right;">0.0451563</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0081951</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X51</td>
-<td style="text-align: left;">Higher education institutions should provide open access to their educational resources (textbooks, manuals, various digital tools, etc.) for everyone.</td>
-<td style="text-align: right;">0.7861589</td>
-<td style="text-align: right;">0.8145343</td>
-<td style="text-align: right;">0.7907064</td>
-<td style="text-align: right;">0.8815166</td>
-<td style="text-align: right;">0.6849447</td>
-<td style="text-align: right;">1.9845342</td>
-<td style="text-align: right;">0.0279893</td>
-<td style="text-align: right;">0.0468162</td>
-<td style="text-align: right;">-1.2295530</td>
-<td style="text-align: right;">0.0360172</td>
-<td style="text-align: right;">0.0402609</td>
-<td style="text-align: right;">0.0444041</td>
-<td style="text-align: right;">0.0356906</td>
-<td style="text-align: right;">55.09957</td>
-<td style="text-align: right;">0.6951987</td>
-<td style="text-align: right;">1.0543202</td>
-<td style="text-align: right;">-34.450339</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.4869308</td>
-<td style="text-align: right;">0.2917363</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0579908</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>eduf_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression_staff</span>(df, eduf) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(eduf_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff0</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_staff1</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_staff</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X30</td>
-<td style="text-align: left;">Students help each other during exams or tests.</td>
-<td style="text-align: right;">0.3290960</td>
-<td style="text-align: right;">0.3361177</td>
-<td style="text-align: right;">0.3459898</td>
-<td style="text-align: right;">0.3662075</td>
-<td style="text-align: right;">0.2911604</td>
-<td style="text-align: right;">-0.563126</td>
-<td style="text-align: right;">-0.0084071</td>
-<td style="text-align: right;">0.0858307</td>
-<td style="text-align: right;">-0.3480836</td>
-<td style="text-align: right;">0.0273197</td>
-<td style="text-align: right;">0.0340496</td>
-<td style="text-align: right;">0.0385961</td>
-<td style="text-align: right;">0.0306967</td>
-<td style="text-align: right;">-20.61247</td>
-<td style="text-align: right;">-0.246907</td>
-<td style="text-align: right;">2.223820</td>
-<td style="text-align: right;">-11.339451</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.8049802</td>
-<td style="text-align: right;">0.0261606</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0050654</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X31</td>
-<td style="text-align: left;">Students use cheat sheets, smartphones, or other means of cheating during exams or tests.</td>
-<td style="text-align: right;">0.2189457</td>
-<td style="text-align: right;">0.2059997</td>
-<td style="text-align: right;">0.2699069</td>
-<td style="text-align: right;">0.2154095</td>
-<td style="text-align: right;">0.2409780</td>
-<td style="text-align: right;">-1.327782</td>
-<td style="text-align: right;">-0.0632416</td>
-<td style="text-align: right;">0.2737268</td>
-<td style="text-align: right;">0.1198650</td>
-<td style="text-align: right;">0.0320514</td>
-<td style="text-align: right;">0.0395909</td>
-<td style="text-align: right;">0.0425961</td>
-<td style="text-align: right;">0.0341782</td>
-<td style="text-align: right;">-41.42664</td>
-<td style="text-align: right;">-1.597376</td>
-<td style="text-align: right;">6.426096</td>
-<td style="text-align: right;">3.507057</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1101819</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0004531</td>
-<td style="text-align: right;">0.0038628</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X32</td>
-<td style="text-align: left;">Students and teachers use unauthorized software (so-called "pirated software").</td>
-<td style="text-align: right;">0.2092903</td>
-<td style="text-align: right;">0.2172414</td>
-<td style="text-align: right;">0.2461385</td>
-<td style="text-align: right;">0.1926289</td>
-<td style="text-align: right;">0.2656324</td>
-<td style="text-align: right;">-1.523631</td>
-<td style="text-align: right;">0.0981712</td>
-<td style="text-align: right;">0.2037149</td>
-<td style="text-align: right;">0.4157249</td>
-<td style="text-align: right;">0.0377419</td>
-<td style="text-align: right;">0.0452487</td>
-<td style="text-align: right;">0.0490369</td>
-<td style="text-align: right;">0.0388513</td>
-<td style="text-align: right;">-40.36970</td>
-<td style="text-align: right;">2.169589</td>
-<td style="text-align: right;">4.154317</td>
-<td style="text-align: right;">10.700422</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0300380</td>
-<td style="text-align: right;">0.0000326</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0079343</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-</section>
-<section id="institutionadministration-1" class="level2">
-<h2 class="anchored" data-anchor-id="institutionadministration-1">Institution/Administration</h2>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>adm_log <span class="ot">&lt;-</span> <span class="fu">frequency_log_regression</span>(df, adm) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(adm_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X33</td>
-<td style="text-align: left;">Incitement to violate academic integrity.</td>
-<td style="text-align: right;">0.0516402</td>
-<td style="text-align: right;">0.0522706</td>
-<td style="text-align: right;">0.0932390</td>
-<td style="text-align: right;">-2.910433</td>
-<td style="text-align: right;">0.0127987</td>
-<td style="text-align: right;">0.6357193</td>
-<td style="text-align: right;">0.0566107</td>
-<td style="text-align: right;">0.0792515</td>
-<td style="text-align: right;">0.0780497</td>
-<td style="text-align: right;">-51.41137</td>
-<td style="text-align: right;">0.1614942</td>
-<td style="text-align: right;">8.145061</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.8717042</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0105918</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X34</td>
-<td style="text-align: left;">The administration of the institution tolerates cases of academic dishonesty.</td>
-<td style="text-align: right;">0.1153780</td>
-<td style="text-align: right;">0.1090161</td>
-<td style="text-align: right;">0.1436865</td>
-<td style="text-align: right;">-2.036947</td>
-<td style="text-align: right;">-0.0638838</td>
-<td style="text-align: right;">0.2519441</td>
-<td style="text-align: right;">0.0410750</td>
-<td style="text-align: right;">0.0587516</td>
-<td style="text-align: right;">0.0604412</td>
-<td style="text-align: right;">-49.59092</td>
-<td style="text-align: right;">-1.0873541</td>
-<td style="text-align: right;">4.168415</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.2768804</td>
-<td style="text-align: right;">0.0000307</td>
-<td style="text-align: right;">0.0024850</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X35</td>
-<td style="text-align: left;">Falsely accusing a student or employee of misconduct or other violations.</td>
-<td style="text-align: right;">0.0545716</td>
-<td style="text-align: right;">0.0654434</td>
-<td style="text-align: right;">0.0951687</td>
-<td style="text-align: right;">-2.852125</td>
-<td style="text-align: right;">0.1932391</td>
-<td style="text-align: right;">0.6000282</td>
-<td style="text-align: right;">0.0556112</td>
-<td style="text-align: right;">0.0747840</td>
-<td style="text-align: right;">0.0768891</td>
-<td style="text-align: right;">-51.28691</td>
-<td style="text-align: right;">2.5839638</td>
-<td style="text-align: right;">7.803812</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0097672</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0073960</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">X36</td>
-<td style="text-align: left;">Abuse of official position or authority to encourage academic dishonesty.</td>
-<td style="text-align: right;">0.0705995</td>
-<td style="text-align: right;">0.0772856</td>
-<td style="text-align: right;">0.1178597</td>
-<td style="text-align: right;">-2.577517</td>
-<td style="text-align: right;">0.0977049</td>
-<td style="text-align: right;">0.5646614</td>
-<td style="text-align: right;">0.0492273</td>
-<td style="text-align: right;">0.0680154</td>
-<td style="text-align: right;">0.0688589</td>
-<td style="text-align: right;">-52.35947</td>
-<td style="text-align: right;">1.4365123</td>
-<td style="text-align: right;">8.200270</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.1508566</td>
-<td style="text-align: right;">0.0000000</td>
-<td style="text-align: right;">0.0076504</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">X37</td>
-<td style="text-align: left;">The university administration accuses and punishes whistleblowers of academic integrity violations.</td>
-<td style="text-align: right;">0.1979167</td>
-<td style="text-align: right;">0.2082173</td>
-<td style="text-align: right;">0.2300339</td>
-<td style="text-align: right;">-1.399366</td>
-<td style="text-align: right;">0.0636615</td>
-<td style="text-align: right;">0.1912468</td>
-<td style="text-align: right;">0.0377689</td>
-<td style="text-align: right;">0.0532399</td>
-<td style="text-align: right;">0.0562801</td>
-<td style="text-align: right;">-37.05075</td>
-<td style="text-align: right;">1.1957486</td>
-<td style="text-align: right;">3.398123</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.2317947</td>
-<td style="text-align: right;">0.0006785</td>
-<td style="text-align: right;">0.0009495</td>
-</tr>
-</tbody>
-</table>
-
-
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>hei_log <span class="ot">&lt;-</span> <span class="fu">agreement_log_regression</span>(df, <span class="st">"X15"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">merge</span>(var_overview[, <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)], ., <span class="at">by.x =</span> <span class="st">"var_id"</span>, <span class="at">by.y =</span> <span class="st">"question"</span>)</span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(hei_log, <span class="at">format =</span> <span class="st">"html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<table data-quarto-postprocess="true" class="table table-sm table-striped small">
-<thead>
-<tr class="header">
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_id</th>
-<th style="text-align: left;" data-quarto-table-cell-role="th">var_full</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2021</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">perc_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">estimate_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">std.error_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">statistic_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_(Intercept)</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2022</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">p.value_2023</th>
-<th style="text-align: right;" data-quarto-table-cell-role="th">r_squared</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">X15</td>
-<td style="text-align: left;">Overall, the processes at my higher education institution are organised in a clear and transparent manner</td>
-<td style="text-align: right;">0.9047197</td>
-<td style="text-align: right;">0.8839465</td>
-<td style="text-align: right;">0.9042795</td>
-<td style="text-align: right;">2.250802</td>
-<td style="text-align: right;">-0.2204572</td>
-<td style="text-align: right;">-0.0050963</td>
-<td style="text-align: right;">0.0358456</td>
-<td style="text-align: right;">0.0480873</td>
-<td style="text-align: right;">0.0574663</td>
-<td style="text-align: right;">62.79159</td>
-<td style="text-align: right;">-4.584518</td>
-<td style="text-align: right;">-0.0886842</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4.6e-06</td>
-<td style="text-align: right;">0.9293329</td>
-<td style="text-align: right;">0.0016195</td>
+<td style="text-align: right;">-0.005</td>
+<td style="text-align: right;">0.057</td>
+<td style="text-align: right;">-0.089</td>
+<td style="text-align: right;">0.9293</td>
+<td style="text-align: right;">0.002</td>
 </tr>
 </tbody>
 </table>
