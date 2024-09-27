@@ -5,7 +5,7 @@ library(quarto)
 source("R/functions.R")
 
 # check if shapefiles are available
-check_and_download_map()
+check_map_files()
 
 options(tidyverse.quiet = TRUE)
 

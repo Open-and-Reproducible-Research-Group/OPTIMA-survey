@@ -156,8 +156,8 @@ download_and_prepare_map <- function() {
   })
 }
 
-# Function to check and download shapefiles if necessary
-check_and_download_map <- function() {
+# Function to check if the required shapefiles are present without prompting
+check_map_files <- function() {
   # Define the required files
   required_files <- c("gadm41_UKR_1.cpg", "gadm41_UKR_1.dbf", "gadm41_UKR_1.prj",
                       "gadm41_UKR_1.shp", "gadm41_UKR_1.shx")
@@ -165,19 +165,13 @@ check_and_download_map <- function() {
   # Define the destination directory
   dest_dir <- "data/additional/map"
   
+  # Check if the directory exists
   if (!dir.exists(dest_dir)) {
-    # If the directory does not exist, inform the user
-    message("The directory '", dest_dir, "' does not exist.")
-    message("The required shapefiles are not present in the expected location.")
-    
-    # Prompt the user for action
-    response <- readline(prompt = "Do you want to download the shapefiles? (yes/no): ")
-    if (tolower(response) %in% c("yes", "y")) {
-      # Call the download function
-      download_and_prepare_map()
-    } else {
-      message("Download canceled by the user.")
-    }
+    # Raise an error with a helpful message
+    stop(
+      paste0("Error: The required shapefiles are not present in '", dest_dir, "'.\n",
+             "Please run 'download_and_prepare_map()' to download the required files.\n")
+    )
   } else {
     # Directory exists; check for missing files
     existing_files <- list.files(dest_dir)
@@ -186,20 +180,15 @@ check_and_download_map <- function() {
     missing_files <- setdiff(required_files, existing_files)
     
     if (length(missing_files) > 0) {
-      # Inform the user about missing files
-      message("The following required shapefiles are missing in '", dest_dir, "':")
-      print(missing_files)
-      
-      # Prompt the user for action
-      response <- readline(prompt = "Do you want to download them? (yes/no): ")
-      if (tolower(response) %in% c("yes", "y")) {
-        # Call the download function
-        download_and_prepare_map()
-      } else {
-        message("Download canceled by the user.")
-      }
+      # Raise an error with a helpful message
+      stop(
+        paste0("Error: The following required shapefiles are missing in '", dest_dir, "':\n",
+               paste(missing_files, collapse = ", "), "\n",
+               "Please run 'download_and_prepare_map()' to download the required files.")
+      )
     } else {
-      message("All required shapefiles are already present in '", dest_dir, "'.")
+      # All files are present
+      message("All required shapefiles are present in '", dest_dir, "'.")
     }
   }
 }
