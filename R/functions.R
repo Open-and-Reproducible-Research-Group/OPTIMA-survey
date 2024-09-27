@@ -115,3 +115,92 @@ likert_to_factor <- function(df, var_overview){
   
   df
 }
+
+# function to get shapefiles required for maps
+# Function to download and prepare the map
+download_and_prepare_map <- function() {
+  # Define the URL and destination for the zip file
+  url <- "https://geodata.ucdavis.edu/gadm/gadm4.1/shp/gadm41_UKR_shp.zip"
+  zip_file <- tempfile(fileext = ".zip")
+  
+  # Try to download the file and handle potential errors
+  tryCatch({
+    # Download the zip file
+    download.file(url, destfile = zip_file, mode = "wb")
+    
+    # Unzip the file to a temporary directory
+    temp_dir <- tempdir()
+    unzipped_files <- unzip(zip_file, exdir = temp_dir)
+    
+    # Filter files with basename 'gadm41_UKR_1' with varying endings
+    pattern <- "^gadm41_UKR_1"
+    selected_files <- unzipped_files[grepl(pattern, basename(unzipped_files))]
+    
+    # Define the destination directory
+    dest_dir <- "data/additional/map"
+    
+    # Create the 'map' directory if it doesn't exist
+    if (!dir.exists(dest_dir)) {
+      dir.create(dest_dir, recursive = TRUE)
+    }
+    
+    # Copy the selected files to the destination directory
+    file.copy(selected_files, dest_dir, overwrite = TRUE)
+    
+    # Print a success message
+    message("Success: The required files have been downloaded and copied to '", dest_dir, "'.")
+    
+  }, error = function(e) {
+    # Provide a helpful error message if the download fails
+    message("Error: Unable to download the file. The link may be invalid or inaccessible.")
+  })
+}
+
+# Function to check and download shapefiles if necessary
+check_and_download_map <- function() {
+  # Define the required files
+  required_files <- c("gadm41_UKR_1.cpg", "gadm41_UKR_1.dbf", "gadm41_UKR_1.prj",
+                      "gadm41_UKR_1.shp", "gadm41_UKR_1.shx")
+  
+  # Define the destination directory
+  dest_dir <- "data/additional/map"
+  
+  if (!dir.exists(dest_dir)) {
+    # If the directory does not exist, inform the user
+    message("The directory '", dest_dir, "' does not exist.")
+    message("The required shapefiles are not present in the expected location.")
+    
+    # Prompt the user for action
+    response <- readline(prompt = "Do you want to download the shapefiles? (yes/no): ")
+    if (tolower(response) %in% c("yes", "y")) {
+      # Call the download function
+      download_and_prepare_map()
+    } else {
+      message("Download canceled by the user.")
+    }
+  } else {
+    # Directory exists; check for missing files
+    existing_files <- list.files(dest_dir)
+    
+    # Check for missing files
+    missing_files <- setdiff(required_files, existing_files)
+    
+    if (length(missing_files) > 0) {
+      # Inform the user about missing files
+      message("The following required shapefiles are missing in '", dest_dir, "':")
+      print(missing_files)
+      
+      # Prompt the user for action
+      response <- readline(prompt = "Do you want to download them? (yes/no): ")
+      if (tolower(response) %in% c("yes", "y")) {
+        # Call the download function
+        download_and_prepare_map()
+      } else {
+        message("Download canceled by the user.")
+      }
+    } else {
+      message("All required shapefiles are already present in '", dest_dir, "'.")
+    }
+  }
+}
+
