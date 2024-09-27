@@ -4,7 +4,7 @@ This notebook contains data and code to reproduce the analysis for the "Report
 on academic integrity awareness and Open Science recognition levels in Ukraine 
 (2021-2023)". 
 
-# Dependencies
+## Dependencies
 The analysis relies on multiple packages, which are listed in 
 `R/dependencies.R`. Make sure all are installed before attempting to run the 
 pipeline.
@@ -34,7 +34,7 @@ by clicking "Shapefile". You need all files for level 1 with the basename
 `gadm41_UKR_1.*`. Then move them into the right location (`data/additional/map/`).
 
 
-# Steps to reproduce the analysis
+## Steps to reproduce the analysis
 The analysis is reproducible with the `targets` package. Running the following
 code should rebuild all outputs:
 
@@ -42,11 +42,11 @@ code should rebuild all outputs:
 targets::tar_make()
 ```
 
-# Analysis notebooks
+## Analysis notebooks
 The directory `analysis_notebooks` contains the source notebooks (`*.qmd`), 
 alongside with rendered outputs. 
 
 
-# Funding
+## Funding
 With the support of the Erasmus+ Programme of the European Union under funding 
-No.OPTIMA - 618940-EPP-1-2020-1-UA-EPPKA2-CBHE-JP	
+No. OPTIMA - 618940-EPP-1-2020-1-UA-EPPKA2-CBHE-JP	
