@@ -42,6 +42,8 @@ code should rebuild all outputs:
 targets::tar_make()
 ```
 
+Note that running the full pipeline takes 4+ minutes to complete.
+
 ## Analysis notebooks
 The directory `analysis_notebooks` contains the source notebooks (`*.qmd`), 
 alongside with rendered outputs. 
