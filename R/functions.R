@@ -21,6 +21,9 @@ combine_data <- function(path_to_folder) {
     mutate(Survey = str_extract(source_file, "(?<=\\d{4}_)(.*)(?=-Results)")) %>%
     mutate(Year = str_extract(source_file, "\\d{4}"))
   
+  # check that dir exists and if not, create it
+  if (!dir.exists("data/processed")) dir.create("data/processed")
+  
   save_path <- "data/processed/combined_data.csv"
   write_csv(df, save_path)
   
