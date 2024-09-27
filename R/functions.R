@@ -170,7 +170,7 @@ check_map_files <- function() {
     # Raise an error with a helpful message
     stop(
       paste0("Error: The required shapefiles are not present in '", dest_dir, "'.\n",
-             "Please run 'download_and_prepare_map()' to download the required files.\n")
+             "Please run 'source(\"R/functions.R\"); download_and_prepare_map()' to download the required files.\n")
     )
   } else {
     # Directory exists; check for missing files
@@ -184,7 +184,7 @@ check_map_files <- function() {
       stop(
         paste0("Error: The following required shapefiles are missing in '", dest_dir, "':\n",
                paste(missing_files, collapse = ", "), "\n",
-               "Please run 'download_and_prepare_map()' to download the required files.")
+               "Please run 'source(\"R/functions.R\"); download_and_prepare_map()' to download the required files.")
       )
     } else {
       # All files are present
