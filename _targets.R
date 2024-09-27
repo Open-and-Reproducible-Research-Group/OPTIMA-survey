@@ -4,6 +4,9 @@ library(quarto)
 
 source("R/functions.R")
 
+# check if shapefiles are available
+check_and_download_map()
+
 options(tidyverse.quiet = TRUE)
 
 tar_option_set(packages = c("tidyverse"))
