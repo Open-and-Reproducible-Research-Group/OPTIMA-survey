@@ -406,8 +406,8 @@ out$p +
     "6-10" = "#9e9ac8",
     "11-20" = "#807dba",
     "21-30" = "#6a51a3",
-    "more than 30" = "#4a1486"
-  ))
+    "more than 30" = "#4a1486")) +
+  scale_y_continuous(n.breaks = 4, labels = scales::label_percent())
 ```
 
 ## Publication Experience
