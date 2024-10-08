@@ -213,7 +213,7 @@ students <- df %>%
 
 ### Open Science
 
-```{r os_students, fig.height = 10.2, fig.width = 7.5}
+```{r os_students, fig.height = 8, fig.width = 7.5}
 out <- plot_time_groups(students, var_overview, os, group_var = student_level,
                         legend_reverse = FALSE)
 
