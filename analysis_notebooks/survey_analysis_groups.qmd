@@ -88,9 +88,12 @@ To compare respondents with different academic roles, students are first summari
 roles <- df %>% 
   filter(X8 != "other") %>% 
   mutate(roles = case_when(
-    str_detect(X8, "student") ~ "student",
+    str_detect(X8, "doctoral student") ~ "doctoral student",
+    str_detect(X8, "master student") ~ "student",
+    str_detect(X8, "student ") ~ "student",
     TRUE ~ X8),
-  roles = factor(roles, levels = c("student", "faculty", "research staff",
+  roles = factor(roles, levels = c("student", "doctoral student",
+                                   "faculty", "research staff",
                                    "university administrator", "librarian")))
 ```
 
