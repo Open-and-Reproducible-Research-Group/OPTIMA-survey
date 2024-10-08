@@ -414,7 +414,7 @@ students_und <- out$p +
   scale_y_continuous(limits = c(0.7, 1), labels = scales::label_percent())
 ```
 
-```{r os_understanding, fig.height = 5.5, fig.width = 5.5}
+```{r os_understanding, fig.height = 5, fig.width = 5.5}
 general_und + students_und
 ```
 
