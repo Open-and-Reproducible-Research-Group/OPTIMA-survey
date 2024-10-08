@@ -389,6 +389,35 @@ out$p +
   scale_y_continuous(limits = c(0.75, 1), labels = scales::label_percent(), n.breaks = 3)
 ```
 
+## Understanding Open Science
+
+```{r}
+out <- plot_time_groups(roles, var_overview, "X52", group_var = roles)
+
+general_und <- out$p +
+  scale_y_continuous(limits = c(0.7, 1), labels = scales::label_percent()) +
+  guides(color = guide_legend(nrow = 6, byrow = TRUE)) +
+  theme(legend.position = "bottom")
+```
+
+```{r}
+out <- plot_time_groups(students, var_overview, "X52", group_var = student_level)
+
+students_und <- out$p +
+  scale_color_brewer(palette = "PuBuGn") +
+  guides(color = guide_legend(nrow = 7, byrow = TRUE)) +
+  theme(legend.position = "bottom",
+        axis.title.y = element_blank(),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        axis.line.y = element_blank()) +
+  scale_y_continuous(limits = c(0.7, 1), labels = scales::label_percent())
+```
+
+```{r os_understanding, fig.height = 5.5, fig.width = 5.5}
+general_und + students_und
+```
+
 ## Peer Review Experience
 
 ```{r peer_review_experience, fig.height = 3.2, fig.width = 7.5}
