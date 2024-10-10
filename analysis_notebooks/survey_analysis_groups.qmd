@@ -99,7 +99,7 @@ roles <- df %>%
 
 ### Open Science
 
-```{r os_roles, fig.height = 7.8, fig.width = 7.5}
+```{r os_roles, fig.height = 8, fig.width = 7.5}
 out <- plot_time_groups(roles, var_overview, os, group_var = roles)
 
 out$p
@@ -396,7 +396,8 @@ out <- plot_time(df, var_overview, "X52", type = "agreement")
 
 time_und <- out$p +
   theme(legend.position = "right",
-        axis.title.x = element_blank())
+        axis.title.x = element_blank())  +
+  scale_y_continuous(n.breaks = 3, labels = scales::label_percent())
 ```
 
 ```{r}
