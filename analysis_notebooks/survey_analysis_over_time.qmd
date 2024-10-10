@@ -61,7 +61,7 @@ if (use_targets) {
 ```{r, echo=FALSE}
 # Define item groups
 os <- c("X38", "X39", "X42", "X43", "X45",
-        "X46", "X48", "X49", "X50", "X52")
+        "X46", "X48", "X49", "X50")
 
 raia <- c("X19", "X17", "X18", "X20", "X21",
           "X40", "X44", "X41", "X47")
@@ -83,7 +83,7 @@ Since the survey was conducted in three separate waves (2021, 2022, 2023), respo
 
 ### Open Science
 
-```{r os_development, fig.height = 10, fig.width = 7.5}
+```{r os_development, fig.height = 7.8, fig.width = 7.5}
 out <- plot_time(df, var_overview, os, type = "agreement")
 
 out$p

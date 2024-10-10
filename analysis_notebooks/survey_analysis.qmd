@@ -63,7 +63,7 @@ if (use_targets) {
 ```{r, echo = FALSE}
 # Define item groups
 os <- c("X38", "X39", "X42", "X43", "X45",
-        "X46", "X48", "X49", "X50", "X52")
+        "X46", "X48", "X49", "X50")
 
 raia <- c("X19", "X17", "X18", "X20", "X21",
           "X40", "X44", "X41", "X47")
@@ -89,7 +89,7 @@ Multiple questions within the survey inquired about how much participants agreed
 
 In the following figure, responses are visualized to the Open Science questions. They are sorted by the amount of agreement with these statements. Proportions of the different answer categories were calculated after removing missing and "don't know" responses. These responses are plotted separately on the right hand side, indicating their percentage of the total responses.
 
-```{r os_overview, fig.height = 5, fig.width = 10}
+```{r os_overview, fig.height = 4.8, fig.width = 10}
 out <- plot_agreement_overview(df, var_overview, os, label_width = 75)
 
 out$p
