@@ -314,7 +314,16 @@ var_overview %>%
 
 Across all years, the rate of "don't know" answers is `r scales::percent(unique(dont_knows$avg_dont_knows), .1)`
 
-Possibly compare groups (X8), but with different design.
+```{r}
+os <- c("X38", "X39", "X42", "X43", "X45",
+        "X46", "X48", "X49", "X50") 
+
+os_average <- df %>% 
+  select(all_of(os)) %>% 
+  summarise(across(everything(), ~ mean(. == "don't know", na.rm = TRUE)))
+```
+
+Across all years, the rate of "don't know" answers specifically for attitudes towards OS practices (without the question on understanding of the concept of OS) is `r scales::percent(rowMeans(os_average), .1)`.
 
 # Agreement vs. frequency items
 
