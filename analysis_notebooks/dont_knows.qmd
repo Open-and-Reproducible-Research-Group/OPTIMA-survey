@@ -315,8 +315,8 @@ var_overview %>%
 Across all years, the rate of "don't know" answers is `r scales::percent(unique(dont_knows$avg_dont_knows), .1)`
 
 ```{r}
-os <- c("X38", "X39", "X42", "X43", "X45",
-        "X46", "X48", "X49", "X50") 
+os <- c("X22", "X38", "X39", "X42", "X43", "X45",
+        "X46", "X48", "X49", "X50", "X51") 
 
 os_average <- df %>% 
   select(all_of(os)) %>% 
