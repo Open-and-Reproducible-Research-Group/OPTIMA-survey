@@ -40,6 +40,8 @@ set_factor <- function(df) {
 
 # By year
 
+## Overall
+
 ```{r}
 var_groups <- var_overview %>% 
   select(var = var_id, var_full, var_group, instruction)
@@ -246,6 +248,64 @@ yearly_change_institution %>%
         panel.grid.major.x = element_blank(),
         axis.text.x = element_text(angle = 90, vjust = .5),
         legend.position = "top")
+```
+
+## Open Science
+
+```{r}
+os <- c("X22", "X38", "X39", "X42", "X43", "X45",
+        "X46", "X48", "X49", "X50", "X51")
+
+dont_knows_os <- df %>% 
+  select(all_of(os), year = X64) %>% 
+  pivot_longer(starts_with("X"), names_to = "var") %>% 
+  count(year, var, value) %>% 
+  group_by(year, var) %>% 
+  mutate(perc = n/sum(n)) %>% 
+  filter(value == "don't know") %>% 
+  group_by(year) %>% 
+  mutate(avg_dont_knows = mean(perc)) %>% 
+  group_by(year) %>% 
+  mutate(avg_group_dont_knows = mean(perc))
+```
+
+```{r}
+yearly_change_os <- dont_knows_os %>% 
+  select(year, var, value, perc) %>% 
+  pivot_wider(names_from = year, values_from = perc) %>% 
+  mutate(change_2022 = `2022` - `2021`,
+         change_2023 = `2023` - `2021`) %>% 
+  select(var, response = value, contains("change")) %>% 
+  pivot_longer(contains("change"), names_to = "year", 
+               names_pattern = "change_(\\d+)") %>% 
+  mutate(negative_change = if_else(value < 0, TRUE, FALSE),
+         var = str_replace_all(var, "X", "Q"))
+```
+
+```{r yearly-change-os, fig.width = 4, fig.height = 2.5}
+text_labels <- tribble(
+  ~var, ~value, ~label, ~year,
+  "Q39", .05, "Increase in 2022", "2022",
+  "Q48", -.06, "Decrease in 2023", "2023")
+
+p_yearly_change_os <- yearly_change_os %>% 
+  ggplot(aes(var, value, colour = year)) +
+  geom_hline(yintercept = 0) +
+  geom_segment(aes(x = var, y = 0, yend = value), show.legend = FALSE,
+               position = position_dodge(width = .25),
+               linewidth = 1) +
+  geom_text(data = text_labels, aes(label = label, colour = year), 
+            show.legend = FALSE, hjust = "left", size = 3.4) +
+  scale_y_continuous(labels = function(x) x * 100, 
+                     breaks = c(-.08, -.04, 0, .04)) +
+  scale_colour_manual(values = c(`2022` = "#b31529", `2023` = "#1065ab")) +
+  labs(y = "Change in percentage points\ncompared to rates in 2021",
+       x = NULL) +
+  theme(panel.background = element_rect(fill = "white"),
+        panel.grid.major.x = element_blank(),
+        axis.text.x = element_text(angle = 90, vjust = .5))
+
+print(p_yearly_change_os)
 ```
 
 # Across all years
