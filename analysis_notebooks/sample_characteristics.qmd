@@ -94,6 +94,32 @@ roles <- df %>%
 knitr::kable(roles, format = "html")
 ```
 
+```{r academic_role, fig.width = 6, fig.height = 3}
+roles <- df %>% 
+  mutate(roles = case_when(
+    str_detect(X8, "doctoral student") ~ "doctoral student",
+    str_detect(X8, "master student") ~ "student",
+    str_detect(X8, "student ") ~ "student",
+    TRUE ~ X8),
+    roles = str_to_title(roles),
+    roles = factor(roles, levels = c("Student", "Doctoral Student",
+                                     "Faculty", "Research Staff",
+                                     "University Administrator", "Librarian",
+                                     "Other")),) %>% 
+  tabyl(roles)
+
+ggplot(roles, aes(percent, roles)) +
+  geom_col(width = 0.8, color = "black", linewidth = 0.7, fill = "#a6cee3") +
+  geom_text(aes(label = scales::label_comma()(n)), 
+    hjust = 0, nudge_x = .01, size = 10, size.unit = "pt") +
+  scale_y_discrete(limits = rev) +
+  scale_x_continuous(limits = c(0, 0.6),
+                     labels = scales::label_percent()) +
+  labs(x = "Percentage", y = NULL) +
+  theme_minimal() +
+  theme(panel.grid.major.y = element_blank())
+```
+
 ## Gender
 
 ```{r}
